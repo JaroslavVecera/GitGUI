@@ -1,0 +1,29 @@
+﻿<Window x:Class="GitGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitGUI"
+        xmlns:controls="http://schemas.panthernet.ru/graphx/"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        PreviewMouseUp="WindowPreviewMouseUp"
+        PreviewMouseMove="WindowPreviewMouseMove"
+        PreviewMouseWheel="WindowPreviewMouseWheel"
+        MouseLeave="WindowMouseLeave"
+        Background="Blue"
+        ContextMenuService.IsEnabled="false">
+    <Window.ContextMenu>
+        <ContextMenu AllowDrop="False">
+            <MenuItem Click="ContextMenuMerge" Header="Merge" />
+            <MenuItem Click="ContextMenuRebase" Header="Rebase" />
+        </ContextMenu>
+    </Window.ContextMenu>
+    <StackPanel>
+        <ScrollViewer Cursor="SizeAll" x:Name="GraphView" VerticalScrollBarVisibility="Disabled" PreviewMouseDown="CanvasMouseDown" Height="349" Margin="15,34,28,0" VerticalAlignment="Top">
+            <local:ZoomAndPanCanvas  x:Name="ZoomCanvas"/>
+        </ScrollViewer>
+        <StackPanel x:Name="ActionPanel" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" Height="Auto"></StackPanel>
+        <Button Click="Button_Click">change theme</Button>
+    </StackPanel>
+</Window>

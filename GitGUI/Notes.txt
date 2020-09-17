@@ -1,0 +1,16 @@
+﻿void CommitTree.Add(Node representant, Node node) používá dynamický typ, což očividně způsobuje
+	při prvním použití výkonnostní stráty.
+
+private CommitTree.Graph
+
+email muže vyvolat vyjimku
+
+unsubscribing eventů
+
+smazat Line, pokud nevyužiju
+
+errory z xaml na výstupu
+
+nově vytvořený User by měl být unikátní, jinak vyjimka (ošetřit)
+
+Nově vytvořený uživatel musí nahradit stávajícího Signature z LibGit2Sharp
