@@ -20,6 +20,7 @@ namespace GitGUI
     {
         Program Program { get; } = Program.GetInstance();
 
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +32,18 @@ namespace GitGUI
             Test();
         }
 
+        public void ShowNodePanel(Node node)
+        {
+            nodePanel.Visibility = Visibility.Visible;
+            if (node is Logic.CommitNode)
+                nodeText.Text = ((Logic.CommitNode)node).Commit.Message;
+        }
+
+        public void HideNodePanel()
+        {
+            nodePanel.Visibility = Visibility.Collapsed;
+        }
+
         void Test()
         {
             Program.Test();
@@ -38,7 +51,7 @@ namespace GitGUI
 
         private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source == GraphView)
+            if (e.Source == graphView)
                 Program.OnMouseDown(null, e);
         }
 

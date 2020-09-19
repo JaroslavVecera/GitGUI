@@ -36,7 +36,7 @@ namespace GitGUI.Logic
             if (translate == new Vector(0, 0))
                 return;
             translate *= milliseconds / 10;
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).ZoomCanvas;
+            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             Matrix inv = c.CanvasTransform.Matrix;
             inv.Invert();
             Graph.GetInstance().Move((Vector)translate);
@@ -47,7 +47,7 @@ namespace GitGUI.Logic
 
         Vector Translate()
         {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).ZoomCanvas;
+            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             Vector mouse = (Vector)Program.Data.MousePoint;
             if (mouse.X > 0 && mouse.X < c.ActualWidth && mouse.Y > 0 && mouse.Y < c.ActualHeight)
                 return new Vector(0, 0);
@@ -81,7 +81,7 @@ namespace GitGUI.Logic
 
         public void MouseMove(CrossStateData data, MouseEventArgs e)
         {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).ZoomCanvas;
+            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             MoveNode(data, e, c);
             
         }
@@ -100,7 +100,7 @@ namespace GitGUI.Logic
 
         public void MouseWheelMove(CrossStateData data, int delta)
         {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).ZoomCanvas;
+            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             Matrix mat = c.CanvasTransform.Matrix;
             Matrix inv = mat;
             inv.Invert();

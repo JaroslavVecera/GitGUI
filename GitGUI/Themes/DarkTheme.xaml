@@ -4,7 +4,7 @@
     <Style TargetType="ScrollViewer">
         <Setter Property="Background" Value="#034748"></Setter>
     </Style>
-    <Style TargetType="StackPanel">
+    <Style TargetType="local:MainWindow">
         <Setter Property="Background" Value="#001021"></Setter>
     </Style>
     <Style x:Key="CommitStyle">

@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace GitGUI.Logic
 {
-    class CommitNode : Node
+    public class CommitNode : Node
     {
         string _path;
         public Commit Commit { get; private set; }
@@ -57,7 +57,7 @@ namespace GitGUI.Logic
         void SetGElement()
         {
             GitGUI.CommitNode c = new GitGUI.CommitNode();
-            ((MainWindow)Application.Current.MainWindow).ZoomCanvas.Children.Add(c);
+            ((MainWindow)Application.Current.MainWindow).zoomCanvas.Children.Add(c);
             c.DataContext = this;
             GElement = c;
             OnNameChanged();

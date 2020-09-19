@@ -11,7 +11,6 @@
         PreviewMouseMove="WindowPreviewMouseMove"
         PreviewMouseWheel="WindowPreviewMouseWheel"
         MouseLeave="WindowMouseLeave"
-        Background="Blue"
         ContextMenuService.IsEnabled="false">
     <Window.ContextMenu>
         <ContextMenu AllowDrop="False">
@@ -19,11 +18,25 @@
             <MenuItem Click="ContextMenuRebase" Header="Rebase" />
         </ContextMenu>
     </Window.ContextMenu>
-    <StackPanel>
-        <ScrollViewer Cursor="SizeAll" x:Name="GraphView" VerticalScrollBarVisibility="Disabled" PreviewMouseDown="CanvasMouseDown" Height="349" Margin="15,34,28,0" VerticalAlignment="Top">
-            <local:ZoomAndPanCanvas  x:Name="ZoomCanvas"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView" VerticalScrollBarVisibility="Disabled" PreviewMouseDown="CanvasMouseDown"  Margin="35,35,35,0" VerticalAlignment="Stretch">
+            <local:ZoomAndPanCanvas  x:Name="zoomCanvas"/>
         </ScrollViewer>
-        <StackPanel x:Name="ActionPanel" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" Height="Auto"></StackPanel>
-        <Button Click="Button_Click">change theme</Button>
-    </StackPanel>
+        <StackPanel Grid.Row="1">
+        <StackPanel  x:Name="actionPanel" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" Height="30"></StackPanel>
+        <Button Click="Button_Click" Height="20">change Theme</Button>
+        </StackPanel>
+        <Grid Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Grid.Row="1" x:Name="nodeText"></TextBox>
+        </Grid>
+    </Grid>
 </Window>

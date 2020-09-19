@@ -57,6 +57,10 @@ namespace GitGUI.Logic
             commitButton.Clicked += Commit;
             ActionPanel.Actions.Add(commitButton);
 
+            ActionButton checkoutButton = new ActionButton("Checkout");
+            checkoutButton.Clicked += Checkout;
+            ActionPanel.Actions.Add(checkoutButton);
+
             ActionButton b2 = new ActionButton("Branch");
             b2.Clicked += TestHand2;
             ActionPanel.Actions.Add(b2);
@@ -73,6 +77,11 @@ namespace GitGUI.Logic
                 Author = new LibGit2Sharp.Signature(UserManager.Current.Name, UserManager.Current.Email, DateTimeOffset.Now)
             };
             CommitTree.Commit(commit, UserManager.Current.ImagePath);
+        }
+
+        void Checkout(object sender, RoutedEventArgs e)
+        {
+            CommitTree.Checkout(Data.AttachedNode);
         }
 
         void TestHand2(object sender, RoutedEventArgs e)
@@ -122,6 +131,10 @@ namespace GitGUI.Logic
         public void ShowNode(Node node)
         {
             CommitTree.Mark(node);
+            if (node != null)
+                ((MainWindow)Application.Current.MainWindow).ShowNodePanel(node);
+            else
+                ((MainWindow)Application.Current.MainWindow).HideNodePanel();
         }
 
         public void MouseLeaveWindow()
@@ -147,7 +160,6 @@ namespace GitGUI.Logic
         public void AggregationFocus(Node n)
         {
             AggregationFocused = n;
-            ShowNode(n);
         }
 
         public void Aggregate(Node aggregating, Node aggregated)
@@ -194,7 +206,7 @@ namespace GitGUI.Logic
 
         void UpdateMousePosition(MouseEventArgs e)
         {
-            Data.MousePoint = e.GetPosition(((MainWindow)Application.Current.MainWindow).GraphView);
+            Data.MousePoint = e.GetPosition(((MainWindow)Application.Current.MainWindow).graphView);
         }
 
         public static Program GetInstance()

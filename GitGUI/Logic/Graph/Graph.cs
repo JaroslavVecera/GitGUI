@@ -23,7 +23,7 @@ namespace GitGUI.Logic
 
         public void Move(Vector move)
         {
-            ((MainWindow)Application.Current.MainWindow).ZoomCanvas.Move(move);
+            ((MainWindow)Application.Current.MainWindow).zoomCanvas.Move(move);
         }
 
         public void Scale(int wheelDelta, Point mouse)
@@ -31,7 +31,7 @@ namespace GitGUI.Logic
             double scaleFactor = wheelDelta > 0 ? 1.25 : 0.8;
             AppSettings set = ((App)Application.Current).Settings;
             Point origin = set.UseMouseAsZoomOrigin ? mouse : Center;
-            ((MainWindow)Application.Current.MainWindow).ZoomCanvas.Rescale(scaleFactor, origin);
+            ((MainWindow)Application.Current.MainWindow).zoomCanvas.Rescale(scaleFactor, origin);
         }
 
         public void Add(List<Node> representants, CommitNode commit)
@@ -137,7 +137,7 @@ namespace GitGUI.Logic
 
         Point GraphViewCenter()
         {
-            ScrollViewer g = ((MainWindow)Application.Current.MainWindow).GraphView;
+            ScrollViewer g = ((MainWindow)Application.Current.MainWindow).graphView;
             return new Point((double)g.ActualWidth / 2, (double)g.ActualHeight / 2);
         }
 

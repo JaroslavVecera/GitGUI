@@ -14,7 +14,7 @@ namespace GitGUI.Logic
     {
         public StackPanel GElement
         {
-            get { return ((MainWindow)Application.Current.MainWindow).ActionPanel; }
+            get { return ((MainWindow)Application.Current.MainWindow).actionPanel; }
         }
         public ObservableCollection<ActionButton> Actions { get; } = new ObservableCollection<ActionButton>();
 

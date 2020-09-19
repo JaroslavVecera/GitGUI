@@ -11,7 +11,7 @@ using System.ComponentModel;
 
 namespace GitGUI.Logic
 {
-    abstract class Node : GraphX.Common.Models.VertexBase, INotifyPropertyChanged
+    public abstract class Node : GraphX.Common.Models.VertexBase, INotifyPropertyChanged
     {
         UserControl _gElement;
         protected double _maxWidth;

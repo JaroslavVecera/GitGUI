@@ -4,7 +4,7 @@ using LibGit2Sharp;
 
 namespace GitGUI.Logic
 {
-    class Branch
+    public class Branch
     {
         public string Name { get; set; } = "";
 
@@ -14,7 +14,7 @@ namespace GitGUI.Logic
         }
     }
 
-    class Commit
+    public class Commit
     {
         public string Message { get; set; } = "";
         public Signature Author { get; set; }

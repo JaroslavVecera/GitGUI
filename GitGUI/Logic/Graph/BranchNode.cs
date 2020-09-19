@@ -11,7 +11,7 @@ using LibGit2Sharp;
 
 namespace GitGUI.Logic
 {
-    class BranchNode : Node
+    public class BranchNode : Node
     {
         public static double ArrowHeight { get { return 8; } }
         double _arrowHalfWidth = 8;
@@ -44,7 +44,7 @@ namespace GitGUI.Logic
         void SetGElement()
         {
             GitGUI.BranchNode n = new GitGUI.BranchNode();
-            ((MainWindow)Application.Current.MainWindow).ZoomCanvas.Children.Add(n);
+            ((MainWindow)Application.Current.MainWindow).zoomCanvas.Children.Add(n);
             n.DataContext = this;
             GElement = n;
             OnNameChanged();

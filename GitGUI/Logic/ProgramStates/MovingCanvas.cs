@@ -36,6 +36,7 @@ namespace GitGUI.Logic
         {
             Graph g = Graph.GetInstance();
             g.Move(data.MouseDisplacement);
+            _moved = true;
         }
 
         public void MouseWheelMove(CrossStateData data, int delta) { }
