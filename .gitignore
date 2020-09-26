@@ -2,3 +2,4 @@
 debug.log
 GitGUI/bin/
 GitGUI/obj/
+*GitGUI.vpp.*
