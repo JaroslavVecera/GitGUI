@@ -14,3 +14,5 @@ errory z xaml na výstupu
 nově vytvořený User by měl být unikátní, jinak vyjimka (ošetřit)
 
 Nově vytvořený uživatel musí nahradit stávajícího Signature z LibGit2Sharp
+
+Zakázat vytvoření repozitáře uvnitř jiného repozitáře, nebo ve složce, která obsahuje repozitář.

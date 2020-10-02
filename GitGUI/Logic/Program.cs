@@ -6,92 +6,29 @@ namespace GitGUI.Logic
 {
     class Program
     {
-        ViewHistory ViewHistory { get; } = new ViewHistory();
-        CommitTree CommitTree { get; } = CommitTree.GetInstance();
-        IProgramState State { get; set; } = Normal.GetInstance();
+        CommitManager CommitManager { get; } = CommitManager.GetInstance();
+        IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
-        ActionPanel ActionPanel { get; } = new ActionPanel();
-        Node Aggregating { get; set; }
-        Node Aggregated { get; set; }
-        public Node AggregationFocused { get; private set; }
-        UserManager UserManager { get; } = new UserManager();
-        static Program Instance { get; set; } = new Program();
+        MainWindowModel MainWindowModel { get; set; }
+        static Program Instance { get; set; }
 
         Program()
         {
             InitializeEventHandlers();
-            SetReferencesForStates();
-            InitializeUserManager();
+            InitializeMainWindow();
         }
 
-        void InitializeUserManager()
+        public void InitializeMainWindow()
         {
-            UserManager.AddedUser += AddedUser;
-            UserManager.RemovedUser += RemovedUser;
-        }
+            MainWindow view = new MainWindow();
+            MainWindowModel model = new MainWindowModel();
+            MainWindowViewModel viewModel = new MainWindowViewModel();
 
-        void AddedUser(User u)
-        {
+            Application.Current.MainWindow = view;
 
-        }
-
-        void RemovedUser(User u)
-        {
-
-        }
-
-        void SetReferencesForStates()
-        {
-            MovingCanvas.GetInstance().Program = this;
-            MovingNode.GetInstance().Program = this;
-            Normal.GetInstance().Program = this;
-        }
-
-        public void Test()
-        {
-            User i = new User() { Name = "Jarek Večeřa", Email = "jarekvecer@seznam.cz", ImagePath = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg" };
-            UserManager.Add(i);
-            UserManager.Current = i;
-
-            ActionButton commitButton = new ActionButton("Commit");
-            commitButton.Clicked += Commit;
-            ActionPanel.Actions.Add(commitButton);
-
-            ActionButton checkoutButton = new ActionButton("Checkout");
-            checkoutButton.Clicked += Checkout;
-            ActionPanel.Actions.Add(checkoutButton);
-
-            ActionButton b2 = new ActionButton("Branch");
-            b2.Clicked += TestHand2;
-            ActionPanel.Actions.Add(b2);
-
-            ActionButton b3 = new ActionButton("ahoj");
-            b3.Clicked += TestHand3;
-            ActionPanel.Actions.Add(b3);
-        }
-
-        void Commit(object sender, RoutedEventArgs e)
-        {
-            Commit commit = new Commit("another text for commit node.")
-            {
-                Author = new LibGit2Sharp.Signature(UserManager.Current.Name, UserManager.Current.Email, DateTimeOffset.Now)
-            };
-            CommitTree.Commit(commit, UserManager.Current.ImagePath);
-        }
-
-        void Checkout(object sender, RoutedEventArgs e)
-        {
-            CommitTree.Checkout(Data.AttachedNode);
-        }
-
-        void TestHand2(object sender, RoutedEventArgs e)
-        {
-            CommitTree.Branch(new Branch("hooooooooooooooo"));
-        }
-
-        void TestHand3(object sender, RoutedEventArgs e)
-        {
-            CommitTree.Checkout(((CommitNode)CommitTree.Graph.Checkouted.RepresentedNode).Branches[0]);
+            viewModel.Model = model;
+            view.DataContext = view;
+            MainWindowModel = model;
         }
 
         public void ChangeState(IProgramState state)
@@ -99,17 +36,17 @@ namespace GitGUI.Logic
             State = state;
         }
 
-        public void OnMouseUp(Node node, MouseButtonEventArgs e)
+        public void OnMouseUp(object item, MouseButtonEventArgs e)
         {
-            State.MouseUp(node, Data, e);
+            State.MouseUp(item, Data, e);
         }
 
-        public void OnMouseDown(Node node, MouseButtonEventArgs e)
+        public void OnMouseDown(object item, MouseButtonEventArgs e)
         {
-            State.MouseDown(node, Data, e);
+            State.MouseDown(item, Data, e);
         }
 
-        public void OnMouseMove(Node node, MouseEventArgs e)
+        public void OnMouseMove(object item, MouseEventArgs e)
         {
             UpdateMousePosition(e);
             if (Data.MouseDisplacement == new Vector(0, 0))
@@ -123,18 +60,14 @@ namespace GitGUI.Logic
             State.MouseWheelMove(Data, e.Delta);
         }
 
-        void HashCopyRequest(CommitNode commitNode)
+        void HashCopyRequest(CommitNodeModel commitNode)
         {
 
         }
 
-        public void ShowNode(Node node)
+        public void Show(GraphItemModel item)
         {
-            CommitTree.Mark(node);
-            if (node != null)
-                ((MainWindow)Application.Current.MainWindow).ShowNodePanel(node);
-            else
-                ((MainWindow)Application.Current.MainWindow).HideNodePanel();
+            CommitManager.Mark(item);
         }
 
         public void MouseLeaveWindow()
@@ -150,39 +83,11 @@ namespace GitGUI.Logic
                 MouseEnterEventHandler = OnMouseEnter,
                 MouseLeaveEventHandler = OnMouseLeave
             };
-            CommitTree.EventHandlerBatch = batch;
-        }
-
-        public void Focus(Node n)
-        {
-        }
-
-        public void AggregationFocus(Node n)
-        {
-            AggregationFocused = n;
-        }
-
-        public void Aggregate(Node aggregating, Node aggregated)
-        {
-            Aggregating = aggregating;
-            Aggregated = aggregated;
-            switch (((App)Application.Current).Settings.AggregatingBehaviour)
-            {
-                case AggregatingBehaviour.Choose:
-                    OpenAggregatingContextMenu();
-                    break;
-                case AggregatingBehaviour.Merge:
-                    Merge();
-                    break;
-                case AggregatingBehaviour.Rebase:
-                    Rebase();
-                    break;
-            }
+            CommitManager.EventHandlerBatch = batch;
         }
 
         public void Merge()
         {
-            CommitTree.Merge(Aggregating, Aggregated, new Commit("Merge commit, ha."));
         }
 
         public void Rebase()
@@ -194,12 +99,12 @@ namespace GitGUI.Logic
             Application.Current.MainWindow.ContextMenu.IsOpen = true;
         }
 
-        void OnMouseEnter(Node sender, MouseEventArgs e)
+        void OnMouseEnter(object sender, MouseEventArgs e)
         {
             State.MouseEnter(sender, Data);
         }
 
-        void OnMouseLeave(Node sender, MouseEventArgs e)
+        void OnMouseLeave(object sender, MouseEventArgs e)
         {
             State.MouseLeave(sender, Data);
         }
@@ -211,6 +116,8 @@ namespace GitGUI.Logic
 
         public static Program GetInstance()
         {
+            if (Instance == null)
+                Instance = new Program();
             return Instance;
         }
     }
