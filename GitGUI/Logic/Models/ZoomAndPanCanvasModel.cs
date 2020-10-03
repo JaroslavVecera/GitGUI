@@ -10,18 +10,13 @@ namespace GitGUI
 {
     class ZoomAndPanCanvasModel
     {
-        Matrix _matrix = Matrix.Identity;
-        Matrix TransformMatrix
-        {
-            get { return _matrix; }
-            set { _matrix = value; }
-        }
+        Matrix TransformMatrix { get; set; }
 
         public event Action<Matrix> TransformMatrixChanged;
 
         public void Rescale(double factor, Point origin)
         {
-            Matrix m = _matrix;
+            Matrix m = TransformMatrix;
             m.M22 = m.M11 *= factor;
             m.OffsetX = (m.OffsetX - origin.X) * factor + origin.X;
             m.OffsetY = (m.OffsetY - origin.Y) * factor + origin.Y;
@@ -30,7 +25,7 @@ namespace GitGUI
 
         public void Move(Vector move)
         {
-            Matrix m = _matrix;
+            Matrix m = TransformMatrix;
             m.OffsetX += move.X;
             m.OffsetY += move.Y;
             TransformMatrix = m;

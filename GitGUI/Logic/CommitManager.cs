@@ -46,8 +46,6 @@ namespace GitGUI.Logic
         public void CreateRepository(string path)
         {
             Graph.Repository = LibGitService.OpenNewRepository(path);
-            LibGitService.Branch(null, "ahoj");
-            LibGitService.Branch(null, "master");
         }
 
         public void Commit(BranchLabelModel l, string message)

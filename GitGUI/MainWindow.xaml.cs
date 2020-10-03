@@ -18,25 +18,18 @@ namespace GitGUI
 {
     public partial class MainWindow : Window
     {
-        Program Program { get; } = Program.GetInstance();
-
-
         public MainWindow()
         {
-            InitializeComponent();
             Resources.MergedDictionaries.Clear();
             var myResourceDictionary = new ResourceDictionary();
             myResourceDictionary.Source =
                 new Uri(";component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute);
             Resources.MergedDictionaries.Add(myResourceDictionary);
-            Test();
         }
 
-        public void ShowNodePanel(Node node)
+        public void ShowNodePanel()
         {
             nodePanel.Visibility = Visibility.Visible;
-            if (node is Logic.CommitNode)
-                nodeText.Text = ((Logic.CommitNode)node).Commit.Message;
         }
 
         public void HideNodePanel()
@@ -44,41 +37,34 @@ namespace GitGUI
             nodePanel.Visibility = Visibility.Collapsed;
         }
 
-        void Test()
-        {
-            Program.Test();
-        }
-
         private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
-        {
+        {/*
             if (e.Source == graphView)
-                Program.OnMouseDown(null, e);
+                Program.OnMouseDown(null, e);*/
         }
 
         private void WindowPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            Node n = null;
+            /*Node n = null;
             if (sender is Node)
                 n = (Node)sender;
-            Program.OnMouseMove(n, e);
+            Program.OnMouseMove(n, e);*/
         }
 
         private void WindowPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Node n = null;
+            /*Node n = null;
             if (sender is Node)
                 n = (Node)sender;
-            Program.OnMouseUp(n, e);
+            Program.OnMouseUp(n, e);*/
         }
 
         private void WindowPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            Program.OnMouseWheel(e);
         }
 
         private void WindowMouseLeave(object sender, MouseEventArgs e)
         {
-            Program.MouseLeaveWindow();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -92,12 +78,10 @@ namespace GitGUI
 
         private void ContextMenuMerge(object sender, RoutedEventArgs e)
         {
-            Program.Merge();
         }
 
         private void ContextMenuRebase(object sender, RoutedEventArgs e)
         {
-            Program.Rebase();
         }
     }
 }

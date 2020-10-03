@@ -70,62 +70,37 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Logic\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BranchNode.xaml.cs">
-      <DependentUpon>BranchNode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CommitNode.xaml.cs">
-      <DependentUpon>CommitNode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Logic\ActionButton.cs" />
-    <Compile Include="Logic\ActionPanel.cs" />
     <Compile Include="Logic\AggregatingBehaviour.cs" />
     <Compile Include="Logic\AppSettings.cs" />
-    <Compile Include="Logic\Graph\GraphXGraph.cs" />
-    <Compile Include="Logic\Graph\GraphEdge.cs" />
-    <Compile Include="Logic\Line.cs" />
-    <Compile Include="Logic\Repository.cs" />
-    <Compile Include="Logic\RepositoryManager.cs" />
-    <Compile Include="Logic\User.cs" />
+    <Compile Include="Logic\CrossStateData.cs" />
+    <Compile Include="Logic\IProgramState.cs" />
+    <Compile Include="Logic\Models\CommitNodeModel.cs" />
+    <Compile Include="Logic\EventHandlerBatch.cs" />
+    <Compile Include="Logic\LibGitService.cs" />
+    <Compile Include="Logic\CommitManager.cs" />
+    <Compile Include="Logic\Graph.cs" />
+    <Compile Include="Logic\Models\ZoomAndPanCanvasModel.cs" />
+    <Compile Include="Logic\Models\BranchLabelModel.cs" />
+    <Compile Include="Logic\Models\GraphItemModel.cs" />
+    <Compile Include="Logic\Program.cs" />
+    <Compile Include="Logic\ViewModels\ViewModelBase.cs" />
+    <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
+    <Compile Include="Logic\Models\MainWindowModel.cs" />
+    <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ObservableUIElementCollection.cs" />
-    <Compile Include="Logic\UserManager.cs" />
-    <Compile Include="ZoomAndPanCanvas.cs" />
-    <Page Include="BranchNode.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CommitNode.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Views\ZoomAndPanCanvasView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Logic\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logic\---Test---.cs" />
-    <Compile Include="Logic\CommitDetailPanel.cs" />
-    <Compile Include="Logic\Graph\CommitTree.cs" />
-    <Compile Include="Logic\Graph\EventHandlerBatch.cs" />
-    <Compile Include="Logic\Graph\Graph.cs" />
-    <Compile Include="Logic\Graph\BranchNode.cs" />
-    <Compile Include="Logic\Graph\CommitNode.cs" />
-    <Compile Include="Logic\ImplicitStashingManager.cs" />
-    <Compile Include="Logic\ProgramStates\MovingNode.cs" />
-    <Compile Include="Logic\ProgramStates\MovingCanvas.cs" />
-    <Compile Include="Logic\Graph\Node.cs" />
-    <Compile Include="Logic\Graph\NodeClickedEventArgs.cs" />
-    <Compile Include="Logic\ProgramStates\Normal.cs" />
-    <Compile Include="Logic\Program.cs" />
-    <Compile Include="Logic\ProgramStates\IProgramState.cs" />
-    <Compile Include="Logic\ProgramStates\CrossStateData.cs" />
-    <Compile Include="Logic\ViewHistory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -173,6 +148,7 @@
   <ItemGroup>
     <Resource Include="Notes.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

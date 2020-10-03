@@ -4,6 +4,6 @@
     xmlns:local="clr-namespace:GitGUI">
 
 
-    <Style TargetType="{x:Type local:ZoomAndPanCanvas}">
+    <Style TargetType="{x:Type local:ZoomAndPanCanvasView}">
     </Style>
 </ResourceDictionary>

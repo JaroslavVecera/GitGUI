@@ -11,7 +11,8 @@
         PreviewMouseMove="WindowPreviewMouseMove"
         PreviewMouseWheel="WindowPreviewMouseWheel"
         MouseLeave="WindowMouseLeave"
-        ContextMenuService.IsEnabled="false">
+        ContextMenuService.IsEnabled="false"
+        Icon="C:\Users\Lenovo\source\repos\GitGUI\icon.png">
     <Window.ContextMenu>
         <ContextMenu AllowDrop="False">
             <MenuItem Click="ContextMenuMerge" Header="Merge" />
@@ -25,7 +26,7 @@
             <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView" VerticalScrollBarVisibility="Disabled" PreviewMouseDown="CanvasMouseDown"  Margin="35,35,35,0" VerticalAlignment="Stretch">
-            <local:ZoomAndPanCanvas  x:Name="zoomCanvas"/>
+            <local:ZoomAndPanCanvasView  x:Name="zoomCanvas"/>
         </ScrollViewer>
         <StackPanel Grid.Row="1">
         <StackPanel  x:Name="actionPanel" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" Height="30"></StackPanel>
