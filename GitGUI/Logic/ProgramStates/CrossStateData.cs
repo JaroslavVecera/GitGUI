@@ -10,7 +10,7 @@ namespace GitGUI.Logic
     class CrossStateData
     {
         Point _point;
-        public Node AttachedNode { get; set; }
+        public GraphItemModel AttachedItem { get; set; }
         public Point MousePoint { get { return _point; } set { PreviousMousePoint = _point; _point = value; } }
         Point PreviousMousePoint { get; set; }
         public Vector MouseDisplacement { get { return Point.Subtract(MousePoint, PreviousMousePoint); } }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GitGUI
 {
-    class ZoomAndPanCanvasViewModel : ViewModelBase
+    class ZoomAndPanCanvasViewModel
     {
         MatrixTransform CanvasTransform { get; } = new MatrixTransform(Matrix.Identity);
         ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; set; }

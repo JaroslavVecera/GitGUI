@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace GitGUI
 {
-    public class GraphItemModel
+    public class GraphItemModel : ModelBase
     {
         public bool Marked { get; set; }
 

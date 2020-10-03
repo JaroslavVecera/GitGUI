@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace GitGUI
 {
-    class ZoomAndPanCanvasModel
+    class ZoomAndPanCanvasModel : ModelBase
     {
         Matrix TransformMatrix { get; set; }
 

@@ -10,12 +10,12 @@ namespace GitGUI.Logic
     interface IProgramState
     {
         Program Program { get; set; }
-        void MouseUp(Node sender, CrossStateData data, MouseButtonEventArgs e);
-        void MouseDown(Node sender, CrossStateData data, MouseButtonEventArgs e);
+        void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e);
+        void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e);
         void MouseMove(CrossStateData data, MouseEventArgs e);
         void MouseWheelMove(CrossStateData data, int delta);
         void MouseLeaveWindow(CrossStateData data);
-        void MouseLeave(Node sender, CrossStateData data);
-        void MouseEnter(Node sender, CrossStateData data);
+        void MouseLeave(object sender, CrossStateData data);
+        void MouseEnter(object sender, CrossStateData data);
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GitGUI
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public class ModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
