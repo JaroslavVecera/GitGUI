@@ -11,7 +11,7 @@ namespace GitGUI.Logic
     {
         public Program Program { get; set; }
         static Normal Instance { get; set; }
-        public void MouseDown(Node sender, CrossStateData data, MouseButtonEventArgs e)
+        public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -19,30 +19,30 @@ namespace GitGUI.Logic
                     Program.ChangeState(MovingCanvas.GetInstance());
                 else
                 {
-                    data.AttachedNode = sender;
-                    MovingNode s = MovingNode.GetInstance();
+                    data.AttachedBranch = (BranchLabelModel)sender;
+                    MovingBranch s = MovingBranch.GetInstance();
                     Program.ChangeState(s);
-                    s.SetNode(sender);
+                    s.SetBranchLabel(data.AttachedBranch);
                 }
             }
         }
 
         public void MouseMove(CrossStateData data, MouseEventArgs e) { }
 
-        public void MouseUp(Node sender, CrossStateData data, MouseButtonEventArgs e) { }
+        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e) { }
 
         public void MouseWheelMove(CrossStateData data, int delta) { }
 
         public void MouseLeaveWindow(CrossStateData data) { }
 
-        public void MouseLeave(Node sender, CrossStateData data)
+        public void MouseLeave(object sender, CrossStateData data)
         {
             Program.Focus(null);
         }
 
-        public void MouseEnter(Node sender, CrossStateData data)
+        public void MouseEnter(object sender, CrossStateData data)
         {
-            Program.Focus(sender);
+            Program.Focus((GraphItemModel)sender);
         }
 
         public static Normal GetInstance()

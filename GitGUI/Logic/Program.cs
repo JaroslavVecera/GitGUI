@@ -9,8 +9,9 @@ namespace GitGUI.Logic
         CommitManager CommitManager { get; } = CommitManager.GetInstance();
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
-        MainWindowModel MainWindowModel { get; set; }
+        MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
         static Program Instance { get; set; }
+        public BranchLabelModel AggregationFocused { get; set; }
 
         Program()
         {
@@ -68,6 +69,21 @@ namespace GitGUI.Logic
         public void Show(GraphItemModel item)
         {
             CommitManager.Mark(item);
+        }
+
+        public void Focus(GraphItemModel item)
+        {
+
+        }
+
+        public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)
+        {
+
+        }
+
+        public void AggregationFocus(BranchLabelModel l)
+        {
+
         }
 
         public void MouseLeaveWindow()

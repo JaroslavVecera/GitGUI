@@ -15,13 +15,13 @@ namespace GitGUI.Logic
 
         MovingCanvas() { }
 
-        public void MouseDown(Node sender, CrossStateData data, MouseButtonEventArgs e) { }
+        public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e) { }
 
-        public void MouseUp(Node sender, CrossStateData data, MouseButtonEventArgs e)
+        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (!_moved) Program.ShowNode(null);
+                if (!_moved) Program.Show(null);
                 ChangeState(Normal.GetInstance());
             }
         }
@@ -46,11 +46,11 @@ namespace GitGUI.Logic
             ChangeState(Normal.GetInstance());
         }
 
-        public void MouseLeave(Node sender, CrossStateData data)
+        public void MouseLeave(object sender, CrossStateData data)
         {
         }
 
-        public void MouseEnter(Node sender, CrossStateData data)
+        public void MouseEnter(object sender, CrossStateData data)
         {
         }
 

@@ -12,18 +12,17 @@ using System.Diagnostics;
 
 namespace GitGUI.Logic
 {
-    class MovingNode : IProgramState
+    class MovingBranch : IProgramState
     {
         public Program Program { get; set; }
-        static MovingNode Instance { get; set; } = new MovingNode();
+        static MovingBranch Instance { get; set; } = new MovingBranch();
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
-        Matrix LastCanvasMatrix { get; set; } = Matrix.Identity;
         Stopwatch Stopwatch { get; } = new Stopwatch();
         bool _moved;
 
-        MovingNode() { }
+        MovingBranch() { }
 
-        public static MovingNode GetInstance()
+        public static MovingBranch GetInstance()
         {
             return Instance;
         }
@@ -36,7 +35,7 @@ namespace GitGUI.Logic
             if (translate == new Vector(0, 0))
                 return;
             translate *= milliseconds / 10;
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
+            ZoomAndPanCanvasView c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             Matrix inv = c.CanvasTransform.Matrix;
             inv.Invert();
             Graph.GetInstance().Move((Vector)translate);
@@ -55,41 +54,40 @@ namespace GitGUI.Logic
             return -mouse / mouse.Length;
         }
 
-        public void SetNode(Node n)
+        public void SetBranchLabel(BranchLabelModel b)
         {
-            n.GElement.RenderTransform = NodeTransform;
-            n.ForegroundPull();
+            b.RenderTransform = NodeTransform;
+            b.ForegroundPull();
             _moved = false;
-            n.GElement.IsHitTestVisible = false;
+            b.IsHitTestVisible = false;
             CompositionTarget.Rendering += MoveCanvasToMouse;
             Stopwatch.StartNew();
         }
 
-        public void MouseUp(Node sender, CrossStateData data, MouseButtonEventArgs e)
+        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton != MouseButton.Left)
                 return;
             if (Program.AggregationFocused != null)
-                Program.Aggregate(data.AttachedNode, Program.AggregationFocused);
+                Program.Aggregate(data.AttachedBranch, Program.AggregationFocused);
             ChangeState(Normal.GetInstance(), data);
             ReturnNodeBack(data);
             if (_moved == false)
-                Program.ShowNode(data.AttachedNode);
+                Program.Show(data.AttachedBranch);
         }
 
-        public void MouseDown(Node sender, CrossStateData data, MouseButtonEventArgs e) { }
+        public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e) { }
 
         public void MouseMove(CrossStateData data, MouseEventArgs e)
         {
             ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
-            MoveNode(data, e, c);
+            MoveBranch(data, e, c);
             
         }
 
-        void MoveNode(CrossStateData data, MouseEventArgs e, ZoomAndPanCanvas c)
-        { 
-            LastCanvasMatrix = c.CanvasTransform.Matrix;
-            Matrix mat = LastCanvasMatrix;
+        void MoveBranch(CrossStateData data, MouseEventArgs e, ZoomAndPanCanvasModel c)
+        {
+            Matrix mat = c.TransformMatrix;
             mat.Invert();
             Vector transformedDispl = mat.Transform(data.MouseDisplacement);
             Matrix m = NodeTransform.Matrix;
@@ -120,13 +118,13 @@ namespace GitGUI.Logic
             ChangeState(Normal.GetInstance(), data);
         }
 
-        public void MouseLeave(Node sender, CrossStateData data)
+        public void MouseLeave(object sender, CrossStateData data)
         {
-            if (sender != data.AttachedNode)
+            if (sender != data.AttachedItem)
                 Program.AggregationFocus(null);
         }
 
-        public void MouseEnter(Node sender, CrossStateData data)
+        public void MouseEnter(object sender, CrossStateData data)
         {
             Program.AggregationFocus(sender);
 
@@ -134,8 +132,8 @@ namespace GitGUI.Logic
 
         void ChangeState(IProgramState state, CrossStateData data)
         {
-            data.AttachedNode.GElement.IsHitTestVisible = true;
-            data.AttachedNode.BackgroundPush();
+            data.AttachedBranch.GElement.IsHitTestVisible = true;
+            data.AttachedBranch.BackgroundPush();
             Program.AggregationFocus(null);
             Program.ChangeState(state);
             CompositionTarget.Rendering -= MoveCanvasToMouse;

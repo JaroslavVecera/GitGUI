@@ -26,9 +26,7 @@ namespace GitGUI.Logic
 
         void Test()
         {
-            CommitManager.GetInstance().CreateRepository(@"C:\Users\Lenovo\Desktop\škola\GitGUITests");
-            CommitManager.GetInstance().Add(new List<string>() { "file.txt" });
-            CommitManager.GetInstance().Commit(null, "ahoj");
+            CommitManager.GetInstance().OpenRepository(@"C:\Users\Lenovo\Desktop\škola\GitGUITests");
         }
     }
 }

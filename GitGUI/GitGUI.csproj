@@ -76,8 +76,6 @@
     </ApplicationDefinition>
     <Compile Include="Logic\AggregatingBehaviour.cs" />
     <Compile Include="Logic\AppSettings.cs" />
-    <Compile Include="Logic\CrossStateData.cs" />
-    <Compile Include="Logic\IProgramState.cs" />
     <Compile Include="Logic\Models\CommitNodeModel.cs" />
     <Compile Include="Logic\EventHandlerBatch.cs" />
     <Compile Include="Logic\LibGitService.cs" />
@@ -87,7 +85,12 @@
     <Compile Include="Logic\Models\BranchLabelModel.cs" />
     <Compile Include="Logic\Models\GraphItemModel.cs" />
     <Compile Include="Logic\Program.cs" />
-    <Compile Include="Logic\ViewModels\ViewModelBase.cs" />
+    <Compile Include="Logic\ProgramStates\CrossStateData.cs" />
+    <Compile Include="Logic\ProgramStates\IProgramState.cs" />
+    <Compile Include="Logic\ProgramStates\MovingCanvas.cs" />
+    <Compile Include="Logic\ProgramStates\MovingBranch.cs" />
+    <Compile Include="Logic\ProgramStates\Normal.cs" />
+    <Compile Include="Logic\Models\ModelBase.cs" />
     <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
     <Compile Include="Logic\Models\MainWindowModel.cs" />
     <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
