@@ -26,7 +26,7 @@ namespace GitGUI.Logic
 
         void Test()
         {
-            CommitManager.GetInstance().OpenRepository(@"C:\Users\Lenovo\Desktop\škola\GitGUITests");
+            CommitManager.GetInstance().OpenRepository(@"D:\škola\GitGUITests");
         }
     }
 }

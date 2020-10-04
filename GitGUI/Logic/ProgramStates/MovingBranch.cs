@@ -16,8 +16,6 @@ namespace GitGUI.Logic
     {
         public Program Program { get; set; }
         static MovingBranch Instance { get; set; } = new MovingBranch();
-        MatrixTransform NodeTransform { get; } = new MatrixTransform();
-        Stopwatch Stopwatch { get; } = new Stopwatch();
         bool _moved;
 
         MovingBranch() { }
@@ -27,41 +25,11 @@ namespace GitGUI.Logic
             return Instance;
         }
 
-        public void MoveCanvasToMouse(object sender, EventArgs e)
-        {
-            Vector translate = Translate();
-            double milliseconds = Stopwatch.ElapsedMilliseconds;
-            Stopwatch.Restart();
-            if (translate == new Vector(0, 0))
-                return;
-            translate *= milliseconds / 10;
-            ZoomAndPanCanvasView c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
-            Matrix inv = c.CanvasTransform.Matrix;
-            inv.Invert();
-            Graph.GetInstance().Move((Vector)translate);
-            Matrix m = NodeTransform.Matrix;
-            m.Translate(-translate.X * inv.M11, -translate.Y * inv.M22);
-            NodeTransform.Matrix = m;
-        }
-
-        Vector Translate()
-        {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
-            Vector mouse = (Vector)Program.Data.MousePoint;
-            if (mouse.X > 0 && mouse.X < c.ActualWidth && mouse.Y > 0 && mouse.Y < c.ActualHeight)
-                return new Vector(0, 0);
-            mouse -= new Vector(c.ActualWidth / 2, c.ActualHeight / 2);
-            return -mouse / mouse.Length;
-        }
-
         public void SetBranchLabel(BranchLabelModel b)
         {
-            b.RenderTransform = NodeTransform;
-            b.ForegroundPull();
+            CommitManager m = CommitManager.GetInstance();
+            m.SetupMovingBranchLabel(b);
             _moved = false;
-            b.IsHitTestVisible = false;
-            CompositionTarget.Rendering += MoveCanvasToMouse;
-            Stopwatch.StartNew();
         }
 
         public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
@@ -71,7 +39,6 @@ namespace GitGUI.Logic
             if (Program.AggregationFocused != null)
                 Program.Aggregate(data.AttachedBranch, Program.AggregationFocused);
             ChangeState(Normal.GetInstance(), data);
-            ReturnNodeBack(data);
             if (_moved == false)
                 Program.Show(data.AttachedBranch);
         }
@@ -80,72 +47,37 @@ namespace GitGUI.Logic
 
         public void MouseMove(CrossStateData data, MouseEventArgs e)
         {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
-            MoveBranch(data, e, c);
-            
-        }
-
-        void MoveBranch(CrossStateData data, MouseEventArgs e, ZoomAndPanCanvasModel c)
-        {
-            Matrix mat = c.TransformMatrix;
-            mat.Invert();
-            Vector transformedDispl = mat.Transform(data.MouseDisplacement);
-            Matrix m = NodeTransform.Matrix;
-            m.Translate(transformedDispl.X, transformedDispl.Y);
-            NodeTransform.Matrix = m;
+            CommitManager.GetInstance().MoveBranch(data.MouseDisplacement);
             _moved = true;
         }
 
         public void MouseWheelMove(CrossStateData data, int delta)
         {
-            ZoomAndPanCanvas c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
-            Matrix mat = c.CanvasTransform.Matrix;
-            Matrix inv = mat;
-            inv.Invert();
-            Point loc = data.AttachedNode.Location;
-            Point tloc = mat.Transform(NodeTransform.Transform(loc));
-            Point diff = new Point(data.MousePoint.X - tloc.X, data.MousePoint.Y - tloc.Y);
-            ScaleTransform scale = new ScaleTransform(inv.M11, inv.M22);
-            diff = scale.Transform(diff);
-            Matrix m = NodeTransform.Matrix;
-            m.Translate(diff.X, diff.Y);
-            NodeTransform.Matrix = m;
+            CommitManager.GetInstance().BranchLabelToMouse(data.AttachedBranch, data.MousePoint);
         }
 
         public void MouseLeaveWindow(CrossStateData data)
         {
-            ReturnNodeBack(data);
             ChangeState(Normal.GetInstance(), data);
         }
 
         public void MouseLeave(object sender, CrossStateData data)
         {
-            if (sender != data.AttachedItem)
+            if (sender != data.AttachedBranch)
                 Program.AggregationFocus(null);
         }
 
         public void MouseEnter(object sender, CrossStateData data)
         {
-            Program.AggregationFocus(sender);
+            Program.AggregationFocus((BranchLabelModel)sender);
 
         }
 
         void ChangeState(IProgramState state, CrossStateData data)
         {
-            data.AttachedBranch.GElement.IsHitTestVisible = true;
-            data.AttachedBranch.BackgroundPush();
+            CommitManager.GetInstance().RestoreBranchLabel(data.AttachedBranch);
             Program.AggregationFocus(null);
             Program.ChangeState(state);
-            CompositionTarget.Rendering -= MoveCanvasToMouse;
-            Stopwatch.Stop();
-        }
-
-        void ReturnNodeBack(CrossStateData data)
-        {
-            UIElement el = data.AttachedNode.GElement;
-            NodeTransform.Matrix = Matrix.Identity;
-            el.RenderTransform = null;
-            LastCanvasMatrix.SetIdentity();
         }
     }
 }

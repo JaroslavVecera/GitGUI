@@ -23,6 +23,26 @@ namespace GitGUI.Logic
 
         private CommitManager() { }
 
+        public void SetupMovingBranchLabel(BranchLabelModel m)
+        {
+            Graph.SetupMovingBranchLabel(m);
+        }
+
+        public void MoveBranch(Vector displacement)
+        {
+            Graph.MoveBranch(displacement);
+        }
+
+        public void BranchLabelToMouse(BranchLabelModel branch, Point mouse)
+        {
+            Graph.BranchLabelToMouse(branch, mouse);
+        }
+
+        public void RestoreBranchLabel(BranchLabelModel m)
+        {
+            Graph.RestoreBranchLabel(m);
+        }
+
         public void Add(List<string> files)
         {
             LibGitService.Add(files);

@@ -10,7 +10,10 @@ namespace GitGUI
 {
     class ZoomAndPanCanvasModel : ModelBase
     {
-        Matrix TransformMatrix { get; set; }
+        Matrix _matrix = Matrix.Identity;
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public Matrix TransformMatrix { get { return _matrix; } set { _matrix = value; OnPropertyChanged(); } }
 
         public event Action<Matrix> TransformMatrixChanged;
 
