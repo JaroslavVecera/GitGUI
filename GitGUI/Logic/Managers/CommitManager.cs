@@ -19,6 +19,7 @@ namespace GitGUI.Logic
         }
         public Graph Graph { get; } = Graph.GetInstance();
         LibGitService LibGitService { get; set; } = new LibGitService();
+        ViewHistory ViewHistory { get; } = new ViewHistory();
         static CommitManager Instance { get; set; } = new CommitManager();
 
         private CommitManager() { }
