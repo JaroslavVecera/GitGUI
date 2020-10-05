@@ -74,12 +74,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Models\ActionButtonModel.cs" />
+    <Compile Include="Logic\ViewModels\ActionButtonViewModel.cs" />
+    <Compile Include="Logic\Managers\ActionsManager.cs" />
+    <Compile Include="Logic\Models\ActionPanelModel.cs" />
     <Compile Include="Logic\AggregatingBehaviour.cs" />
     <Compile Include="Logic\AppSettings.cs" />
     <Compile Include="Logic\Models\CommitNodeModel.cs" />
     <Compile Include="Logic\EventHandlerBatch.cs" />
     <Compile Include="Logic\LibGitService.cs" />
-    <Compile Include="Logic\CommitManager.cs" />
+    <Compile Include="Logic\Managers\CommitManager.cs" />
     <Compile Include="Logic\Graph.cs" />
     <Compile Include="Logic\Models\ZoomAndPanCanvasModel.cs" />
     <Compile Include="Logic\Models\BranchLabelModel.cs" />
