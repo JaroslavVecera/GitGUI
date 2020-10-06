@@ -6,10 +6,10 @@ namespace GitGUI.Logic
 {
     class ViewHistory
     {
-        LinkedList<Node> History { get; } = new LinkedList<Node>();
-        LinkedList<Node> Future { get; } = new LinkedList<Node>();
+        LinkedList<GraphItemModel> History { get; } = new LinkedList<GraphItemModel>();
+        LinkedList<GraphItemModel> Future { get; } = new LinkedList<GraphItemModel>();
 
-        public void Add(Node node)
+        public void Add(GraphItemModel node)
         {
             Future.Clear();
             History.AddFirst(node);
@@ -25,27 +25,27 @@ namespace GitGUI.Logic
             return Future.Any();
         }
 
-        public Node Next()
+        public GraphItemModel Next()
         {
             if (!Future.Any())
                 throw new InvalidOperationException("ViewHistory has not any future.");
-            Node n = History.First();
+            GraphItemModel n = History.First();
             History.RemoveFirst();
             Future.AddFirst(n);
             return n;
         }
 
-        public Node Previous()
+        public GraphItemModel Previous()
         {
             if (!History.Any())
                 throw new InvalidOperationException("ViewHistory has not any history.");
-            Node n = Future.First();
+            GraphItemModel n = Future.First();
             Future.RemoveFirst();
             History.AddFirst(n);
             return n;
         }
 
-        public void EnsureAbsence(Node n)
+        public void EnsureAbsence(GraphItemModel n)
         {
             History.Remove(n);
             Future.Remove(n);

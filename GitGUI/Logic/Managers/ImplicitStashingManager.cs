@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GitGUI.Logic
 {
-    class ImplicitStashingManager
+    class StashingManager : LibGit2Sharp.StashCollection
     {
         public void SaveForCommit(CommitNode n)
         {

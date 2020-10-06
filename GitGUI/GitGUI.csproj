@@ -74,7 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Managers\ImplicitStashingManager.cs" />
     <Compile Include="Logic\Models\ActionButtonModel.cs" />
+    <Compile Include="Logic\ViewHistory.cs" />
     <Compile Include="Logic\ViewModels\ActionButtonViewModel.cs" />
     <Compile Include="Logic\Managers\ActionsManager.cs" />
     <Compile Include="Logic\Models\ActionPanelModel.cs" />
