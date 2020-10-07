@@ -35,7 +35,7 @@ namespace GitGUI.Logic
 
         public void PopLast()
         {
-            _stashing.Pop(0);
+            _stashes.Pop(0);
         }
 
         public void Push(CommitNodeModel model)
