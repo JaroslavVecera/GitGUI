@@ -9,8 +9,11 @@ namespace GitGUI.Logic
 {
     class LibGitService
     {
+        static LibGitService _instance;
         Repository Repository { get; set; }
         public BranchLabelModel CurrentBranch { get; }
+
+        private LibGitService() { }
 
         public Repository OpenNewRepository(string path)
         {
@@ -77,6 +80,13 @@ namespace GitGUI.Logic
         Branch CreateBranch(string name, CommitNodeModel n)
         {
             return Repository.CreateBranch(name, n.Commit);
+        }
+
+        public static LibGitService GetInstance()
+        {
+            if (_instance == null)
+                _instance = new LibGitService();
+            return _instance;
         }
     }
 }

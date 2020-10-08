@@ -18,7 +18,7 @@ namespace GitGUI.Logic
             set { Graph.EventHandlerBatch = value; }
         }
         public Graph Graph { get; } = Graph.GetInstance();
-        LibGitService LibGitService { get; set; } = new LibGitService();
+        LibGitService LibGitService { get; } = LibGitService.GetInstance();
         ViewHistory ViewHistory { get; } = new ViewHistory();
         static CommitManager Instance { get; set; } = new CommitManager();
 
@@ -59,14 +59,9 @@ namespace GitGUI.Logic
             Graph.Move(move);
         }
 
-        public void OpenRepository(string path)
+        public void SetRepository(Repository r)
         {
-            Graph.Repository = LibGitService.OpenRepository(path);
-        }
-
-        public void CreateRepository(string path)
-        {
-            Graph.Repository = LibGitService.OpenNewRepository(path);
+            Graph.Repository = r;
         }
 
         public void Commit(BranchLabelModel l, string message)
