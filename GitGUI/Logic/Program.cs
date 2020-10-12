@@ -7,6 +7,7 @@ namespace GitGUI.Logic
     class Program
     {
         CommitManager CommitManager { get; } = CommitManager.GetInstance();
+        RepositoryManager RepositoryManager { get; } = new RepositoryManager();
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
@@ -17,6 +18,12 @@ namespace GitGUI.Logic
         {
             InitializeEventHandlers();
             InitializeMainWindow();
+            Test();
+        }
+
+        void Test()
+        {
+            RepositoryManager.OpenExisting(new RepositoryModel(@"D:\škola\GitGUITests"));
         }
 
         public void InitializeMainWindow()

@@ -21,12 +21,6 @@ namespace GitGUI.Logic
         {
             Program = Program.GetInstance();
             MainWindow.Show();
-            Test();
-        }
-
-        void Test()
-        {
-            CommitManager.GetInstance().OpenRepository(@"D:\škola\GitGUITests");
         }
     }
 }

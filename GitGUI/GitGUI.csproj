@@ -77,6 +77,7 @@
     <Compile Include="Logic\Managers\RepositoryManager.cs" />
     <Compile Include="Logic\Managers\StashingManager.cs" />
     <Compile Include="Logic\Models\ActionButtonModel.cs" />
+    <Compile Include="Logic\Models\CommitNodeModel.cs" />
     <Compile Include="Logic\Models\RepositoryModel.cs" />
     <Compile Include="Logic\ViewHistory.cs" />
     <Compile Include="Logic\ViewModels\ActionButtonViewModel.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Logic\Models\ActionPanelModel.cs" />
     <Compile Include="Logic\AggregatingBehaviour.cs" />
     <Compile Include="Logic\AppSettings.cs" />
-    <Compile Include="Logic\Models\CommitNodeModel.cs" />
     <Compile Include="Logic\EventHandlerBatch.cs" />
     <Compile Include="Logic\LibGitService.cs" />
     <Compile Include="Logic\Managers\CommitManager.cs" />
@@ -99,10 +99,15 @@
     <Compile Include="Logic\ProgramStates\MovingBranch.cs" />
     <Compile Include="Logic\ProgramStates\Normal.cs" />
     <Compile Include="Logic\Models\ModelBase.cs" />
+    <Compile Include="Logic\ViewModels\CommitNodeViewModel.cs" />
+    <Compile Include="Logic\ViewModels\GraphItemViewModel.cs" />
     <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
     <Compile Include="Logic\Models\MainWindowModel.cs" />
     <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ObservableUIElementCollection.cs" />
+    <Compile Include="Views\CommitNodeView.xaml.cs">
+      <DependentUpon>CommitNodeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +132,10 @@
     <Page Include="Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommitNodeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

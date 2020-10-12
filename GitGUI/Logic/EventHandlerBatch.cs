@@ -9,8 +9,8 @@ namespace GitGUI.Logic
 {
     class EventHandlerBatch
     {
-        public MouseButtonEventHandler MouseDownEventHandler { get; set; }
-        public MouseEventHandler MouseEnterEventHandler { get; set; }
-        public MouseEventHandler MouseLeaveEventHandler { get; set; }
+        public Action<GraphItemModel, MouseButtonEventArgs> MouseDownEventHandler { get; set; }
+        public Action<GraphItemModel, MouseEventArgs> MouseEnterEventHandler { get; set; }
+        public Action<GraphItemModel, MouseEventArgs> MouseLeaveEventHandler { get; set; }
     }
 }
