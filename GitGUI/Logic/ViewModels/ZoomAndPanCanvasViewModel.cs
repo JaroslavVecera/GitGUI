@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Media;
 using System.Threading.Tasks;
 
-namespace GitGUI
+namespace GitGUI.Logic
 {
     class ZoomAndPanCanvasViewModel
     {

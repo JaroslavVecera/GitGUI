@@ -79,6 +79,7 @@
     <Compile Include="Logic\Models\ActionButtonModel.cs" />
     <Compile Include="Logic\Models\CommitNodeModel.cs" />
     <Compile Include="Logic\Models\RepositoryModel.cs" />
+    <Compile Include="Logic\PropertyChangedNotifier.cs" />
     <Compile Include="Logic\ViewHistory.cs" />
     <Compile Include="Logic\ViewModels\ActionButtonViewModel.cs" />
     <Compile Include="Logic\Managers\ActionsManager.cs" />
@@ -99,12 +100,18 @@
     <Compile Include="Logic\ProgramStates\MovingBranch.cs" />
     <Compile Include="Logic\ProgramStates\Normal.cs" />
     <Compile Include="Logic\Models\ModelBase.cs" />
+    <Compile Include="Logic\ViewModels\ActionPanelViewModel.cs" />
     <Compile Include="Logic\ViewModels\CommitNodeViewModel.cs" />
     <Compile Include="Logic\ViewModels\GraphItemViewModel.cs" />
+    <Compile Include="Logic\ViewModels\ViewModelBase.cs" />
     <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
     <Compile Include="Logic\Models\MainWindowModel.cs" />
     <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ObservableUIElementCollection.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Views\ActionPanelView.xaml.cs">
+      <DependentUpon>ActionPanelView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommitNodeView.xaml.cs">
       <DependentUpon>CommitNodeView.xaml</DependentUpon>
     </Compile>
@@ -130,6 +137,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\LightTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActionPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

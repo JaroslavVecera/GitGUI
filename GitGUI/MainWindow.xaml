@@ -29,7 +29,8 @@
             <local:ZoomAndPanCanvasView  x:Name="zoomCanvas"/>
         </ScrollViewer>
         <StackPanel Grid.Row="1">
-        <StackPanel  x:Name="actionPanel" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" Height="30"></StackPanel>
+            <local:ActionPanelView  x:Name="actionPanel" HorizontalAlignment="Center"  Width="Auto" Height="30">
+            </local:ActionPanelView>
         <Button Click="Button_Click" Height="20">change Theme</Button>
         </StackPanel>
         <Grid Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel" Visibility="Collapsed">

@@ -10,13 +10,28 @@ using System.Windows.Controls;
 
 namespace GitGUI.Logic
 {
-    class ActionPanelModel : ModelBase
+    public class ActionPanelModel : ModelBase
     {
-        public void Add(Button button)
+        public event Action<ActionButtonViewModel> Added;
+
+        public void Add(ActionButtonModel buttonModel)
+        {
+            ActionButtonViewModel vm = new ActionButtonViewModel(buttonModel);
+            Enable(buttonModel);
+            Added?.Invoke(vm);
+        }
+
+        public void Remove(ActionButtonModel buttonModel)
         {
 
         }
-        public void Remove(Button button)
+
+        public void Enable(ActionButtonModel buttonModel)
+        {
+
+        }
+
+        public void Disable(ActionButtonModel buttonModel)
         {
 
         }

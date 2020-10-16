@@ -6,8 +6,9 @@ namespace GitGUI.Logic
 {
     class Program
     {
-        CommitManager CommitManager { get; } = CommitManager.GetInstance();
-        RepositoryManager RepositoryManager { get; } = new RepositoryManager();
+        CommitManager CommitManager { get; set; }
+        RepositoryManager RepositoryManager { get; set; }
+        ActionsManager ActionsManager { get; set; }
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
@@ -16,9 +17,18 @@ namespace GitGUI.Logic
 
         Program()
         {
-            InitializeEventHandlers();
             InitializeMainWindow();
+            CreateManagers();
+            InitializeEventHandlers();
             Test();
+            MainWindow w = (MainWindow)Application.Current.MainWindow;
+        }
+
+        void CreateManagers()
+        {
+            ActionsManager = new ActionsManager();
+            CommitManager = CommitManager.GetInstance();
+            RepositoryManager = new RepositoryManager();
         }
 
         void Test()
@@ -28,7 +38,7 @@ namespace GitGUI.Logic
 
         public void InitializeMainWindow()
         {
-            MainWindow view = new MainWindow();
+            MainWindow view = (MainWindow)Application.Current.MainWindow;
             MainWindowModel model = new MainWindowModel();
             MainWindowViewModel viewModel = new MainWindowViewModel();
 
@@ -37,6 +47,7 @@ namespace GitGUI.Logic
             viewModel.Model = model;
             view.DataContext = view;
             MainWindowModel = model;
+            view.Show();
         }
 
         public void ChangeState(IProgramState state)

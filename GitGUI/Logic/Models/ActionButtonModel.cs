@@ -10,14 +10,19 @@ using System.Windows.Data;
 
 namespace GitGUI.Logic
 {
-    class ActionButtonModel : ModelBase
+    public class ActionButtonModel : ModelBase
     {
-        public string Text { get; set; }
+        string _text;
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; OnPropertyChanged(); }
+        }
         public bool Active { get; set; } = true;
 
         public event Action Clicked;
 
-        void OnClicked(object sender, RoutedEventArgs e)
+        public void OnClicked(object sender, RoutedEventArgs e)
         {
             Clicked?.Invoke();
         }

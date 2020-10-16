@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace GitGUI.Logic
 {
@@ -12,27 +13,40 @@ namespace GitGUI.Logic
         public ActionPanelModel RemoteRepoPanel { get; set; }
         public ActionPanelModel LocalRepoPanel { get; set; }
 
+        public ActionsManager()
+        {
+            CreateLocalRepoPanel();
+            AddLocalRepoButtons();
+        }
+
+        void CreateLocalRepoPanel()
+        {
+            ActionPanelView view = ((MainWindow)App.Current.MainWindow).actionPanel;
+            LocalRepoPanel = new ActionPanelModel();
+            ActionPanelViewModel viewModel = new ActionPanelViewModel(LocalRepoPanel, view);
+        }
+
+        void AddLocalRepoButtons()
+        { 
+            AddButton(LocalRepoPanel, "Commit", OnCommit);
+            AddButton(LocalRepoPanel, "Checkout", OnCheckout);
+            AddButton(LocalRepoPanel, "Checkout", OnCheckout);
+        }
+
         void AddButton(ActionPanelModel panel, string text, Action action)
         {
             ActionButtonModel m = new ActionButtonModel();
-            Button view = new Button();
-            ActionButtonViewModel vm = new ActionButtonViewModel(m, view);
-            m.Clicked += action;
             m.Text = text;
-            panel.Add(view);
-        }
-
-        public ActionsManager()
-        {
-            AddButtons();
-        }
-
-        void AddButtons()
-        { 
-            AddButton(LocalRepoPanel, "Commit", OnCommit);
+            m.Clicked += action;
+            panel.Add(m);
         }
 
         void OnCommit()
+        {
+            Console.WriteLine("po");
+        }
+
+        void OnCheckout()
         {
 
         }

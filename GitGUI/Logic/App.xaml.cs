@@ -16,11 +16,13 @@ namespace GitGUI.Logic
     {
         public AppSettings Settings { get; } = new AppSettings();
         Program Program { get; set; }
+        bool _firstTimeActivated = true;
 
-        protected void OnStartup(object sender, StartupEventArgs e)
+        private void OnActivated(object sender, EventArgs e)
         {
-            Program = Program.GetInstance();
-            MainWindow.Show();
+            if (_firstTimeActivated)
+                Program = Program.GetInstance();
+            _firstTimeActivated = false;
         }
     }
 }

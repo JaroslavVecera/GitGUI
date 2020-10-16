@@ -65,6 +65,7 @@ namespace GitGUI
 
         private void WindowMouseLeave(object sender, MouseEventArgs e)
         {
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

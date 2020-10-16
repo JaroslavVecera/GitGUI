@@ -6,21 +6,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GitGUI
+namespace GitGUI.Logic
 {
-    public class ModelBase : INotifyPropertyChanged
+    public class ModelBase : PropertyChangedNotifier
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            ForceNotify(propertyName);
-        }
 
         public void ForceNotify(string propertyName)
         {
-            PropertyChangedEventArgs args = new PropertyChangedEventArgs(propertyName);
-            PropertyChanged?.Invoke(this, args);
+            OnPropertyChanged(propertyName);
         }
     }
 }
