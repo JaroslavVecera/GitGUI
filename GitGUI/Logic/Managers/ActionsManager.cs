@@ -13,6 +13,8 @@ namespace GitGUI.Logic
         public ActionPanelModel RemoteRepoPanel { get; set; }
         public ActionPanelModel LocalRepoPanel { get; set; }
 
+        public event Action Commit;
+
         public ActionsManager()
         {
             CreateLocalRepoPanel();
@@ -30,7 +32,6 @@ namespace GitGUI.Logic
         { 
             AddButton(LocalRepoPanel, "Commit", OnCommit);
             AddButton(LocalRepoPanel, "Checkout", OnCheckout);
-            AddButton(LocalRepoPanel, "Checkout", OnCheckout);
         }
 
         void AddButton(ActionPanelModel panel, string text, Action action)
@@ -43,7 +44,7 @@ namespace GitGUI.Logic
 
         void OnCommit()
         {
-            Console.WriteLine("po");
+            Commit?.Invoke();
         }
 
         void OnCheckout()

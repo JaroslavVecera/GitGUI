@@ -27,8 +27,19 @@ namespace GitGUI.Logic
         void CreateManagers()
         {
             ActionsManager = new ActionsManager();
+            SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
+        }
+
+        void SubscribeActionsManager()
+        {
+
+        }
+
+        void EditCommit()
+        {
+            
         }
 
         void Test()

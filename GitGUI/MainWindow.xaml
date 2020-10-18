@@ -31,7 +31,7 @@
         <StackPanel Grid.Row="1">
             <local:ActionPanelView  x:Name="actionPanel" HorizontalAlignment="Center"  Width="Auto" Height="30">
             </local:ActionPanelView>
-        <Button Click="Button_Click" Height="20">change Theme</Button>
+            <Button Click="Button_Click" Height="20">change Theme</Button>
         </StackPanel>
         <Grid Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel" Visibility="Collapsed">
             <Grid.RowDefinitions>
