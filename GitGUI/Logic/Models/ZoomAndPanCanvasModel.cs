@@ -14,6 +14,7 @@ namespace GitGUI.Logic
         public double Width { get; set; }
         public double Height { get; set; }
         public Matrix TransformMatrix { get { return _matrix; } set { _matrix = value; OnPropertyChanged(); } }
+        public Point Center { get { return new Point(Width / 2, Height / 2); } }
 
         public event Action<Matrix> TransformMatrixChanged;
 

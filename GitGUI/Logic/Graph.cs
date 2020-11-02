@@ -55,8 +55,9 @@ namespace GitGUI.Logic
 
         Point GraphViewCenter()
         {
-            ScrollViewer g = ((MainWindow)Application.Current.MainWindow).graphView;
-            return new Point((double)g.ActualWidth / 2, (double)g.ActualHeight / 2);
+            throw new NotImplementedException();
+            //ScrollViewer g = ((MainWindow)Application.Current.MainWindow).graphView;
+            //return new Point((double)g.ActualWidth / 2, (double)g.ActualHeight / 2);
         }
 
         public void DeployGraph()
@@ -134,7 +135,6 @@ namespace GitGUI.Logic
             if (translate == new Vector(0, 0))
                 return;
             translate *= milliseconds / 10;
-            ZoomAndPanCanvasView c = ((MainWindow)Application.Current.MainWindow).zoomCanvas;
             Matrix inv = ZoomAndPanCanvasModel.TransformMatrix;
             inv.Invert();
             Graph.GetInstance().Move((Vector)translate);

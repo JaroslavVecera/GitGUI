@@ -10,22 +10,15 @@ using System.Windows.Data;
 
 namespace GitGUI.Logic
 {
-    public class ActionPanelViewModel : INotifyPropertyChanged
+    public class ActionPanelViewModel : ViewModelBase
     {
-        public ObservableCollection<ActionButtonViewModel> Buttons { get; } = new ObservableCollection<ActionButtonViewModel>();
+        ActionPanelModel Model { get; set; }
+        public List<ActionButtonViewModel> Buttons { get { return Model.ButtonViewModels; } }
 
-        public ActionPanelViewModel(ActionPanelModel model, ActionPanelView view)
+        public ActionPanelViewModel(ActionPanelModel model)
         {
-            Buttons.CollectionChanged += CollectionChanged;
+            Model = model;
             SubscribeModel(model);
-            view.DataContext = this;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Buttons"));
         }
 
         void SubscribeModel(ActionPanelModel model)
@@ -35,7 +28,7 @@ namespace GitGUI.Logic
 
         void Added(ActionButtonViewModel viewModel)
         {
-            Buttons.Add(viewModel);
+            OnPropertyChanged("Buttons");
         }
     }
 }

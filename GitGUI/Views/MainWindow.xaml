@@ -1,0 +1,65 @@
+﻿<Window x:Class="GitGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitGUI"
+        xmlns:logic="clr-namespace:GitGUI.Logic"
+        xmlns:controls="http://schemas.panthernet.ru/graphx/"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        PreviewMouseUp="WindowPreviewMouseUp"
+        PreviewMouseMove="WindowPreviewMouseMove"
+        PreviewMouseDown="CanvasMouseDown" 
+        PreviewMouseWheel="WindowPreviewMouseWheel"
+        MouseLeave="WindowMouseLeave"
+        ContextMenuService.IsEnabled="false"
+        Icon="C:\Users\Lenovo\source\repos\GitGUI\icon.png">
+    <Window.ContextMenu>
+        <ContextMenu AllowDrop="False">
+            <MenuItem Click="ContextMenuMerge" Header="Merge" />
+            <MenuItem Click="ContextMenuRebase" Header="Rebase" />
+        </ContextMenu>
+    </Window.ContextMenu>
+    <TabControl ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
+        <TabControl.Resources>
+            <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
+                <local:MainTabView></local:MainTabView>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
+                <local:CommitEditorView/>
+            </DataTemplate>
+        </TabControl.Resources>
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
+                    <Button Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">
+                                    <Path.Style>
+                                        <Style TargetType="{x:Type Path}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="False">
+                                                    <Setter Property="Stroke" Value="LightGray" />
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Stroke" Value="Black" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+    </TabControl>
+</Window>

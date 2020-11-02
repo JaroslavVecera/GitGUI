@@ -9,6 +9,7 @@ namespace GitGUI.Logic
         CommitManager CommitManager { get; set; }
         RepositoryManager RepositoryManager { get; set; }
         ActionsManager ActionsManager { get; set; }
+        TabManager TabManager { get; set; }
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
@@ -17,16 +18,19 @@ namespace GitGUI.Logic
 
         Program()
         {
+            ActionPanelModel localAM = new ActionPanelModel();
+
             InitializeMainWindow();
-            CreateManagers();
+            CreateManagers(localAM);
             InitializeEventHandlers();
             Test();
-            MainWindow w = (MainWindow)Application.Current.MainWindow;
         }
 
-        void CreateManagers()
+        void CreateManagers(ActionPanelModel localAM)
         {
             ActionsManager = new ActionsManager();
+            ActionsManager.LocalRepoPanel = localAM;
+            TabManager = new TabManager(Data.MainWindowModel, localAM);
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
@@ -34,12 +38,12 @@ namespace GitGUI.Logic
 
         void SubscribeActionsManager()
         {
-
+            ActionsManager.Commit += EditCommit;
         }
 
         void EditCommit()
         {
-            
+            TabManager.NewCommitEditor();
         }
 
         void Test()
@@ -51,12 +55,8 @@ namespace GitGUI.Logic
         {
             MainWindow view = (MainWindow)Application.Current.MainWindow;
             MainWindowModel model = new MainWindowModel();
-            MainWindowViewModel viewModel = new MainWindowViewModel();
+            MainWindowViewModel viewModel = new MainWindowViewModel(model, view);
 
-            Application.Current.MainWindow = view;
-
-            viewModel.Model = model;
-            view.DataContext = view;
             MainWindowModel = model;
             view.Show();
         }
@@ -156,7 +156,7 @@ namespace GitGUI.Logic
 
         void UpdateMousePosition(MouseEventArgs e)
         {
-            Data.MousePoint = e.GetPosition(((MainWindow)Application.Current.MainWindow).graphView);
+            Data.MousePoint = e.GetPosition((MainWindow)Application.Current.MainWindow);
         }
 
         public static Program GetInstance()

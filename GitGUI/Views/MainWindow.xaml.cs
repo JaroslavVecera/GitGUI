@@ -29,12 +29,12 @@ namespace GitGUI
 
         public void ShowNodePanel()
         {
-            nodePanel.Visibility = Visibility.Visible;
+            //nodePanel.Visibility = Visibility.Visible;
         }
 
         public void HideNodePanel()
         {
-            nodePanel.Visibility = Visibility.Collapsed;
+            //nodePanel.Visibility = Visibility.Collapsed;
         }
 
         private void CanvasMouseDown(object sender, MouseButtonEventArgs e)

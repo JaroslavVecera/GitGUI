@@ -10,23 +10,12 @@ namespace GitGUI.Logic
 {
     class ActionsManager
     {
+        ActionPanelModel _local;
+        ActionPanelModel _remote;
+        public ActionPanelModel LocalRepoPanel { get { return _local; } set { _local = value; AddLocalRepoButtons(); } }
         public ActionPanelModel RemoteRepoPanel { get; set; }
-        public ActionPanelModel LocalRepoPanel { get; set; }
 
         public event Action Commit;
-
-        public ActionsManager()
-        {
-            CreateLocalRepoPanel();
-            AddLocalRepoButtons();
-        }
-
-        void CreateLocalRepoPanel()
-        {
-            ActionPanelView view = ((MainWindow)App.Current.MainWindow).actionPanel;
-            LocalRepoPanel = new ActionPanelModel();
-            ActionPanelViewModel viewModel = new ActionPanelViewModel(LocalRepoPanel, view);
-        }
 
         void AddLocalRepoButtons()
         { 

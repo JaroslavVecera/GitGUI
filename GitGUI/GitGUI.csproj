@@ -56,6 +56,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,9 +78,15 @@
     </ApplicationDefinition>
     <Compile Include="Logic\Managers\RepositoryManager.cs" />
     <Compile Include="Logic\Managers\StashingManager.cs" />
+    <Compile Include="Logic\Managers\TabManager.cs" />
     <Compile Include="Logic\Models\ActionButtonModel.cs" />
+    <Compile Include="Logic\Models\CommitEditorTabModel.cs" />
     <Compile Include="Logic\Models\CommitNodeModel.cs" />
+    <Compile Include="Logic\Models\MainTabModel.cs" />
     <Compile Include="Logic\Models\RepositoryModel.cs" />
+    <Compile Include="Logic\Models\TabModel.cs" />
+    <Compile Include="Logic\ViewModels\CommitEditorTabViewModel.cs" />
+    <Compile Include="Logic\ViewModels\TabViewModel.cs" />
     <Compile Include="Logic\PropertyChangedNotifier.cs" />
     <Compile Include="Logic\ViewHistory.cs" />
     <Compile Include="Logic\ViewModels\ActionButtonViewModel.cs" />
@@ -103,6 +111,7 @@
     <Compile Include="Logic\ViewModels\ActionPanelViewModel.cs" />
     <Compile Include="Logic\ViewModels\CommitNodeViewModel.cs" />
     <Compile Include="Logic\ViewModels\GraphItemViewModel.cs" />
+    <Compile Include="Logic\ViewModels\MainTabViewModel.cs" />
     <Compile Include="Logic\ViewModels\ViewModelBase.cs" />
     <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
     <Compile Include="Logic\Models\MainWindowModel.cs" />
@@ -112,11 +121,25 @@
     <Compile Include="Views\ActionPanelView.xaml.cs">
       <DependentUpon>ActionPanelView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CommitEditorTabView.xaml.cs">
+      <DependentUpon>CommitEditorTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommitNodeView.xaml.cs">
       <DependentUpon>CommitNodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainTabView.xaml.cs">
+      <DependentUpon>MainTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\CommitEditorTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -124,7 +147,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

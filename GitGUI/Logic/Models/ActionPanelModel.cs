@@ -14,9 +14,12 @@ namespace GitGUI.Logic
     {
         public event Action<ActionButtonViewModel> Added;
 
+        public List<ActionButtonViewModel> ButtonViewModels { get; } = new List<ActionButtonViewModel>();
+
         public void Add(ActionButtonModel buttonModel)
         {
             ActionButtonViewModel vm = new ActionButtonViewModel(buttonModel);
+            ButtonViewModels.Add(vm);
             Enable(buttonModel);
             Added?.Invoke(vm);
         }
