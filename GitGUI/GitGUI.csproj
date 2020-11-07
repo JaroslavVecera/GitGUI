@@ -76,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\ChangesTreeDirectoryItem.cs" />
+    <Compile Include="Logic\ChangesTreeFileItem.cs" />
+    <Compile Include="Logic\ChangesTreeItem.cs" />
+    <Compile Include="Logic\ChangeType.cs" />
     <Compile Include="Logic\Managers\RepositoryManager.cs" />
     <Compile Include="Logic\Managers\StashingManager.cs" />
     <Compile Include="Logic\Managers\TabManager.cs" />

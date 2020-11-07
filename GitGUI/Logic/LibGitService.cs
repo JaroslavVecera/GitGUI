@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +11,35 @@ namespace GitGUI.Logic
     class LibGitService
     {
         static LibGitService _instance;
-        Repository Repository { get; set; }
+        public event Action RepositoryChanged;
+        Repository _repository;
+        Repository Repository { get { return _repository; } set { _repository = value; } }
         public BranchLabelModel CurrentBranch { get; }
+        public RepositoryStatus CurrentChanges { get { return Repository.RetrieveStatus(); } }
 
         private LibGitService() { }
+
+        void StartWatch(string path)
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.IncludeSubdirectories = true;
+            watcher.Path = path;
+            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                 | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            watcher.Filter = "";
+            FileSystemEventHandler fs = (s, e) => RepositoryChanged?.Invoke();
+            RenamedEventHandler r = (s, e) => RepositoryChanged?.Invoke();
+            watcher.Changed += fs;
+            watcher.Created += fs;
+            watcher.Deleted += fs;
+            watcher.Renamed += r;
+            watcher.EnableRaisingEvents = true;
+        }
+
+        private void Watcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         public Repository OpenNewRepository(string path)
         {
@@ -28,7 +54,7 @@ namespace GitGUI.Logic
             return OpenRepository(path);
         }
 
-        public void Add(List<string> files)
+        public void Add(IEnumerable<string> files)
         {
             Commands.Stage(Repository, files);
         }
@@ -38,6 +64,7 @@ namespace GitGUI.Logic
             if (Repository != null)
                 CloseRepository(Repository);
             Repository = new Repository(path);
+            StartWatch(path);
             return Repository;
         }
 

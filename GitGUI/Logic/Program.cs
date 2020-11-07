@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -31,9 +32,17 @@ namespace GitGUI.Logic
             ActionsManager = new ActionsManager();
             ActionsManager.LocalRepoPanel = localAM;
             TabManager = new TabManager(Data.MainWindowModel, localAM);
+            TabManager.CommitRequested += Commit;
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
+        }
+
+        private void Commit(string message, IEnumerable<string> paths)
+        {
+            LibGitService.GetInstance().Add(paths);
+            //LibGitService.GetInstance().Commit(LibGitService.GetInstance().CurrentBranch, message);
+            TabManager.CloseCommitEditorTab();
         }
 
         void SubscribeActionsManager()
