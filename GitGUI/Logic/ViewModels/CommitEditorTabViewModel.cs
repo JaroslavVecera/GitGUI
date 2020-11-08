@@ -11,16 +11,24 @@ namespace GitGUI.Logic
     class CommitEditorTabViewModel : TabViewModel
     {
         CommitEditorTabModel Model { get; set; }
-        public ICommand Commit { get; set; }
-        public string Message { get { return Model.Message; } set { Model.Message = value; } }
+        public RelayCommand Commit { get; set; }
+        public string Message
+        {
+            get { return Model.Message; }
+            set { Model.Message = value; Commit.RaiseCanExecuteChanged(); }
+        }
         public List<ChangesTreeItem> Items { get; private set; }
         public string Header { get { return "Create commit"; } }
         void RefreshItems()
         {
-            List<ChangesTreeItem> items = new List<ChangesTreeItem>() { new ChangesTreeDirectoryItem() { Name = "All" } };
+            Items = new List<ChangesTreeItem>() { };
+            ChangesTreeDirectoryItem root = new ChangesTreeDirectoryItem() { Name = "All" };
+            root.Checked += () => Commit.RaiseCanExecuteChanged();
+            root.Unchecked += () => Commit.RaiseCanExecuteChanged();
+            root.SubItemCheckedChanged += () => Commit.RaiseCanExecuteChanged();
             var r = Model.RepositoryStatus.Untracked;
-            r.ToList().ForEach(statusEntry => items.Cast<ChangesTreeDirectoryItem>().Single().InsertItem(statusEntry.FilePath, statusEntry.State));
-            Items = items;
+            r.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, statusEntry.State));
+            Items.Add(root);
             OnPropertyChanged("Items");
         }
 
@@ -29,7 +37,25 @@ namespace GitGUI.Logic
             Model = model;
             SubscribeModel(model);
             RefreshItems();
-            Commit = new RelayCommand(() => { SetCheckedPaths(); Model.Commit(); });
+            Commit = new RelayCommand(
+                () => { SetCheckedPaths(); Model.Commit(); },
+                () => { return Message.Length > 0 && AnyChecked((ChangesTreeDirectoryItem)Items.Single()); });
+        }
+
+        bool AnyChecked(ChangesTreeDirectoryItem dir)
+        {
+            return dir.IsChecked || dir.Items.Any(it =>
+            {
+                if (it is ChangesTreeDirectoryItem)
+                    return AnyChecked((ChangesTreeDirectoryItem)it);
+                else
+                    return AnyChecked((ChangesTreeFileItem)it);
+            });
+        }
+
+        bool AnyChecked(ChangesTreeFileItem f)
+        {
+            return f.IsChecked;
         }
 
         void SetCheckedPaths()

@@ -10,6 +10,7 @@ namespace GitGUI.Logic
 {
     public class ChangesTreeDirectoryItem : ChangesTreeItem
     {
+        public event Action SubItemCheckedChanged;
         public List<ChangesTreeItem> Items { get; private set; } = new List<ChangesTreeItem>();
         IEnumerable<ChangesTreeDirectoryItem> Dirs { get { return Items.Where(item => item is ChangesTreeDirectoryItem).Cast<ChangesTreeDirectoryItem>(); } }
         public override bool IsChecked { get { return base.IsChecked; } set { base.IsChecked = value; PropagateDown(value); } }
@@ -50,6 +51,7 @@ namespace GitGUI.Logic
                 Items.Add(d = new ChangesTreeDirectoryItem() { Name = dirName });
             d.Checked += SubItemChecked;
             d.Unchecked += SubItemUnchecked;
+            d.SubItemCheckedChanged += NotifyChange;
             d.InsertItem(restPath, status);
         }
 
@@ -65,12 +67,21 @@ namespace GitGUI.Logic
         {
             if (IsChecked && ListenCheckedEvents)
                 base.IsChecked = false;
+            else
+                NotifyChange();
         }
 
         private void SubItemChecked()
         {
             if (!IsChecked && Items.All(item => item.IsChecked) && ListenCheckedEvents)
                 IsChecked = true;
+            else
+                NotifyChange();
+        }
+
+        void NotifyChange()
+        {
+            SubItemCheckedChanged?.Invoke();
         }
 
         void PropagateDown(bool val)

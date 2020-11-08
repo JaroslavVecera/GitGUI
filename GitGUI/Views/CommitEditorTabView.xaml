@@ -30,7 +30,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <TextBlock Margin="0,50,0,0">Commit message</TextBlock>
-        <TextBox Text="{Binding Path=Message}"></TextBox>
+        <TextBox Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Button Margin="0,10,0,0" Width="50" Command="{Binding Path=Commit}">Commit</Button>
     </StackPanel>
 </UserControl>

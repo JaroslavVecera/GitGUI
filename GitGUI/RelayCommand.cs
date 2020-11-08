@@ -9,37 +9,32 @@ namespace GitGUI
 {
     public class RelayCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-        private Action toExecute;
-        private Func<bool> canExecute;
+        public event EventHandler CanExecuteChanged;
+        private Action _toExecute;
+        private Func<bool> _canExecute;
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
-            toExecute = methodToExecute;
-            canExecute = canExecuteEvaluator;
+            _toExecute = methodToExecute;
+            _canExecute = canExecuteEvaluator;
         }
-        public RelayCommand(Action methodToExecute)
-            : this(methodToExecute, null)
+
+        public RelayCommand(Action methodToExecute) : this(methodToExecute, null) { }
+
+        public void RaiseCanExecuteChanged()
         {
+                CanExecuteChanged?.Invoke(this, new EventArgs());
         }
+
         public bool CanExecute(object parameter)
         {
-            if (canExecute == null)
-            {
-                return true;
-            }
-            else
-            {
-                bool result = canExecute.Invoke();
-                return result;
-            }
+            if (_canExecute != null)
+                return _canExecute();
+            return true;
         }
+
         public void Execute(object parameter)
         {
-            toExecute.Invoke();
+            _toExecute.Invoke();
         }
     }
 }
