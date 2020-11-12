@@ -50,6 +50,9 @@
     <Reference Include="LibGit2Sharp, Version=0.26.0.0, Culture=neutral, PublicKeyToken=7cbde695407f0333, processorArchitecture=MSIL">
       <HintPath>..\packages\LibGit2Sharp.0.26.2\lib\net46\LibGit2Sharp.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="QuickGraph, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QuickGraphCore.1.0.0\lib\net40\QuickGraph.dll</HintPath>
     </Reference>
@@ -76,10 +79,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Logic\ChangesTreeDirectoryItem.cs" />
-    <Compile Include="Logic\ChangesTreeFileItem.cs" />
-    <Compile Include="Logic\ChangesTreeItem.cs" />
-    <Compile Include="Logic\ChangeType.cs" />
+    <Compile Include="Logic\Changes\ChangesTreeDirectoryItem.cs" />
+    <Compile Include="Logic\Changes\ChangesTreeFileItem.cs" />
+    <Compile Include="Logic\Changes\ChangesTreeItem.cs" />
+    <Compile Include="Logic\Changes\ChangeType.cs" />
+    <Compile Include="Logic\Changes\DeletedInfo.cs" />
+    <Compile Include="Logic\Changes\ModifiedInfo.cs" />
     <Compile Include="Logic\Managers\RepositoryManager.cs" />
     <Compile Include="Logic\Managers\StashingManager.cs" />
     <Compile Include="Logic\Managers\TabManager.cs" />
@@ -89,6 +94,7 @@
     <Compile Include="Logic\Models\MainTabModel.cs" />
     <Compile Include="Logic\Models\RepositoryModel.cs" />
     <Compile Include="Logic\Models\TabModel.cs" />
+    <Compile Include="Logic\Changes\ChangesInfo.cs" />
     <Compile Include="Logic\ViewModels\CommitEditorTabViewModel.cs" />
     <Compile Include="Logic\ViewModels\TabViewModel.cs" />
     <Compile Include="Logic\PropertyChangedNotifier.cs" />
@@ -120,8 +126,13 @@
     <Compile Include="Logic\ViewModels\ZoomAndPanCanvasViewModel.cs" />
     <Compile Include="Logic\Models\MainWindowModel.cs" />
     <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Logic\Changes\UntrackedInfo.cs" />
+    <Compile Include="Views\CommitEditorChangeInfos\ModifiedInfoView.xaml.cs">
+      <DependentUpon>ModifiedInfoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ObservableUIElementCollection.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="SelectedItemBehaviour.cs" />
     <Compile Include="Views\ActionPanelView.xaml.cs">
       <DependentUpon>ActionPanelView.xaml</DependentUpon>
     </Compile>
@@ -131,11 +142,25 @@
     <Compile Include="Views\CommitNodeView.xaml.cs">
       <DependentUpon>CommitNodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DeletedInfoView.xaml.cs">
+      <DependentUpon>DeletedInfoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainTabView.xaml.cs">
       <DependentUpon>MainTabView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UntrackedInfoView.xaml.cs">
+      <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\CommitEditorChangeInfos\ModifiedInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommitEditorTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeletedInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,6 +199,10 @@
     <Page Include="Views\CommitNodeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UntrackedInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

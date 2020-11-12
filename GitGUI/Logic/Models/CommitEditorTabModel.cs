@@ -14,6 +14,7 @@ namespace GitGUI.Logic
         public bool IsChecked { get; set; } = true;
         public string Message { get; set; } = "";
         public RepositoryStatus RepositoryStatus { get; private set; }
+        public TreeChanges RepositoryChanges { get; private set; }
         IEnumerable<string> _paths;
         public IEnumerable<string> Paths { get { return _paths; } set { _paths = Adjust(value); } }
 
@@ -34,7 +35,8 @@ namespace GitGUI.Logic
 
         void Refresh()
         {
-            RepositoryStatus = LibGitService.GetInstance().CurrentChanges;
+            RepositoryStatus = LibGitService.GetInstance().Status;
+            RepositoryChanges = LibGitService.GetInstance().CurrentChanges;
             RepositoryStatusChanged?.Invoke();
         }
 

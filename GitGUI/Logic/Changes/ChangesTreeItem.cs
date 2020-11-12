@@ -19,6 +19,10 @@ namespace GitGUI.Logic
         public virtual bool IsChecked { get { return _isChecked; }
             set { _isChecked = value; Notify(value); } }
 
+        protected ChangesInfo _info;
+
+        public virtual ChangesInfo Info { get { return null; } set { _info = value; } }
+
         public abstract IEnumerable<string> GetCheckedPaths(string prefix);
 
         void Notify(bool val)

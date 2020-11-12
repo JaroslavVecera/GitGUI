@@ -9,6 +9,7 @@ namespace GitGUI.Logic
     public class ChangesTreeFileItem : ChangesTreeItem
     {
         public ChangeType Type { get; set; }
+        public override ChangesInfo Info { get { return _info; } set { base.Info = value; } }
 
         public override IEnumerable<string> GetCheckedPaths(string prefix)
         {

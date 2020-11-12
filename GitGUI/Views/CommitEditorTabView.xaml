@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:GitGUI"
              xmlns:logic="clr-namespace:GitGUI.Logic"
              mc:Ignorable="d" 
@@ -20,17 +21,56 @@
                 <TextBlock Text="{Binding Path=Name}"></TextBlock>
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="AnyItems">
+            <StackPanel HorizontalAlignment="Stretch">
+                <StackPanel Orientation="Horizontal">
+                    <TreeView ItemsSource="{Binding Path=Items}" Height="287">
+                        <i:Interaction.Behaviors>
+                            <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
+                        </i:Interaction.Behaviors>
+                        <TreeView.ItemContainerStyle>
+                            <Style TargetType="TreeViewItem">
+                                <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
+                            </Style>
+                        </TreeView.ItemContainerStyle>
+                    </TreeView>
+                    <ContentControl Content="{Binding ChangesInfo}">
+                        <ContentControl.Resources>
+                            <DataTemplate DataType="{x:Type logic:UntrackedInfo}">
+                                <local:UntrackedInfoView />
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type logic:ModifiedInfo}">
+                                <local:ModifiedInfoView />
+                            </DataTemplate>
+                            <DataTemplate DataType="{x:Type logic:DeletedInfo}">
+                                <local:DeletedInfoView />
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0">Commit message</TextBlock>
+                <TextBox HorizontalAlignment="Center" MinWidth="100" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Margin="0,10,0,0" Width="50" Command="{Binding Path=Commit}">Commit</Button>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="NoneItems">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="DimGray">
+                No changes to commit
+            </TextBlock>
+        </DataTemplate>
     </UserControl.Resources>
-    <StackPanel HorizontalAlignment="Center">
-        <TreeView  ItemsSource="{Binding Path=Items}">
-            <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem">
-                    <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
-                </Style>
-            </TreeView.ItemContainerStyle>
-        </TreeView>
-        <TextBlock Margin="0,50,0,0">Commit message</TextBlock>
-        <TextBox Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Button Margin="0,10,0,0" Width="50" Command="{Binding Path=Commit}">Commit</Button>
-    </StackPanel>
+    <ContentControl Content="{Binding}">
+        <ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AnyItems}" Value="true">
+                        <Setter Property="ContentTemplate" Value="{StaticResource AnyItems}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AnyItems}" Value="false">
+                        <Setter Property="ContentTemplate" Value="{StaticResource NoneItems}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
 </UserControl>

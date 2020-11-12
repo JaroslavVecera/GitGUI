@@ -15,9 +15,13 @@ namespace GitGUI.Logic
         Repository _repository;
         Repository Repository { get { return _repository; } set { _repository = value; } }
         public BranchLabelModel CurrentBranch { get; }
-        public RepositoryStatus CurrentChanges { get { return Repository.RetrieveStatus(); } }
+        public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
+        public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
 
-        private LibGitService() { }
+        public string Diff(string path)
+        {
+            return Repository.Diff.Compare<Patch>(new List<string>() { path }, true);
+        }
 
         void StartWatch(string path)
         {

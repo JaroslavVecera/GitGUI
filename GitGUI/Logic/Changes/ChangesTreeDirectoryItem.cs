@@ -16,11 +16,6 @@ namespace GitGUI.Logic
         public override bool IsChecked { get { return base.IsChecked; } set { base.IsChecked = value; PropagateDown(value); } }
         bool ListenCheckedEvents { get; set; } = true;
 
-        public void InsertItem(string path, FileStatus status)
-        {
-            InsertItem(path.Split(new char[] { Path.DirectorySeparatorChar, '/' }).ToList(), status);
-        }
-
         public override IEnumerable<string> GetCheckedPaths(string prefix)
         {
             string newPref = prefix == "" ? Name : prefix + '/' + Name;
@@ -34,17 +29,22 @@ namespace GitGUI.Logic
             return res;
         }
 
-        public void InsertItem(List<string> path, FileStatus status)
+        public void InsertItem(string path, ChangesInfo info)
+        {
+            InsertItem(path.Split(new char[] { Path.DirectorySeparatorChar, '/' }).ToList(), info);
+        }
+
+        public void InsertItem(List<string> path, ChangesInfo info)
         {
             string first = path.First();
             path.RemoveAt(0);
             if (path.Any())
-                InsertDirectoryItem(first, path, status);
+                InsertDirectoryItem(first, path, info);
             else
-                InsertFileItem(first, status);
+                InsertFileItem(first, info);
         }
 
-        void InsertDirectoryItem(string dirName, List<string> restPath, FileStatus status)
+        void InsertDirectoryItem(string dirName, List<string> restPath, ChangesInfo info)
         {
             ChangesTreeDirectoryItem d = Dirs.ToList().Find(dir => dir.Name == dirName);
             if (d == null)
@@ -52,15 +52,16 @@ namespace GitGUI.Logic
             d.Checked += SubItemChecked;
             d.Unchecked += SubItemUnchecked;
             d.SubItemCheckedChanged += NotifyChange;
-            d.InsertItem(restPath, status);
+            d.InsertItem(restPath, info);
         }
 
-        void InsertFileItem(string name, FileStatus status)
+        void InsertFileItem(string name, ChangesInfo info)
         {
-            ChangesTreeFileItem i = new ChangesTreeFileItem() { Name = name };
-            i.Unchecked += SubItemUnchecked;
-            i.Checked += SubItemChecked;
-            Items.Add(i);
+            ChangesTreeFileItem it = new ChangesTreeFileItem() { Name = name };
+            it.Unchecked += SubItemUnchecked;
+            it.Checked += SubItemChecked;
+            it.Info = info;
+            Items.Add(it);
         }
 
         private void SubItemUnchecked()
