@@ -64,9 +64,10 @@ namespace GitGUI.Logic
             Graph.Repository = r;
         }
 
-        public void Commit(BranchLabelModel l, string message)
+        public void Commit(BranchLabelModel l, string message, IEnumerable<string> paths)
         {
-            LibGitService.Commit(l, message);
+            ///LibGitService.GetInstance().Add(paths);
+            ///LibGitService.Commit(l, message);
             Graph.DeployGraph();
         }
 

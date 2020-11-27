@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
+using LibGit2Sharp;
 
 namespace GitGUI.Logic
 {
@@ -15,13 +16,19 @@ namespace GitGUI.Logic
         public GraphItemModel Marked { get; set; }
         public BranchLabelModel Checkouted { get; set; }
         static Graph Instance { get; set; } = new Graph();
-        double ScaleFactor { get; set; } = 1;
+        double Zoom { get; set; } = 1;
         Point Center { get { return GraphViewCenter(); } }
-        ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; set; }
-        public LibGit2Sharp.Repository Repository { private get; set; }
+        public ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; } = new ZoomAndPanCanvasModel();
+        public Repository Repository { private get; set; }
         public EventHandlerBatch EventHandlerBatch { private get; set; }
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
         Stopwatch Stopwatch { get; set; }
+
+        private Graph()
+        {
+            DeployGraph();
+            LibGitService.GetInstance().RepositoryChanged += () => DeployGraph();
+        }
 
         public void Move(Vector move)
         {
@@ -30,10 +37,13 @@ namespace GitGUI.Logic
 
         public void Scale(int wheelDelta, Point mouse)
         {
-            double scaleFactor = wheelDelta > 0 ? 1.25 : 0.8;
+            double desiredZoom = Zoom * (wheelDelta > 0 ? 1.25 : 0.8);
+            double boundedZoom = Math.Max(0.2, Math.Min(3, desiredZoom));
+            double boundedScale = boundedZoom / Zoom;
+            Zoom = boundedZoom;
             AppSettings set = ((App)Application.Current).Settings;
             Point origin = set.UseMouseAsZoomOrigin ? mouse : Center;
-            ZoomAndPanCanvasModel.Rescale(scaleFactor, origin);
+            ZoomAndPanCanvasModel.Rescale(boundedScale, origin);
         }
 
         public void HighlightAsMarked(GraphItemModel model)
@@ -55,25 +65,27 @@ namespace GitGUI.Logic
 
         Point GraphViewCenter()
         {
-            throw new NotImplementedException();
-            //ScrollViewer g = ((MainWindow)Application.Current.MainWindow).graphView;
-            //return new Point((double)g.ActualWidth / 2, (double)g.ActualHeight / 2);
+            return Program.GetInstance().TabManager.GraphViewCenter;
         }
 
         public void DeployGraph()
         {
             DeployCommitNodes();
-            DeployBranchNodes();
-        }
-
-        void DeployBranchNodes()
-        {
-
         }
 
         void DeployCommitNodes()
         {
+            IQueryableCommitLog l = LibGitService.GetInstance().Commits;
+            ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeEvents(c));
+            ZoomAndPanCanvasModel.Commits = l?.Select(c => new CommitNodeModel(c)).ToList();
+            ZoomAndPanCanvasModel.Commits?.ForEach(c => SubscribeEvents(c));
+        }
 
+        void UnsubscribeEvents(GraphItemModel m)
+        {
+            m.MouseDown -= EventHandlerBatch.MouseDownEventHandler;
+            m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
+            m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
         }
 
         void SubscribeEvents(GraphItemModel m)

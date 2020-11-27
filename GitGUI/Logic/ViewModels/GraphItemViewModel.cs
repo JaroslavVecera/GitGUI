@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace GitGUI.Logic
 {
-    class GraphItemViewModel
+    class GraphItemViewModel : ViewModelBase
     {
         UserControl _control;
 

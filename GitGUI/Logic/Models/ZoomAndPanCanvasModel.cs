@@ -8,14 +8,18 @@ using System.Windows.Media;
 
 namespace GitGUI.Logic
 {
-    class ZoomAndPanCanvasModel : ModelBase
+    public class ZoomAndPanCanvasModel : ModelBase
     {
-        Matrix _matrix = Matrix.Identity;
+        Matrix _matrix = new Matrix(1, 0, 0, 1, 0, 0);
+        public event Action ContentUpdated;
+
         public double Width { get; set; }
         public double Height { get; set; }
-        public Matrix TransformMatrix { get { return _matrix; } set { _matrix = value; OnPropertyChanged(); } }
-        public Point Center { get { return new Point(Width / 2, Height / 2); } }
 
+        public Matrix TransformMatrix { get { return _matrix; } set { _matrix = value; TransformMatrixChanged.Invoke(value); } }
+        public Point Center { get { return new Point(Width / 2, Height / 2); } }
+        List<CommitNodeModel> _commits;
+        public List<CommitNodeModel> Commits { get { return _commits; } set { _commits = value; ContentUpdated?.Invoke(); } }
         public event Action<Matrix> TransformMatrixChanged;
 
         public void Rescale(double factor, Point origin)

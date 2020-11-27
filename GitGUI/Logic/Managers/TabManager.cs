@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace GitGUI.Logic
 {
     class TabManager
     {
         public event Action<string, IEnumerable<string>> CommitRequested;
+        public event MouseButtonEventHandler CanvasMouseDown;
+        MainTabModel MainTabModel { set; get; }
 
         public MainWindowModel MainWindowModel { get; set; }
         CommitEditorTabViewModel CommitEditorTab
@@ -19,6 +23,8 @@ namespace GitGUI.Logic
                 (x) => x.GetType() == typeof(CommitEditorTabViewModel));
             }
         }
+
+        public Point GraphViewCenter { get { return MainTabModel.GraphViewCenter; } }
 
         public TabManager(MainWindowModel w, ActionPanelModel localAM)
         {
@@ -30,8 +36,11 @@ namespace GitGUI.Logic
         {
             MainTabModel m = new MainTabModel();
             m.CloseRequested += CloseTab;
+            m.MouseDown += (args) =>
+            CanvasMouseDown?.Invoke(null, args);
             MainTabViewModel vm = new MainTabViewModel(m);
             m.PanelModel = localAM;
+            MainTabModel = m;
 
             MainWindowModel.AddTab(vm);
             SelectTab(vm);

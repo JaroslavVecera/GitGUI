@@ -27,40 +27,25 @@ namespace GitGUI
             Resources.MergedDictionaries.Add(myResourceDictionary);
         }
 
-        public void ShowNodePanel()
-        {
-            //nodePanel.Visibility = Visibility.Visible;
-        }
-
-        public void HideNodePanel()
-        {
-            //nodePanel.Visibility = Visibility.Collapsed;
-        }
-
         private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
-        {/*
-            if (e.Source == graphView)
-                Program.OnMouseDown(null, e);*/
+        {
+            if (e.Source is ScrollViewer)
+                Program.GetInstance().OnMouseDown(null, e);
         }
 
         private void WindowPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            /*Node n = null;
-            if (sender is Node)
-                n = (Node)sender;
-            Program.OnMouseMove(n, e);*/
+            Program.GetInstance().OnMouseMove(null, e);
         }
 
         private void WindowPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            /*Node n = null;
-            if (sender is Node)
-                n = (Node)sender;
-            Program.OnMouseUp(n, e);*/
+            Program.GetInstance().OnMouseUp(null, e);
         }
 
         private void WindowPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
+            Program.GetInstance().OnMouseWheel(e);
         }
 
         private void WindowMouseLeave(object sender, MouseEventArgs e)

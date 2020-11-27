@@ -21,70 +21,142 @@ namespace GitGUI
     /// </summary>
     public partial class CommitNodeView : UserControl
     {
-        public PathFigureCollection OutlineSegments { get { return ShapePath(); } }
-        public Thickness GridMargin { get { return GridMarginThickness(); } }
-        new double MaxWidth { get { return 2 * _margin + _textLength + Height * 3 / 2; } }
         protected double _margin = 8;
-        protected double _textLength;
-        public bool EnabledPhoto { get { return true; } }
+
+        double LeftContactDist { get { return Height / 2; } }
+        double TextStartDist { get { return LeftContactDist + _margin + (EnabledPhoto ? Height / 2 : 0); } }
+        double TextEndDist { get { return TextStartDist + TextWidth; } }
+
+
+
+        internal void OnLocationChanged(Point p)
+        {
+            Canvas.SetTop(this, p.Y);
+            Canvas.SetLeft(this, p.X);
+        }
+
+        double RightContactDist { get { return TextEndDist + _margin; } }
+
+        public double TextWidth
+        {
+            get { return (double)GetValue(TextWidthProperty); }
+            set { SetValue(TextWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextWidthProperty =
+            DependencyProperty.Register("TextWidth", typeof(double), typeof(CommitNodeView), new PropertyMetadata((double)0));
+
+        public bool EnabledPhoto
+        {
+            get { return (bool)GetValue(EnabledPhotoProperty); }
+            set { SetValue(EnabledPhotoProperty, value); ellipse.IsEnabled = value; UpdateProperties(); }
+        }
+
+        public static readonly DependencyProperty EnabledPhotoProperty =
+            DependencyProperty.Register("EnabledPhoto", typeof(bool), typeof(CommitNodeView), new PropertyMetadata(true));
+
+        public MouseButtonEventArgs MouseButtonArgs
+        {
+            get { return (MouseButtonEventArgs)GetValue(MouseButtonArgsProperty); }
+            set { SetValue(MouseButtonArgsProperty, value); }
+        }
+
+        public static readonly DependencyProperty MouseButtonArgsProperty =
+            DependencyProperty.Register("MouseButtonArgs", typeof(MouseButtonEventArgs), typeof(CommitNodeView));
+
+
+        public double MaxW { get { return 150; } }
+        
+        protected void MeasureTextWidth(TextBlock b)
+        {
+            b.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            if (b.DesiredSize.Width <= MaxW)
+                TextWidth = b.DesiredSize.Width;
+            else
+                TextWidth = Math.Min(MaxW, b.DesiredSize.Width / 2);
+        }
 
         public CommitNodeView()
         {
             InitializeComponent();
         }
 
-        public Thickness EllipseMargin { get { return EllipseMarginThickness(); } }
-
-        Thickness EllipseMarginThickness()
+        void UpdateProperties()
         {
-            return new Thickness(Height * 0.95 - _margin, 0, 0, 0);
+            MeasureTextWidth(message);
+            UpdateShape();
+            UpdateMargins();
+            UpdateMaxWidth();
         }
 
-        Thickness GridMarginThickness()
+        void UpdateShape()
         {
-            return new Thickness(-_textLength / 2, Height / 2, 0, 0);
-        }
-
-        PathFigureCollection ShapePath()
-        {
-            return new PathFigureCollection() { new PathFigure()
+            geometry.Figures = new PathFigureCollection() { new PathFigure()
             {
-                StartPoint = new Point(0, 0),
-                Segments = new PathSegmentCollection { Top(_textLength), RightArc(_textLength), Bottom(EnabledPhoto), LeftArc(EnabledPhoto) },
+                StartPoint = new Point(LeftContactDist, 0),
+                Segments = new PathSegmentCollection { Top(), RightArc(), Bottom(), LeftArc() },
                 IsClosed = true
             } };
         }
 
-        LineSegment Top(double textLength)
+        void UpdateMargins()
         {
-            return new LineSegment(new Point(textLength + _margin, 0), false);
+            message.Margin = new Thickness(TextStartDist, 0, 0, 0);
         }
 
-        ArcSegment RightArc(double textLength)
+        void UpdateMaxWidth()
+        {
+            MaxWidth = 2 * _margin + TextWidth + Height * 3 / 2;
+        }
+
+        LineSegment Top()
+        {
+            return new LineSegment(new Point(RightContactDist, 0), false);
+        }
+
+        ArcSegment RightArc()
         {
             return new ArcSegment()
             {
-                Point = new Point(textLength + _margin, Height),
+                Point = new Point(RightContactDist, Height),
                 Size = new Size(Height / 2, Height / 2),
                 SweepDirection = SweepDirection.Clockwise,
                 IsLargeArc = true
             };
         }
 
-        LineSegment Bottom(bool hasPhoto)
+        LineSegment Bottom()
         {
-            return new LineSegment(new Point(-_margin - (hasPhoto ? Height / 2 : 0), Height), false);
+            return new LineSegment(new Point(LeftContactDist, Height), false);
         }
 
-        ArcSegment LeftArc(bool hasPhoto)
+        ArcSegment LeftArc()
         {
             return new ArcSegment()
             {
-                Point = new Point(-_margin - (hasPhoto ? Height / 2 : 0), 0),
+                Point = new Point(LeftContactDist, 0),
                 Size = new Size(Height / 2, Height / 2),
                 SweepDirection = SweepDirection.Clockwise,
                 IsLargeArc = true
             };
+        }
+
+        private void MessageUpdated(object sender, DataTransferEventArgs e)
+        {
+            UpdateProperties();
+        }
+
+        private void OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MouseButtonArgs = e;
+        }
+
+        void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Binding b = new Binding("MouseButtonArgs");
+            b.Mode = BindingMode.OneWayToSource;
+            b.Source = DataContext;
+            SetBinding(MouseButtonArgsProperty, b);
         }
     }
 }

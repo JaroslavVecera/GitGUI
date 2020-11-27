@@ -11,18 +11,21 @@ namespace GitGUI.Logic
     {
         public Program Program { get; set; }
         static Normal Instance { get; set; }
+
+        private Normal() { }
+
         public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 if (sender == null)
                     Program.ChangeState(MovingCanvas.GetInstance());
-                else
-                {
+                else { 
+                /*{
                     data.AttachedBranch = (BranchLabelModel)sender;
                     MovingBranch s = MovingBranch.GetInstance();
                     Program.ChangeState(s);
-                    s.SetBranchLabel(data.AttachedBranch);
+                    s.SetBranchLabel(data.AttachedBranch);*/
                 }
             }
         }

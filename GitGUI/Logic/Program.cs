@@ -10,7 +10,7 @@ namespace GitGUI.Logic
         CommitManager CommitManager { get; set; }
         RepositoryManager RepositoryManager { get; set; }
         ActionsManager ActionsManager { get; set; }
-        TabManager TabManager { get; set; }
+        public TabManager TabManager { get; set; }
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
@@ -24,7 +24,16 @@ namespace GitGUI.Logic
             InitializeMainWindow();
             CreateManagers(localAM);
             InitializeEventHandlers();
+            InitializeState();
             Test();
+        }
+
+        void InitializeState()
+        {
+            var n = Normal.GetInstance();
+            n.Program = this;
+            State = n;
+
         }
 
         void CreateManagers(ActionPanelModel localAM)
@@ -33,6 +42,7 @@ namespace GitGUI.Logic
             ActionsManager.LocalRepoPanel = localAM;
             TabManager = new TabManager(Data.MainWindowModel, localAM);
             TabManager.CommitRequested += Commit;
+            TabManager.CanvasMouseDown += OnMouseDown;
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
@@ -40,8 +50,7 @@ namespace GitGUI.Logic
 
         private void Commit(string message, IEnumerable<string> paths)
         {
-            LibGitService.GetInstance().Add(paths);
-            //LibGitService.GetInstance().Commit(LibGitService.GetInstance().CurrentBranch, message);
+            CommitManager.Commit(null, message, paths);
             TabManager.CloseCommitEditorTab();
         }
 

@@ -4,30 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Controls;
 
 namespace GitGUI.Logic
 {
-    class ZoomAndPanCanvasViewModel
+    public class ZoomAndPanCanvasViewModel : ViewModelBase
     {
-        MatrixTransform CanvasTransform { get; } = new MatrixTransform(Matrix.Identity);
-        ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; set; }
+        public MatrixTransform CanvasTransform { get; private set; }
+        public ZoomAndPanCanvasView View { get; set; }
+        ZoomAndPanCanvasModel Model { get; set; }
 
         public ZoomAndPanCanvasViewModel(ZoomAndPanCanvasModel model, ZoomAndPanCanvasView view)
         {
             SetModel(model);
-            SetView(view);
+            View = view;
+            View.DataContext = this;
         }
 
         void SetModel(ZoomAndPanCanvasModel model)
         {
-            ZoomAndPanCanvasModel = model;
-            ZoomAndPanCanvasModel.TransformMatrixChanged += TransformMatrixChanged;
+            Model = model;
+            Model.TransformMatrixChanged += TransformMatrixChanged;
+            Model.ContentUpdated += UpdateContent;
+            CanvasTransform = new MatrixTransform(Model.TransformMatrix);
         }
 
-        void SetView(ZoomAndPanCanvasView view)
+        void UpdateContent()
         {
-            view.DataContext = this;
-            view.RenderTransform = CanvasTransform;
+            int i = 0;
+            Model.Commits.ToList().ForEach(m =>
+            {
+                CommitNodeView v = new CommitNodeView();
+                CommitNodeViewModel vm = new CommitNodeViewModel(m, v);
+                View.Children.Add(v);
+                m.Location = new System.Windows.Point((i++) * 150, i * 60);
+            });
         }
 
         private void TransformMatrixChanged(Matrix m)

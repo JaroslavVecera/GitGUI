@@ -21,8 +21,7 @@ namespace GitGUI.Logic
             get { return _location; }
             set { _location = value; OnPropertyChanged(); }
         }
-
-
+        
         public event Action<GraphItemModel, MouseButtonEventArgs> MouseDown;
         public event Action<GraphItemModel, MouseEventArgs> MouseEnter;
         public event Action<GraphItemModel, MouseEventArgs> MouseLeave;

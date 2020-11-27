@@ -16,21 +16,7 @@ namespace GitGUI.Logic
     {
         public Commit Commit { get; private set; }
         string _path;
-        double _maxWidth = 150;
-        double _textLength;
-        public CommitNodeModel(Commit c)
-        {
-            Commit = c;
-        }
-
-        protected void MeasureTextWidth(TextBlock b)
-        {
-            b.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-            if (b.DesiredSize.Width <= _maxWidth)
-                _textLength = b.DesiredSize.Width;
-            else
-                _textLength = Math.Min(_maxWidth, b.DesiredSize.Width / 2);
-        }
+        public string Message { get { return Commit.Message; } }
 
         public bool EnabledPhoto
         {
@@ -40,12 +26,13 @@ namespace GitGUI.Logic
         public string Path
         {
             get { return _path; }
-            set { _path = value; OnPropertyChanged("Path"); OnPropertyChanged("EnabledPhoto"); }
+            set { _path = value; OnPropertyChanged("Path"); }
         }
 
-        public void OnChangeProfilPhoto(string path)
+        public CommitNodeModel(Commit c)
         {
-            Path = path;
+            Commit = c;
+            Path = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg";
         }
     }
 }

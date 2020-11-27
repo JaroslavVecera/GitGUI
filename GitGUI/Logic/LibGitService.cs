@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using LibGit2Sharp;
 
 namespace GitGUI.Logic
@@ -17,32 +18,51 @@ namespace GitGUI.Logic
         public BranchLabelModel CurrentBranch { get; }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
+        FileSystemWatcher Watcher { get; set; }
+        public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
+
+        private LibGitService() { }
 
         public string Diff(string path)
         {
             return Repository.Diff.Compare<Patch>(new List<string>() { path }, true);
         }
 
-        void StartWatch(string path)
+        void DisableWatcher()
         {
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.IncludeSubdirectories = true;
-            watcher.Path = path;
-            watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                 | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            watcher.Filter = "";
-            FileSystemEventHandler fs = (s, e) => RepositoryChanged?.Invoke();
-            RenamedEventHandler r = (s, e) => RepositoryChanged?.Invoke();
-            watcher.Changed += fs;
-            watcher.Created += fs;
-            watcher.Deleted += fs;
-            watcher.Renamed += r;
-            watcher.EnableRaisingEvents = true;
+            Watcher.Changed -= Fs;
+            Watcher.Created -= Fs;
+            Watcher.Deleted -= Fs;
+            Watcher.Renamed -= Rs;
+            Watcher = null;
         }
 
-        private void Watcher_Renamed(object sender, RenamedEventArgs e)
+        void StartWatch(string path)
         {
-            throw new NotImplementedException();
+            Watcher = new FileSystemWatcher()
+            {
+                IncludeSubdirectories = true,
+                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                             | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                Filter = "",
+                Path = path,
+                EnableRaisingEvents = true
+            };
+            SubscribeWatcherEvents(Watcher);
+        }
+
+        void Fs(object sender, FileSystemEventArgs e) =>
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+
+        void Rs(object sender, RenamedEventArgs e) =>
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+
+        void SubscribeWatcherEvents(FileSystemWatcher watcher)
+        { 
+            watcher.Changed += Fs;
+            watcher.Created += Fs;
+            watcher.Deleted += Fs;
+            watcher.Renamed += Rs;
         }
 
         public Repository OpenNewRepository(string path)
@@ -99,6 +119,7 @@ namespace GitGUI.Logic
 
         void CloseRepository(Repository r)
         {
+            DisableWatcher();
             Repository.Dispose();
             Repository = null;
         }

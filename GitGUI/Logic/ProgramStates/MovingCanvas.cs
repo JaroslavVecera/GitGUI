@@ -13,7 +13,10 @@ namespace GitGUI.Logic
         static MovingCanvas Instance { get; set; } = new MovingCanvas();
         bool _moved = false;
 
-        MovingCanvas() { }
+        MovingCanvas()
+        {
+            Program = Program.GetInstance();
+        }
 
         public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e) { }
 
