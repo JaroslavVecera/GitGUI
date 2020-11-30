@@ -38,7 +38,7 @@ namespace GitGUI
             Program.GetInstance().OnMouseMove(null, e);
         }
 
-        private void WindowPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void WindowMouseUp(object sender, MouseButtonEventArgs e)
         {
             Program.GetInstance().OnMouseUp(null, e);
         }

@@ -81,5 +81,10 @@ namespace GitGUI.Logic
         {
             MainWindowModel.SelectTab(vm);
         }
+
+        public void ShowItem(GraphItemModel m)
+        {
+            MainTabModel.Shown = m;
+        }
     }
 }

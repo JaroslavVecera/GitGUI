@@ -14,6 +14,7 @@ namespace GitGUI.Logic
     class Graph
     {
         public GraphItemModel Marked { get; set; }
+        public GraphItemModel Focused { get; set; }
         public BranchLabelModel Checkouted { get; set; }
         static Graph Instance { get; set; } = new Graph();
         double Zoom { get; set; } = 1;
@@ -55,6 +56,15 @@ namespace GitGUI.Logic
                 model.Marked = true;
         }
 
+        public void HighlightAsFocused(GraphItemModel model)
+        {
+            if (Focused != null)
+                Focused.Focused = false;
+            Focused = model;
+            if (model != null)
+                model.Focused = true;
+        }
+
         public void HighlightAsCheckouted(BranchLabelModel branch)
         {
             if (Checkouted != null)
@@ -76,14 +86,15 @@ namespace GitGUI.Logic
         void DeployCommitNodes()
         {
             IQueryableCommitLog l = LibGitService.GetInstance().Commits;
-            ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeEvents(c));
+            ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeCommitEvents(c));
             ZoomAndPanCanvasModel.Commits = l?.Select(c => new CommitNodeModel(c)).ToList();
-            ZoomAndPanCanvasModel.Commits?.ForEach(c => SubscribeEvents(c));
+            ZoomAndPanCanvasModel.Commits?.ForEach(c => SubscribeCommitEvents(c));
         }
 
         void UnsubscribeEvents(GraphItemModel m)
         {
             m.MouseDown -= EventHandlerBatch.MouseDownEventHandler;
+            m.MouseDown -= EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
         }
@@ -91,8 +102,21 @@ namespace GitGUI.Logic
         void SubscribeEvents(GraphItemModel m)
         {
             m.MouseDown += EventHandlerBatch.MouseDownEventHandler;
+            m.MouseUp += EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter += EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave += EventHandlerBatch.MouseLeaveEventHandler;
+        }
+
+        void UnsubscribeCommitEvents(CommitNodeModel m)
+        {
+            m.CopyShaRequested -= EventHandlerBatch.CopyHash;
+            UnsubscribeEvents(m);
+        }
+
+        void SubscribeCommitEvents(CommitNodeModel m)
+        {
+            m.CopyShaRequested += EventHandlerBatch.CopyHash;
+            SubscribeEvents(m);
         }
 
         public void MoveBranch(Vector displacement)

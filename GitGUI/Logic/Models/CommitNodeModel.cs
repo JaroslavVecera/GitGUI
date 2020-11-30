@@ -17,6 +17,10 @@ namespace GitGUI.Logic
         public Commit Commit { get; private set; }
         string _path;
         public string Message { get { return Commit.Message; } }
+        public string Sha { get { return Commit.Sha; } }
+        public string Author {  get { return Commit.Author.Name; } }
+        public event Action<CommitNodeModel> CopyShaRequested;
+        public RelayCommand CopySha { get; private set; }
 
         public bool EnabledPhoto
         {
@@ -33,6 +37,7 @@ namespace GitGUI.Logic
         {
             Commit = c;
             Path = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg";
+            CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));
         }
     }
 }

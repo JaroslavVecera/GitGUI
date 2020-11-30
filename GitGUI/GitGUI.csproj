@@ -133,6 +133,9 @@
     <Compile Include="Logic\Models\MainWindowModel.cs" />
     <Compile Include="Logic\ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Logic\Changes\UntrackedInfo.cs" />
+    <Compile Include="Views\BranchInfoView.xaml.cs">
+      <DependentUpon>BranchInfoView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommitEditorChangeInfos\ModifiedInfoView.xaml.cs">
       <DependentUpon>ModifiedInfoView.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
     </Compile>
     <Compile Include="Views\CommitEditorTabView.xaml.cs">
       <DependentUpon>CommitEditorTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommitInfoView.xaml.cs">
+      <DependentUpon>CommitInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CommitNodeView.xaml.cs">
       <DependentUpon>CommitNodeView.xaml</DependentUpon>
@@ -158,6 +164,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\BranchInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommitEditorChangeInfos\ModifiedInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -167,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CommitEditorChangeInfos\DeletedInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommitInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

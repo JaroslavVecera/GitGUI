@@ -27,12 +27,25 @@ namespace GitGUI
         double TextStartDist { get { return LeftContactDist + _margin + (EnabledPhoto ? Height / 2 : 0); } }
         double TextEndDist { get { return TextStartDist + TextWidth; } }
 
-
-
-        internal void OnLocationChanged(Point p)
+        public void OnLocationChanged(Point p)
         {
             Canvas.SetTop(this, p.Y);
             Canvas.SetLeft(this, p.X);
+        }
+
+        public void OnFocusedChanged()
+        {
+            plusButton.Visibility = Focused ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public void OnMarkedChanged()
+        {
+
+        }
+
+        public void OnCheckoutedChanged()
+        {
+
         }
 
         double RightContactDist { get { return TextEndDist + _margin; } }
@@ -45,6 +58,14 @@ namespace GitGUI
 
         public static readonly DependencyProperty TextWidthProperty =
             DependencyProperty.Register("TextWidth", typeof(double), typeof(CommitNodeView), new PropertyMetadata((double)0));
+
+        public bool Focused
+        {
+            get { return (bool)GetValue(FocusedProperty); }
+        }
+
+        public static readonly DependencyProperty FocusedProperty =
+            DependencyProperty.Register("Focused", typeof(bool), typeof(CommitNodeView));
 
         public bool EnabledPhoto
         {
@@ -64,6 +85,15 @@ namespace GitGUI
         public static readonly DependencyProperty MouseButtonArgsProperty =
             DependencyProperty.Register("MouseButtonArgs", typeof(MouseButtonEventArgs), typeof(CommitNodeView));
 
+        public MouseEventArgs MouseArgs
+        {
+            get { return (MouseEventArgs)GetValue(MouseArgsProperty); }
+            set { SetValue(MouseArgsProperty, value); }
+        }
+
+        public static readonly DependencyProperty MouseArgsProperty =
+            DependencyProperty.Register("MouseArgs", typeof(MouseEventArgs), typeof(CommitNodeView));
+
 
         public double MaxW { get { return 150; } }
         
@@ -79,6 +109,9 @@ namespace GitGUI
         public CommitNodeView()
         {
             InitializeComponent();
+            OnFocusedChanged();
+            OnMarkedChanged();
+            OnCheckoutedChanged();
         }
 
         void UpdateProperties()
@@ -102,6 +135,7 @@ namespace GitGUI
         void UpdateMargins()
         {
             message.Margin = new Thickness(TextStartDist, 0, 0, 0);
+
         }
 
         void UpdateMaxWidth()
@@ -111,7 +145,7 @@ namespace GitGUI
 
         LineSegment Top()
         {
-            return new LineSegment(new Point(RightContactDist, 0), false);
+            return new LineSegment(new Point(RightContactDist, 0), true);
         }
 
         ArcSegment RightArc()
@@ -127,7 +161,7 @@ namespace GitGUI
 
         LineSegment Bottom()
         {
-            return new LineSegment(new Point(LeftContactDist, Height), false);
+            return new LineSegment(new Point(LeftContactDist, Height), true);
         }
 
         ArcSegment LeftArc()
@@ -151,12 +185,34 @@ namespace GitGUI
             MouseButtonArgs = e;
         }
 
+        private void OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MouseButtonArgs = e;
+        }
+
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             Binding b = new Binding("MouseButtonArgs");
             b.Mode = BindingMode.OneWayToSource;
             b.Source = DataContext;
             SetBinding(MouseButtonArgsProperty, b);
+            Binding b2 = new Binding("MouseArgs");
+            b2.Mode = BindingMode.OneWayToSource;
+            b2.Source = DataContext;
+            SetBinding(MouseArgsProperty, b2);
+            Binding b3 = new Binding("Focused");
+            b3.Source = DataContext;
+            SetBinding(FocusedProperty, b3);
+        }
+
+        private void OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            MouseArgs = e;
+        }
+
+        private void OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            MouseArgs = e;
         }
     }
 }

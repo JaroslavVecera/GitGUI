@@ -20,6 +20,9 @@ namespace GitGUI.Logic
         double _height = 250, _width = 250;
         public ScrollViewer ScrollViewer { get; set; }
         public Point GraphViewCenter { get { return new Point(ScrollViewer.ActualWidth / 2, ScrollViewer.ActualHeight / 2); } }
+        bool _isInfoVisible;
+        public bool IsInfoVisible { get { return Model.Shown != null; } }
+        public GraphItemModel Shown { get { return Model.Shown; } }
 
         void SetGraphViewCenter()
         {
@@ -41,6 +44,8 @@ namespace GitGUI.Logic
         void SubscribeModel(MainTabModel model)
         {
             Model.UpdateCenter += () => Model.GraphViewCenter = GraphViewCenter;
+            Model.ShownChanged += () => { OnPropertyChanged("IsInfoVisible"); OnPropertyChanged("Shown"); };
+            Model.PropertyChanged += (sender, e) => OnPropertyChanged(e.PropertyName);
         }
     }
 }

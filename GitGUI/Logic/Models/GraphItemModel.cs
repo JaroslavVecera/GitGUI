@@ -11,11 +11,13 @@ namespace GitGUI.Logic
 {
     public class GraphItemModel : ModelBase
     {
-        public bool Marked { get; set; }
+        bool _marked, _focused, _checkouted;
+        public bool Marked { get { return _marked; } set { _marked = value; OnPropertyChanged(); } }
+        public bool Focused { get { return _focused; } set { _focused = value; OnPropertyChanged(); } }
+        public bool Checkouted { get { return _checkouted; } set { _checkouted = value; OnPropertyChanged(); } }
         Point _location = new Point(0, 0);
         public bool Shared { get; set; }
         public bool Stashed { get; set; }
-        public bool Checkouted { get; set; }
         public Point Location
         {
             get { return _location; }
@@ -23,6 +25,7 @@ namespace GitGUI.Logic
         }
         
         public event Action<GraphItemModel, MouseButtonEventArgs> MouseDown;
+        public event Action<GraphItemModel, MouseButtonEventArgs> MouseUp;
         public event Action<GraphItemModel, MouseEventArgs> MouseEnter;
         public event Action<GraphItemModel, MouseEventArgs> MouseLeave;
         public event Action Pulled;
@@ -31,6 +34,11 @@ namespace GitGUI.Logic
         public void OnMouseDown(MouseButtonEventArgs e)
         {
             MouseDown?.Invoke(this, e);
+        }
+
+        public void OnMouseUp(MouseButtonEventArgs e)
+        {
+            MouseUp?.Invoke(this, e);
         }
 
         public void OnMouseEnter(MouseEventArgs e)

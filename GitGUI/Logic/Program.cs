@@ -110,17 +110,13 @@ namespace GitGUI.Logic
 
         void HashCopyRequest(CommitNodeModel commitNode)
         {
-
+            Clipboard.SetText(commitNode.Sha);
         }
 
         public void Show(GraphItemModel item)
         {
             CommitManager.Mark(item);
-        }
-
-        public void Focus(GraphItemModel item)
-        {
-
+            TabManager.ShowItem(item);
         }
 
         public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)
@@ -143,8 +139,10 @@ namespace GitGUI.Logic
             EventHandlerBatch batch = new EventHandlerBatch
             {
                 MouseDownEventHandler = OnMouseDown,
+                MouseUpEventHandler = OnMouseUp,
                 MouseEnterEventHandler = OnMouseEnter,
-                MouseLeaveEventHandler = OnMouseLeave
+                MouseLeaveEventHandler = OnMouseLeave,
+                CopyHash = HashCopyRequest
             };
             CommitManager.EventHandlerBatch = batch;
         }

@@ -11,8 +11,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
                        VerticalScrollBarVisibility="Disabled"
@@ -27,12 +31,26 @@
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
-        <Grid Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <TextBox Grid.Row="1" x:Name="nodeText"></TextBox>
         </Grid>
+        <ContentControl Content="{Binding Shown}" Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type logic:CommitNodeModel}">
+                    <local:CommitInfoView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type logic:BranchLabelModel}">
+                    <TextBlock Text="Zatim nic"/>
+                </DataTemplate>
+            </ContentControl.Resources>
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsInfoVisible}" Value="true">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
     </Grid>
 </UserControl>
