@@ -9,13 +9,13 @@
              Height="40"
              d:DesignHeight="450" d:DesignWidth="800"
              Cursor="Hand"
-             MouseDown="OnMouseDown"
+             PreviewMouseDown="OnMouseDown"
              MouseUp="OnMouseUp"
              MouseEnter="OnMouseEnter"
              MouseLeave="OnMouseLeave"
              DataContextChanged="OnDataContextChanged">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseDown">
+        <i:EventTrigger EventName="PreviewMouseDown">
             <i:InvokeCommandAction Command="{Binding MouseDown}"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="MouseUp">

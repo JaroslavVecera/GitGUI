@@ -32,7 +32,12 @@ namespace GitGUI.Logic
             _moved = false;
         }
 
-        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        public void WindowMouseDown(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+
+        }
+
+            public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton != MouseButton.Left)
                 return;
@@ -41,6 +46,11 @@ namespace GitGUI.Logic
             ChangeState(Normal.GetInstance(), data);
             if (_moved == false)
                 Program.Show(data.AttachedBranch);
+        }
+
+        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+
         }
 
         public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e) { }

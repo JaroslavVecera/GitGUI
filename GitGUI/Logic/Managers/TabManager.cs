@@ -13,6 +13,7 @@ namespace GitGUI.Logic
     {
         public event Action<string, IEnumerable<string>> CommitRequested;
         public event MouseButtonEventHandler CanvasMouseDown;
+        public event MouseButtonEventHandler CanvasMouseUp;
         MainTabModel MainTabModel { set; get; }
 
         public MainWindowModel MainWindowModel { get; set; }
@@ -36,8 +37,8 @@ namespace GitGUI.Logic
         {
             MainTabModel m = new MainTabModel();
             m.CloseRequested += CloseTab;
-            m.MouseDown += (args) =>
-            CanvasMouseDown?.Invoke(null, args);
+            m.MouseDown += (args) => CanvasMouseDown?.Invoke(null, args);
+            m.MouseUp += (args) => CanvasMouseUp?.Invoke(null, args);
             MainTabViewModel vm = new MainTabViewModel(m);
             m.PanelModel = localAM;
             MainTabModel = m;

@@ -25,7 +25,6 @@ namespace GitGUI
         public MainTabView()
         {
             InitializeComponent();
-            AddHandler(MouseDownEvent, (MouseButtonEventHandler)OnMouseDown, true);
         }
 
         public MouseButtonEventArgs MouseButtonArgs
@@ -45,6 +44,14 @@ namespace GitGUI
         public static readonly DependencyProperty MouseDownCommandProperty =
             DependencyProperty.Register("MouseDown", typeof(RelayCommand), typeof(MainTabView));
 
+        public RelayCommand MouseUpCommand
+        {
+            get { return (RelayCommand)GetValue(MouseUpCommandProperty); }
+        }
+
+        public static readonly DependencyProperty MouseUpCommandProperty =
+            DependencyProperty.Register("MouseUp", typeof(RelayCommand), typeof(MainTabView));
+
         public double WidthP
         {
             set { Console.Write(value); }
@@ -52,10 +59,16 @@ namespace GitGUI
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!(e.OriginalSource is Grid))
-                return;
+            e.Handled = true;
             MouseButtonArgs = e;
             MouseDownCommand.Execute(null);
+        }
+
+        private void OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            MouseButtonArgs = e;
+            MouseUpCommand.Execute(null);
         }
 
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -70,9 +83,13 @@ namespace GitGUI
             Binding b2 = new Binding("MouseDown");
             b2.Mode = BindingMode.OneWay;
             b2.Source = DataContext;
+            SetBinding(MouseDownCommandProperty, b2);
+            Binding b3 = new Binding("MouseUp");
+            b3.Mode = BindingMode.OneWay;
+            b3.Source = DataContext;
+            SetBinding(MouseUpCommandProperty, b3);
             if (DataContext != null)
             ((MainTabViewModel)DataContext).ScrollViewer = graphView;
-            SetBinding(MouseDownCommandProperty, b2);
         }
     }
 }

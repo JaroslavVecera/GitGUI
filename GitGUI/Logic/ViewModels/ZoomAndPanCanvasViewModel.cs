@@ -38,7 +38,6 @@ namespace GitGUI.Logic
                 CommitNodeView v = new CommitNodeView();
                 CommitNodeViewModel vm = new CommitNodeViewModel(m, v);
                 View.Children.Add(v);
-                m.Location = new System.Windows.Point((i++) * 150, i * 60);
             });
         }
 

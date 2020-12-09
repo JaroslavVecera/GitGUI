@@ -43,6 +43,7 @@ namespace GitGUI.Logic
             TabManager = new TabManager(Data.MainWindowModel, localAM);
             TabManager.CommitRequested += Commit;
             TabManager.CanvasMouseDown += OnMouseDown;
+            TabManager.CanvasMouseUp += OnMouseUp;
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
@@ -84,14 +85,24 @@ namespace GitGUI.Logic
             State = state;
         }
 
-        public void OnMouseUp(object item, MouseButtonEventArgs e)
+        public void OnWindowMouseUp(object item, MouseButtonEventArgs e)
         {
-            State.MouseUp(item, Data, e);
+            State.WindowMouseUp(item, Data, e);
+        }
+
+        public void OnWindowMouseDown(object item, MouseButtonEventArgs e)
+        {
+            State.WindowMouseDown(item, Data, e);
         }
 
         public void OnMouseDown(object item, MouseButtonEventArgs e)
         {
             State.MouseDown(item, Data, e);
+        }
+
+        public void OnMouseUp(object item, MouseButtonEventArgs e)
+        {
+            State.MouseUp(item, Data, e);
         }
 
         public void OnMouseMove(object item, MouseEventArgs e)

@@ -27,12 +27,6 @@ namespace GitGUI
             Resources.MergedDictionaries.Add(myResourceDictionary);
         }
 
-        private void CanvasMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.Source is ScrollViewer)
-                Program.GetInstance().OnMouseDown(null, e);
-        }
-
         private void WindowPreviewMouseMove(object sender, MouseEventArgs e)
         {
             Program.GetInstance().OnMouseMove(null, e);
@@ -40,7 +34,12 @@ namespace GitGUI
 
         private void WindowMouseUp(object sender, MouseButtonEventArgs e)
         {
-            Program.GetInstance().OnMouseUp(null, e);
+            Program.GetInstance().OnWindowMouseUp(null, e);
+        }
+
+        private void WindowMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Program.GetInstance().OnWindowMouseDown(null, e);
         }
 
         private void WindowPreviewMouseWheel(object sender, MouseWheelEventArgs e)

@@ -26,24 +26,22 @@ namespace GitGUI.Logic
             }
         }
 
-        void LeftMouseDown(BranchLabelModel m, CrossStateData data)
-        {
-            /*{
-                    data.AttachedBranch = (BranchLabelModel)sender;
-                    MovingBranch s = MovingBranch.GetInstance();
-                    ChangeState(s);
-                    s.SetBranchLabel(data.AttachedBranch);*/
-        }
-
-        void LeftMouseDown(CommitNodeModel m, CrossStateData data)
-        {
-        }
-
         public void MouseMove(CrossStateData data, MouseEventArgs e) { }
+
+        public void WindowMouseDown(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+
+        }
+
+        public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+            AimedCommit = null;
+            MouseEnter(sender, data);
+        }
 
         public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
-            if (sender == AimedCommit)
+            if (sender != null && sender == AimedCommit)
                 Program.GetInstance().Show(AimedCommit);
             AimedCommit = null;
             MouseEnter(sender, data);

@@ -22,7 +22,10 @@
                        VerticalScrollBarVisibility="Disabled"
                        Margin="35,35,35,0" VerticalAlignment="Stretch"
                        Content="{Binding Path=ZoomAndPanCanvas}"
-                       DataContextChanged="OnDataContextChanged">
+                       DataContextChanged="OnDataContextChanged"
+                       Focusable="False"
+                       MouseUp="OnMouseUp"
+                       MouseDown="OnMouseDown">
         </ScrollViewer>
         <ContentControl Content="{Binding Path=ActionPanel}" Grid.Row="1">
             <ContentControl.ContentTemplate>

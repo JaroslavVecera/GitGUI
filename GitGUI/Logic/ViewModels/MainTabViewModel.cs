@@ -16,11 +16,11 @@ namespace GitGUI.Logic
         public string Header { get { return "Main"; } }
         public ZoomAndPanCanvasView ZoomAndPanCanvas { get; private set; }
         public RelayCommand MouseDown { get; private set; }
+        public RelayCommand MouseUp { get; private set; }
         public MouseButtonEventArgs MouseButtonArgs { get; set; }
         double _height = 250, _width = 250;
         public ScrollViewer ScrollViewer { get; set; }
         public Point GraphViewCenter { get { return new Point(ScrollViewer.ActualWidth / 2, ScrollViewer.ActualHeight / 2); } }
-        bool _isInfoVisible;
         public bool IsInfoVisible { get { return Model.Shown != null; } }
         public GraphItemModel Shown { get { return Model.Shown; } }
 
@@ -37,6 +37,7 @@ namespace GitGUI.Logic
             ZoomAndPanCanvas = new ZoomAndPanCanvasView();
             new ZoomAndPanCanvasViewModel(Graph.GetInstance().ZoomAndPanCanvasModel, ZoomAndPanCanvas);
             MouseDown = new RelayCommand(() => Model.OnMouseDown(MouseButtonArgs));
+            MouseUp = new RelayCommand(() => Model.OnMouseUp(MouseButtonArgs));
             Model = model;
             SubscribeModel(model);
         }

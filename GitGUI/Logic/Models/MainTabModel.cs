@@ -15,6 +15,7 @@ namespace GitGUI.Logic
         public event Action ShownChanged;
         ActionPanelModel _panelModel;
         public event Action<MouseButtonEventArgs> MouseDown;
+        public event Action<MouseButtonEventArgs> MouseUp;
         public ActionPanelModel PanelModel
         {
             get { return _panelModel; }
@@ -28,6 +29,11 @@ namespace GitGUI.Logic
         public void OnMouseDown(MouseButtonEventArgs e)
         {
             MouseDown?.Invoke(e);
+        }
+
+        public void OnMouseUp(MouseButtonEventArgs e)
+        {
+            MouseUp?.Invoke(e);
         }
     }
 }

@@ -85,16 +85,21 @@ namespace GitGUI.Logic
 
         void DeployCommitNodes()
         {
+            int i = 0;
             IQueryableCommitLog l = LibGitService.GetInstance().Commits;
             ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeCommitEvents(c));
             ZoomAndPanCanvasModel.Commits = l?.Select(c => new CommitNodeModel(c)).ToList();
-            ZoomAndPanCanvasModel.Commits?.ForEach(c => SubscribeCommitEvents(c));
+            ZoomAndPanCanvasModel.Commits?.ForEach(c =>
+            {
+                SubscribeCommitEvents(c);
+                c.Location = new System.Windows.Point((i++) * 250, 0);
+            });
         }
 
         void UnsubscribeEvents(GraphItemModel m)
         {
             m.MouseDown -= EventHandlerBatch.MouseDownEventHandler;
-            m.MouseDown -= EventHandlerBatch.MouseUpEventHandler;
+            m.MouseUp -= EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
         }

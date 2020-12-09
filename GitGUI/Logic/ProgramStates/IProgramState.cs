@@ -11,6 +11,8 @@ namespace GitGUI.Logic
     {
         Program Program { get; set; }
         void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e);
+        void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e);
+        void WindowMouseDown(object sender, CrossStateData data, MouseButtonEventArgs e);
         void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e);
         void MouseMove(CrossStateData data, MouseEventArgs e);
         void MouseWheelMove(CrossStateData data, int delta);
