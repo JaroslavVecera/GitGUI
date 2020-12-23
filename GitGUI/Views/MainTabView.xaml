@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
                        VerticalScrollBarVisibility="Disabled"
-                       Margin="35,35,35,0" VerticalAlignment="Stretch"
+                       Margin="5,5,5,0" VerticalAlignment="Stretch"
                        Content="{Binding Path=ZoomAndPanCanvas}"
                        DataContextChanged="OnDataContextChanged"
                        Focusable="False"

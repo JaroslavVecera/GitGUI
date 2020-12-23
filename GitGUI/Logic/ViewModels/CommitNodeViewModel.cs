@@ -38,7 +38,13 @@ namespace GitGUI.Logic
             Model = model;
             view.DataContext = this;
             SubscribeViewEvents(view);
+            SetLocation();
             SubscribeModel();
+        }
+
+        void SetLocation()
+        {
+            LocationChanged(Location);
         }
 
         void SubscribeViewEvents(CommitNodeView view)
@@ -83,9 +89,7 @@ namespace GitGUI.Logic
 
                 }
                 OnPropertyChanged(e.PropertyName);
-                if (e.PropertyName == "Location")
-                    LocationChanged?.Invoke(Location);
-                else if (e.PropertyName == "Focused")
+                if (e.PropertyName == "Focused")
                     FocusedChanged?.Invoke();
             };
         }

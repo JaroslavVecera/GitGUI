@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Diagnostics;
 using LibGit2Sharp;
+using System.Collections;
 
 namespace GitGUI.Logic
 {
@@ -20,14 +21,12 @@ namespace GitGUI.Logic
         double Zoom { get; set; } = 1;
         Point Center { get { return GraphViewCenter(); } }
         public ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; } = new ZoomAndPanCanvasModel();
-        public Repository Repository { private get; set; }
         public EventHandlerBatch EventHandlerBatch { private get; set; }
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
         Stopwatch Stopwatch { get; set; }
 
         private Graph()
         {
-            DeployGraph();
             LibGitService.GetInstance().RepositoryChanged += () => DeployGraph();
         }
 
@@ -80,20 +79,27 @@ namespace GitGUI.Logic
 
         public void DeployGraph()
         {
-            DeployCommitNodes();
+                DeployCommitNodes();
         }
 
         void DeployCommitNodes()
         {
-            int i = 0;
-            IQueryableCommitLog l = LibGitService.GetInstance().Commits;
+            Hashtable branchCommits = LibGitService.GetInstance().BranchCommits();
+            int y = 0;
             ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeCommitEvents(c));
-            ZoomAndPanCanvasModel.Commits = l?.Select(c => new CommitNodeModel(c)).ToList();
-            ZoomAndPanCanvasModel.Commits?.ForEach(c =>
+            List<CommitNodeModel> models = new List<CommitNodeModel>();
+            foreach (Branch b in branchCommits.Keys)
             {
-                SubscribeCommitEvents(c);
-                c.Location = new System.Windows.Point((i++) * 250, 0);
-            });
+                int x = 0;
+                List<Commit> l = (List<Commit>)branchCommits[b];
+                List<CommitNodeModel> commits = l?.Select(c => new CommitNodeModel(c)).ToList();
+                commits.Reverse();
+                commits.ForEach(c => c.Location = new System.Windows.Point((x++) * 250, y));
+                commits.ForEach(c => models.Add(c));
+                y += 50;
+            }
+            models.ForEach(c => SubscribeCommitEvents(c));
+            ZoomAndPanCanvasModel.Commits = models;
         }
 
         void UnsubscribeEvents(GraphItemModel m)

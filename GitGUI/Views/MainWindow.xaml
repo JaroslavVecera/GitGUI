@@ -21,7 +21,7 @@
             <MenuItem Click="ContextMenuRebase" Header="Rebase" />
         </ContextMenu>
     </Window.ContextMenu>
-    <TabControl ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
+    <TabControl BorderThickness="0" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
         <TabControl.Resources>
             <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
                 <local:MainTabView></local:MainTabView>

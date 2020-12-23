@@ -33,6 +33,7 @@ namespace GitGUI.Logic
         void UpdateContent()
         {
             int i = 0;
+            View.Children.Clear();
             Model.Commits.ToList().ForEach(m =>
             {
                 CommitNodeView v = new CommitNodeView();

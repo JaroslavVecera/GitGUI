@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,6 +52,28 @@ namespace GitGUI.Logic
             SubscribeWatcherEvents(Watcher);
         }
 
+        public Hashtable BranchCommits()
+        {
+            if (Repository == null)
+                return null;
+            Hashtable branchCommits = new Hashtable();
+            HashSet<Commit> assigned = new HashSet<Commit>();
+            Repository.Branches.ToList().ForEach(branch => branchCommits.Add(branch, new List<Commit>()));
+            Repository.Branches.ToList().ForEach(branch =>
+            {
+                Commit current = branch.Tip;
+                while(!assigned.Contains(current))
+                {
+                    assigned.Add(current);
+                    ((List<Commit>)branchCommits[branch]).Add(current);
+                    if (current.Parents.Count() == 0)
+                        break;
+                    current = current.Parents.First(); 
+                }
+            });
+            return branchCommits;
+        }
+
         void Fs(object sender, FileSystemEventArgs e) =>
             Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
 
@@ -89,6 +112,8 @@ namespace GitGUI.Logic
                 CloseRepository(Repository);
             Repository = new Repository(path);
             StartWatch(path);
+            RepositoryChanged.Invoke();
+            
             return Repository;
         }
 
