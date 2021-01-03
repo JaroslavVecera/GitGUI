@@ -14,6 +14,8 @@ namespace GitGUI.Logic
         MatrixTransform _transform;
         bool _hitTestVisible = true;
         public Branch Branch { get; set; }
+        public string Name { get { return Branch.FriendlyName; } }
+
         public MatrixTransform RenderTransform
         {
             get { return _transform; }

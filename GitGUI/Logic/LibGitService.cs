@@ -21,6 +21,7 @@ namespace GitGUI.Logic
         public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
         FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
+        public BranchCollection Branches { get { return Repository?.Branches; } }
 
         private LibGitService() { }
 

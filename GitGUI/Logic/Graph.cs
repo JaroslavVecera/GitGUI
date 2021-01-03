@@ -79,7 +79,23 @@ namespace GitGUI.Logic
 
         public void DeployGraph()
         {
-                DeployCommitNodes();
+            DeployCommitNodes();
+            DeployBranchNodes();
+            ZoomAndPanCanvasModel.Update();
+        }
+
+        void DeployBranchNodes()
+        {
+            ZoomAndPanCanvasModel.Branches = new List<BranchLabelModel> { };
+            int x = -50;
+            int y = 0;
+            List<BranchLabelModel> l = new List<BranchLabelModel>();
+            foreach (Branch b in LibGitService.GetInstance().Branches)
+            {
+                l.Add(new BranchLabelModel() { Location = new Point(x, y), Branch = b });
+                y += 50;
+            }
+            ZoomAndPanCanvasModel.Branches = l;
         }
 
         void DeployCommitNodes()
@@ -108,6 +124,8 @@ namespace GitGUI.Logic
             m.MouseUp -= EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
+            if (m is CommitNodeModel)
+                ((CommitNodeModel)m).AddBranch -= EventHandlerBatch.AddBranchEventHandler;
         }
 
         void SubscribeEvents(GraphItemModel m)
@@ -116,6 +134,8 @@ namespace GitGUI.Logic
             m.MouseUp += EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter += EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave += EventHandlerBatch.MouseLeaveEventHandler;
+            if (m is CommitNodeModel)
+                ((CommitNodeModel)m).AddBranch += EventHandlerBatch.AddBranchEventHandler;
         }
 
         void UnsubscribeCommitEvents(CommitNodeModel m)

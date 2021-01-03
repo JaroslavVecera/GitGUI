@@ -34,10 +34,16 @@ namespace GitGUI.Logic
         {
             int i = 0;
             View.Children.Clear();
-            Model.Commits.ToList().ForEach(m =>
+            Model.Commits.ForEach(m =>
             {
                 CommitNodeView v = new CommitNodeView();
                 CommitNodeViewModel vm = new CommitNodeViewModel(m, v);
+                View.Children.Add(v);
+            });
+            Model.Branches.ForEach(m =>
+            {
+                BranchLabelView v = new BranchLabelView();
+                BranchLabelViewModel vm = new BranchLabelViewModel(m, v);
                 View.Children.Add(v);
             });
         }

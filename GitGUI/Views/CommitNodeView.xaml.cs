@@ -59,6 +59,15 @@ namespace GitGUI
         public static readonly DependencyProperty TextWidthProperty =
             DependencyProperty.Register("TextWidth", typeof(double), typeof(CommitNodeView), new PropertyMetadata((double)0));
 
+        public RelayCommand PlusCommand
+        {
+            get { return (RelayCommand)GetValue(PlusCommandProperty); }
+            set { SetValue(PlusCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty PlusCommandProperty =
+            DependencyProperty.Register("PlusCommand", typeof(RelayCommand), typeof(CommitNodeView));
+
         public bool Focused
         {
             get { return (bool)GetValue(FocusedProperty); }
@@ -203,6 +212,9 @@ namespace GitGUI
             Binding b3 = new Binding("Focused");
             b3.Source = DataContext;
             SetBinding(FocusedProperty, b3);
+            Binding b4 = new Binding("PlusCommand");
+            b4.Source = DataContext;
+            SetBinding(PlusCommandProperty, b4);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
@@ -213,6 +225,11 @@ namespace GitGUI
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
             MouseArgs = e;
+        }
+
+        private void ButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PlusCommand.Execute(null);
         }
     }
 }

@@ -113,6 +113,15 @@ namespace GitGUI.Logic
             State.MouseMove(Data, e);
         }
 
+        public void OnAddBranch(CommitNodeModel m)
+        {
+            var dialog = new InputDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                LibGitService.GetInstance().Branch(m, dialog.ResponseText);
+            }
+        }
+
         public void OnMouseWheel(MouseWheelEventArgs e)
         {
             Graph.GetInstance().Scale(e.Delta, Data.MousePoint);
@@ -153,7 +162,8 @@ namespace GitGUI.Logic
                 MouseUpEventHandler = OnMouseUp,
                 MouseEnterEventHandler = OnMouseEnter,
                 MouseLeaveEventHandler = OnMouseLeave,
-                CopyHash = HashCopyRequest
+                CopyHash = HashCopyRequest,
+                AddBranchEventHandler = OnAddBranch
             };
             CommitManager.EventHandlerBatch = batch;
         }

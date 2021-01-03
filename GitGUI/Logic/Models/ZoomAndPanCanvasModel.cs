@@ -18,9 +18,14 @@ namespace GitGUI.Logic
 
         public Matrix TransformMatrix { get { return _matrix; } set { _matrix = value; TransformMatrixChanged.Invoke(value); } }
         public Point Center { get { return new Point(Width / 2, Height / 2); } }
-        List<CommitNodeModel> _commits;
-        public List<CommitNodeModel> Commits { get { return _commits; } set { _commits = value; ContentUpdated?.Invoke(); } }
+        public List<CommitNodeModel> Commits { get; set; }
+        public List<BranchLabelModel> Branches { get; set; }
         public event Action<Matrix> TransformMatrixChanged;
+
+        public void Update()
+        {
+            ContentUpdated?.Invoke();
+        }
 
         public void Rescale(double factor, Point origin)
         {

@@ -85,6 +85,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BranchLabelView.xaml.cs">
+      <DependentUpon>BranchLabelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\ViewModels\BranchLabelViewModel.cs" />
     <Compile Include="Logic\Changes\ChangesTreeDirectoryItem.cs" />
     <Compile Include="Logic\Changes\ChangesTreeFileItem.cs" />
     <Compile Include="Logic\Changes\ChangesTreeItem.cs" />
@@ -164,6 +171,14 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BranchLabelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BranchInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

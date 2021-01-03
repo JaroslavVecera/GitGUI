@@ -57,7 +57,7 @@
                 <ImageBrush ImageSource="{Binding Path, TargetNullValue={x:Null}}"/>
             </Ellipse.Fill>
         </Ellipse>
-        <Button Margin="0,-10,0,0" VerticalAlignment="Top" x:Name="plusButton">
+        <Button Margin="0,-10,0,0" VerticalAlignment="Top" x:Name="plusButton"  PreviewMouseLeftButtonUp="ButtonUp">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">
