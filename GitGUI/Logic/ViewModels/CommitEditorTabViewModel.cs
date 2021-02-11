@@ -11,7 +11,7 @@ namespace GitGUI.Logic
 {
     class CommitEditorTabViewModel : TabViewModel
     {
-        CommitEditorTabModel Model { get; set; }
+        new CommitEditorTabModel Model { get { return (CommitEditorTabModel)base.Model; } }
         public RelayCommand Commit { get; set; }
         public string Message
         {
@@ -20,7 +20,6 @@ namespace GitGUI.Logic
         }
         public List<ChangesTreeItem> Items { get; private set; }
         public bool AnyItems { get { return Items.Any(); } }
-        public string Header { get { return "Create commit"; } }
         ChangesTreeItem _selected;
         public ChangesTreeItem SelectedItem { private get { return _selected; } set { _selected = value; OnPropertyChanged("ChangesInfo"); } }
         public ChangesInfo ChangesInfo { get { if (SelectedItem != null) return SelectedItem.Info; else return null; } }
@@ -36,8 +35,8 @@ namespace GitGUI.Logic
             var r2 = Model.RepositoryChanges.Modified;
             var r3 = Model.RepositoryChanges.Deleted;
             r.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, ChangesInfo.Untracked(statusEntry.FilePath)));
-            r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Choose(change)));
-            r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Choose(change)));
+            r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change)));
+            r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Deleted(change)));
             if (root.Items.Any())
                 Items.Add(root);
             OnPropertyChanged("Items");
@@ -46,7 +45,6 @@ namespace GitGUI.Logic
 
         public CommitEditorTabViewModel(CommitEditorTabModel model) : base(model)
         {
-            Model = model;
             SubscribeModel(model);
             RefreshItems();
             Commit = new RelayCommand(

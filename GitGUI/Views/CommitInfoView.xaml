@@ -27,7 +27,8 @@
             <TextBlock  Text="{Binding Sha}"/>
             <Button Command="{Binding CopySha}" Content="Copy"/>
         </StackPanel>
-        
+        <Button Grid.Column="2" VerticalAlignment="Center" Command="{Binding OnShowChanges}" Content="Changes"/>
+
         <TextBlock Grid.Column="0" Text="{Binding Author}"/>
     </Grid>
 </UserControl>

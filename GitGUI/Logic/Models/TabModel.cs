@@ -8,6 +8,7 @@ namespace GitGUI.Logic
 {
     public class TabModel : ModelBase
     {
+        public virtual string Header { get { return ""; } }
         public event Action<TabViewModel> CloseRequested;
 
         public void Close(TabViewModel vm)

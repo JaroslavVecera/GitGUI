@@ -18,6 +18,13 @@ namespace GitGUI.Logic
         Repository Repository { get { return _repository; } set { _repository = value; } }
         public BranchLabelModel CurrentBranch { get; }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
+        public TreeChanges CommitChanges(Commit c)
+        {
+            Tree commitTree = c.Tree;
+            Tree parentCommitTree = c.Parents.First().Tree;
+            TreeChanges changes = Repository.Diff.Compare<TreeChanges>(parentCommitTree, commitTree);
+            return changes;
+        }
         public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
         FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
@@ -27,7 +34,17 @@ namespace GitGUI.Logic
 
         public string Diff(string path)
         {
-            return Repository.Diff.Compare<Patch>(new List<string>() { path }, true);
+            return Repository.Diff.Compare<Patch>(new List<string>() { path });
+        }
+
+        public string Diff(string path, Commit c)
+        {
+            string d = "";
+            c.Parents.ToList().ForEach(p =>
+            {
+                d += Repository.Diff.Compare<Patch>(p.Tree, c.Tree)[path].Patch;
+            });
+            return d;
         }
 
         void DisableWatcher()

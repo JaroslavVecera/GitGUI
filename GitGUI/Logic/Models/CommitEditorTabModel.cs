@@ -9,6 +9,7 @@ namespace GitGUI.Logic
 {
     public class CommitEditorTabModel : TabModel
     {
+        public override string Header { get { return "Create commit"; } }
         public event Action<string, IEnumerable<string>> CommitRequest;
         public event Action RepositoryStatusChanged;
         public bool IsChecked { get; set; } = true;

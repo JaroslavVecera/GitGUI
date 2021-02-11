@@ -10,6 +10,7 @@ namespace GitGUI.Logic
 {
     public class MainTabModel : TabModel
     {
+        public override string Header { get { return "Main"; } }
         Point _center;
         public event Action UpdateCenter;
         public event Action ShownChanged;

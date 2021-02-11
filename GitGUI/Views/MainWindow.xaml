@@ -29,6 +29,9 @@
             <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
                 <local:CommitEditorView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
+                <local:CommitViewerTabView/>
+            </DataTemplate>
         </TabControl.Resources>
         <TabControl.ItemTemplate>
             <DataTemplate>

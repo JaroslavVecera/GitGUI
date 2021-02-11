@@ -20,7 +20,9 @@ namespace GitGUI.Logic
         public string Sha { get { return Commit.Sha; } }
         public string Author {  get { return Commit.Author.Name; } }
         public event Action<CommitNodeModel> CopyShaRequested;
+        public event Action<CommitNodeModel> ShowChanges;
         public RelayCommand CopySha { get; private set; }
+        public RelayCommand OnShowChanges { get; private set; }
 
         public event Action<CommitNodeModel> AddBranch;
 
@@ -40,6 +42,9 @@ namespace GitGUI.Logic
             Commit = c;
             Path = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg";
             CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));
+            OnShowChanges = new RelayCommand(
+                () => 
+                ShowChanges?.Invoke(this));
         }
 
         public void OnAddBranch()

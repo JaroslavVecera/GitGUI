@@ -125,7 +125,10 @@ namespace GitGUI.Logic
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
             if (m is CommitNodeModel)
+            {
                 ((CommitNodeModel)m).AddBranch -= EventHandlerBatch.AddBranchEventHandler;
+                ((CommitNodeModel)m).ShowChanges -= EventHandlerBatch.ShowChangesEventHandler;
+            }
         }
 
         void SubscribeEvents(GraphItemModel m)
@@ -135,7 +138,10 @@ namespace GitGUI.Logic
             m.MouseEnter += EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave += EventHandlerBatch.MouseLeaveEventHandler;
             if (m is CommitNodeModel)
+            {
                 ((CommitNodeModel)m).AddBranch += EventHandlerBatch.AddBranchEventHandler;
+                ((CommitNodeModel)m).ShowChanges += EventHandlerBatch.ShowChangesEventHandler;
+            }
         }
 
         void UnsubscribeCommitEvents(CommitNodeModel m)

@@ -85,9 +85,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\CommitViewerTabView.xaml.cs">
+      <DependentUpon>CommitViewerTabView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Models\CommitViewerTabModel.cs" />
+    <Compile Include="Logic\ViewModels\CommitViewerTabViewModel.cs" />
     <Compile Include="Views\BranchLabelView.xaml.cs">
       <DependentUpon>BranchLabelView.xaml</DependentUpon>
     </Compile>
@@ -171,6 +176,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\CommitViewerTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

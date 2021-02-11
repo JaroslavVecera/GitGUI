@@ -163,7 +163,8 @@ namespace GitGUI.Logic
                 MouseEnterEventHandler = OnMouseEnter,
                 MouseLeaveEventHandler = OnMouseLeave,
                 CopyHash = HashCopyRequest,
-                AddBranchEventHandler = OnAddBranch
+                AddBranchEventHandler = OnAddBranch,
+                ShowChangesEventHandler = OnShowChanges 
             };
             CommitManager.EventHandlerBatch = batch;
         }
@@ -184,6 +185,11 @@ namespace GitGUI.Logic
         void OnMouseEnter(object sender, MouseEventArgs e)
         {
             State.MouseEnter(sender, Data);
+        }
+
+        void OnShowChanges(CommitNodeModel m)
+        {
+            TabManager.NewCommitViewer(m);
         }
 
         void OnMouseLeave(object sender, MouseEventArgs e)

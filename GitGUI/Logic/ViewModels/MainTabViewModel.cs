@@ -11,9 +11,8 @@ namespace GitGUI.Logic
 {
     public class MainTabViewModel : TabViewModel
     {
-        MainTabModel Model { get; set; }
-
-        public string Header { get { return "Main"; } }
+        new public MainTabModel Model { get { return (MainTabModel)(base.Model); } }
+        
         public ZoomAndPanCanvasView ZoomAndPanCanvas { get; private set; }
         public RelayCommand MouseDown { get; private set; }
         public RelayCommand MouseUp { get; private set; }
@@ -38,7 +37,6 @@ namespace GitGUI.Logic
             new ZoomAndPanCanvasViewModel(Graph.GetInstance().ZoomAndPanCanvasModel, ZoomAndPanCanvas);
             MouseDown = new RelayCommand(() => Model.OnMouseDown(MouseButtonArgs));
             MouseUp = new RelayCommand(() => Model.OnMouseUp(MouseButtonArgs));
-            Model = model;
             SubscribeModel(model);
         }
 
