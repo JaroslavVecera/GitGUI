@@ -16,6 +16,7 @@ namespace GitGUI.Logic
         public event MouseButtonEventHandler CanvasMouseUp;
         MainTabModel MainTabModel { set; get; }
         Dictionary<CommitNodeModel, CommitViewerTabViewModel> CommitViewers { get; } = new Dictionary<CommitNodeModel, CommitViewerTabViewModel>();
+        IEnumerable<TabViewModel> Tabs { get { return (new List<TabViewModel>() { CommitEditorTab }).Union(CommitViewers.Values); } }
 
         public MainWindowModel MainWindowModel { get; set; }
         CommitEditorTabViewModel CommitEditorTab
@@ -78,6 +79,11 @@ namespace GitGUI.Logic
                 MainWindowModel.AddTab(cv);
             }
             SelectTab(cv);
+        }
+
+        internal void CloseAll()
+        {
+            Tabs.ToList().ForEach(x => CloseTab(x));
         }
 
         void Commit(string message, IEnumerable<string> paths)

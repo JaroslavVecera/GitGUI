@@ -68,5 +68,10 @@ namespace GitGUI
         private void ContextMenuRebase(object sender, RoutedEventArgs e)
         {
         }
+
+        private void OpenRepository(object sender, RoutedEventArgs e)
+        {
+            Program.GetInstance().OpenRepository();
+        }
     }
 }

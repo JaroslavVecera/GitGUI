@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+using Ookii.Dialogs.Wpf;
 
 namespace GitGUI.Logic
 {
@@ -36,6 +37,17 @@ namespace GitGUI.Logic
 
         }
 
+        public void OpenRepository()
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select directory of existing repository";
+            dialog.UseDescriptionForTitle = true;
+            var ans = dialog.ShowDialog();
+            if (ans == null || ans == false)
+                return;
+            RepositoryManager.OpenExisting(dialog.SelectedPath);
+        }
+
         void CreateManagers(ActionPanelModel localAM)
         {
             ActionsManager = new ActionsManager();
@@ -47,6 +59,12 @@ namespace GitGUI.Logic
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
+            RepositoryManager.Closed += RepositoryClosed;
+        }
+
+        void RepositoryClosed(RepositoryModel m)
+        {
+            TabManager.CloseAll();
         }
 
         private void Commit(string message, IEnumerable<string> paths)
@@ -67,7 +85,7 @@ namespace GitGUI.Logic
 
         void Test()
         {
-            RepositoryManager.OpenExisting(new RepositoryModel(@"D:\škola\GitGUITests"));
+            RepositoryManager.OpenExisting(@"D:\škola\GitGUITests");
         }
 
         public void InitializeMainWindow()

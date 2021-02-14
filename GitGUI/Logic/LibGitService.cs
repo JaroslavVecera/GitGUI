@@ -47,6 +47,11 @@ namespace GitGUI.Logic
             return d;
         }
 
+        public bool IsValidRepository(string path)
+        {
+            return LibGit2Sharp.Repository.IsValid(path);
+        }
+
         void DisableWatcher()
         {
             Watcher.Changed -= Fs;

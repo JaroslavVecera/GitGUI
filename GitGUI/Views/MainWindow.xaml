@@ -21,10 +21,33 @@
             <MenuItem Click="ContextMenuRebase" Header="Rebase" />
         </ContextMenu>
     </Window.ContextMenu>
-    <TabControl BorderThickness="0" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
-        <TabControl.Resources>
-            <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
-                <local:MainTabView></local:MainTabView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Menu>
+                <MenuItem Header="Repository">
+                    <MenuItem Header="Open" Click="OpenRepository" />
+                    <MenuItem Header="Open recent">
+                        <MenuItem Header="Coming" />
+                        <MenuItem Header="Soon" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="Close repository" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <TabControl Grid.Row="1" BorderThickness="0" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
+            <TabControl.Resources>
+                <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
+                    <local:MainTabView></local:MainTabView>
             </DataTemplate>
             <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
                 <local:CommitEditorView/>
@@ -64,5 +87,6 @@
                 </Grid>
             </DataTemplate>
         </TabControl.ItemTemplate>
-    </TabControl>
+        </TabControl>
+    </Grid>
 </Window>
