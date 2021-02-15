@@ -108,7 +108,12 @@ namespace GitGUI.Logic
             {
                 int x = 0;
                 List<Commit> l = (List<Commit>)branchCommits[b];
-                List<CommitNodeModel> commits = l?.Select(c => new CommitNodeModel(c)).ToList();
+                List<CommitNodeModel> commits = l?.Select(c =>
+                {
+                    Identity i = new Identity(c.Author.Name, c.Author.Email);
+                    string path = Program.GetInstance().UserManager.FindUserPicturePathByIdentity(i);
+                    return new CommitNodeModel(c, path);
+                }).ToList();
                 commits.Reverse();
                 commits.ForEach(c => c.Location = new System.Windows.Point((x++) * 250, y));
                 commits.ForEach(c => models.Add(c));

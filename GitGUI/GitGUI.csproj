@@ -90,6 +90,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Managers\UserManager.cs" />
+    <Compile Include="Logic\User.cs" />
     <Compile Include="Views\CommitViewerTabView.xaml.cs">
       <DependentUpon>CommitViewerTabView.xaml</DependentUpon>
     </Compile>

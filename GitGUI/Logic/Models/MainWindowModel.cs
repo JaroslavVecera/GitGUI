@@ -35,7 +35,8 @@ namespace GitGUI.Logic
         {
             Tabs.Remove(vm);
             ChangedTabs?.Invoke();
-            SelectedIndex -= 1;
+            if (SelectedIndex > 0)
+                SelectedIndex -= 1;
             ChangedIndex?.Invoke();
         }
     }

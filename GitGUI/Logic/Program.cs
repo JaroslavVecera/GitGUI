@@ -12,6 +12,7 @@ namespace GitGUI.Logic
         RepositoryManager RepositoryManager { get; set; }
         ActionsManager ActionsManager { get; set; }
         public TabManager TabManager { get; set; }
+        public UserManager UserManager { get; set;}
         IProgramState State { get; set; }
         public CrossStateData Data { get; } = new CrossStateData();
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
@@ -26,7 +27,6 @@ namespace GitGUI.Logic
             CreateManagers(localAM);
             InitializeEventHandlers();
             InitializeState();
-            Test();
         }
 
         void InitializeState()
@@ -60,6 +60,7 @@ namespace GitGUI.Logic
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
             RepositoryManager.Closed += RepositoryClosed;
+            UserManager = new UserManager();
         }
 
         void RepositoryClosed(RepositoryModel m)

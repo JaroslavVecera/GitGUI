@@ -37,10 +37,10 @@ namespace GitGUI.Logic
             set { _path = value; OnPropertyChanged("Path"); }
         }
 
-        public CommitNodeModel(Commit c)
+        public CommitNodeModel(Commit c, string picturePath)
         {
             Commit = c;
-            Path = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg";
+            Path = picturePath;
             CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));
             OnShowChanges = new RelayCommand(
                 () => 
