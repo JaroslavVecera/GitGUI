@@ -48,7 +48,7 @@
         <TextBlock x:Name="message" TextAlignment="Center" VerticalAlignment="Center"
                    HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"
                    TextTrimming="CharacterEllipsis" Text="{Binding Message, NotifyOnTargetUpdated=True}"
-                   TargetUpdated="MessageUpdated"></TextBlock>
+                   TargetUpdated="MessageUpdated" Foreground="White"></TextBlock>
         <Ellipse x:Name="ellipse" Margin="2,0,0,0" Height="40" Width="40" HorizontalAlignment="Left">
             <Ellipse.LayoutTransform>
                 <ScaleTransform ScaleX="0.9" ScaleY="0.9"></ScaleTransform>

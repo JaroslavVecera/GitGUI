@@ -10,38 +10,39 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
                        VerticalScrollBarVisibility="Disabled"
                        Margin="5,5,5,0" VerticalAlignment="Stretch"
                        Content="{Binding Path=ZoomAndPanCanvas}"
                        DataContextChanged="OnDataContextChanged"
                        Focusable="False"
                        MouseUp="OnMouseUp"
-                       MouseDown="OnMouseDown">
-        </ScrollViewer>
-        <ContentControl Content="{Binding Path=ActionPanel}" Grid.Row="1">
-            <ContentControl.ContentTemplate>
-                <DataTemplate>
-                    <local:ActionPanelView></local:ActionPanelView>
-                </DataTemplate>
-            </ContentControl.ContentTemplate>
-        </ContentControl>
+                       MouseDown="OnMouseDown"
+                       Background="#1E1E1E">
+            </ScrollViewer>
+            <ContentControl  Content="{Binding Path=ActionPanel}" Grid.Row="1">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <local:ActionPanelView HorizontalAlignment="Center" Padding="10"></local:ActionPanelView>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
         </Grid>
-        <ContentControl Content="{Binding Shown}" Grid.Row="2" VerticalAlignment="Stretch" x:Name="nodePanel">
+        <ContentControl  Content="{Binding Shown}" Grid.Row="2" x:Name="nodePanel">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type logic:CommitNodeModel}">
-                    <local:CommitInfoView/>
+                    <local:CommitInfoView Padding="5" BorderThickness="2" BorderBrush="#686868" Background="#333337"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type logic:BranchLabelModel}">
-                    <TextBlock Text="Zatim nic"/>
+                    <TextBlock Text="Zatim nic" Padding="5"/>
                 </DataTemplate>
             </ContentControl.Resources>
             <ContentControl.Style>

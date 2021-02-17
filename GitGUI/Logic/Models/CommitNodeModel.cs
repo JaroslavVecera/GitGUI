@@ -19,6 +19,7 @@ namespace GitGUI.Logic
         public string Message { get { return Commit.Message; } }
         public string Sha { get { return Commit.Sha; } }
         public string Author {  get { return Commit.Author.Name; } }
+        public string Email { get { return Commit.Author.Email; } }
         public event Action<CommitNodeModel> CopyShaRequested;
         public event Action<CommitNodeModel> ShowChanges;
         public RelayCommand CopySha { get; private set; }

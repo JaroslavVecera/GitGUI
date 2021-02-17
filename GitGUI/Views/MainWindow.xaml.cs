@@ -20,11 +20,6 @@ namespace GitGUI
     {
         public MainWindow()
         {
-            Resources.MergedDictionaries.Clear();
-            var myResourceDictionary = new ResourceDictionary();
-            myResourceDictionary.Source =
-                new Uri(";component/Themes/DarkTheme.xaml", UriKind.RelativeOrAbsolute);
-            Resources.MergedDictionaries.Add(myResourceDictionary);
         }
 
         private void WindowPreviewMouseMove(object sender, MouseEventArgs e)
@@ -50,15 +45,6 @@ namespace GitGUI
         private void WindowMouseLeave(object sender, MouseEventArgs e)
         {
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Resources.MergedDictionaries.Clear();
-            var myResourceDictionary = new ResourceDictionary();
-            myResourceDictionary.Source =
-                new Uri(";component/Themes/LightTheme.xaml", UriKind.RelativeOrAbsolute);
-            Resources.MergedDictionaries.Add(myResourceDictionary);
         }
 
         private void ContextMenuMerge(object sender, RoutedEventArgs e)
