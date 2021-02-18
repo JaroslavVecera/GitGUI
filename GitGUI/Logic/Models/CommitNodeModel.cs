@@ -9,13 +9,15 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using LibGit2Sharp;
+using System.Drawing;
+using System.Windows.Media.Imaging;
 
 namespace GitGUI.Logic
 {
     public class CommitNodeModel : GraphItemModel
     {
         public Commit Commit { get; private set; }
-        string _path;
+        BitmapImage _picture;
         public string Message { get { return Commit.Message; } }
         public string Sha { get { return Commit.Sha; } }
         public string Author {  get { return Commit.Author.Name; } }
@@ -29,19 +31,19 @@ namespace GitGUI.Logic
 
         public bool EnabledPhoto
         {
-            get { return Path != null && ((App)Application.Current).Settings.ShowAuthorMiniatures; }
+            get { return BitmapImage != null && ((App)Application.Current).Settings.ShowAuthorMiniatures; }
         }
 
-        public string Path
+        public BitmapImage BitmapImage
         {
-            get { return _path; }
-            set { _path = value; OnPropertyChanged("Path"); }
+            get { return _picture; }
+            set { _picture = value; OnPropertyChanged("BitmapImage"); }
         }
 
-        public CommitNodeModel(Commit c)
+        public CommitNodeModel(Commit c, BitmapImage picture)
         {
             Commit = c;
-            Path = @"C:\Users\Lenovo\source\repos\GitGUI\photo.jpg";
+            BitmapImage = picture;
             CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));
             OnShowChanges = new RelayCommand(
                 () => 
