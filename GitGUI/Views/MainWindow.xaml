@@ -23,7 +23,7 @@
     </Window.ContextMenu>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -43,6 +43,7 @@
                     <MenuItem Header="Close repository" />
                 </MenuItem>
             </Menu>
+            <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}"/>
         </Grid>
         <TabControl Grid.Row="1" BorderThickness="0" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
             <TabControl.Resources>

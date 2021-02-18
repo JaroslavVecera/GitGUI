@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Diagnostics;
 using LibGit2Sharp;
 using System.Collections;
+using System.Windows.Media.Imaging;
 
 namespace GitGUI.Logic
 {
@@ -111,8 +112,8 @@ namespace GitGUI.Logic
                 List<CommitNodeModel> commits = l?.Select(c =>
                 {
                     Identity i = new Identity(c.Author.Name, c.Author.Email);
-                    string path = Program.GetInstance().UserManager.FindUserPicturePathByIdentity(i);
-                    return new CommitNodeModel(c, path);
+                    BitmapImage picture = Program.GetInstance().UserManager.FindUserPictureByIdentity(i);
+                    return new CommitNodeModel(c, picture);
                 }).ToList();
                 commits.Reverse();
                 commits.ForEach(c => c.Location = new System.Windows.Point((x++) * 250, y));

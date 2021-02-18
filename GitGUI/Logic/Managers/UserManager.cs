@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace GitGUI.Logic
 {
@@ -17,7 +18,7 @@ namespace GitGUI.Logic
             set { _current = value ?? User.Anonym; }
         }
 
-        List<User> KnownUsers { get; } = new List<User>();
+        public List<User> KnownUsers { get; } = new List<User>();
 
         public UserManager()
         {
@@ -34,13 +35,13 @@ namespace GitGUI.Logic
             }
         }
 
-        public string FindUserPicturePathByIdentity(LibGit2Sharp.Identity i)
+        public BitmapImage FindUserPictureByIdentity(LibGit2Sharp.Identity i)
         {
             User user = KnownUsers.Find(u => u.HasIdentity(i));
             if (user == null)
                 return null;
             else
-                return user.PicturePath;
+                return user.CopyPicture();
         }
 
         public void AddUser(string name, string email, Bitmap picture)

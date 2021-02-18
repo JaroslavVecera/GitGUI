@@ -92,6 +92,9 @@
     </ApplicationDefinition>
     <Compile Include="Logic\Managers\UserManager.cs" />
     <Compile Include="Logic\User.cs" />
+    <Compile Include="Views\UserSelectorView.xaml.cs">
+      <DependentUpon>UserSelectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CommitViewerTabView.xaml.cs">
       <DependentUpon>CommitViewerTabView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\UserSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CommitViewerTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace GitGUI.Logic
 {
@@ -78,6 +79,20 @@ namespace GitGUI.Logic
         {
             if (Path == null)
                 throw new InvalidOperationException("Cannot load anonym user");
+        }
+
+        public BitmapImage CopyPicture()
+        {
+            string path = PotentialPicturePath;
+            if (path == null)
+                return null;
+            BitmapImage bit = new BitmapImage();
+            bit.BeginInit();
+            bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            bit.CacheOption = BitmapCacheOption.OnLoad;
+            bit.UriSource = new Uri(path);
+            bit.EndInit();
+            return bit;
         }
     }
 }

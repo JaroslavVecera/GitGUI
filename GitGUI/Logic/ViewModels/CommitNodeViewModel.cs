@@ -15,21 +15,7 @@ namespace GitGUI.Logic
 {
     class CommitNodeViewModel : GraphItemViewModel
     {
-        public BitmapImage Bitmap
-        { get
-            {
-                string path = ((CommitNodeModel)Model).Path;
-                if (path == null)
-                    return null;
-                BitmapImage bit = new BitmapImage();
-                bit.BeginInit();
-                bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                bit.CacheOption = BitmapCacheOption.OnLoad;
-                bit.UriSource = new Uri(path);
-                bit.EndInit();
-                return bit;
-            }
-        }
+        public BitmapImage Bitmap { get { return ((CommitNodeModel)Model).BitmapImage; } }
         public bool EnabledPhoto { get { return ((CommitNodeModel)Model).EnabledPhoto; } }
         public string Message { get { return ((CommitNodeModel)Model).Message; } }
         public RelayCommand PlusCommand { get; private set; }

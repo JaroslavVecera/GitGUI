@@ -13,6 +13,7 @@ namespace GitGUI.Logic
         public MainWindowModel Model { get; set; }
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
         public int SelectedIndex { get { return Model.SelectedIndex; } }
+        public List<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
