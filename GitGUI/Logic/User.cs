@@ -19,7 +19,7 @@ namespace GitGUI.Logic
         public static User Anonym { get { return new User() { Name = "Anonym" }; } }
         string Path { get; set; }
         string IdentityPath { get { return Path + System.IO.Path.DirectorySeparatorChar + "Identity"; } }
-        string PotentialPicturePath { get { return Path + System.IO.Path.DirectorySeparatorChar + "Picture.jpg"; } }
+        string PotentialPicturePath { get { return Path + System.IO.Path.DirectorySeparatorChar + "Picture"; } }
         public string PicturePath
         {
             get { return (File.Exists(PotentialPicturePath)) ? 
@@ -81,18 +81,21 @@ namespace GitGUI.Logic
                 throw new InvalidOperationException("Cannot load anonym user");
         }
 
-        public BitmapImage CopyPicture()
+        public BitmapImage PictureCopy
         {
-            string path = PotentialPicturePath;
-            if (path == null)
-                return null;
-            BitmapImage bit = new BitmapImage();
-            bit.BeginInit();
-            bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            bit.CacheOption = BitmapCacheOption.OnLoad;
-            bit.UriSource = new Uri(path);
-            bit.EndInit();
-            return bit;
+            get
+            {
+                string path = PotentialPicturePath;
+                if (path == null)
+                    return null;
+                BitmapImage bit = new BitmapImage();
+                bit.BeginInit();
+                bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                bit.CacheOption = BitmapCacheOption.OnLoad;
+                bit.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + path);
+                bit.EndInit();
+                return bit;
+            }
         }
     }
 }

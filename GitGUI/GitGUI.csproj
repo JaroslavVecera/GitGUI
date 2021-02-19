@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CahngedUserEventArgs.cs" />
     <Compile Include="Logic\Managers\UserManager.cs" />
     <Compile Include="Logic\User.cs" />
     <Compile Include="Views\UserSelectorView.xaml.cs">

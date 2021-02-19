@@ -63,6 +63,11 @@ namespace GitGUI.Logic
             UserManager = new UserManager();
         }
 
+        public void ChangeUser(User u)
+        {
+            UserManager.Current = u;
+        }
+
         void RepositoryClosed(RepositoryModel m)
         {
             TabManager.CloseAll();

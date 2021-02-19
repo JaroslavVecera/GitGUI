@@ -59,5 +59,11 @@ namespace GitGUI
         {
             Program.GetInstance().OpenRepository();
         }
+
+        private void OnChangedUser(object sender, RoutedEventArgs e)
+        {
+            ChangedUserEventArgs args = (ChangedUserEventArgs)e;
+            Program.GetInstance().ChangeUser(args.User);
+        }
     }
 }

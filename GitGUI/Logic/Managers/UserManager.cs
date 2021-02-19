@@ -41,7 +41,7 @@ namespace GitGUI.Logic
             if (user == null)
                 return null;
             else
-                return user.CopyPicture();
+                return user.PictureCopy;
         }
 
         public void AddUser(string name, string email, Bitmap picture)

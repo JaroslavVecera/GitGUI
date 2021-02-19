@@ -21,6 +21,15 @@ namespace GitGUI
     /// </summary>
     public partial class UserSelectorView : UserControl
     {
+        public event RoutedEventHandler ChangedUser
+        {
+            add { AddHandler(ChangedUserEvent, value); }
+            remove { RemoveHandler(ChangedUserEvent, value); }
+        }
+
+        public static readonly RoutedEvent ChangedUserEvent = EventManager.RegisterRoutedEvent(
+            "ChangedUser", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(UserSelectorView));
+
         public UserSelectorView()
         {
             InitializeComponent();
@@ -79,15 +88,27 @@ namespace GitGUI
         private void OnUsersChanged()
         {
             if (Users.Count > 0)
-            {
-                CUName = Users.First().Name;
-                CUBitmap = Users.First().CopyPicture();
-            }
+                SelectUser(Users.First());
         }
 
         private void DisplayPopup(object sender, RoutedEventArgs e)
         {
             popup.IsOpen = true;
+        }
+
+        private void UserSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Logic.User newUser = e.AddedItems.Cast<Logic.User>().Single();
+            SelectUser(newUser);
+            popup.IsOpen = false;
+            ChangedUserEventArgs args = new ChangedUserEventArgs(ChangedUserEvent, newUser);
+            RaiseEvent(args);
+        }
+
+        void SelectUser(Logic.User user)
+        {
+            CUName = user.Name;
+            CUBitmap = user.PictureCopy;
         }
     }
 }

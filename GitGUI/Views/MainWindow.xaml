@@ -219,7 +219,7 @@
                     <MenuItem Header="Close repository" />
                 </MenuItem>
             </Menu>
-            <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}"/>
+            <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
         </Grid>
         <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
             <TabControl.Resources>

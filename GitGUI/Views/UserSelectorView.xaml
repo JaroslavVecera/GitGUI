@@ -30,18 +30,18 @@
                     Text="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:UserSelectorView}}, 
                             Path=CUName}"
-                    Padding="3"/>
+                    Padding="3" TextTrimming="CharacterEllipsis"/>
         <Button Click="DisplayPopup"
                 Grid.Column="2">
             <StackPanel>
                 <TextBlock>v</TextBlock>
-                <Popup Name="popup" StaysOpen="True" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                <Popup Name="popup" StaysOpen="False" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:UserSelectorView}}, 
                             Path=ActualWidth}"
                        PlacementTarget ="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:UserSelectorView}}}">
-                    <ListView ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type local:UserSelectorView}}, Path=Users}">
+                    <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type local:UserSelectorView}}, Path=Users}" SelectionChanged="UserSelectionChanged" SelectionMode="Single">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="40">
@@ -49,9 +49,14 @@
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Column="1">
-                                        <TextBlock FontSize="20" Text="{Binding Name}" />
-                                        <TextBlock Margin="0,0,0,5" Text="{Binding Email}" />
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <ImageBrush ImageSource="{Binding PictureCopy}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                                        <TextBlock TextTrimming="CharacterEllipsis" FontSize="16" Text="{Binding Name}" />
+                                        <TextBlock TextTrimming="CharacterEllipsis" Padding="0,0,0,5" Text="{Binding Email}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>

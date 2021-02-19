@@ -148,7 +148,7 @@ namespace GitGUI.Logic
 
         public void Commit(BranchLabelModel l, string message)
         {
-            Signature s = new Signature(new Identity("anonym", "anonym@upol.cz"), DateTimeOffset.Now);
+            Signature s = new Signature(Program.GetInstance().UserManager.Current.Identity, DateTimeOffset.Now);
             Commit c = Repository.Commit(message, s, s);
         }
 
