@@ -20,6 +20,7 @@ namespace GitGUI.Logic
         public Point Center { get { return new Point(Width / 2, Height / 2); } }
         public List<CommitNodeModel> Commits { get; set; }
         public List<BranchLabelModel> Branches { get; set; }
+        public List<Tuple<Point, Point>> Edges { get; set; }
         public event Action<Matrix> TransformMatrixChanged;
 
         public void Update()

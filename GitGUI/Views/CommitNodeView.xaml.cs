@@ -78,12 +78,9 @@ namespace GitGUI
 
         public bool EnabledPhoto
         {
-            get { return (bool)GetValue(EnabledPhotoProperty); }
-            set { SetValue(EnabledPhotoProperty, value); ellipse.IsEnabled = value; UpdateProperties(); }
+            get { return ellipse.IsEnabled; }
+            set {  ellipse.IsEnabled = value; }
         }
-
-        public static readonly DependencyProperty EnabledPhotoProperty =
-            DependencyProperty.Register("EnabledPhoto", typeof(bool), typeof(CommitNodeView), new PropertyMetadata(true));
 
         public MouseButtonEventArgs MouseButtonArgs
         {
@@ -98,6 +95,11 @@ namespace GitGUI
         {
             get { return (MouseEventArgs)GetValue(MouseArgsProperty); }
             set { SetValue(MouseArgsProperty, value); }
+        }
+
+        public double EdgeOffset
+        {
+            get; set;
         }
 
         public static readonly DependencyProperty MouseArgsProperty =
@@ -115,16 +117,19 @@ namespace GitGUI
                 TextWidth = Math.Min(MaxW, b.DesiredSize.Width / 2);
         }
 
-        public CommitNodeView()
+        public CommitNodeView(string message, bool enabledPhoto)
         {
             InitializeComponent();
             OnFocusedChanged();
             OnMarkedChanged();
             OnCheckoutedChanged();
+            UpdateProperties(message, enabledPhoto);
         }
 
-        void UpdateProperties()
+        void UpdateProperties(string text, bool enabledPhoto)
         {
+            message.Text = text;
+            EnabledPhoto = enabledPhoto;
             MeasureTextWidth(message);
             UpdateShape();
             UpdateMargins();
@@ -144,12 +149,12 @@ namespace GitGUI
         void UpdateMargins()
         {
             message.Margin = new Thickness(TextStartDist, 0, 0, 0);
-
         }
 
         void UpdateMaxWidth()
         {
             MaxWidth = 2 * _margin + TextWidth + Height * 3 / 2;
+            EdgeOffset = MaxWidth - (!EnabledPhoto ? Height / 2 : 0);
         }
 
         LineSegment Top()
@@ -182,11 +187,6 @@ namespace GitGUI
                 SweepDirection = SweepDirection.Clockwise,
                 IsLargeArc = true
             };
-        }
-
-        private void MessageUpdated(object sender, DataTransferEventArgs e)
-        {
-            UpdateProperties();
         }
 
         private void OnMouseDown(object sender, MouseButtonEventArgs e)

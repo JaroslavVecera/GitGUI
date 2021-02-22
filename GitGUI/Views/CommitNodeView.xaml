@@ -13,7 +13,8 @@
              MouseUp="OnMouseUp"
              MouseEnter="OnMouseEnter"
              MouseLeave="OnMouseLeave"
-             DataContextChanged="OnDataContextChanged">
+             DataContextChanged="OnDataContextChanged"
+             MaxWidth="{Binding Path=Width, Mode=OneWayToSource}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseDown">
             <i:InvokeCommandAction Command="{Binding MouseDown}"/>
@@ -28,7 +29,7 @@
             <i:InvokeCommandAction Command="{Binding MouseLeave}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid x:Name="grid"
+    <Grid x:Name="grid" 
           Style="{DynamicResource ResourceKey=CommitStyle}" Height="40">
         <Path Clip="{Binding Data, RelativeSource={RelativeSource Self}}" Stroke="#11B5E4" Fill="#1481BA" x:Name="path" VerticalAlignment="Top">
             <Path.Data>
@@ -47,8 +48,7 @@
         </Path>
         <TextBlock x:Name="message" TextAlignment="Center" VerticalAlignment="Center"
                    HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"
-                   TextTrimming="CharacterEllipsis" Text="{Binding Message, NotifyOnTargetUpdated=True}"
-                   TargetUpdated="MessageUpdated" Foreground="White"></TextBlock>
+                   TextTrimming="CharacterEllipsis" Foreground="White"></TextBlock>
         <Ellipse x:Name="ellipse" Margin="2,0,0,0" Height="40" Width="40" HorizontalAlignment="Left">
             <Ellipse.LayoutTransform>
                 <ScaleTransform ScaleX="0.9" ScaleY="0.9"></ScaleTransform>

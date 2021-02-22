@@ -19,12 +19,23 @@ namespace GitGUI.Logic
         public bool EnabledPhoto { get { return ((CommitNodeModel)Model).EnabledPhoto; } }
         public string Message { get { return ((CommitNodeModel)Model).Message; } }
         public RelayCommand PlusCommand { get; private set; }
+        public double Width
+        {
+            get; set;
+        }
 
         public CommitNodeViewModel(CommitNodeModel model, CommitNodeView view) : base(model, view)
         {
             SubscribeViewEvents(view);
             InitializeLocation();
             Model.PropertyChanged += OnPropertyChanged;
+            Width = view.EdgeOffset;
+        }
+
+        void SetViewProperties(CommitNodeView view)
+        {
+            view.EnabledPhoto = EnabledPhoto;
+            view.message.Text = Message;
         }
 
         override protected void InitializeCommands()

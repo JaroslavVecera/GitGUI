@@ -58,7 +58,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="70"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding Sha}" Foreground="White"/>
+                    <TextBlock Text="{Binding Sha}" TextTrimming="WordEllipsis" Foreground="White"/>
                     <Button Grid.Column="1" Width="50" Command="{Binding CopySha}" Content="Copy"/>
                 </Grid>
             </StackPanel>
@@ -72,9 +72,9 @@
                 <TextBlock Grid.Row="0" Padding="15, 10, 0, 4" Foreground="White" FontSize="15">Author</TextBlock>
                     <StackPanel Margin="8" Grid.Row="1" Background="#2D2D30">
                         <TextBlock Padding="5,5,0,0" Foreground="White">Author</TextBlock>
-                        <TextBlock Padding="5,0,0,0" Foreground="White" Text="{Binding Author}"/>
+                    <TextBlock TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Author}"/>
                         <TextBlock Padding="5,20,0,0" Foreground="White">Authors email</TextBlock>
-                        <TextBlock Padding="5,0,0,0" Foreground="White" Text="{Binding Email}"></TextBlock>
+                    <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Email}"></TextBlock>
                     </StackPanel>
             </Grid>
         </Grid>

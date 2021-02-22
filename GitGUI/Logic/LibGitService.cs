@@ -29,6 +29,24 @@ namespace GitGUI.Logic
         FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
         public BranchCollection Branches { get { return Repository?.Branches; } }
+        public IEnumerable<Commit> AllCommits
+        {
+            get
+            {
+                List<Commit> res = new List<Commit>();
+                foreach (Branch b in Repository?.Branches)
+                    res = res.Union(Commits.QueryBy(new CommitFilter() { IncludeReachableFrom = b })).ToList();
+                res.Sort((c1, c2) =>
+                {
+                    if (c1.Author.When > c2.Author.When)
+                        return 1;
+                    else if (c1.Author.When == c2.Author.When)
+                        return 0;
+                    else return -1;
+                });
+                return res;
+            }
+        }
 
         private LibGitService() { }
 
@@ -85,16 +103,24 @@ namespace GitGUI.Logic
             Repository.Branches.ToList().ForEach(branch =>
             {
                 Commit current = branch.Tip;
-                while(!assigned.Contains(current))
+                while (!assigned.Contains(current))
                 {
                     assigned.Add(current);
                     ((List<Commit>)branchCommits[branch]).Add(current);
                     if (current.Parents.Count() == 0)
                         break;
-                    current = current.Parents.First(); 
+                    current = current.Parents.First();
                 }
             });
             return branchCommits;
+        }
+
+        public List<Tuple<Commit, int>> CommitRows()
+        {
+            DeployAlgorithm a = new DeployAlgorithm();
+            var res = a.ComputeRows(AllCommits, Repository.Branches);
+            res.Reverse();
+            return res;
         }
 
         void Fs(object sender, FileSystemEventArgs e) =>
