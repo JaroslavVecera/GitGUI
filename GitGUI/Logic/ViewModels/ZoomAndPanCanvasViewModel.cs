@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Controls;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Shapes;
 
 namespace GitGUI.Logic
@@ -53,16 +53,16 @@ namespace GitGUI.Logic
             {
                 foreach (LibGit2Sharp.Commit c in m.Commit.Parents)
                 {
-                    Line l = new Line()
+                    Point source = new Point(m.Location.X, m.Location.Y + 20);
+                    Point sink = new Point(dict[c].Location.X + Math.Min(500, dict[c].Width), dict[c].Location.Y + 20);
+                    Edge e = new Edge()
                     {
-                        X1 = m.Location.X,
-                        Y1 = m.Location.Y + 20,
-                        X2 = dict[c].Location.X + Math.Min(500, dict[c].Width),
-                        Y2 = dict[c].Location.Y + 20,
-                        StrokeThickness = 1,
+                        Source = source,
+                        Sink = sink,
+                        StrokeThickness = 2,
                         Stroke = new SolidColorBrush(Colors.Gray)
                     };
-                    View.Children.Add(l);
+                    View.Children.Add(e);
                 }
             });
         }

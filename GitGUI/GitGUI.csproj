@@ -91,6 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CahngedUserEventArgs.cs" />
+    <Compile Include="Edge.xaml.cs">
+      <DependentUpon>Edge.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\DeployAlgorithm.cs" />
     <Compile Include="Logic\Managers\UserManager.cs" />
     <Compile Include="Logic\User.cs" />
@@ -188,6 +191,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Edge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserSelectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
