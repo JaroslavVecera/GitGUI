@@ -93,7 +93,7 @@ namespace GitGUI.Logic
             foreach (Branch b in LibGitService.GetInstance().Branches)
             {
                 Point cl = pairs[b.Tip].Location;
-                branchModels.Add(new BranchLabelModel() { Location = new Point(cl.X, cl.Y + 50), Branch = b });
+                branchModels.Add(new BranchLabelModel() { Location = new Point(cl.X, cl.Y - 40), Branch = b });
             }
             ZoomAndPanCanvasModel.Branches = branchModels;
         }

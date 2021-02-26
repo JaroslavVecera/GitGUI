@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GitGUI"
              mc:Ignorable="d" 
-             d:DesignHeight="45" d:DesignWidth="180">
+             d:DesignHeight="60" d:DesignWidth="180">
     <Grid>
-        <Border CornerRadius="2" Height="40" Background="#003a8c" Width="150">
+        <Border VerticalAlignment="Top" CornerRadius="2" Height="40" Background="#003a8c" MaxWidth="150">
             <TextBlock Text="{Binding Name}"
                    TextTrimming="CharacterEllipsis" 
                    VerticalAlignment="Center"
@@ -18,5 +18,17 @@
                 </TextBlock.ToolTip>
             </TextBlock>
         </Border>
+        <Path Fill="#003a8c">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="30,40">
+                        <PathFigure.Segments>
+                            <LineSegment Point="40,55" />
+                            <LineSegment Point="50,40" />
+                        </PathFigure.Segments>
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
     </Grid>
 </UserControl>
