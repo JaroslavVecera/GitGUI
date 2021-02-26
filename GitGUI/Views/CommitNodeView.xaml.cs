@@ -97,10 +97,7 @@ namespace GitGUI
             set { SetValue(MouseArgsProperty, value); }
         }
 
-        public double EdgeOffset
-        {
-            get; set;
-        }
+        public double EdgeOffset { get { return MaxWidth; } }
 
         public static readonly DependencyProperty MouseArgsProperty =
             DependencyProperty.Register("MouseArgs", typeof(MouseEventArgs), typeof(CommitNodeView));
@@ -153,8 +150,7 @@ namespace GitGUI
 
         void UpdateMaxWidth()
         {
-            MaxWidth = 2 * _margin + TextWidth + Height * 3 / 2;
-            EdgeOffset = MaxWidth - (!EnabledPhoto ? Height / 2 : 0);
+            MaxWidth = 2 * _margin + TextWidth + Height + (EnabledPhoto ? Height / 2 : 0);
         }
 
         LineSegment Top()
