@@ -35,7 +35,7 @@ namespace GitGUI
 
         public void OnFocusedChanged()
         {
-            plusButton.Visibility = Focused ? Visibility.Visible : Visibility.Collapsed;
+            plusButton.Visibility = (PlusButton && Focused) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void OnMarkedChanged()
@@ -54,6 +54,15 @@ namespace GitGUI
         {
             get { return (double)GetValue(TextWidthProperty); }
             set { SetValue(TextWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty PlusButtonProperty =
+            DependencyProperty.Register("PlusButton", typeof(bool), typeof(CommitNodeView), new PropertyMetadata(true));
+
+        public bool PlusButton
+        {
+            get { return (bool)GetValue(PlusButtonProperty); }
+            set { SetValue(PlusButtonProperty, value); }
         }
 
         public static readonly DependencyProperty TextWidthProperty =
@@ -215,6 +224,9 @@ namespace GitGUI
             Binding b4 = new Binding("PlusCommand");
             b4.Source = DataContext;
             SetBinding(PlusCommandProperty, b4);
+            Binding b5 = new Binding("PlusButton");
+            b5.Source = DataContext;
+            SetBinding(PlusButtonProperty, b5);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)

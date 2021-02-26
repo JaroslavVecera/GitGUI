@@ -89,12 +89,16 @@ namespace GitGUI.Logic
         void DeployBranchNodes()
         {
             List<BranchLabelModel> branchModels = new List<BranchLabelModel>();
+            ZoomAndPanCanvasModel.Branches?.ToList().ForEach(b => UnsubscribeEvents(b));
             Dictionary<Commit, CommitNodeModel> pairs = ZoomAndPanCanvasModel.Commits.ToDictionary(x => x.Commit);
             foreach (Branch b in LibGitService.GetInstance().Branches)
             {
-                Point cl = pairs[b.Tip].Location;
+                CommitNodeModel tipNode = pairs[b.Tip];
+                tipNode.PlusButton = false;
+                Point cl = tipNode.Location;
                 branchModels.Add(new BranchLabelModel() { Location = new Point(cl.X, cl.Y - 40), Branch = b });
             }
+            branchModels.ForEach(b => SubscribeEvents(b));
             ZoomAndPanCanvasModel.Branches = branchModels;
         }
 
@@ -147,9 +151,9 @@ namespace GitGUI.Logic
             m.MouseUp -= EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
+            m.AddBranch -= EventHandlerBatch.AddBranchEventHandler;
             if (m is CommitNodeModel)
             {
-                ((CommitNodeModel)m).AddBranch -= EventHandlerBatch.AddBranchEventHandler;
                 ((CommitNodeModel)m).ShowChanges -= EventHandlerBatch.ShowChangesEventHandler;
             }
         }
@@ -160,9 +164,9 @@ namespace GitGUI.Logic
             m.MouseUp += EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter += EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave += EventHandlerBatch.MouseLeaveEventHandler;
+            m.AddBranch += EventHandlerBatch.AddBranchEventHandler;
             if (m is CommitNodeModel)
             {
-                ((CommitNodeModel)m).AddBranch += EventHandlerBatch.AddBranchEventHandler;
                 ((CommitNodeModel)m).ShowChanges += EventHandlerBatch.ShowChangesEventHandler;
             }
         }

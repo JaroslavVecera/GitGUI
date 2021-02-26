@@ -19,10 +19,9 @@ namespace GitGUI.Logic
         void SubscribeViewEvents(BranchLabelView view)
         {
             LocationChanged += view.OnLocationChanged;
-
-            /*FocusedChanged += view.OnFocusedChanged;
+            FocusedChanged += view.OnFocusedChanged;
             MarkedChanged += view.OnMarkedChanged;
-            CheckoutedChanged += view.OnCheckoutedChanged;*/
+            CheckoutedChanged += view.OnCheckoutedChanged;
         }
     }
 }

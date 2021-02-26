@@ -27,6 +27,8 @@ namespace GitGUI.Logic
         public event Action FocusedChanged;
         public event Action MarkedChanged;
         public event Action CheckoutedChanged;
+        public bool PlusButton { get { return Model.PlusButton; } }
+        public RelayCommand PlusCommand { get; private set; }
 
         public GraphItemViewModel(GraphItemModel model, UserControl view)
         {
@@ -90,6 +92,8 @@ namespace GitGUI.Logic
                 MouseArgs.Handled = true;
                 Model.OnMouseLeave(MouseArgs);
             });
+            PlusCommand = new RelayCommand(() => (Model).OnAddBranch());
+            OnPropertyChanged("PlusCommand");
         }
     }
 }

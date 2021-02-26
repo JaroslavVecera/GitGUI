@@ -20,9 +20,27 @@ namespace GitGUI
     /// </summary>
     public partial class BranchLabelView : UserControl
     {
+        public RelayCommand PlusCommand
+        {
+            get { return (RelayCommand)GetValue(PlusCommandProperty); }
+            set { SetValue(PlusCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty PlusCommandProperty =
+            DependencyProperty.Register("PlusCommand", typeof(RelayCommand), typeof(BranchLabelView));
+
+        public static readonly DependencyProperty PlusButtonProperty =
+            DependencyProperty.Register("PlusButton", typeof(bool), typeof(BranchLabelView), new PropertyMetadata(true));
+
+        public bool PlusButton
+        {
+            get { return (bool)GetValue(PlusButtonProperty); }
+            set { SetValue(PlusButtonProperty, value); }
+        }
+
         public void OnFocusedChanged()
         {
-
+            plusButton.Visibility = (PlusButton && Focused) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void OnMarkedChanged()
@@ -64,6 +82,9 @@ namespace GitGUI
         public BranchLabelView()
         {
             InitializeComponent();
+            OnFocusedChanged();
+            OnMarkedChanged();
+            OnCheckoutedChanged();
         }
 
         public void OnLocationChanged(Point p)
@@ -95,6 +116,12 @@ namespace GitGUI
             Binding b3 = new Binding("Focused");
             b3.Source = DataContext;
             SetBinding(FocusedProperty, b3);
+            Binding b4 = new Binding("PlusCommand");
+            b4.Source = DataContext;
+            SetBinding(PlusCommandProperty, b4);
+            Binding b5 = new Binding("PlusButton");
+            b5.Source = DataContext;
+            SetBinding(PlusButtonProperty, b5);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
@@ -105,6 +132,11 @@ namespace GitGUI
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
             MouseArgs = e;
+        }
+
+        private void ButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PlusCommand.Execute(null);
         }
     }
 }
