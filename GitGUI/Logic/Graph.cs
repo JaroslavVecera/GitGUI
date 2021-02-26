@@ -89,12 +89,25 @@ namespace GitGUI.Logic
         void DeployBranchNodes()
         {
             List<BranchLabelModel> branchModels = new List<BranchLabelModel>();
+            ZoomAndPanCanvasModel.Branches?.ToList().ForEach(b => UnsubscribeEvents(b));
             Dictionary<Commit, CommitNodeModel> pairs = ZoomAndPanCanvasModel.Commits.ToDictionary(x => x.Commit);
-            foreach (Branch b in LibGitService.GetInstance().Branches)
+            List<IGrouping<Commit, Branch>> branchGroups = LibGitService.GetInstance().Branches.GroupBy(b => b.Tip).ToList();
+            foreach (var branchGroup in branchGroups)
             {
-                Point cl = pairs[b.Tip].Location;
-                branchModels.Add(new BranchLabelModel() { Location = new Point(cl.X, cl.Y + 50), Branch = b });
+                int y = 1;
+                List<BranchLabelModel> mg = branchGroup.ToList().Select(b =>
+                {
+                    CommitNodeModel tipNode = pairs[b.Tip];
+                    tipNode.PlusButton = false;
+                    Point cl = tipNode.Location;
+                    BranchLabelModel m = new BranchLabelModel() { Location = new Point(cl.X, cl.Y - 10 - 32 * (y++)), Branch = b };
+                    branchModels.Add(m);
+                    return m;
+                }).ToList();
+                mg.First().Arrow = true;
+                mg.Last().PlusButton = true;
             }
+            branchModels.ForEach(b => SubscribeEvents(b));
             ZoomAndPanCanvasModel.Branches = branchModels;
         }
 
@@ -147,9 +160,9 @@ namespace GitGUI.Logic
             m.MouseUp -= EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter -= EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave -= EventHandlerBatch.MouseLeaveEventHandler;
+            m.AddBranch -= EventHandlerBatch.AddBranchEventHandler;
             if (m is CommitNodeModel)
             {
-                ((CommitNodeModel)m).AddBranch -= EventHandlerBatch.AddBranchEventHandler;
                 ((CommitNodeModel)m).ShowChanges -= EventHandlerBatch.ShowChangesEventHandler;
             }
         }
@@ -160,9 +173,9 @@ namespace GitGUI.Logic
             m.MouseUp += EventHandlerBatch.MouseUpEventHandler;
             m.MouseEnter += EventHandlerBatch.MouseEnterEventHandler;
             m.MouseLeave += EventHandlerBatch.MouseLeaveEventHandler;
+            m.AddBranch += EventHandlerBatch.AddBranchEventHandler;
             if (m is CommitNodeModel)
             {
-                ((CommitNodeModel)m).AddBranch += EventHandlerBatch.AddBranchEventHandler;
                 ((CommitNodeModel)m).ShowChanges += EventHandlerBatch.ShowChangesEventHandler;
             }
         }

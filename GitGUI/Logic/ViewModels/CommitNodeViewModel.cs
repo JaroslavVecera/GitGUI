@@ -18,7 +18,6 @@ namespace GitGUI.Logic
         public BitmapImage Bitmap { get { return ((CommitNodeModel)Model).BitmapImage; } }
         public bool EnabledPhoto { get { return ((CommitNodeModel)Model).EnabledPhoto; } }
         public string Message { get { return ((CommitNodeModel)Model).Message; } }
-        public RelayCommand PlusCommand { get; private set; }
         public double Width
         {
             get; set;
@@ -36,13 +35,6 @@ namespace GitGUI.Logic
         {
             view.EnabledPhoto = EnabledPhoto;
             view.message.Text = Message;
-        }
-
-        override protected void InitializeCommands()
-        {
-            base.InitializeCommands();
-            PlusCommand = new RelayCommand(() => ((CommitNodeModel)Model).OnAddBranch());
-            OnPropertyChanged("PlusCommand");
         }
 
         void SubscribeViewEvents(CommitNodeView view)

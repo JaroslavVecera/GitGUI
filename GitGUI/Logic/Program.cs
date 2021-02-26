@@ -137,7 +137,7 @@ namespace GitGUI.Logic
             State.MouseMove(Data, e);
         }
 
-        public void OnAddBranch(CommitNodeModel m)
+        public void OnAddBranch(GraphItemModel m)
         {
             var dialog = new InputDialog();
             if (dialog.ShowDialog() == true)

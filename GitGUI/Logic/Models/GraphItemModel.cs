@@ -11,19 +11,26 @@ namespace GitGUI.Logic
 {
     public class GraphItemModel : ModelBase
     {
-        bool _marked, _focused, _checkouted;
+        bool _marked, _focused, _checkouted, _plusButton;
         public bool Marked { get { return _marked; } set { _marked = value; OnPropertyChanged(); } }
         public bool Focused { get { return _focused; } set { _focused = value; OnPropertyChanged(); } }
         public bool Checkouted { get { return _checkouted; } set { _checkouted = value; OnPropertyChanged(); } }
         Point _location = new Point(0, 0);
         public bool Shared { get; set; }
         public bool Stashed { get; set; }
+        public bool PlusButton { get { return _plusButton; } set { _plusButton = value; OnPropertyChanged(); } }
         public Point Location
         {
             get { return _location; }
             set { _location = value; OnPropertyChanged(); }
         }
-        
+
+        public void OnAddBranch()
+        {
+            AddBranch?.Invoke(this);
+        }
+
+        public event Action<GraphItemModel> AddBranch;
         public event Action<GraphItemModel, MouseButtonEventArgs> MouseDown;
         public event Action<GraphItemModel, MouseButtonEventArgs> MouseUp;
         public event Action<GraphItemModel, MouseEventArgs> MouseEnter;

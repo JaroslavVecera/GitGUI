@@ -27,8 +27,6 @@ namespace GitGUI.Logic
         public RelayCommand CopySha { get; private set; }
         public RelayCommand OnShowChanges { get; private set; }
 
-        public event Action<CommitNodeModel> AddBranch;
-
         public bool EnabledPhoto
         {
             get { return BitmapImage != null && ((App)Application.Current).Settings.ShowAuthorMiniatures; }
@@ -42,17 +40,13 @@ namespace GitGUI.Logic
 
         public CommitNodeModel(Commit c, BitmapImage picture)
         {
+            PlusButton = true;
             Commit = c;
             BitmapImage = picture;
             CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));
             OnShowChanges = new RelayCommand(
                 () => 
                 ShowChanges?.Invoke(this));
-        }
-
-        public void OnAddBranch()
-        {
-            AddBranch?.Invoke(this);
         }
     }
 }

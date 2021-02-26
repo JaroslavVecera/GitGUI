@@ -13,7 +13,7 @@ namespace GitGUI.Logic
         public Action<GraphItemModel, MouseButtonEventArgs> MouseUpEventHandler { get; set; }
         public Action<GraphItemModel, MouseEventArgs> MouseEnterEventHandler { get; set; }
         public Action<GraphItemModel, MouseEventArgs> MouseLeaveEventHandler { get; set; }
-        public Action<CommitNodeModel> AddBranchEventHandler { get; set; }
+        public Action<GraphItemModel> AddBranchEventHandler { get; set; }
         public Action<CommitNodeModel> ShowChangesEventHandler { get; set; }
         public Action<CommitNodeModel> CopyHash { get; set; }
     }

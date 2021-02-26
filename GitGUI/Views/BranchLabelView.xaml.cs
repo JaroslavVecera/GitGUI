@@ -20,9 +20,46 @@ namespace GitGUI
     /// </summary>
     public partial class BranchLabelView : UserControl
     {
+        public RelayCommand PlusCommand
+        {
+            get { return (RelayCommand)GetValue(PlusCommandProperty); }
+            set { SetValue(PlusCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty PlusCommandProperty =
+            DependencyProperty.Register("PlusCommand", typeof(RelayCommand), typeof(BranchLabelView));
+
+        public static readonly DependencyProperty PlusButtonProperty =
+            DependencyProperty.Register("PlusButton", typeof(bool), typeof(BranchLabelView), new PropertyMetadata(true));
+
+        public bool PlusButton
+        {
+            get { return (bool)GetValue(PlusButtonProperty); }
+            set { SetValue(PlusButtonProperty, value); }
+        }
+
+        public static readonly DependencyProperty ArrowProperty =
+            DependencyProperty.Register("Arrow", typeof(bool), typeof(BranchLabelView), new PropertyMetadata(true, OnArrowChanged));
+
+        static void OnArrowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((BranchLabelView)d).OnArrowChanged();
+        }
+
+        void OnArrowChanged()
+        {
+            arrow.Visibility = (Arrow == true) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        public bool Arrow
+        {
+            get { return (bool)GetValue(ArrowProperty); }
+            set { SetValue(ArrowProperty, value); }
+        }
+
         public void OnFocusedChanged()
         {
-
+            plusButton.Visibility = (PlusButton && Focused) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public void OnMarkedChanged()
@@ -64,6 +101,10 @@ namespace GitGUI
         public BranchLabelView()
         {
             InitializeComponent();
+            OnFocusedChanged();
+            OnMarkedChanged();
+            OnCheckoutedChanged();
+            OnArrowChanged();
         }
 
         public void OnLocationChanged(Point p)
@@ -95,6 +136,15 @@ namespace GitGUI
             Binding b3 = new Binding("Focused");
             b3.Source = DataContext;
             SetBinding(FocusedProperty, b3);
+            Binding b4 = new Binding("PlusCommand");
+            b4.Source = DataContext;
+            SetBinding(PlusCommandProperty, b4);
+            Binding b5 = new Binding("PlusButton");
+            b5.Source = DataContext;
+            SetBinding(PlusButtonProperty, b5);
+            Binding b6 = new Binding("Arrow");
+            b6.Source = DataContext;
+            SetBinding(ArrowProperty, b6);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)
@@ -105,6 +155,11 @@ namespace GitGUI
         private void OnMouseEnter(object sender, MouseEventArgs e)
         {
             MouseArgs = e;
+        }
+
+        private void ButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PlusCommand.Execute(null);
         }
     }
 }
