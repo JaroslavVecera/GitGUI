@@ -82,34 +82,27 @@ namespace GitGUI.Logic
         public void DeployGraph()
         {
             DeployCommitNodes();
-            DeployEdges();
             DeployBranchNodes();
             ZoomAndPanCanvasModel.Update();
         }
 
         void DeployBranchNodes()
         {
-            ZoomAndPanCanvasModel.Branches = new List<BranchLabelModel> { };
-            int x = -250;
-            int y = 0;
-            List<BranchLabelModel> l = new List<BranchLabelModel>();
+            List<BranchLabelModel> branchModels = new List<BranchLabelModel>();
+            Dictionary<Commit, CommitNodeModel> pairs = ZoomAndPanCanvasModel.Commits.ToDictionary(x => x.Commit);
             foreach (Branch b in LibGitService.GetInstance().Branches)
             {
-                l.Add(new BranchLabelModel() { Location = new Point(x, y), Branch = b });
-                y += 50;
+                Point cl = pairs[b.Tip].Location;
+                branchModels.Add(new BranchLabelModel() { Location = new Point(cl.X, cl.Y + 50), Branch = b });
             }
-            ZoomAndPanCanvasModel.Branches = l;
-        }
-
-        void DeployEdges()
-        {
+            ZoomAndPanCanvasModel.Branches = branchModels;
         }
 
         void DeployCommitNodes()
         {
             var commitRows = LibGitService.GetInstance().CommitRows();
             ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeCommitEvents(c));
-            List<CommitNodeModel> models = new List<CommitNodeModel>();
+            List<CommitNodeModel> commitModels = new List<CommitNodeModel>();
             int x = 0;
             List<CommitNodeModel> commits = commitRows.Select(pair =>
             {
@@ -118,9 +111,9 @@ namespace GitGUI.Logic
                 BitmapImage picture = Program.GetInstance().UserManager.FindUserPictureByIdentity(i);
                 return new CommitNodeModel(c, picture) { Location = new Point((x++) * 200, pair.Item2 * 70) };
             }).ToList();
-            commits.ForEach(c => models.Add(c));
-            models.ForEach(c => SubscribeCommitEvents(c));
-            ZoomAndPanCanvasModel.Commits = models;
+            commits.ForEach(c => commitModels.Add(c));
+            commitModels.ForEach(c => SubscribeCommitEvents(c));
+            ZoomAndPanCanvasModel.Commits = commitModels;
         }
 
         void Old()
