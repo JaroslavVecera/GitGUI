@@ -11,7 +11,7 @@ namespace GitGUI.Logic
 {
     public class GraphItemModel : ModelBase
     {
-        bool _marked, _focused, _checkouted, _plusButton = true;
+        bool _marked, _focused, _checkouted, _plusButton;
         public bool Marked { get { return _marked; } set { _marked = value; OnPropertyChanged(); } }
         public bool Focused { get { return _focused; } set { _focused = value; OnPropertyChanged(); } }
         public bool Checkouted { get { return _checkouted; } set { _checkouted = value; OnPropertyChanged(); } }

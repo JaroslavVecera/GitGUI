@@ -40,6 +40,7 @@ namespace GitGUI.Logic
 
         public CommitNodeModel(Commit c, BitmapImage picture)
         {
+            PlusButton = true;
             Commit = c;
             BitmapImage = picture;
             CopySha = new RelayCommand(() => CopyShaRequested?.Invoke(this));

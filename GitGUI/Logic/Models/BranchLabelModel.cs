@@ -12,9 +12,15 @@ namespace GitGUI.Logic
     public class BranchLabelModel : GraphItemModel
     {
         MatrixTransform _transform;
-        bool _hitTestVisible = true;
+        bool _hitTestVisible = true, _arrow = false;
         public Branch Branch { get; set; }
         public string Name { get { return Branch.FriendlyName; } }
+        public bool Arrow { get { return _arrow; } set { _arrow = value; OnPropertyChanged(); } }
+
+        public BranchLabelModel()
+        {
+            PlusButton = false;
+        }
 
         public MatrixTransform RenderTransform
         {

@@ -10,6 +10,7 @@
              MouseUp="OnMouseUp"
              MouseEnter="OnMouseEnter"
              MouseLeave="OnMouseLeave"
+             Cursor="Hand"
              DataContextChanged="OnDataContextChanged"
              d:DesignHeight="60" d:DesignWidth="180">
     <i:Interaction.Triggers>
@@ -32,13 +33,9 @@
                    TextTrimming="CharacterEllipsis"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   Padding="10,0,10,0" Foreground="White">
-                <TextBlock.ToolTip>
-                    <AccessText Text="{Binding Name}"/>
-                </TextBlock.ToolTip>
-            </TextBlock>
+                   Padding="10,0,10,0" Foreground="White" />
         </Border>
-        <Path Fill="#003a8c">
+        <Path Fill="#003a8c" x:Name="arrow">
             <Path.Data>
                 <PathGeometry>
                     <PathFigure StartPoint="20,29">
