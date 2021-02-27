@@ -31,6 +31,7 @@ namespace GitGUI.Logic
 
         void InitializeState()
         {
+            MovingBranch.GetInstance().Program = this;
             var n = Normal.GetInstance();
             n.Program = this;
             State = n;
@@ -165,12 +166,13 @@ namespace GitGUI.Logic
 
         public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)
         {
-
+            LibGitService.GetInstance().Merge(aggregating, aggregated);
+            Graph.GetInstance().DeployGraph();
         }
 
         public void AggregationFocus(BranchLabelModel l)
         {
-
+            AggregationFocused = l;
         }
 
         public void MouseLeaveWindow()

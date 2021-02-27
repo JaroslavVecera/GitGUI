@@ -37,7 +37,12 @@ namespace GitGUI.Logic
 
         }
 
-            public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+
+        }
+
+        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton != MouseButton.Left)
                 return;
@@ -46,11 +51,6 @@ namespace GitGUI.Logic
             ChangeState(Normal.GetInstance(), data);
             if (_moved == false)
                 Program.Show(data.AttachedBranch);
-        }
-
-        public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
-        {
-
         }
 
         public void MouseDown(object sender, CrossStateData data, MouseButtonEventArgs e) { }
@@ -79,7 +79,8 @@ namespace GitGUI.Logic
 
         public void MouseEnter(object sender, CrossStateData data)
         {
-            Program.AggregationFocus((BranchLabelModel)sender);
+            if (sender != null && sender is BranchLabelModel)
+                Program.AggregationFocus((BranchLabelModel)sender);
 
         }
 

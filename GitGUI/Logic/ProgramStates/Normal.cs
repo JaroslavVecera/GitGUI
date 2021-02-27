@@ -11,7 +11,7 @@ namespace GitGUI.Logic
     {
         public Program Program { get; set; }
         static Normal Instance { get; set; }
-        CommitNodeModel AimedCommit { get; set; } = null;
+        GraphItemModel Aimed { get; set; } = null;
 
         private Normal() { }
 
@@ -21,12 +21,21 @@ namespace GitGUI.Logic
             {
                 if (sender == null)
                     ChangeState(MovingCanvas.GetInstance());
-                else if (sender is CommitNodeModel)
-                    AimedCommit = (CommitNodeModel)sender;
+                else
+                    Aimed = (GraphItemModel)sender;
             }
         }
 
-        public void MouseMove(CrossStateData data, MouseEventArgs e) { }
+        public void MouseMove(CrossStateData data, MouseEventArgs e)
+        {
+            if (Aimed != null && Aimed is BranchLabelModel)
+            {
+                data.AttachedBranch = (BranchLabelModel)Aimed;
+                MovingBranch mb = MovingBranch.GetInstance();
+                mb.SetBranchLabel(data.AttachedBranch);
+                ChangeState(mb);
+            }
+        }
 
         public void WindowMouseDown(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
@@ -35,15 +44,15 @@ namespace GitGUI.Logic
 
         public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
-            AimedCommit = null;
+            Aimed = null;
             MouseEnter(sender, data);
         }
 
         public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
-            if (sender != null && sender == AimedCommit)
-                Program.GetInstance().Show(AimedCommit);
-            AimedCommit = null;
+            if (sender != null && sender == Aimed)
+                Program.GetInstance().Show(Aimed);
+            Aimed = null;
             MouseEnter(sender, data);
         }
 
@@ -58,13 +67,13 @@ namespace GitGUI.Logic
 
         public void MouseEnter(object sender, CrossStateData data)
         {
-            if (AimedCommit == null || sender == AimedCommit)
+            if (Aimed == null || sender == Aimed)
                 Graph.GetInstance().HighlightAsFocused((GraphItemModel)sender);
         }
 
         void ChangeState(IProgramState state)
         {
-            AimedCommit = null;
+            Aimed = null;
             Program.ChangeState(state);
         }
 

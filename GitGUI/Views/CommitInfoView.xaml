@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
                 <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Background" Value="#3E3E42"/>
                     <Style.Triggers>
                         <Trigger Property="Button.IsMouseOver" Value="True">
@@ -52,7 +52,7 @@
                 </ScrollViewer>
             </Grid>
             <StackPanel Grid.Column="2" Margin="30, 40, 25, 0">
-                <TextBlock Foreground="White" FontSize="15">Hash</TextBlock>
+                <TextBlock Foreground="White">Hash</TextBlock>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

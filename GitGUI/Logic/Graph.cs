@@ -238,6 +238,7 @@ namespace GitGUI.Logic
 
         void MoveCanvasToMouse(object sender, EventArgs e)
         {
+            return;
             Vector translate = Translate();
             double milliseconds = Stopwatch.ElapsedMilliseconds;
             Stopwatch.Restart();
@@ -246,7 +247,7 @@ namespace GitGUI.Logic
             translate *= milliseconds / 10;
             Matrix inv = ZoomAndPanCanvasModel.TransformMatrix;
             inv.Invert();
-            Graph.GetInstance().Move((Vector)translate);
+            Move(translate);
             Matrix m = NodeTransform.Matrix;
             m.Translate(-translate.X * inv.M11, -translate.Y * inv.M22);
             NodeTransform.Matrix = m;

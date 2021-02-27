@@ -118,6 +118,11 @@ namespace GitGUI
             MouseButtonArgs = e;
         }
 
+        private void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
         private void OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             MouseButtonArgs = e;

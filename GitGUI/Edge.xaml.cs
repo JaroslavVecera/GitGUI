@@ -84,7 +84,7 @@ namespace GitGUI
 
         double ArcRadius { get { return Math.Min(Math.Min(MaxArcRadius, EdgeHeight / 2), EdgeWidth / 2); } }
 
-        bool IsAscending { get { return Right.Y > Left.Y; } }
+        bool IsAscending { get { return Right.Y < Left.Y; } }
 
         double UpperLineLength { get { return Math.Min(MaxUpperArcOffset, (EdgeWidth - 2 * ArcRadius) / 2); } }
 
@@ -103,9 +103,9 @@ namespace GitGUI
 
         Size ArcSize { get { double s = ArcRadius; return new Size(s, s); } }
 
-        Point LeftArcSink { get { Point lls = LeftLineSink; return new Point(lls.X + ArcRadius, Left.Y + (IsAscending ? ArcRadius : -ArcRadius)); } }
+        Point LeftArcSink { get { Point lls = LeftLineSink; return new Point(lls.X + ArcRadius, Left.Y + (IsAscending ? -ArcRadius : ArcRadius)); } }
 
-        Point MidLineSink { get { Point las = LeftArcSink; return new Point(las.X, Right.Y + (IsAscending ? -ArcRadius : ArcRadius)); } }
+        Point MidLineSink { get { Point las = LeftArcSink; return new Point(las.X, Right.Y + (IsAscending ? ArcRadius : -ArcRadius)); } }
 
         Point RightArcSink { get { return new Point(LeftLineSink.X + 2 * ArcRadius, Right.Y); } }
 
@@ -125,13 +125,13 @@ namespace GitGUI
             rightArc.Size = leftArc.Size = ArcSize;
             if (IsAscending)
             {
-                leftArc.SweepDirection = SweepDirection.Clockwise;
-                rightArc.SweepDirection = SweepDirection.Counterclockwise;
+                leftArc.SweepDirection = SweepDirection.Counterclockwise;
+                rightArc.SweepDirection = SweepDirection.Clockwise;
             }
             else
             {
-                leftArc.SweepDirection = SweepDirection.Counterclockwise;
-                rightArc.SweepDirection = SweepDirection.Clockwise;
+                leftArc.SweepDirection = SweepDirection.Clockwise;
+                rightArc.SweepDirection = SweepDirection.Counterclockwise;
             }
         }
 

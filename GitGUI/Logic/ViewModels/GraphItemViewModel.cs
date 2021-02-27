@@ -12,6 +12,7 @@ namespace GitGUI.Logic
     class GraphItemViewModel : ViewModelBase
     {
         UserControl _control;
+        bool _hitTestVisible = true;
         protected virtual GraphItemModel Model { get; set; }
         public Point Location { get { return Model.Location; } }
         public RelayCommand MouseDown { get; private set; }
@@ -29,6 +30,7 @@ namespace GitGUI.Logic
         public event Action CheckoutedChanged;
         public bool PlusButton { get { return Model.PlusButton; } }
         public RelayCommand PlusCommand { get; private set; }
+        public bool HitTestVisible { get { return _hitTestVisible; } set { _hitTestVisible = value; OnPropertyChanged(); } }
 
         public GraphItemViewModel(GraphItemModel model, UserControl view)
         {
@@ -46,14 +48,16 @@ namespace GitGUI.Logic
             LocationChanged?.Invoke(Location);
         }
 
-        void BackgroundPush()
+        protected void BackgroundPush()
         {
-            Panel.SetZIndex(_control, 0);
+            Panel.SetZIndex(_control, 2);
+            HitTestVisible = true;
         }
 
-        void ForegroundPull()
+        protected void ForegroundPull()
         {
-            Panel.SetZIndex(_control, 1);
+            Panel.SetZIndex(_control, 3);
+            HitTestVisible = false;
         }
 
         public void SubscribeModel()
