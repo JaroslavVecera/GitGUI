@@ -166,15 +166,19 @@ namespace GitGUI.Logic
             return Repository;
         }
 
+        Signature GetCurrentSignature()
+        {
+            return new Signature(Program.GetInstance().UserManager.Current.Identity, DateTimeOffset.Now);
+        }
+
         public void Merge(BranchLabelModel merging, BranchLabelModel merged)
         {
-            Signature s = new Signature(new Identity("anonym", "anonym@upol.cz"), DateTimeOffset.Now);
-            MergeResult r = Repository.Merge(merging.Branch, s);
+               Signature s = GetCurrentSignature();
         }
 
         public void Commit(BranchLabelModel l, string message)
         {
-            Signature s = new Signature(Program.GetInstance().UserManager.Current.Identity, DateTimeOffset.Now);
+            Signature s = GetCurrentSignature();
             Commit c = Repository.Commit(message, s, s);
         }
 
