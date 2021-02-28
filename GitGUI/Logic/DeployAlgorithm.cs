@@ -33,7 +33,7 @@ namespace GitGUI.Logic
                         d.Predecessors.Count - 1 == d.DeployedPredecessors));
                 if (possibleDescOnSameRow.Any())
                 {
-                    Node descOnSameRow = possibleDescOnSameRow.First();
+                    Node descOnSameRow = possibleDescOnSameRow.Aggregate((n1, n2) => (n1.Row < n2.Row) ? n1 : n2);
                     n.Row = descOnSameRow.Row;
                     descOnSameRow.HasPredecessorOnSameRow = true;
                 }
