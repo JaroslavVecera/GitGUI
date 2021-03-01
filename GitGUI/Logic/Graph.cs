@@ -83,7 +83,14 @@ namespace GitGUI.Logic
         {
             DeployCommitNodes();
             DeployBranchNodes();
+            UpdateCheckouted();
             ZoomAndPanCanvasModel.Update();
+        }
+
+        void UpdateCheckouted()
+        {
+            Branch head = LibGitService.GetInstance().Head;
+            Checkouted = ZoomAndPanCanvasModel.Branches.Find(b => b.Branch.CanonicalName == head.CanonicalName);
         }
 
         void DeployBranchNodes()

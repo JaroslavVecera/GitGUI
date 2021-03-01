@@ -14,8 +14,8 @@ namespace GitGUI.Logic
         string _dirPath = "Users";
         User _current;
         public User Current {
-            get { return _current; }
-            set { _current = value ?? User.Anonym; }
+            get { return _current ?? User.Anonym; }
+            set { _current = value; }
         }
 
         public List<User> KnownUsers { get; } = new List<User>();

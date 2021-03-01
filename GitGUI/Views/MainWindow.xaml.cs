@@ -18,6 +18,11 @@ namespace GitGUI
 {
     public partial class MainWindow : Window
     {
+        public void OpenContextMenu()
+        {
+            menu.IsOpen = true;
+        }
+
         public MainWindow()
         {
         }
@@ -49,10 +54,12 @@ namespace GitGUI
 
         private void ContextMenuMerge(object sender, RoutedEventArgs e)
         {
+            Program.GetInstance().Merge();
         }
 
         private void ContextMenuRebase(object sender, RoutedEventArgs e)
         {
+            Program.GetInstance().Rebase();
         }
 
         private void OpenRepository(object sender, RoutedEventArgs e)

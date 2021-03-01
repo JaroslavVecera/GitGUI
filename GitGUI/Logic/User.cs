@@ -16,7 +16,7 @@ namespace GitGUI.Logic
         Bitmap Picture { get; set; }
         public LibGit2Sharp.Identity Identity {  get { return new LibGit2Sharp.Identity(Name, Email); } }
         public LibGit2Sharp.Signature UpToDateSignature { get { return new LibGit2Sharp.Signature(Identity, DateTime.Now); } }
-        public static User Anonym { get { return new User() { Name = "Anonym" }; } }
+        public static User Anonym { get { return new User() { Name = "Anonym" , Email = "-"}; } }
         string Path { get; set; }
         string IdentityPath { get { return Path + System.IO.Path.DirectorySeparatorChar + "Identity"; } }
         string PotentialPicturePath { get { return Path + System.IO.Path.DirectorySeparatorChar + "Picture"; } }

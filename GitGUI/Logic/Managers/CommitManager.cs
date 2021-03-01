@@ -68,7 +68,17 @@ namespace GitGUI.Logic
 
         public void Merge(BranchLabelModel merging, BranchLabelModel merged)
         {
-            LibGitService.Merge(merging, merged);
+            BranchLabelModel currentBranch = Graph.Checkouted;
+            Checkout(merging);
+            bool succes = LibGitService.Merge(merged);
+            if (succes)
+            {
+                Checkout(currentBranch);
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
             Graph.DeployGraph();
         }
 

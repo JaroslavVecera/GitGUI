@@ -17,15 +17,16 @@ namespace GitGUI.Logic
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
-            SubscribeModel(model);
+            SubscribeModel(model, view);
             view.DataContext = this;
         }
 
-        void SubscribeModel(MainWindowModel model)
+        void SubscribeModel(MainWindowModel model, MainWindow view)
         {
             Model = model;
             model.ChangedTabs += () => OnPropertyChanged("Tabs");
             model.ChangedIndex += () => OnPropertyChanged("SelectedIndex");
+            model.OnContextMenuOpened += () => view.OpenContextMenu();
         }
     }
 }

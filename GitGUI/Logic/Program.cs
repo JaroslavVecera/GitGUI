@@ -18,6 +18,8 @@ namespace GitGUI.Logic
         MainWindowModel MainWindowModel { get { return Data.MainWindowModel; } set { Data.MainWindowModel = value; } }
         static Program Instance { get; set; }
         public BranchLabelModel AggregationFocused { get; set; }
+        BranchLabelModel Aggregating { get; set; }
+        BranchLabelModel Aggregated { get; set; }
 
         Program()
         {
@@ -166,8 +168,9 @@ namespace GitGUI.Logic
 
         public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)
         {
-            LibGitService.GetInstance().Merge(aggregating, aggregated);
-            Graph.GetInstance().DeployGraph();
+            Aggregating = aggregating;
+            Aggregated = aggregated;
+            MainWindowModel.OpenAggregatingContextMenu();
         }
 
         public void AggregationFocus(BranchLabelModel l)
@@ -197,10 +200,13 @@ namespace GitGUI.Logic
 
         public void Merge()
         {
+            CommitManager.Merge(Aggregating, Aggregated);
         }
 
         public void Rebase()
         {
+            //LibGitService.GetInstance().Rebase(Aggregating, Aggregated);
+            Graph.GetInstance().DeployGraph();
         }
 
         void OpenAggregatingContextMenu()

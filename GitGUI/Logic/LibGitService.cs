@@ -16,7 +16,7 @@ namespace GitGUI.Logic
         public event Action RepositoryChanged;
         Repository _repository;
         Repository Repository { get { return _repository; } set { _repository = value; } }
-        public BranchLabelModel CurrentBranch { get; }
+        public Branch Head { get { return Repository.Head; } }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public TreeChanges CommitChanges(Commit c)
         {
@@ -171,9 +171,11 @@ namespace GitGUI.Logic
             return new Signature(Program.GetInstance().UserManager.Current.Identity, DateTimeOffset.Now);
         }
 
-        public void Merge(BranchLabelModel merging, BranchLabelModel merged)
+        public bool Merge(BranchLabelModel merged)
         {
-               Signature s = GetCurrentSignature();
+            Signature s = GetCurrentSignature();
+            MergeResult r = Repository.Merge(merged.Branch, s);
+            return r.Status != MergeStatus.Conflicts;
         }
 
         public void Commit(BranchLabelModel l, string message)

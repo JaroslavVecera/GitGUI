@@ -192,7 +192,7 @@
         </Style>
     </Window.Resources>
     <Window.ContextMenu>
-        <ContextMenu AllowDrop="False">
+        <ContextMenu x:Name="menu"  AllowDrop="False">
             <MenuItem Click="ContextMenuMerge" Header="Merge" />
             <MenuItem Click="ContextMenuRebase" Header="Rebase" />
         </ContextMenu>
