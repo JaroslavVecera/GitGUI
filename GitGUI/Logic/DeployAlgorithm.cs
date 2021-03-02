@@ -9,12 +9,13 @@ namespace GitGUI.Logic
 {
     public class DeployAlgorithm
     {
-        private int _nextRow = 0;
         List<Tuple<Commit, int>> Result { get; } = new List<Tuple<Commit, int>>();
+        Dictionary<int, Node> LastOnRow { get; } = new Dictionary<int, Node>();
 
         void Add(Node n)
         {
             Result.Add(new Tuple<Commit, int>(n.Commit, n.Row));
+            LastOnRow[n.Row] = n;
         }
 
         public List<Tuple<Commit, int>> ComputeRows(IEnumerable<Commit> c, BranchCollection b)
@@ -38,7 +39,13 @@ namespace GitGUI.Logic
                     descOnSameRow.HasPredecessorOnSameRow = true;
                 }
                 else
-                    n.Row = ++_nextRow;
+                {
+                    int i;
+                    for (i = 0; i < LastOnRow.Count; i++)
+                        if ((LastOnRow[i].DeployedPredecessors == LastOnRow[i].Predecessors.Count) && LastOnRow[i].HasPredecessorOnSameRow == false)
+                            break;
+                    n.Row = i;
+                }
                 n.Descendants.ForEach(d => d.DeployedPredecessors++);
                 Add(n);
             }
