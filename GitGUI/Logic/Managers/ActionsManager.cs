@@ -16,6 +16,7 @@ namespace GitGUI.Logic
         public ActionPanelModel RemoteRepoPanel { get; set; }
 
         public event Action Commit;
+        public event Action Checkout;
 
         void AddLocalRepoButtons()
         { 
@@ -38,7 +39,7 @@ namespace GitGUI.Logic
 
         void OnCheckout()
         {
-
+            Checkout?.Invoke();
         }
     }
 }

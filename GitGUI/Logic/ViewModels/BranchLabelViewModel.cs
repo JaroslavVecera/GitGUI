@@ -28,7 +28,6 @@ namespace GitGUI.Logic
             LocationChanged += view.OnLocationChanged;
             FocusedChanged += view.OnFocusedChanged;
             MarkedChanged += view.OnMarkedChanged;
-            CheckoutedChanged += view.OnCheckoutedChanged;
         }
     }
 }

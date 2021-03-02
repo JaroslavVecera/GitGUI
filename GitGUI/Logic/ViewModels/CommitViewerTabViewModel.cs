@@ -15,7 +15,6 @@ namespace GitGUI.Logic
         }
 
         new CommitViewerTabModel Model { get { return (CommitViewerTabModel)base.Model; } }
-        public RelayCommand Commit { get; set; }
         public string Message { get { return Model.Message; } }
         public List<ChangesTreeItem> Items { get; private set; }
         public bool AnyItems { get { return Items.Any(); } }
@@ -27,9 +26,6 @@ namespace GitGUI.Logic
         {
             Items = new List<ChangesTreeItem>() { };
             ChangesTreeDirectoryItem root = new ChangesTreeDirectoryItem() { Name = "All" };
-            root.Checked += () => Commit.RaiseCanExecuteChanged();
-            root.Unchecked += () => Commit.RaiseCanExecuteChanged();
-            root.SubItemCheckedChanged += () => Commit.RaiseCanExecuteChanged();
             var r2 = Model.CommitChanges.Modified;
             var r3 = Model.CommitChanges.Deleted;
             r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change.Path, Model.Commit.Commit), false));

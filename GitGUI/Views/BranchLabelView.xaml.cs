@@ -67,11 +67,6 @@ namespace GitGUI
 
         }
 
-        public void OnCheckoutedChanged()
-        {
-
-        }
-
         public bool Focused
         {
             get { return (bool)GetValue(FocusedProperty); }
@@ -103,7 +98,6 @@ namespace GitGUI
             InitializeComponent();
             OnFocusedChanged();
             OnMarkedChanged();
-            OnCheckoutedChanged();
             OnArrowChanged();
         }
 

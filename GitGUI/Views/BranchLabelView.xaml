@@ -30,7 +30,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Border x:Name="border" BorderThickness="2" MinWidth="60" VerticalAlignment="Top" CornerRadius="4" Height="30" Background="#003a8c" MaxWidth="150">
+        <Border x:Name="border" BorderThickness="2" MinWidth="60" VerticalAlignment="Top" CornerRadius="4" Height="30" MaxWidth="150">
             <TextBlock Text="{Binding Name}"
                    TextTrimming="CharacterEllipsis"
                    VerticalAlignment="Center"
@@ -39,9 +39,13 @@
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="BorderBrush" Value="#003a8c"/>
+                    <Setter Property="Background" Value="#003a8c"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Marked}" Value="true">
                             <Setter Property="BorderBrush" Value="MidnightBlue"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Checkouted}" Value="true">
+                            <Setter Property="Background" Value="Purple"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

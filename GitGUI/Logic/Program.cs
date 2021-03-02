@@ -85,11 +85,19 @@ namespace GitGUI.Logic
         void SubscribeActionsManager()
         {
             ActionsManager.Commit += EditCommit;
+            ActionsManager.Checkout += CheckoutMarked;
         }
 
         void EditCommit()
         {
             TabManager.NewCommitEditor();
+        }
+
+        void CheckoutMarked()
+        {
+            GraphItemModel marked = TabManager.MainTabModel.Shown;
+            if (marked is BranchLabelModel)
+                CommitManager.Checkout((BranchLabelModel)marked);
         }
 
         void Test()

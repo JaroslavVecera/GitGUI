@@ -14,7 +14,7 @@ namespace GitGUI.Logic
         public event Action<string, IEnumerable<string>, IEnumerable<string>> CommitRequested;
         public event MouseButtonEventHandler CanvasMouseDown;
         public event MouseButtonEventHandler CanvasMouseUp;
-        MainTabModel MainTabModel { set; get; }
+        public MainTabModel MainTabModel { private set; get; }
         Dictionary<CommitNodeModel, CommitViewerTabViewModel> CommitViewers { get; } = new Dictionary<CommitNodeModel, CommitViewerTabViewModel>();
         IEnumerable<TabViewModel> Tabs { get { return (new List<TabViewModel>() { CommitEditorTab }).Union(CommitViewers.Values); } }
 
@@ -93,9 +93,29 @@ namespace GitGUI.Logic
 
         public void CloseTab(TabViewModel vm)
         {
+            CloseTab((dynamic)vm);
+        }
+
+        public void CloseTab(MainTabViewModel vm)
+        {
             MainWindowModel.RemoveTab(vm);
-            if (CommitViewers.Values.Contains(vm))
-                CommitViewers.Remove(((CommitViewerTabModel)((CommitViewerTabViewModel)vm).Model).Commit);
+            vm.Model.CloseRequested -= CloseTab;
+            vm.Model.MouseDown -= (args) => CanvasMouseDown?.Invoke(null, args);
+            vm.Model.MouseUp -= (args) => CanvasMouseUp?.Invoke(null, args);
+        }
+
+        public void CloseTab(CommitEditorTabViewModel vm)
+        {
+            MainWindowModel.RemoveTab(vm);
+            vm.Model.CloseRequested -= CloseTab;
+            ((CommitEditorTabModel)vm.Model).CommitRequest -= Commit;
+        }
+
+        public void CloseTab(CommitViewerTabViewModel vm)
+        {
+            MainWindowModel.RemoveTab(vm);
+            vm.Model.CloseRequested -= CloseTab;
+            CommitViewers.Remove(((CommitViewerTabModel)(vm).Model).Commit);
         }
 
         public void CloseCommitEditorTab()

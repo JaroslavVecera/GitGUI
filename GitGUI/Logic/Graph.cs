@@ -90,7 +90,7 @@ namespace GitGUI.Logic
         void UpdateCheckouted()
         {
             Branch head = LibGitService.GetInstance().Head;
-            Checkouted = ZoomAndPanCanvasModel.Branches.Find(b => b.Branch.CanonicalName == head.CanonicalName);
+            HighlightAsCheckouted(ZoomAndPanCanvasModel.Branches.Find(b => b.Branch.CanonicalName == head.CanonicalName));
         }
 
         void DeployBranchNodes()

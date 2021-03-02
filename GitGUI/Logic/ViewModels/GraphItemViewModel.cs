@@ -71,6 +71,8 @@ namespace GitGUI.Logic
                 OnPropertyChanged(e.PropertyName);
                 if (e.PropertyName == "Focused")
                     FocusedChanged?.Invoke();
+                if (e.PropertyName == "Checkouted")
+                    CheckoutedChanged?.Invoke();
             };
         }
 
