@@ -4,6 +4,11 @@ namespace GitGUI.Logic
 {
     public abstract class ChangesInfo
     {
+        public static ChangesInfo Renamed(string oldPath, string newPath)
+        {
+            return new RenamedInfo();
+        }
+
         public static ChangesInfo Modified(string path)
         {
             return new ModifiedInfo(LibGitService.GetInstance().Diff(path));

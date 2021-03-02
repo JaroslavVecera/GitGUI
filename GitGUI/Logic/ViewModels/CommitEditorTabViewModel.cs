@@ -49,12 +49,16 @@ namespace GitGUI.Logic
             added.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, ChangesInfo.Untracked(statusEntry.FilePath), true));
             var modified = Model.RepositoryChanges.Modified;
             var deleted = Model.RepositoryChanges.Deleted;
+            var renamed = Model.RepositoryChanges.Renamed;
             modified.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Modified(change.Path), false); changed.Add(change.Path); });
             deleted.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path), false); changed.Add(change.Path); });
+            renamed.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Renamed(change.OldPath, change.Path), false); changed.Add(change.Path); });
             var removed = Model.RepositoryStatus.Removed;
             removed.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Deleted(sc.FilePath), true); });
             var modified2 = Model.RepositoryStatus.Modified;
             modified2.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Modified(sc.FilePath), true); });
+            var renamed2 = Model.RepositoryStatus.RenamedInIndex;
+            renamed2.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Renamed(sc.HeadToIndexRenameDetails.OldFilePath, sc.FilePath), true); });
             if (root.Items.Any())
                 Items.Add(root);
             NotifyRefresh();
