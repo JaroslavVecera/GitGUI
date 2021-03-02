@@ -10,14 +10,16 @@ namespace GitGUI.Logic
     public class CommitEditorTabModel : TabModel
     {
         public override string Header { get { return "Create commit"; } }
-        public event Action<string, IEnumerable<string>> CommitRequest;
+        public event Action<string, IEnumerable<string>, IEnumerable<string>> CommitRequest;
         public event Action RepositoryStatusChanged;
         public bool IsChecked { get; set; } = true;
         public string Message { get; set; } = "";
         public RepositoryStatus RepositoryStatus { get; private set; }
         public TreeChanges RepositoryChanges { get; private set; }
-        IEnumerable<string> _paths;
-        public IEnumerable<string> Paths { get { return _paths; } set { _paths = Adjust(value); } }
+        IEnumerable<string> _staged;
+        IEnumerable<string> _unstaged;
+        public IEnumerable<string> Staged { get { return _staged; } set { _staged = Adjust(value); } }
+        public IEnumerable<string> Unstaged { get { return _unstaged; } set { _unstaged = Adjust(value); } }
 
         public IEnumerable<string> Adjust(IEnumerable<string> paths)
         {
@@ -43,7 +45,7 @@ namespace GitGUI.Logic
 
         public void Commit()
         {
-            CommitRequest?.Invoke(Message, Paths);
+            CommitRequest?.Invoke(Message, Staged, Unstaged);
         }
     }
 }

@@ -18,5 +18,13 @@ namespace GitGUI.Logic
                 res.Add(prefix + '/' + Name);
             return res;
         }
+
+        public override IEnumerable<string> GetUncheckedPaths(string prefix)
+        {
+            List<string> res = new List<string>();
+            if (!IsChecked)
+                res.Add(prefix + '/' + Name);
+            return res;
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace GitGUI.Logic
 
         public string Diff(string path)
         {
-            return Repository.Diff.Compare<Patch>(new List<string>() { path });
+            return Repository.Diff.Compare<Patch>(Repository.Head.Tip.Tree, DiffTargets.WorkingDirectory);
         }
 
         public string Diff(string path, Commit c)
@@ -150,9 +150,10 @@ namespace GitGUI.Logic
             return OpenRepository(path);
         }
 
-        public void Add(IEnumerable<string> files)
+        public void Add(IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            Commands.Stage(Repository, files);
+            Commands.Unstage(Repository, unstagedFiles);
+            Commands.Stage(Repository, stagedFiles);
         }
 
         public Repository OpenRepository(string path)

@@ -4,24 +4,29 @@ namespace GitGUI.Logic
 {
     public abstract class ChangesInfo
     {
-        public static ChangesInfo Modified(TreeEntryChanges entry)
+        public static ChangesInfo Renamed(string oldPath, string newPath)
         {
-            return new ModifiedInfo(LibGitService.GetInstance().Diff(entry.Path));
+            return new RenamedInfo();
         }
 
-        public static ChangesInfo Modified(TreeEntryChanges entry, Commit c)
+        public static ChangesInfo Modified(string path)
         {
-            return new ModifiedInfo(LibGitService.GetInstance().Diff(entry.Path, c));
+            return new ModifiedInfo(LibGitService.GetInstance().Diff(path));
         }
 
-        public static ChangesInfo Deleted(TreeEntryChanges entry)
+        public static ChangesInfo Modified(string path, Commit c)
+        {
+            return new ModifiedInfo(LibGitService.GetInstance().Diff(path, c));
+        }
+
+        public static ChangesInfo Deleted(string path)
         {
             return new DeletedInfo();
         }
 
-        public static ChangesInfo Deleted(TreeEntryChanges entry, Commit c)
+        public static ChangesInfo Deleted(string path, Commit c)
         {
-            return Deleted(entry);
+            return Deleted(path);
         }
 
         public static ChangesInfo Untracked(string path)

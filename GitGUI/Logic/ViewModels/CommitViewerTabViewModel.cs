@@ -32,8 +32,8 @@ namespace GitGUI.Logic
             root.SubItemCheckedChanged += () => Commit.RaiseCanExecuteChanged();
             var r2 = Model.CommitChanges.Modified;
             var r3 = Model.CommitChanges.Deleted;
-            r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change, Model.Commit.Commit)));
-            r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Deleted(change, Model.Commit.Commit)));
+            r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change.Path, Model.Commit.Commit), false));
+            r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path, Model.Commit.Commit), false));
             if (root.Items.Any())
                 Items.Add(root);
             OnPropertyChanged("Items");

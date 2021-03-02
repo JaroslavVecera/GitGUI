@@ -76,9 +76,9 @@ namespace GitGUI.Logic
             TabManager.CloseAll();
         }
 
-        private void Commit(string message, IEnumerable<string> paths)
+        private void Commit(string message, IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            CommitManager.Commit(null, message, paths);
+            CommitManager.Commit(null, message, stagedFiles, unstagedFiles);
             TabManager.CloseCommitEditorTab();
         }
 

@@ -11,7 +11,7 @@ namespace GitGUI.Logic
 {
     class TabManager
     {
-        public event Action<string, IEnumerable<string>> CommitRequested;
+        public event Action<string, IEnumerable<string>, IEnumerable<string>> CommitRequested;
         public event MouseButtonEventHandler CanvasMouseDown;
         public event MouseButtonEventHandler CanvasMouseUp;
         MainTabModel MainTabModel { set; get; }
@@ -86,9 +86,9 @@ namespace GitGUI.Logic
             Tabs.ToList().ForEach(x => CloseTab(x));
         }
 
-        void Commit(string message, IEnumerable<string> paths)
+        void Commit(string message, IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            CommitRequested?.Invoke(message, paths);
+            CommitRequested?.Invoke(message, stagedFiles, unstagedFiles);
         }
 
         public void CloseTab(TabViewModel vm)

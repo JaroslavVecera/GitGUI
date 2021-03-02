@@ -44,11 +44,6 @@ namespace GitGUI.Logic
             Graph.RestoreBranchLabel(m);
         }
 
-        public void Add(List<string> files)
-        {
-            LibGitService.Add(files);
-        }
-
         public void Scale(int wheelDelta, Point mouse)
         {
             Graph.Scale(wheelDelta, mouse);
@@ -59,9 +54,9 @@ namespace GitGUI.Logic
             Graph.Move(move);
         }
 
-        public void Commit(BranchLabelModel l, string message, IEnumerable<string> paths)
+        public void Commit(BranchLabelModel l, string message, IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            LibGitService.GetInstance().Add(paths);
+            LibGitService.GetInstance().Add(stagedFiles, unstagedFiles);
             LibGitService.Commit(l, message);
             Graph.DeployGraph();
         }
