@@ -24,21 +24,44 @@ namespace GitGUI.Logic
         public ChangesTreeItem SelectedItem { private get { return _selected; } set { _selected = value; OnPropertyChanged("ChangesInfo"); } }
         public ChangesInfo ChangesInfo { get { if (SelectedItem != null) return SelectedItem.Info; else return null; } }
 
-        void RefreshItems()
+        ChangesTreeDirectoryItem GetRootItem()
         {
-            Items = new List<ChangesTreeItem>() { };
             ChangesTreeDirectoryItem root = new ChangesTreeDirectoryItem() { Name = "All" };
             root.Checked += () => Commit.RaiseCanExecuteChanged();
             root.Unchecked += () => Commit.RaiseCanExecuteChanged();
             root.SubItemCheckedChanged += () => Commit.RaiseCanExecuteChanged();
-            var r = Model.RepositoryStatus.Untracked;
-            var r2 = Model.RepositoryChanges.Modified;
-            var r3 = Model.RepositoryChanges.Deleted;
-            r.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, ChangesInfo.Untracked(statusEntry.FilePath)));
-            r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change)));
-            r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Deleted(change)));
+            return root;
+        }
+
+        bool HasFlag(FileStatus e, FileStatus flag)
+        {
+            return (e & flag) == flag;
+        }
+
+        void RefreshItems()
+        {
+            Items = new List<ChangesTreeItem>() { };
+            ChangesTreeDirectoryItem root = GetRootItem();
+            HashSet<string> changed = new HashSet<string>();
+            var untracked = Model.RepositoryStatus.Untracked;
+            untracked.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, ChangesInfo.Untracked(statusEntry.FilePath), false));
+            var added = Model.RepositoryStatus.Added;
+            added.ToList().ForEach(statusEntry => root.InsertItem(statusEntry.FilePath, ChangesInfo.Untracked(statusEntry.FilePath), true));
+            var modified = Model.RepositoryChanges.Modified;
+            var deleted = Model.RepositoryChanges.Deleted;
+            modified.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Modified(change.Path), false); changed.Add(change.Path); });
+            deleted.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path), false); changed.Add(change.Path); });
+            var removed = Model.RepositoryStatus.Removed;
+            removed.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Deleted(sc.FilePath), true); });
+            var modified2 = Model.RepositoryStatus.Modified;
+            modified2.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Modified(sc.FilePath), true); });
             if (root.Items.Any())
                 Items.Add(root);
+            NotifyRefresh();
+        }
+
+        void NotifyRefresh()
+        { 
             OnPropertyChanged("Items");
             OnPropertyChanged("AnyItems");
         }
@@ -46,10 +69,10 @@ namespace GitGUI.Logic
         public CommitEditorTabViewModel(CommitEditorTabModel model) : base(model)
         {
             SubscribeModel(model);
-            RefreshItems();
             Commit = new RelayCommand(
                 () => { SetCheckedPaths(); Model.Commit(); },
                 () => { return Message.Length > 0 && AnyChecked((ChangesTreeDirectoryItem)Items.Single()); });
+            RefreshItems();
         }
 
         bool AnyChecked(ChangesTreeDirectoryItem dir)

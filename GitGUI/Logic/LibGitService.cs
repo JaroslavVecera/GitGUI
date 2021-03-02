@@ -52,7 +52,7 @@ namespace GitGUI.Logic
 
         public string Diff(string path)
         {
-            return Repository.Diff.Compare<Patch>(new List<string>() { path });
+            return Repository.Diff.Compare<Patch>(Repository.Head.Tip.Tree, DiffTargets.WorkingDirectory);
         }
 
         public string Diff(string path, Commit c)
