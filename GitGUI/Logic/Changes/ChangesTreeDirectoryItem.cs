@@ -29,6 +29,19 @@ namespace GitGUI.Logic
             return res;
         }
 
+        public override IEnumerable<string> GetUncheckedPaths(string prefix)
+        {
+            string newPref = prefix == "" ? Name : prefix + '/' + Name;
+            if (!IsChecked)
+                return new List<string>() { newPref };
+            IEnumerable<string> res = new List<string>();
+            foreach (ChangesTreeItem it in Items)
+            {
+                res = res.Union(it.GetUncheckedPaths(newPref));
+            }
+            return res;
+        }
+
         public void InsertItem(string path, ChangesInfo info, bool staged)
         {
             InsertItem(path.Split(new char[] { Path.DirectorySeparatorChar, '/' }).ToList(), info, staged);

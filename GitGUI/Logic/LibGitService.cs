@@ -150,9 +150,10 @@ namespace GitGUI.Logic
             return OpenRepository(path);
         }
 
-        public void Add(IEnumerable<string> files)
+        public void Add(IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            Commands.Stage(Repository, files);
+            Commands.Unstage(Repository, unstagedFiles);
+            Commands.Stage(Repository, stagedFiles);
         }
 
         public Repository OpenRepository(string path)

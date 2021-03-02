@@ -25,6 +25,8 @@ namespace GitGUI.Logic
 
         public abstract IEnumerable<string> GetCheckedPaths(string prefix);
 
+        public abstract IEnumerable<string> GetUncheckedPaths(string prefix);
+
         void Notify(bool val)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsChecked"));

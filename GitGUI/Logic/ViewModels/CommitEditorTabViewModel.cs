@@ -70,7 +70,7 @@ namespace GitGUI.Logic
         {
             SubscribeModel(model);
             Commit = new RelayCommand(
-                () => { SetCheckedPaths(); Model.Commit(); },
+                () => { SetPaths(); Model.Commit(); },
                 () => { return Message.Length > 0 && AnyChecked((ChangesTreeDirectoryItem)Items.Single()); });
             RefreshItems();
         }
@@ -91,9 +91,10 @@ namespace GitGUI.Logic
             return f.IsChecked;
         }
 
-        void SetCheckedPaths()
+        void SetPaths()
         {
-            Model.Paths = Items.Single().GetCheckedPaths("");
+            Model.Staged = Items.Single().GetCheckedPaths("");
+            Model.Unstaged = Items.Single().GetUncheckedPaths("");
         }
 
         void SubscribeModel(CommitEditorTabModel model)
