@@ -18,7 +18,8 @@ namespace GitGUI.Logic
             get { return _text; }
             set { _text = value; OnPropertyChanged(); }
         }
-        public bool Active { get; set; } = true;
+        bool _active = true;
+        public bool Active { get { return _active; } set { _active = value; OnPropertyChanged(); } }
 
         public event Action Clicked;
 

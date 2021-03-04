@@ -29,6 +29,7 @@ namespace GitGUI.Logic
             CreateManagers(localAM);
             InitializeEventHandlers();
             InitializeState();
+            LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
         }
 
         void InitializeState()
@@ -69,6 +70,24 @@ namespace GitGUI.Logic
         public void ChangeUser(User u)
         {
             UserManager.Current = u;
+        }
+
+        public void CheckConflicts()
+        {
+            if (LibGitService.GetInstance().IsInConflictState)
+            {
+                ActionsManager.TurnConflictState();
+                TabManager.TurnConflictState();
+            }
+            else
+            {
+                ActionsManager.TurnNoConflictState();
+                TabManager.TurnNoConflictState();
+            }
+        }
+
+        void TurnConflictState()
+        {
         }
 
         void RepositoryClosed(RepositoryModel m)

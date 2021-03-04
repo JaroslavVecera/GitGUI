@@ -22,6 +22,11 @@ namespace GitGUI.Logic
             LibGitService.GetInstance().RepositoryChanged += Refresh;
         }
 
+        public void FreeEvents()
+        {
+            LibGitService.GetInstance().RepositoryChanged -= Refresh;
+        }
+
         void Refresh()
         {
             CommitChanges = LibGitService.GetInstance().CommitChanges(Commit.Commit);

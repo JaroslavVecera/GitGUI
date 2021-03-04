@@ -29,6 +29,7 @@ namespace GitGUI.Logic
         FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
         public BranchCollection Branches { get { return Repository?.Branches; } }
+        public bool IsInConflictState { get { return CurrentChanges.Conflicted.Any(); } }
         public IEnumerable<Commit> AllCommits
         {
             get
@@ -152,7 +153,8 @@ namespace GitGUI.Logic
 
         public void Add(IEnumerable<string> stagedFiles, IEnumerable<string> unstagedFiles)
         {
-            Commands.Unstage(Repository, unstagedFiles);
+            if (unstagedFiles.Any())
+                Commands.Unstage(Repository, unstagedFiles);
             Commands.Stage(Repository, stagedFiles);
         }
 

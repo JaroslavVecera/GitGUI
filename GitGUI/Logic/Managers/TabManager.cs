@@ -16,7 +16,16 @@ namespace GitGUI.Logic
         public event MouseButtonEventHandler CanvasMouseUp;
         public MainTabModel MainTabModel { private set; get; }
         Dictionary<CommitNodeModel, CommitViewerTabViewModel> CommitViewers { get; } = new Dictionary<CommitNodeModel, CommitViewerTabViewModel>();
-        IEnumerable<TabViewModel> Tabs { get { return (new List<TabViewModel>() { CommitEditorTab }).Union(CommitViewers.Values); } }
+        IEnumerable<TabViewModel> Tabs
+        {
+            get
+            {
+                var editorTabs = new List<TabViewModel>();
+                if (CommitEditorTab != null)
+                    editorTabs.Add(CommitEditorTab);
+                return editorTabs.Union(CommitViewers.Values);
+            }
+        }
 
         public MainWindowModel MainWindowModel { get; set; }
         CommitEditorTabViewModel CommitEditorTab
@@ -93,10 +102,17 @@ namespace GitGUI.Logic
 
         public void CloseTab(TabViewModel vm)
         {
-            CloseTab((dynamic)vm);
+            if (vm is MainTabViewModel)
+                DoCloseTab((MainTabViewModel)vm);
+            else if (vm is CommitEditorTabViewModel)
+                DoCloseTab((CommitEditorTabViewModel)vm);
+            else if (vm is CommitViewerTabViewModel)
+                DoCloseTab((CommitViewerTabViewModel)vm);
+            else
+                throw new NotImplementedException();
         }
 
-        public void CloseTab(MainTabViewModel vm)
+        public void DoCloseTab(MainTabViewModel vm)
         {
             MainWindowModel.RemoveTab(vm);
             vm.Model.CloseRequested -= CloseTab;
@@ -104,18 +120,20 @@ namespace GitGUI.Logic
             vm.Model.MouseUp -= (args) => CanvasMouseUp?.Invoke(null, args);
         }
 
-        public void CloseTab(CommitEditorTabViewModel vm)
+        public void DoCloseTab(CommitEditorTabViewModel vm)
         {
             MainWindowModel.RemoveTab(vm);
             vm.Model.CloseRequested -= CloseTab;
             ((CommitEditorTabModel)vm.Model).CommitRequest -= Commit;
+            ((CommitEditorTabModel)vm.Model).FreeEvents();
         }
 
-        public void CloseTab(CommitViewerTabViewModel vm)
+        public void DoCloseTab(CommitViewerTabViewModel vm)
         {
             MainWindowModel.RemoveTab(vm);
             vm.Model.CloseRequested -= CloseTab;
             CommitViewers.Remove(((CommitViewerTabModel)(vm).Model).Commit);
+            ((CommitViewerTabModel)vm.Model).FreeEvents();
         }
 
         public void CloseCommitEditorTab()
@@ -131,6 +149,16 @@ namespace GitGUI.Logic
         public void ShowItem(GraphItemModel m)
         {
             MainTabModel.Shown = m;
+        }
+
+        public void TurnConflictState()
+        {
+
+        }
+
+        public void TurnNoConflictState()
+        {
+
         }
 
         CommitViewerTabViewModel CreateViewer(CommitNodeModel m)

@@ -67,13 +67,7 @@ namespace GitGUI.Logic
             Checkout(merging);
             bool succes = LibGitService.Merge(merged);
             if (succes)
-            {
                 Checkout(currentBranch);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
             Graph.DeployGraph();
         }
 

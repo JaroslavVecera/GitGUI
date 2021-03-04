@@ -18,7 +18,7 @@ namespace GitGUI.Logic
         {
             Model = model;
             SubscribeModel(model);
-            Clicked = new RelayCommand(OnClicked);
+            Clicked = new RelayCommand(OnClicked, () => Model.Active);
         }
 
         void SubscribeModel(ActionButtonModel m)
@@ -29,6 +29,8 @@ namespace GitGUI.Logic
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e.PropertyName);
+            if (e.PropertyName == "Active")
+                Clicked.RaiseCanExecuteChanged();
         }
 
         void OnClicked()
