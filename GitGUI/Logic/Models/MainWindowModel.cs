@@ -14,6 +14,7 @@ namespace GitGUI.Logic
         public List<TabViewModel> Tabs { get; private set; } = new List<TabViewModel>();
         public int SelectedIndex { get; private set; }
         public event Action OnContextMenuOpened;
+        public event Action OnNoAggregationContextMenuOpened;
 
         public MainWindowModel()
         {
@@ -23,6 +24,11 @@ namespace GitGUI.Logic
         public void OpenAggregatingContextMenu()
         {
             OnContextMenuOpened?.Invoke();
+        }
+
+        public void RaiseCantAggregateWhenConflict()
+        {
+            OnNoAggregationContextMenuOpened?.Invoke();
         }
 
         public void SelectTab(TabViewModel vm)

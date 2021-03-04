@@ -193,8 +193,8 @@
     </Window.Resources>
     <Window.ContextMenu>
         <ContextMenu x:Name="menu"  AllowDrop="False">
-            <MenuItem Click="ContextMenuMerge" Header="Merge" />
-            <MenuItem Click="ContextMenuRebase" Header="Rebase" />
+            <MenuItem Click="ContextMenuMerge" Header="Merge" x:Name="merge" />
+            <MenuItem Click="ContextMenuRebase" Header="Rebase" x:Name="rebase" />
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>

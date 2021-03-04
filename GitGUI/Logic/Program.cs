@@ -20,6 +20,7 @@ namespace GitGUI.Logic
         public BranchLabelModel AggregationFocused { get; set; }
         BranchLabelModel Aggregating { get; set; }
         BranchLabelModel Aggregated { get; set; }
+        bool _conflict = false;
 
         Program()
         {
@@ -74,7 +75,8 @@ namespace GitGUI.Logic
 
         public void CheckConflicts()
         {
-            if (LibGitService.GetInstance().IsInConflictState)
+            _conflict = LibGitService.GetInstance().IsInConflictState;
+            if (_conflict)
             {
                 ActionsManager.TurnConflictState();
                 TabManager.TurnConflictState();
@@ -197,7 +199,10 @@ namespace GitGUI.Logic
         {
             Aggregating = aggregating;
             Aggregated = aggregated;
-            MainWindowModel.OpenAggregatingContextMenu();
+            if (_conflict)
+                MainWindowModel.RaiseCantAggregateWhenConflict();
+            else
+                MainWindowModel.OpenAggregatingContextMenu();
         }
 
         public void AggregationFocus(BranchLabelModel l)

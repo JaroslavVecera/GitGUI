@@ -27,6 +27,7 @@ namespace GitGUI.Logic
             model.ChangedTabs += () => OnPropertyChanged("Tabs");
             model.ChangedIndex += () => OnPropertyChanged("SelectedIndex");
             model.OnContextMenuOpened += () => view.OpenContextMenu();
+            model.OnNoAggregationContextMenuOpened += () => view.OpenNoAggregationContextMenu();
         }
     }
 }

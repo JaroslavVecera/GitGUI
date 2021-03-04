@@ -23,6 +23,11 @@ namespace GitGUI
             menu.IsOpen = true;
         }
 
+        public void OpenNoAggregationContextMenu()
+        {
+            MessageBox.Show("Cannot merge or rebase when there are conflicts in repository.", "", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
         public MainWindow()
         {
         }
