@@ -47,7 +47,7 @@ namespace GitGUI.Logic
             if (e.ChangedButton != MouseButton.Left)
                 return;
             if (Program.AggregationFocused != null)
-                Program.Aggregate(data.AttachedBranch, Program.AggregationFocused);
+                Program.Aggregate(Program.AggregationFocused, data.AttachedBranch);
             ChangeState(Normal.GetInstance(), data);
             if (_moved == false)
                 Program.Show(data.AttachedBranch);
