@@ -12,6 +12,7 @@ namespace GitGUI.Logic
     class TabManager
     {
         public event Action<string, IEnumerable<string>, IEnumerable<string>> CommitRequested;
+        public event Action AbortRequested;
         public event MouseButtonEventHandler CanvasMouseDown;
         public event MouseButtonEventHandler CanvasMouseUp;
         public MainTabModel MainTabModel { private set; get; }
@@ -23,6 +24,8 @@ namespace GitGUI.Logic
                 var editorTabs = new List<TabViewModel>();
                 if (CommitEditorTab != null)
                     editorTabs.Add(CommitEditorTab);
+                if (ConflictEditorTab != null)
+                    editorTabs.Add(ConflictEditorTab);
                 return editorTabs.Union(CommitViewers.Values);
             }
         }
@@ -33,6 +36,15 @@ namespace GitGUI.Logic
             get
             { return (CommitEditorTabViewModel)MainWindowModel.Tabs.Find(
                 (x) => x.GetType() == typeof(CommitEditorTabViewModel));
+            }
+        }
+
+        ConflictEditorTabViewModel ConflictEditorTab
+        {
+            get
+            {
+                return (ConflictEditorTabViewModel)MainWindowModel.Tabs.Find(
+                  (x) => x.GetType() == typeof(ConflictEditorTabViewModel));
             }
         }
 
@@ -74,6 +86,28 @@ namespace GitGUI.Logic
             SelectTab(vm);
         }
 
+        public void NewConflictEditor()
+        {
+            if (ConflictEditorTab != null)
+            {
+                SelectTab(ConflictEditorTab);
+                return;
+            }
+            ConflictEditorTabModel m = new ConflictEditorTabModel();
+            m.CloseRequested += CloseTab;
+            m.CommitRequest += Commit;
+            m.AbortRequest += Abort;
+            ConflictEditorTabViewModel vm = new ConflictEditorTabViewModel(m);
+
+            MainWindowModel.AddTab(vm);
+            SelectTab(vm);
+        }
+
+        private void Abort()
+        {
+            AbortRequested.Invoke();
+        }
+
         public void NewCommitViewer(CommitNodeModel m)
         {
             CommitViewerTabViewModel cv;
@@ -108,6 +142,8 @@ namespace GitGUI.Logic
                 DoCloseTab((CommitEditorTabViewModel)vm);
             else if (vm is CommitViewerTabViewModel)
                 DoCloseTab((CommitViewerTabViewModel)vm);
+            else if (vm is ConflictEditorTabViewModel)
+                DoCloseTab((ConflictEditorTabViewModel)vm);
             else
                 throw new NotImplementedException();
         }
@@ -126,6 +162,15 @@ namespace GitGUI.Logic
             vm.Model.CloseRequested -= CloseTab;
             ((CommitEditorTabModel)vm.Model).CommitRequest -= Commit;
             ((CommitEditorTabModel)vm.Model).FreeEvents();
+        }
+
+        public void DoCloseTab(ConflictEditorTabViewModel vm)
+        {
+            MainWindowModel.RemoveTab(vm);
+            vm.Model.CloseRequested -= CloseTab;
+            ((ConflictEditorTabModel)vm.Model).CommitRequest -= Commit;
+            ((ConflictEditorTabModel)vm.Model).AbortRequest -= Abort;
+            ((ConflictEditorTabModel)vm.Model).FreeEvents();
         }
 
         public void DoCloseTab(CommitViewerTabViewModel vm)
@@ -153,12 +198,15 @@ namespace GitGUI.Logic
 
         public void TurnConflictState()
         {
-
+            NewConflictEditor();
+            if (CommitEditorTab != null)
+                CloseTab(CommitEditorTab);
         }
 
         public void TurnNoConflictState()
         {
-
+            if (ConflictEditorTab != null)
+                CloseTab(ConflictEditorTab);
         }
 
         CommitViewerTabViewModel CreateViewer(CommitNodeModel m)

@@ -1,19 +1,21 @@
-﻿using LibGit2Sharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace GitGUI.Logic
 {
-    class CommitEditorTabViewModel : EditorTabViewModel
+    class ConflictEditorTabViewModel : EditorTabViewModel
     {
-        public CommitEditorTabViewModel(CommitEditorTabModel m) : base(m) { }
+        public RelayCommand Abort { get; set; }
 
-        new CommitEditorTabModel Model { get { return (CommitEditorTabModel)base.Model; } }
+        new ConflictEditorTabModel Model { get { return (ConflictEditorTabModel)base.Model; } }
+
+        public ConflictEditorTabViewModel(EditorTabModel m) : base(m)
+        {
+            Abort = new RelayCommand(() => { Model.Abort(); });
+        }
 
         override protected void RefreshItems()
         {
@@ -27,9 +29,11 @@ namespace GitGUI.Logic
             var modified = Model.RepositoryChanges.Modified;
             var deleted = Model.RepositoryChanges.Deleted;
             var renamed = Model.RepositoryChanges.Renamed;
+            var conflicted = Model.RepositoryChanges.Conflicted;
             modified.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Modified(change.Path), false); changed.Add(change.Path); });
             deleted.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path), false); changed.Add(change.Path); });
             renamed.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Renamed(change.OldPath, change.Path), false); changed.Add(change.Path); });
+            conflicted.ToList().ForEach(change => { root.InsertStaticItem(change.Path, null, true); changed.Add(change.Path); });
             var removed = Model.RepositoryStatus.Removed;
             removed.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Deleted(sc.FilePath), true); });
             var modified2 = Model.RepositoryStatus.Modified;

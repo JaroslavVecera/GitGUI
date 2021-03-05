@@ -14,7 +14,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Button Command="{Binding Path=Clicked}" Width="70" Height="30">
+                <Button Command="{Binding Path=Clicked}" Width="150" Height="30">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Foreground" Value="LightGray"/>

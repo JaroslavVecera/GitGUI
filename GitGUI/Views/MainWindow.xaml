@@ -232,7 +232,10 @@
             <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
                 <local:CommitViewerTabView/>
             </DataTemplate>
-        </TabControl.Resources>
+                <DataTemplate DataType="{x:Type logic:ConflictEditorTabViewModel}">
+                    <local:ConflictEditorTabView/>
+                </DataTemplate>
+            </TabControl.Resources>
         <TabControl.ItemTemplate>
             <DataTemplate>
                 <Grid>

@@ -59,6 +59,7 @@ namespace GitGUI.Logic
             ActionsManager.LocalRepoPanel = localAM;
             TabManager = new TabManager(Data.MainWindowModel, localAM);
             TabManager.CommitRequested += Commit;
+            TabManager.AbortRequested += AbortMerge;
             TabManager.CanvasMouseDown += OnMouseDown;
             TabManager.CanvasMouseUp += OnMouseUp;
             SubscribeActionsManager();
@@ -66,6 +67,11 @@ namespace GitGUI.Logic
             RepositoryManager = new RepositoryManager();
             RepositoryManager.Closed += RepositoryClosed;
             UserManager = new UserManager();
+        }
+
+        private void AbortMerge()
+        {
+            LibGitService.GetInstance().AbortMerge();
         }
 
         public void ChangeUser(User u)
@@ -88,10 +94,6 @@ namespace GitGUI.Logic
             }
         }
 
-        void TurnConflictState()
-        {
-        }
-
         void RepositoryClosed(RepositoryModel m)
         {
             TabManager.CloseAll();
@@ -111,7 +113,10 @@ namespace GitGUI.Logic
 
         void EditCommit()
         {
-            TabManager.NewCommitEditor();
+            if (_conflict)
+                TabManager.NewConflictEditor();
+            else
+                TabManager.NewCommitEditor();
         }
 
         void CheckoutMarked()

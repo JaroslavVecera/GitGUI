@@ -49,6 +49,11 @@ namespace GitGUI.Logic
             }
         }
 
+        public void AbortMerge()
+        {
+            Repository.Reset(ResetMode.Hard);
+        }
+
         private LibGitService() { }
 
         public string Diff(string path)

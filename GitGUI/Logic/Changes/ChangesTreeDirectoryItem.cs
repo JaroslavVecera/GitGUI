@@ -19,32 +19,29 @@ namespace GitGUI.Logic
         public override IEnumerable<string> GetCheckedPaths(string prefix)
         {
             string newPref = prefix == "" ? Name : prefix + '/' + Name;
-            if (IsChecked)
-                return new List<string>() { newPref };
             IEnumerable<string> res = new List<string>();
             foreach (ChangesTreeItem it in Items)
-            {
                 res = res.Union(it.GetCheckedPaths(newPref));
-            }
             return res;
         }
 
         public override IEnumerable<string> GetUncheckedPaths(string prefix)
         {
             string newPref = prefix == "" ? Name : prefix + '/' + Name;
-            if (!IsChecked)
-                return new List<string>() { newPref };
             IEnumerable<string> res = new List<string>();
             foreach (ChangesTreeItem it in Items)
-            {
                 res = res.Union(it.GetUncheckedPaths(newPref));
-            }
             return res;
         }
 
         public void InsertItem(string path, ChangesInfo info, bool staged)
         {
             InsertItem(path.Split(new char[] { Path.DirectorySeparatorChar, '/' }).ToList(), info, staged);
+        }
+
+        public void InsertStaticItem(string path, ChangesInfo info, bool staged)
+        {
+            InsertStaticItem(path.Split(new char[] { Path.DirectorySeparatorChar, '/' }).ToList(), info, staged);
         }
 
         public void InsertItem(List<string> path, ChangesInfo info, bool staged)
@@ -55,6 +52,16 @@ namespace GitGUI.Logic
                 InsertDirectoryItem(first, path, info, staged);
             else
                 InsertFileItem(first, info, staged);
+        }
+
+        public void InsertStaticItem(List<string> path, ChangesInfo info, bool staged)
+        {
+            string first = path.First();
+            path.RemoveAt(0);
+            if (path.Any())
+                InsertDirectoryItem(first, path, info, staged);
+            else
+                InsertStaticFileItem(first, info, staged);
         }
 
         void InsertDirectoryItem(string dirName, List<string> restPath, ChangesInfo info, bool staged)
@@ -68,7 +75,7 @@ namespace GitGUI.Logic
             d.InsertItem(restPath, info, staged);
         }
 
-        void InsertFileItem(string name, ChangesInfo info, bool staged)
+        ChangesTreeFileItem InsertFileItem(string name, ChangesInfo info, bool staged)
         {
             ChangesTreeFileItem it = new ChangesTreeFileItem() { Name = name };
             it.Unchecked += SubItemUnchecked;
@@ -76,6 +83,12 @@ namespace GitGUI.Logic
             it.Info = info;
             it.IsChecked = staged;
             Items.Add(it);
+            return it;
+        }
+
+        void InsertStaticFileItem(string name, ChangesInfo info, bool staged)
+        {
+            InsertFileItem(name, info, staged).IsActive = false;
         }
 
         private void SubItemUnchecked()
@@ -102,7 +115,7 @@ namespace GitGUI.Logic
         void PropagateDown(bool val)
         {
             ListenCheckedEvents = false;
-            Items.ForEach(x => x.IsChecked = val);
+            Items.ForEach(x => { if (x.IsActive) x.IsChecked = val; });
             ListenCheckedEvents = true;
         }
     }

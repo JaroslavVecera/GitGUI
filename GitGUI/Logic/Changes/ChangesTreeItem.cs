@@ -14,10 +14,16 @@ namespace GitGUI.Logic
         public event Action Unchecked;
         public event PropertyChangedEventHandler PropertyChanged;
         
-        bool _isChecked = true;
+        bool _isChecked = true, _isActive = true;
 
         public virtual bool IsChecked { get { return _isChecked; }
             set { _isChecked = value; Notify(value); } }
+
+        public virtual bool IsActive
+        {
+            get { return _isActive; }
+            set { _isActive = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsActive")); }
+        }
 
         protected ChangesInfo _info;
 
