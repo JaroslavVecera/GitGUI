@@ -51,6 +51,7 @@ namespace GitGUI.Logic
             if (ans == null || ans == false)
                 return;
             RepositoryManager.OpenExisting(dialog.SelectedPath);
+            TabManager.AddMainTab();
         }
 
         void CreateManagers(ActionPanelModel localAM)

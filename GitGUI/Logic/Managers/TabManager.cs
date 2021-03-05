@@ -15,6 +15,7 @@ namespace GitGUI.Logic
         public event Action AbortRequested;
         public event MouseButtonEventHandler CanvasMouseDown;
         public event MouseButtonEventHandler CanvasMouseUp;
+        ActionPanelModel ActionPanel { get; set; }
         public MainTabModel MainTabModel { private set; get; }
         Dictionary<CommitNodeModel, CommitViewerTabViewModel> CommitViewers { get; } = new Dictionary<CommitNodeModel, CommitViewerTabViewModel>();
         IEnumerable<TabViewModel> Tabs
@@ -26,6 +27,8 @@ namespace GitGUI.Logic
                     editorTabs.Add(CommitEditorTab);
                 if (ConflictEditorTab != null)
                     editorTabs.Add(ConflictEditorTab);
+                if (MainTab != null)
+                    editorTabs.Add(MainTab);
                 return editorTabs.Union(CommitViewers.Values);
             }
         }
@@ -36,6 +39,15 @@ namespace GitGUI.Logic
             get
             { return (CommitEditorTabViewModel)MainWindowModel.Tabs.Find(
                 (x) => x.GetType() == typeof(CommitEditorTabViewModel));
+            }
+        }
+
+        MainTabViewModel MainTab
+        {
+            get
+            {
+                return (MainTabViewModel)MainWindowModel.Tabs.Find(
+                (x) => x.GetType() == typeof(MainTabViewModel));
             }
         }
 
@@ -52,22 +64,28 @@ namespace GitGUI.Logic
 
         public TabManager(MainWindowModel w, ActionPanelModel localAM)
         {
+            ActionPanel = localAM;
             MainWindowModel = w;
-            AddMainTab(localAM);
         }
 
-        void AddMainTab(ActionPanelModel localAM)
+        public void AddMainTab()
         {
+            if (MainTab != null)
+            {
+                SelectTab(MainTab);
+                return;
+            }
             MainTabModel m = new MainTabModel();
             m.CloseRequested += CloseTab;
             m.MouseDown += (args) => CanvasMouseDown?.Invoke(null, args);
             m.MouseUp += (args) => CanvasMouseUp?.Invoke(null, args);
+            m.PanelModel = ActionPanel;
             MainTabViewModel vm = new MainTabViewModel(m);
-            m.PanelModel = localAM;
             MainTabModel = m;
 
             MainWindowModel.AddTab(vm);
             SelectTab(vm);
+            Graph.GetInstance().DeployGraph();
         }
 
         public void NewCommitEditor()
