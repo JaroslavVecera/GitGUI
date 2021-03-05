@@ -24,7 +24,7 @@ namespace GitGUI.Logic
                 return Result;
             List<Node> nodes = Nodes(c);
             Add(nodes.First());
-            IEnumerable<Node> branchTips = nodes.Where(node => b.Select(branch => branch.Tip).ToList().Contains(node.Commit));
+            IEnumerable<Node> branchTips = nodes.Where(node => b.Select(branch => branch.Tip).ToList().Contains(node.Commit)).ToList();
             foreach (Node n in nodes.Skip(1))
             {
                 IEnumerable<Node> possibleDescOnSameRow = n.Descendants.Where(d =>

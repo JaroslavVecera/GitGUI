@@ -14,7 +14,7 @@
         PreviewMouseWheel="WindowPreviewMouseWheel"
         MouseLeave="WindowMouseLeave"
         ContextMenuService.IsEnabled="false"
-        Icon="C:\Users\Lenovo\source\repos\GitGUI\icon.png"
+        Icon="../icon.png"
         Background="#28282A">
     <Window.Resources>
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
