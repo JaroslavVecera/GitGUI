@@ -73,6 +73,8 @@ namespace GitGUI
 
         void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (DataContext != null)
+                ((MainTabViewModel)DataContext).ScrollViewer = graphView;
             if (!_first)
                 return;
             _first = false;
@@ -88,8 +90,6 @@ namespace GitGUI
             b3.Mode = BindingMode.OneWay;
             b3.Source = DataContext;
             SetBinding(MouseUpCommandProperty, b3);
-            if (DataContext != null)
-            ((MainTabViewModel)DataContext).ScrollViewer = graphView;
         }
     }
 }
