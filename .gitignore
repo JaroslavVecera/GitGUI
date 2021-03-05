@@ -1,5 +1,11 @@
 .vs/
 debug.log
-GitGUI/bin/
+GitGUI/bin/*
+!GitGUI/bin/Debug
+GitGUI/bin/Debug/*
+!GitGUI/bin/Debug/Users
+!GitGUI/bin/Debug/Repos
+!GitGUI/bin/Debug/Users/**
+!GitGUI/bin/Debug/Repos/**
 GitGUI/obj/
 *GitGUI.vpp.*
