@@ -198,6 +198,7 @@ namespace GitGUI.Logic
         {
             CommitManager.Mark(item);
             TabManager.ShowItem(item);
+            ActionsManager.OnMarkedItem(item is BranchLabelModel);
         }
 
         public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)

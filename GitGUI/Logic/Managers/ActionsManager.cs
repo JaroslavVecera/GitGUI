@@ -16,6 +16,9 @@ namespace GitGUI.Logic
         public ActionPanelModel RemoteRepoPanel { get; set; }
         event Action ConflictTurned;
         event Action NoConflictTurned;
+        bool _isConflict = false;
+        bool _isMarkedBranch = false;
+        ActionButtonModel CheckoutButton { set; get; }
 
         public event Action Commit;
         public event Action Checkout;
@@ -23,7 +26,18 @@ namespace GitGUI.Logic
         void AddLocalRepoButtons()
         { 
             AddButton(LocalRepoPanel, "Commit", OnCommit, b => b.Text = "Commit merge", b => b.Text = "Commit");
-            AddButton(LocalRepoPanel, "Checkout", OnCheckout, b => b.Active = false, b => b.Active = true);
+            CheckoutButton = AddButton(LocalRepoPanel, "Checkout", OnCheckout);
+        }
+
+        public bool IsCheckoutButtonActive()
+        {
+            return _isMarkedBranch && !_isConflict;
+        }
+
+        public void OnMarkedItem(bool isBranch)
+        {
+            _isMarkedBranch = isBranch;
+            CheckoutButton.Active = IsCheckoutButtonActive();
         }
 
         ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action)
@@ -35,21 +49,26 @@ namespace GitGUI.Logic
             return m;
         }
 
-        void AddButton(ActionPanelModel panel, string text, Action action, Action<ActionButtonModel> conflictStateAction, Action<ActionButtonModel> noConflictStateAction)
+        ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, Action<ActionButtonModel> conflictStateAction, Action<ActionButtonModel> noConflictStateAction)
         {
             var m = AddButton(panel, text, action);
             ConflictTurned += () => conflictStateAction(m);
             NoConflictTurned += () => noConflictStateAction(m);
+            return m;
         }
 
         public void TurnConflictState()
         {
+            _isConflict = true;
             ConflictTurned?.Invoke();
+            CheckoutButton.Active = IsCheckoutButtonActive();
         }
 
         public void TurnNoConflictState()
         {
+            _isConflict = false;
             NoConflictTurned?.Invoke();
+            CheckoutButton.Active = IsCheckoutButtonActive();
         }
 
         void OnCommit()
