@@ -23,6 +23,15 @@ namespace GitGUI
         public InputDialog()
         {
             InitializeComponent();
+            OkButtonClick = new RelayCommand(
+                () => DialogResult = true,
+                IsValidName);
+            button.Command = OkButtonClick;
+        }
+
+        bool IsValidName()
+        {
+            return Logic.LibGitService.GetInstance().IsValidRefName(ResponseText);
         }
 
         public string ResponseText
@@ -31,9 +40,11 @@ namespace GitGUI
             set { ResponseTextBox.Text = value; }
         }
 
-        private void OKButtonClick(object sender, System.Windows.RoutedEventArgs e)
+        RelayCommand OkButtonClick { get; set; }
+
+        private void TextChanged(object sender, TextChangedEventArgs e)
         {
-            DialogResult = true;
+            OkButtonClick.RaiseCanExecuteChanged();
         }
     }
 }

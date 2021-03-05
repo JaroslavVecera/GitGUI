@@ -6,11 +6,18 @@
              xmlns:local="clr-namespace:GitGUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             Width="200"
-             Height="100">
-        <StackPanel>
-            <TextBlock Text="Enter name of new branch" />
-            <TextBox x:Name="ResponseTextBox" />
-            <Button Content="OK" Click="OKButtonClick" />
-        </StackPanel>
+             Width="400"
+             Background="#28282A"
+             WindowStartupLocation="CenterOwner"
+             Height="200">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Text="Enter name of new branch" />
+            <TextBox TextChanged="TextChanged" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" Margin="15" x:Name="ResponseTextBox" />
+            <Button Grid.Row="2" Height="30" Width="100" Content="OK" x:Name="button" />
+        </Grid>
     </Window>

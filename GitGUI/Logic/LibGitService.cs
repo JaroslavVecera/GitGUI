@@ -212,6 +212,12 @@ namespace GitGUI.Logic
             Repository = null;
         }
 
+        public bool IsValidRefName(string name)
+        {
+            string realName = "refs/heads/" + name;
+            return Reference.IsValidName(realName) && !Repository.Refs.ToList().Any(b => b.CanonicalName == realName);
+        }
+
         Branch CreateBranch(string name, BranchLabelModel l)
         {
             return Repository.CreateBranch(name, l.Branch.Tip);
