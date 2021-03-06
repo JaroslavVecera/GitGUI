@@ -8,6 +8,7 @@ namespace GitGUI.Logic
 {
     class Program
     {
+        public StashingManager StashingManager { get; set; }
         CommitManager CommitManager { get; set; }
         RepositoryManager RepositoryManager { get; set; }
         ActionsManager ActionsManager { get; set; }
@@ -51,6 +52,7 @@ namespace GitGUI.Logic
             if (ans == null || ans == false)
                 return;
             RepositoryManager.OpenExisting(dialog.SelectedPath);
+            StashingManager.SetRepository(LibGitService.GetInstance().Repository);
             TabManager.AddMainTab();
         }
 
@@ -68,6 +70,7 @@ namespace GitGUI.Logic
             RepositoryManager = new RepositoryManager();
             RepositoryManager.Closed += RepositoryClosed;
             UserManager = new UserManager();
+            StashingManager = new StashingManager();
         }
 
         private void AbortMerge()
@@ -123,8 +126,10 @@ namespace GitGUI.Logic
         void CheckoutMarked()
         {
             GraphItemModel marked = TabManager.MainTabModel.Shown;
-            if (marked is BranchLabelModel)
-                CommitManager.Checkout((BranchLabelModel)marked);
+            if (!(marked is BranchLabelModel))
+                return;
+            StashingManager.ImplicitPush((BranchLabelModel)marked);
+            CommitManager.Checkout((BranchLabelModel)marked);
         }
 
         void Test()

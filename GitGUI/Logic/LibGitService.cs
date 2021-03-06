@@ -15,7 +15,7 @@ namespace GitGUI.Logic
         static LibGitService _instance;
         public event Action RepositoryChanged;
         Repository _repository;
-        Repository Repository { get { return _repository; } set { _repository = value; } }
+        public Repository Repository { get { return _repository; } private set { _repository = value; } }
         public Branch Head { get { return Repository.Head; } }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public TreeChanges CommitChanges(Commit c)
@@ -190,6 +190,18 @@ namespace GitGUI.Logic
         {
             Signature s = GetCurrentSignature();
             Commit c = Repository.Commit(message, s, s);
+        }
+
+        public Stash Stash(string message)
+        {
+            Signature s = GetCurrentSignature();
+            return Repository.Stashes.Add(s, message);
+        }
+
+        public Stash Stash()
+        {
+            Signature s = GetCurrentSignature();
+            return Repository.Stashes.Add(s);
         }
 
         public void Branch(GraphItemModel i, string name)
