@@ -18,6 +18,7 @@ namespace GitGUI.Logic
     {
         public Commit Commit { get; private set; }
         BitmapImage _picture;
+        bool _inProgress = false;
         public string Message { get { return Commit.Message; } }
         public string Sha { get { return Commit.Sha; } }
         public string Author {  get { return Commit.Author.Name; } }
@@ -26,6 +27,7 @@ namespace GitGUI.Logic
         public event Action<CommitNodeModel> ShowChanges;
         public RelayCommand CopySha { get; private set; }
         public RelayCommand OnShowChanges { get; private set; }
+        public bool InProgress { get { return _inProgress; } set { _inProgress = value; OnPropertyChanged(); } }
 
         public bool EnabledPhoto
         {
