@@ -27,11 +27,13 @@ namespace GitGUI.Logic
             IEnumerable<Node> branchTips = nodes.Where(node => b.Select(branch => branch.Tip).ToList().Contains(node.Commit)).ToList();
             foreach (Node n in nodes.Skip(1))
             {
-                IEnumerable<Node> possibleDescOnSameRow = n.Descendants.Where(d =>
+                List<Node> possibleDescOnSameRow = n.Descendants.Where(d =>
                     !d.HasPredecessorOnSameRow && (
                         !branchTips.Contains(d) ||
                         d.Predecessors.Count == 1 ||
-                        d.Predecessors.Count - 1 == d.DeployedPredecessors));
+                        d.Predecessors.Count - 1 == d.DeployedPredecessors)).ToList();
+                List<int> complement = n.Descendants.Except(possibleDescOnSameRow).Select(x => x.Row).ToList();
+                possibleDescOnSameRow.RemoveAll(d => complement.Contains(d.Row));
                 if (possibleDescOnSameRow.Any())
                 {
                     Node descOnSameRow = possibleDescOnSameRow.Aggregate((n1, n2) => (n1.Row < n2.Row) ? n1 : n2);
