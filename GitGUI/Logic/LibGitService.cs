@@ -12,6 +12,8 @@ namespace GitGUI.Logic
 {
     class LibGitService
     {
+        string CheckoutedBranch { get; set; }
+        public event Action BranchChanged;
         static LibGitService _instance;
         public event Action RepositoryChanged;
         Repository _repository;
@@ -130,10 +132,10 @@ namespace GitGUI.Logic
         }
 
         void Fs(object sender, FileSystemEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
 
         void Rs(object sender, RenamedEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
 
         void SubscribeWatcherEvents(FileSystemWatcher watcher)
         { 
@@ -170,8 +172,17 @@ namespace GitGUI.Logic
             Repository = new Repository(path);
             StartWatch(path);
             RepositoryChanged.Invoke();
+            CheckBranch();
             
             return Repository;
+        }
+
+        void CheckBranch()
+        {
+            string name = Repository?.Head.CanonicalName;
+            if (CheckoutedBranch != name)
+                BranchChanged?.Invoke();
+            CheckoutedBranch = name;
         }
 
         Signature GetCurrentSignature()

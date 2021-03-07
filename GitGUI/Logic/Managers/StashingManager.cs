@@ -21,7 +21,8 @@ namespace GitGUI.Logic
         public IEnumerable<Commit> ImplicitStashBases
         {
             get { return Stashes?.Where(s => ImplicitStashesShas.Contains(s.Reference.TargetIdentifier))
-                                .Select(s => s.Base); }
+                                .Select(s => s.Base)
+                                .ToList(); }
         }
         List<string> ImplicitStashesShas { get; } = new List<string>();
 
@@ -29,6 +30,7 @@ namespace GitGUI.Logic
         {
             Repository = r;
             SetImplicitStashes();
+            LibGitService.GetInstance().BranchChanged += ImplicitPop;
         }
 
         void SetImplicitStashes()
@@ -108,7 +110,6 @@ namespace GitGUI.Logic
 
         void LogStash(string sha)
         {
-
             if (ImplicitStashesShas.Contains(sha))
                 return;
             ImplicitStashesShas.Add(sha);
@@ -120,21 +121,38 @@ namespace GitGUI.Logic
             }
         }
 
+        void UnlogStash(string sha)
+        {
+            ImplicitStashesShas.Remove(sha);
+            string logPath = FindCurrentRepositoryStashLog();
+            logPath += Path.DirectorySeparatorChar + "Stashes";
+            List<string> file = File.ReadAllLines(logPath).ToList();
+            file.RemoveAll(s => s == sha);
+            File.WriteAllLines(logPath, file.ToArray());
+        }
+
         public void RemoveStash(string sha)
         {
             int index = Index(sha);
             Stashes.Remove(index);
+            if (ImplicitStashesShas.Contains(sha))
+                UnlogStash(sha);
         }
 
         public void ImplicitPop()
         {
-
+            if (!ImplicitStashBases.Contains(Repository.Head.Tip))
+                return;
+            int ind = Stashes.ToList().FindIndex(s => s.Base == Repository.Head.Tip);
+            Pop(Stashes[ind].Reference.TargetIdentifier);
         }
 
         public void Pop(string sha)
         {
             int index = Index(sha);
-            var status = Stashes.Pop(index);
+            Stashes.Pop(index);
+            if (ImplicitStashesShas.Contains(sha))
+                UnlogStash(sha);
         }
 
         public void PopLast()
