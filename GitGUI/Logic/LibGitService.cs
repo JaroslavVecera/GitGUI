@@ -171,6 +171,7 @@ namespace GitGUI.Logic
                 CloseRepository(Repository);
             Repository = new Repository(path);
             StartWatch(path);
+            Program.GetInstance().StashingManager.SetRepository(Repository);
             RepositoryChanged.Invoke();
             CheckBranch();
             

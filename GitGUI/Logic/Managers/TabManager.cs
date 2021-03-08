@@ -85,7 +85,6 @@ namespace GitGUI.Logic
 
             MainWindowModel.AddTab(vm);
             SelectTab(vm);
-            Graph.GetInstance().DeployGraph();
         }
 
         public void NewCommitEditor()

@@ -27,11 +27,13 @@ namespace GitGUI.Logic
         {
             ActionPanelModel localAM = new ActionPanelModel();
 
-            InitializeMainWindow();
+            MainWindowViewModel mwvm = InitializeMainWindow();
             CreateManagers(localAM);
             InitializeEventHandlers();
             InitializeState();
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
+            StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
+            mwvm.StashMenu = wm;
         }
 
         void InitializeState()
@@ -51,9 +53,9 @@ namespace GitGUI.Logic
             var ans = dialog.ShowDialog();
             if (ans == null || ans == false)
                 return;
-            RepositoryManager.OpenExisting(dialog.SelectedPath);
-            StashingManager.SetRepository(LibGitService.GetInstance().Repository);
+            RepositoryClosed();
             TabManager.AddMainTab();
+            RepositoryManager.OpenExisting(dialog.SelectedPath);
         }
 
         void CreateManagers(ActionPanelModel localAM)
@@ -68,7 +70,6 @@ namespace GitGUI.Logic
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
             RepositoryManager = new RepositoryManager();
-            RepositoryManager.Closed += RepositoryClosed;
             UserManager = new UserManager();
             StashingManager = new StashingManager();
         }
@@ -98,7 +99,7 @@ namespace GitGUI.Logic
             }
         }
 
-        void RepositoryClosed(RepositoryModel m)
+        void RepositoryClosed()
         {
             TabManager.CloseAll();
         }
@@ -137,7 +138,7 @@ namespace GitGUI.Logic
             RepositoryManager.OpenExisting(@"D:\škola\GitGUITests");
         }
 
-        public void InitializeMainWindow()
+        MainWindowViewModel InitializeMainWindow()
         {
             MainWindow view = (MainWindow)Application.Current.MainWindow;
             MainWindowModel model = new MainWindowModel();
@@ -145,6 +146,7 @@ namespace GitGUI.Logic
 
             MainWindowModel = model;
             view.Show();
+            return viewModel;
         }
 
         public void ChangeState(IProgramState state)

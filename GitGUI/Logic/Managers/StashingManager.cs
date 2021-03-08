@@ -10,6 +10,8 @@ namespace GitGUI.Logic
 {
     class StashingManager
     {
+        StashMenuModel _stashWindow;
+        public StashMenuModel StashMenu { get; set; } = new StashMenuModel();
         string _dirPath = "ImplicitStashes";
         StashCollection Stashes { get { return Repository?.Stashes; } }
         Repository Repository { get; set; }
@@ -26,11 +28,24 @@ namespace GitGUI.Logic
         }
         List<string> ImplicitStashesShas { get; } = new List<string>();
 
+        public StashingManager()
+        {
+            LibGitService.GetInstance().RepositoryChanged += UpdateStashWindow;
+            LibGitService.GetInstance().BranchChanged += ImplicitPop;
+            StashMenu.StashApplyed += Apply;
+            StashMenu.StashDeleted += RemoveStash;
+            StashMenu.StashPopped += Pop;
+        }
+
+        void UpdateStashWindow()
+        {
+            StashMenu.Stashes = ManualStashNames;
+        }
+
         public void SetRepository(Repository r)
         {
             Repository = r;
             SetImplicitStashes();
-            LibGitService.GetInstance().BranchChanged += ImplicitPop;
         }
 
         void SetImplicitStashes()
@@ -153,6 +168,12 @@ namespace GitGUI.Logic
             Stashes.Pop(index);
             if (ImplicitStashesShas.Contains(sha))
                 UnlogStash(sha);
+        }
+
+        public void Apply(string sha)
+        {
+            int index = Index(sha);
+            Stashes.Apply(index);
         }
 
         public void PopLast()

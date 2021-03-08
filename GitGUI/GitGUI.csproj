@@ -91,6 +91,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CahngedUserEventArgs.cs" />
+    <Compile Include="Logic\ViewModels\StashMenuViewModel.cs" />
+    <Compile Include="Logic\Models\StashMenuModel.cs" />
+    <Compile Include="StashMenuContentTemplateSelector.cs" />
+    <Compile Include="Views\StashMenuView.xaml.cs">
+      <DependentUpon>StashMenuView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConflictEditorTabView.xaml.cs">
       <DependentUpon>ConflictEditorTabView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\StashMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConflictEditorTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
