@@ -10,6 +10,7 @@ namespace GitGUI.Logic
 {
     class MainWindowViewModel : ViewModelBase
     {
+        public StashMenuViewModel StashMenu { get; set; }
         public MainWindowModel Model { get; set; }
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
         public int SelectedIndex { get { return Model.SelectedIndex; } }

@@ -218,6 +218,18 @@
                     <Separator />
                     <MenuItem Header="Close repository" />
                 </MenuItem>
+                <StackPanel>
+                    <TextBlock MouseUp="OpenStashingMenu" >Stashing</TextBlock>
+                    <Popup x:Name="popup" StaysOpen="False">
+                        <ContentControl Content="{Binding Path=StashMenu}">
+                            <ContentControl.ContentTemplate>
+                                <DataTemplate>
+                                    <local:StashMenuView Stashes="{Binding Stashes}"/>
+                                </DataTemplate>
+                            </ContentControl.ContentTemplate>
+                        </ContentControl>
+                    </Popup>
+                </StackPanel>
             </Menu>
             <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
         </Grid>

@@ -77,5 +77,10 @@ namespace GitGUI
             ChangedUserEventArgs args = (ChangedUserEventArgs)e;
             Program.GetInstance().ChangeUser(args.User);
         }
+
+        private void OpenStashingMenu(object sender, MouseButtonEventArgs e)
+        {
+            popup.IsOpen = true;
+        }
     }
 }

@@ -12,10 +12,12 @@ namespace GitGUI.Logic
 {
     class LibGitService
     {
+        string CheckoutedBranch { get; set; }
+        public event Action BranchChanged;
         static LibGitService _instance;
         public event Action RepositoryChanged;
         Repository _repository;
-        Repository Repository { get { return _repository; } set { _repository = value; } }
+        public Repository Repository { get { return _repository; } private set { _repository = value; } }
         public Branch Head { get { return Repository.Head; } }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public TreeChanges CommitChanges(Commit c)
@@ -130,10 +132,10 @@ namespace GitGUI.Logic
         }
 
         void Fs(object sender, FileSystemEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
 
         void Rs(object sender, RenamedEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => RepositoryChanged?.Invoke()));
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
 
         void SubscribeWatcherEvents(FileSystemWatcher watcher)
         { 
@@ -169,9 +171,19 @@ namespace GitGUI.Logic
                 CloseRepository(Repository);
             Repository = new Repository(path);
             StartWatch(path);
+            Program.GetInstance().StashingManager.SetRepository(Repository);
             RepositoryChanged.Invoke();
+            CheckBranch();
             
             return Repository;
+        }
+
+        void CheckBranch()
+        {
+            string name = Repository?.Head.CanonicalName;
+            if (CheckoutedBranch != name)
+                BranchChanged?.Invoke();
+            CheckoutedBranch = name;
         }
 
         Signature GetCurrentSignature()
@@ -190,6 +202,18 @@ namespace GitGUI.Logic
         {
             Signature s = GetCurrentSignature();
             Commit c = Repository.Commit(message, s, s);
+        }
+
+        public Stash Stash(string message)
+        {
+            Signature s = GetCurrentSignature();
+            return Repository.Stashes.Add(s, message);
+        }
+
+        public Stash Stash()
+        {
+            Signature s = GetCurrentSignature();
+            return Repository.Stashes.Add(s);
         }
 
         public void Branch(GraphItemModel i, string name)

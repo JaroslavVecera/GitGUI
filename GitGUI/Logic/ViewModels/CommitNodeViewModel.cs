@@ -22,6 +22,7 @@ namespace GitGUI.Logic
         {
             get; set;
         }
+        public bool InProgress { get { return ((CommitNodeModel)Model).InProgress; } }
 
         public CommitNodeViewModel(CommitNodeModel model, CommitNodeView view) : base(model, view)
         {

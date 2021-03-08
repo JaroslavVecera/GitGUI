@@ -46,7 +46,6 @@ namespace GitGUI.Logic
             CloseCurrent();
             _current = AddRepository(path);
             Opened?.Invoke(_current);
-            Graph.GetInstance().DeployGraph();
         }
 
         public void CloseCurrent()

@@ -15,6 +15,9 @@
              MouseLeave="OnMouseLeave"
              DataContextChanged="OnDataContextChanged"
              MaxWidth="{Binding Path=Width, Mode=OneWayToSource}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="PreviewMouseDown">
             <i:InvokeCommandAction Command="{Binding MouseDown}"/>
@@ -87,5 +90,7 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Border Visibility="{Binding Converter={StaticResource BoolToVis}, Path=InProgress}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Red" Height="15" Width="15">
+        </Border>
     </Grid>
 </UserControl>

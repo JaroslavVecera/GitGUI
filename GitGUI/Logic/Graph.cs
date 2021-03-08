@@ -120,6 +120,7 @@ namespace GitGUI.Logic
 
         void DeployCommitNodes()
         {
+            var inProgress = Program.GetInstance().StashingManager.ImplicitStashBases;
             var commitRows = LibGitService.GetInstance().CommitRows();
             ZoomAndPanCanvasModel.Commits?.ToList().ForEach(c => UnsubscribeCommitEvents(c));
             List<CommitNodeModel> commitModels = new List<CommitNodeModel>();
@@ -129,7 +130,10 @@ namespace GitGUI.Logic
                 Commit c = pair.Item1;
                 Identity i = new Identity(c.Author.Name, c.Author.Email);
                 BitmapImage picture = Program.GetInstance().UserManager.FindUserPictureByIdentity(i);
-                return new CommitNodeModel(c, picture) { Location = new Point((x++) * 200, pair.Item2 * 70) };
+                CommitNodeModel m = new CommitNodeModel(c, picture) { Location = new Point((x++) * 200, pair.Item2 * 70) };
+                if (inProgress != null && inProgress.Contains(c))
+                    m.InProgress = true;
+                return m;
             }).ToList();
             commits.ForEach(c => commitModels.Add(c));
             commitModels.ForEach(c => SubscribeCommitEvents(c));
