@@ -21,12 +21,6 @@ namespace GitGUI
     /// </summary>
     public partial class CommitNodeView : UserControl
     {
-        protected double _margin = 8;
-
-        double LeftContactDist { get { return Height / 2; } }
-        double TextStartDist { get { return LeftContactDist + _margin + (EnabledPhoto ? Height / 2 : 0); } }
-        double TextEndDist { get { return TextStartDist + TextWidth; } }
-
         public void OnLocationChanged(Point p)
         {
             Canvas.SetTop(this, p.Y);
@@ -48,13 +42,42 @@ namespace GitGUI
 
         }
 
-        double RightContactDist { get { return TextEndDist + _margin; } }
-
         public double TextWidth
         {
             get { return (double)GetValue(TextWidthProperty); }
             set { SetValue(TextWidthProperty, value); }
         }
+
+        public static readonly DependencyProperty TextWidthProperty =
+            DependencyProperty.Register("TextWidth", typeof(double), typeof(CommitNodeView), new PropertyMetadata((double)0));
+
+        public double TextStartDist
+        {
+            get { return (double)GetValue(TextStartDistProperty); }
+            set { SetValue(TextStartDistProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextStartDistProperty =
+            DependencyProperty.Register("TextStartDist", typeof(double), typeof(CommitNodeView));
+
+        public double LeftContactDist
+        {
+            get { return (double)GetValue(LeftContactDistProperty); }
+            set { SetValue(LeftContactDistProperty, value); }
+        }
+
+        public static readonly DependencyProperty LeftContactDistProperty =
+            DependencyProperty.Register("LeftContactDist", typeof(double), typeof(CommitNodeView));
+
+        public double RightContactDist
+        {
+            get { return (double)GetValue(RightContactDistProperty); }
+            set { SetValue(RightContactDistProperty, value); }
+        }
+
+        public static readonly DependencyProperty RightContactDistProperty =
+            DependencyProperty.Register("RightContactDist", typeof(double), typeof(CommitNodeView));
+
 
         public static readonly DependencyProperty PlusButtonProperty =
             DependencyProperty.Register("PlusButton", typeof(bool), typeof(CommitNodeView), new PropertyMetadata(true));
@@ -64,9 +87,6 @@ namespace GitGUI
             get { return (bool)GetValue(PlusButtonProperty); }
             set { SetValue(PlusButtonProperty, value); }
         }
-
-        public static readonly DependencyProperty TextWidthProperty =
-            DependencyProperty.Register("TextWidth", typeof(double), typeof(CommitNodeView), new PropertyMetadata((double)0));
 
         public RelayCommand PlusCommand
         {
@@ -85,12 +105,6 @@ namespace GitGUI
         public static readonly DependencyProperty FocusedProperty =
             DependencyProperty.Register("Focused", typeof(bool), typeof(CommitNodeView));
 
-        public bool EnabledPhoto
-        {
-            get { return ellipse.IsEnabled; }
-            set {  ellipse.IsEnabled = value; }
-        }
-
         public MouseButtonEventArgs MouseButtonArgs
         {
             get { return (MouseButtonEventArgs)GetValue(MouseButtonArgsProperty); }
@@ -106,40 +120,21 @@ namespace GitGUI
             set { SetValue(MouseArgsProperty, value); }
         }
 
-        public double EdgeOffset { get { return MaxWidth; } }
-
         public static readonly DependencyProperty MouseArgsProperty =
             DependencyProperty.Register("MouseArgs", typeof(MouseEventArgs), typeof(CommitNodeView));
 
-
-        public double MaxW { get { return 150; } }
-        
-        protected void MeasureTextWidth(TextBlock b)
-        {
-            b.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            if (b.DesiredSize.Width <= MaxW)
-                TextWidth = b.DesiredSize.Width;
-            else
-                TextWidth = Math.Min(MaxW, b.DesiredSize.Width / 2);
-        }
-
-        public CommitNodeView(string message, bool enabledPhoto)
+        public CommitNodeView()
         {
             InitializeComponent();
+        }
+
+        public void Update()
+        {
             OnFocusedChanged();
             OnMarkedChanged();
             OnCheckoutedChanged();
-            UpdateProperties(message, enabledPhoto);
-        }
-
-        void UpdateProperties(string text, bool enabledPhoto)
-        {
-            message.Text = text;
-            EnabledPhoto = enabledPhoto;
-            MeasureTextWidth(message);
             UpdateShape();
             UpdateMargins();
-            UpdateMaxWidth();
         }
 
         void UpdateShape()
@@ -155,11 +150,6 @@ namespace GitGUI
         void UpdateMargins()
         {
             message.Margin = new Thickness(TextStartDist, 0, 0, 0);
-        }
-
-        void UpdateMaxWidth()
-        {
-            MaxWidth = 2 * _margin + TextWidth + Height + (EnabledPhoto ? Height / 2 : 0);
         }
 
         LineSegment Top()
@@ -223,6 +213,15 @@ namespace GitGUI
             Binding b5 = new Binding("PlusButton");
             b5.Source = DataContext;
             SetBinding(PlusButtonProperty, b5);
+            Binding b6 = new Binding("TextStartDist");
+            b6.Source = DataContext;
+            SetBinding(TextStartDistProperty, b6);
+            Binding b7 = new Binding("LeftContactDist");
+            b7.Source = DataContext;
+            SetBinding(LeftContactDistProperty, b7);
+            Binding b8 = new Binding("RightContactDist");
+            b8.Source = DataContext;
+            SetBinding(RightContactDistProperty, b8);
         }
 
         private void OnMouseLeave(object sender, MouseEventArgs e)

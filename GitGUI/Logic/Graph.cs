@@ -130,7 +130,8 @@ namespace GitGUI.Logic
                 Commit c = pair.Item1;
                 Identity i = new Identity(c.Author.Name, c.Author.Email);
                 BitmapImage picture = Program.GetInstance().UserManager.FindUserPictureByIdentity(i);
-                CommitNodeModel m = new CommitNodeModel(c, picture) { Location = new Point((x++) * 200, pair.Item2 * 70) };
+                CommitNodeModel m = new CommitNodeModel(c, picture) { Location = new Point(x, pair.Item2 * 70) };
+                x += (int)m.MaxWidth + 150;
                 if (inProgress != null && inProgress.Contains(c))
                     m.InProgress = true;
                 return m;

@@ -38,8 +38,9 @@ namespace GitGUI.Logic
             Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel> dict = new Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel>();
             Model.Commits.ForEach(m =>
             {
-                CommitNodeView v = new CommitNodeView(m.Message, m.EnabledPhoto);
+                CommitNodeView v = new CommitNodeView();
                 CommitNodeViewModel vm = new CommitNodeViewModel(m, v);
+                v.Update();
                 dict.Add(m.Commit, vm);
                 View.Children.Add(v);
             });
@@ -54,7 +55,7 @@ namespace GitGUI.Logic
                 foreach (LibGit2Sharp.Commit c in m.Commit.Parents)
                 {
                     Point source = new Point(m.Location.X, m.Location.Y + 20);
-                    Point sink = new Point(dict[c].Location.X + Math.Min(500, dict[c].Width), dict[c].Location.Y + 20);
+                    Point sink = new Point(dict[c].Location.X + Math.Min(500, dict[c].MaxWidth), dict[c].Location.Y + 20);
                     Edge e = new Edge()
                     {
                         Source = source,

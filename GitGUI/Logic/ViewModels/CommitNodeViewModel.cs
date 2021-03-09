@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using GitGUI;
 
@@ -18,10 +20,12 @@ namespace GitGUI.Logic
         public BitmapImage Bitmap { get { return ((CommitNodeModel)Model).BitmapImage; } }
         public bool EnabledPhoto { get { return ((CommitNodeModel)Model).EnabledPhoto; } }
         public string Message { get { return ((CommitNodeModel)Model).Message; } }
-        public double Width
-        {
-            get; set;
-        }
+        public double LeftContactDist { get { return ((CommitNodeModel)Model).LeftContactDist; } }
+        public double RightContactDist { get { return ((CommitNodeModel)Model).RightContactDist; } }
+        public double TextStartDist { get { return ((CommitNodeModel)Model).TextStartDist; } }
+        public double MaxWidth { get { return ((CommitNodeModel)Model).MaxWidth; } }
+        public double TextWidth { get { return ((CommitNodeModel)Model).TextWidth; } }
+
         public bool InProgress { get { return ((CommitNodeModel)Model).InProgress; } }
 
         public CommitNodeViewModel(CommitNodeModel model, CommitNodeView view) : base(model, view)
@@ -29,13 +33,6 @@ namespace GitGUI.Logic
             SubscribeViewEvents(view);
             InitializeLocation();
             Model.PropertyChanged += OnPropertyChanged;
-            Width = view.EdgeOffset;
-        }
-
-        void SetViewProperties(CommitNodeView view)
-        {
-            view.EnabledPhoto = EnabledPhoto;
-            view.message.Text = Message;
         }
 
         void SubscribeViewEvents(CommitNodeView view)
@@ -50,6 +47,8 @@ namespace GitGUI.Logic
         {
             if (e.PropertyName == "Path")
                 OnPropertyChanged("Bitmap");
+            if (e.PropertyName == "Message")
+                OnPropertyChanged("TextWidth");
             OnPropertyChanged(e.PropertyName);
         }
     }
