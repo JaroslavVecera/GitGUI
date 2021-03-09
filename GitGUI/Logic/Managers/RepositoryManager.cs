@@ -41,14 +41,20 @@ namespace GitGUI.Logic
             Open(path);
         }
 
+        public void CloseCurrent()
+        {
+            Close();
+            LibGitService.GetInstance().CloseCurrentRepository();
+        }
+
         void Open(string path)
         {
-            CloseCurrent();
+            Close();
             _current = AddRepository(path);
             Opened?.Invoke(_current);
         }
 
-        public void CloseCurrent()
+        void Close()
         {
             if (_current == null)
                 return;

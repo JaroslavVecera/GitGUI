@@ -229,6 +229,11 @@ namespace GitGUI.Logic
             Commands.Checkout(Repository, b.Branch);
         }
 
+        public void CloseCurrentRepository()
+        {
+            CloseRepository(Repository);
+        }
+
         void CloseRepository(Repository r)
         {
             DisableWatcher();

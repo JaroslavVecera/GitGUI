@@ -22,6 +22,7 @@ namespace GitGUI.Logic
         public Point GraphViewCenter { get { return new Point(ScrollViewer.ActualWidth / 2, ScrollViewer.ActualHeight / 2); } }
         public bool IsInfoVisible { get { return Model.Shown != null; } }
         public GraphItemModel Shown { get { return Model.Shown; } }
+        public override bool CloseButton { get { return false; } }
 
         void SetGraphViewCenter()
         {

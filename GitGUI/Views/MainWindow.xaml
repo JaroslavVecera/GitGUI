@@ -303,7 +303,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -738,7 +738,7 @@
                         <MenuItem Header="Soon" />
                     </MenuItem>
                     <Separator Background="Gray"/>
-                    <MenuItem Header="Close repository" />
+                    <MenuItem Header="Close repository" Click="CloseRepository" IsEnabled="{Binding CanClose}"/>
                 </MenuItem>
                 <StackPanel>
                     <TextBlock MouseUp="OpenStashingMenu" >Stashing</TextBlock>
@@ -778,7 +778,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
-                        <Button Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
+                        <Button Visibility="{Binding Path=CloseButton, Converter={StaticResource BoolToVis}}" Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">

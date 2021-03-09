@@ -32,6 +32,7 @@ namespace GitGUI
 
         public MainWindow()
         {
+            Closing += (object sender, System.ComponentModel.CancelEventArgs e) => CloseRepository(sender, null); ;
         }
 
         private void WindowPreviewMouseMove(object sender, MouseEventArgs e)
@@ -217,6 +218,11 @@ namespace GitGUI
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             RefreshMaximizeRestoreButton();
+        }
+
+        private void CloseRepository(object sender, RoutedEventArgs e)
+        {
+            Program.GetInstance().CloseCurrentRepository();
         }
     }
 }

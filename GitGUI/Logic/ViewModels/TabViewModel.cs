@@ -13,6 +13,8 @@ namespace GitGUI.Logic
         public ICommand CloseCommand { get; }
         public virtual TabModel Model { get; private set; }
 
+        public virtual bool CloseButton { get { return true; } }
+
         public TabViewModel(TabModel model)
         {
             Model = model;

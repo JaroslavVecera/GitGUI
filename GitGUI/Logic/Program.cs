@@ -35,6 +35,13 @@ namespace GitGUI.Logic
             StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
             mwvm.StashMenu = wm;
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
+            RepositoryManager.Closed += m => MainWindowModel.RepoPath = "";
+        }
+
+        public void CloseCurrentRepository()
+        {
+            TabManager.CloseAll();
+            RepositoryManager.CloseCurrent();
         }
 
         void InitializeState()
