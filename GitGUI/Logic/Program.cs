@@ -34,6 +34,7 @@ namespace GitGUI.Logic
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
             StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
             mwvm.StashMenu = wm;
+            RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
         }
 
         void InitializeState()

@@ -10,11 +10,13 @@ namespace GitGUI.Logic
     {
         public event Action ChangedTabs;
         public event Action ChangedIndex;
+        string _repoPath = "";
 
         public List<TabViewModel> Tabs { get; private set; } = new List<TabViewModel>();
         public int SelectedIndex { get; private set; }
         public event Action OnContextMenuOpened;
         public event Action OnNoAggregationContextMenuOpened;
+        public string RepoPath { get { return _repoPath; } set { _repoPath = value; OnPropertyChanged(); } }
 
         public MainWindowModel()
         {

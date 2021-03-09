@@ -15,6 +15,7 @@ namespace GitGUI.Logic
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
         public int SelectedIndex { get { return Model.SelectedIndex; } }
         public List<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
+        public string RepoPath { get { return Model.RepoPath; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
@@ -29,6 +30,12 @@ namespace GitGUI.Logic
             model.ChangedIndex += () => OnPropertyChanged("SelectedIndex");
             model.OnContextMenuOpened += () => view.OpenContextMenu();
             model.OnNoAggregationContextMenuOpened += () => view.OpenNoAggregationContextMenu();
+            model.PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e.PropertyName);
         }
     }
 }

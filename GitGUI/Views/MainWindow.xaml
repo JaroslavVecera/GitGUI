@@ -15,8 +15,15 @@
         MouseLeave="WindowMouseLeave"
         ContextMenuService.IsEnabled="false"
         Icon="../icon.png"
+        WindowStyle="None"
+        StateChanged="WindowStateChanged"
+        Loaded="WindowLoaded"
         Background="#28282A">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
     <Window.Resources>
+        
         <SolidColorBrush x:Key="StandardBorderBrush" Color="#888" />
         <SolidColorBrush x:Key="StandardBackgroundBrush" Color="Black" />
         <SolidColorBrush x:Key="HoverBorderBrush" Color="#DDD" />
@@ -30,6 +37,39 @@
         <SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#888" />
         <SolidColorBrush x:Key="Menu.Static.Background" Color="#28282A"/>
         <SolidColorBrush x:Key="Menu.Static.Foreground" Color="White"/>
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+					x:Name="border"
+					Background="Transparent"
+					BorderThickness="0"
+					SnapsToDevicePixels="true">
+                            <ContentPresenter
+						x:Name="contentPresenter"
+						Margin="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Focusable="False"
+						RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#333337" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#3D26A0DA" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MenuStyle" TargetType="{x:Type Menu}">
             <Setter Property="Background" Value="{StaticResource Menu.Static.Background}"/>
             <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
@@ -572,7 +612,115 @@
             <MenuItem Click="ContextMenuRebase" Header="Rebase" x:Name="rebase" />
         </ContextMenu>
     </Window.ContextMenu>
-    <Grid>
+    <Border>
+        <Border.Style>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                    <Setter Property="BorderThickness" Value="0" />
+                </DataTrigger>
+            </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Width="22" Height="22" Margin="4" Source="../icon.png" />
+        <TextBlock Grid.Column="1" Margin="4 0 0 0" VerticalAlignment="Center" FontSize="14"
+		Text="GitGUI">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                            <Setter Property="Foreground" Value="DarkGray" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+            <Grid Grid.Column="2" Margin="50,0,50,0">
+            <TextBlock TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"
+		Text="{Binding RepoPath}">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsActive, RelativeSource={RelativeSource AncestorType=Window}}" Value="False">
+                                <Setter Property="Foreground" Value="DarkGray" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <Button
+		Grid.Column="3"
+		Click="OnMinimizeButtonClick"
+		RenderOptions.EdgeMode="Aliased"
+		Style="{StaticResource TitleBarButtonStyle}">
+            <Path
+			Width="46"
+			Height="32"
+			Data="M 18,15 H 28"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+        </Button>
+        <Button
+		Name="maximizeButton"
+		Grid.Column="4"
+		Click="OnMaximizeRestoreButtonClick"
+		Style="{StaticResource TitleBarButtonStyle}">
+            <Path
+			Width="46"
+			Height="32"
+			Data="M 18.5,10.5 H 27.5 V 19.5 H 18.5 Z"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+        </Button>
+        <Button
+		Name="restoreButton"
+		Grid.Column="4"
+		Click="OnMaximizeRestoreButtonClick"
+		Style="{StaticResource TitleBarButtonStyle}">
+            <Path
+			Width="46"
+			Height="32"
+			Data="M 18.5,12.5 H 25.5 V 19.5 H 18.5 Z M 20.5,12.5 V 10.5 H 27.5 V 17.5 H 25.5"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+        </Button>
+        <Button
+		Grid.Column="5"
+		Click="OnCloseButtonClick"
+		Style="{StaticResource TitleBarButtonStyle}">
+            <Path
+			Width="46"
+			Height="32"
+			Data="M 18,11 27,20 M 18,20 27,11"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+        </Button>
+    </Grid>
+    <Grid Grid.Row="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -612,48 +760,50 @@
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
                     <local:MainTabView></local:MainTabView>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
-                <local:CommitEditorView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
-                <local:CommitViewerTabView/>
-            </DataTemplate>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
+                    <local:CommitEditorView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
+                    <local:CommitViewerTabView/>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type logic:ConflictEditorTabViewModel}">
                     <local:ConflictEditorTabView/>
                 </DataTemplate>
             </TabControl.Resources>
-        <TabControl.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
-                    <Button Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">
-                                    <Path.Style>
-                                        <Style TargetType="{x:Type Path}">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="False">
-                                                    <Setter Property="Stroke" Value="LightGray" />
-                                                </Trigger>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Stroke" Value="Red" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Path.Style>
-                                </Path>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </Grid>
-            </DataTemplate>
-        </TabControl.ItemTemplate>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
+                        <Button Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">
+                                        <Path.Style>
+                                            <Style TargetType="{x:Type Path}">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                        <Setter Property="Stroke" Value="LightGray" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Stroke" Value="Red" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                    </Path>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
         </TabControl>
+        </Grid>
     </Grid>
+    </Border>
 </Window>
