@@ -91,5 +91,10 @@ namespace GitGUI
             b3.Source = DataContext;
             SetBinding(MouseUpCommandProperty, b3);
         }
+
+        private void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            Program.GetInstance().OnMouseWheel(e);
+        }
     }
 }

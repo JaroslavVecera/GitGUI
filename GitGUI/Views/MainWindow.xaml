@@ -11,7 +11,6 @@
         MouseUp="WindowMouseUp"
         MouseDown="WindowMouseDown"
         PreviewMouseMove="WindowPreviewMouseMove"
-        PreviewMouseWheel="WindowPreviewMouseWheel"
         MouseLeave="WindowMouseLeave"
         ContextMenuService.IsEnabled="false"
         Icon="../icon.png"

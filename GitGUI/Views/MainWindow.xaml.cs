@@ -49,11 +49,6 @@ namespace GitGUI
             Program.GetInstance().OnWindowMouseDown(null, e);
         }
 
-        private void WindowPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            Program.GetInstance().OnMouseWheel(e);
-        }
-
         private void WindowMouseLeave(object sender, MouseEventArgs e)
         {
 

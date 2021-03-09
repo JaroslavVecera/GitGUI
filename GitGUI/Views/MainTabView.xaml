@@ -26,6 +26,7 @@
                        Focusable="False"
                        MouseUp="OnMouseUp"
                        MouseDown="OnMouseDown"
+                       PreviewMouseWheel="OnPreviewMouseWheel"
                        Background="#1E1E1E">
             </ScrollViewer>
             <ContentControl  Content="{Binding Path=ActionPanel}" Grid.Row="1">
