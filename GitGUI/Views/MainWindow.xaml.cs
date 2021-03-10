@@ -76,11 +76,6 @@ namespace GitGUI
             Program.GetInstance().ChangeUser(args.User);
         }
 
-        private void OpenStashingMenu(object sender, MouseButtonEventArgs e)
-        {
-            popup.IsOpen = true;
-        }
-
         private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
             Close();

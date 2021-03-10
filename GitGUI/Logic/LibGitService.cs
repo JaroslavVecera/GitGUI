@@ -231,7 +231,8 @@ namespace GitGUI.Logic
 
         public void CloseCurrentRepository()
         {
-            CloseRepository(Repository);
+            if (Repository != null)
+                CloseRepository(Repository);
         }
 
         void CloseRepository(Repository r)

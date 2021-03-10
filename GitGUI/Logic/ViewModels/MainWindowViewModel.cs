@@ -17,6 +17,7 @@ namespace GitGUI.Logic
         public List<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
+        public bool EnabledStashing { get { return CanClose; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
@@ -38,7 +39,10 @@ namespace GitGUI.Logic
         {
             OnPropertyChanged(e.PropertyName);
             if (e.PropertyName == "RepoPath")
+            {
                 OnPropertyChanged("CanClose");
+                OnPropertyChanged("EnabledStashing");
+            }
         }
     }
 }

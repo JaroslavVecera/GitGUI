@@ -28,7 +28,7 @@
                 </Style.Triggers>
             </Style>
         <DataTemplate x:Key="SomeStashes" DataType="StashMenuViewModel">
-            <Grid  Background="#28282A">
+            <Grid  Background="#1E1E1E">
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
@@ -57,10 +57,10 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="NoStashes" DataType="StashMenuViewModel">
-            <TextBlock Background="#3E3E42" Foreground="White">No stashes</TextBlock>
+            <TextBlock Background="#1E1E1E" Foreground="White">No stashes</TextBlock>
         </DataTemplate>
     </UserControl.Resources>
-    <Border BorderBrush="Gray" BorderThickness="2">
+    <Border BorderBrush="#FF999999" BorderThickness="1">
         <ContentControl Content="{Binding DataContext, RelativeSource={RelativeSource Self}}" ContentTemplateSelector="{DynamicResource StashMenuContentTemplateSelector}"/>
     </Border>
 </UserControl>
