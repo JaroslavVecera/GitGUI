@@ -22,40 +22,54 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="AnyItems">
-            <StackPanel HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
-                    <TreeView ItemsSource="{Binding Path=Items}" Height="287">
-                        <i:Interaction.Behaviors>
-                            <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
-                        </i:Interaction.Behaviors>
-                        <TreeView.ItemContainerStyle>
-                            <Style TargetType="TreeViewItem">
-                                <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
-                            </Style>
-                        </TreeView.ItemContainerStyle>
-                    </TreeView>
-                    <ContentControl Content="{Binding ChangesInfo}">
-                        <ContentControl.Resources>
-                            <DataTemplate DataType="{x:Type logic:UntrackedInfo}">
-                                <local:UntrackedInfoView />
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type logic:ModifiedInfo}">
-                                <local:ModifiedInfoView />
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type logic:DeletedInfo}">
-                                <local:DeletedInfoView />
-                            </DataTemplate>
-                            <DataTemplate DataType="{x:Type logic:RenamedInfo}">
-                                <local:RenamedInfoView />
-                            </DataTemplate>
-                        </ContentControl.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Margin="6,6,0,0" BorderBrush="DarkGray" BorderThickness="1">
+                        <TreeView ItemsSource="{Binding Path=Items}" Padding="0,15,0,15" Background="#1E1E1E" Foreground="LightGray">
+                            <i:Interaction.Behaviors>
+                                <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
+                            </i:Interaction.Behaviors>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="TreeViewItem">
+                                    <Setter Property="TreeViewItem.IsExpanded" Value="True"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                        </TreeView>
+                    </ScrollViewer>
+                    <GridSplitter Width="5" Margin="0,6,0,0" Grid.Column="1" Background="Transparent" />
+                    <ContentControl Grid.Column="2" Margin="0,6,6,0" Content="{Binding ChangesInfo}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type logic:UntrackedInfo}">
+                            <local:UntrackedInfoView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:ModifiedInfo}">
+                            <local:ModifiedInfoView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:DeletedInfo}">
+                            <local:DeletedInfoView />
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:RenamedInfo}">
+                            <local:RenamedInfoView />
+                        </DataTemplate>
+                    </ContentControl.Resources>
                     </ContentControl>
-                </StackPanel>
-                <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0">Commit message</TextBlock>
-                <TextBox HorizontalAlignment="Center" MinWidth="100" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </Grid>
+                <StackPanel Grid.Row="1">
+                    <TextBlock HorizontalAlignment="Center" Foreground="#FFBCCFD8" Margin="0,10,0,0">Commit message</TextBlock>
+                    <TextBox HorizontalAlignment="Center" MinWidth="100" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                 <Button Margin="0,10,0,0" Width="150" Command="{Binding Path=Commit}">Commit Merge</Button>
                 <Button Margin="0,10,0,0" Width="150" Command="{Binding Path=Abort}">Abort Merge</Button>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="NoneItems">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="DimGray">

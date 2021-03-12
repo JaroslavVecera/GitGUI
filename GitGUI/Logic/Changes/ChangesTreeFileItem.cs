@@ -10,6 +10,7 @@ namespace GitGUI.Logic
     {
         public ChangeType Type { get; set; }
         public override ChangesInfo Info { get { return _info; } set { base.Info = value; } }
+        public bool Focusable { get; } = true;
 
         public override IEnumerable<string> GetCheckedPaths(string prefix)
         {

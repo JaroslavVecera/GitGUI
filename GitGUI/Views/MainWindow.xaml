@@ -37,6 +37,7 @@
         <SolidColorBrush x:Key="HorizontalNormalBorderBrush" Color="#888" />
         <SolidColorBrush x:Key="Menu.Static.Background" Color="#28282A"/>
         <SolidColorBrush x:Key="Menu.Static.Foreground" Color="White"/>
+        
         <Style x:Key="TitleBarButtonStyle" TargetType="Button">
             <Setter Property="Foreground" Value="White" />
             <Setter Property="Padding" Value="0" />

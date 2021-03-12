@@ -17,7 +17,7 @@
         </DataTemplate>
         <DataTemplate x:Key="AnyItems">
             <StackPanel HorizontalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Center" Margin="0,50,0,0">Commit message</TextBlock>
+                <TextBlock HorizontalAlignment="Center" Margin="0,50,10,0">Commit message</TextBlock>
                 <TextBlock HorizontalAlignment="Center" MinWidth="100" Text="{Binding Path=Message}"></TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TreeView ItemsSource="{Binding Path=Items}" Height="287">

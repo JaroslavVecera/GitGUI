@@ -33,7 +33,7 @@
     </i:Interaction.Triggers>
     <Grid x:Name="grid" 
           Style="{DynamicResource ResourceKey=CommitStyle}" Height="40" Width="{Binding Path=MaxWidth}">
-        <Path Clip="{Binding Data, RelativeSource={RelativeSource Self}}" Stroke="#11B5E4" Fill="#1481BA" x:Name="path" VerticalAlignment="Top">
+        <Path Clip="{Binding Data, RelativeSource={RelativeSource Self}}" Stroke="#11B5E4" Fill="#007ACC" x:Name="path" VerticalAlignment="Top">
             <Path.Data>
                 <PathGeometry x:Name="geometry"></PathGeometry>
             </Path.Data>

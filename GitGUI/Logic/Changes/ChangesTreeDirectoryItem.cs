@@ -15,6 +15,7 @@ namespace GitGUI.Logic
         IEnumerable<ChangesTreeDirectoryItem> Dirs { get { return Items.Where(item => item is ChangesTreeDirectoryItem).Cast<ChangesTreeDirectoryItem>(); } }
         public override bool IsChecked { get { return base.IsChecked; } set { base.IsChecked = value; PropagateDown(value); } }
         bool ListenCheckedEvents { get; set; } = true;
+        public bool Focusable { get; } = false;
 
         public override IEnumerable<string> GetCheckedPaths(string prefix)
         {
