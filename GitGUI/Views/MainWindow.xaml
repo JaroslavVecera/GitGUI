@@ -16,6 +16,7 @@
         Icon="../icon.png"
         WindowStyle="None"
         StateChanged="WindowStateChanged"
+        x:Name="window"
         Loaded="WindowLoaded"
         Background="#28282A">
     <WindowChrome.WindowChrome>
@@ -775,9 +776,13 @@
             <Menu Style="{DynamicResource MenuStyle}">
                 <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
                     <MenuItem Header="Open" Click="OpenRepository" />
-                    <MenuItem Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
-                        <MenuItem Header="Coming" />
-                        <MenuItem Header="Soon" />
+                    <MenuItem ItemsSource="{Binding RecentRepos}" Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
+                                <MenuItem.ItemContainerStyle>
+                                    <Style TargetType="MenuItem">
+                                        <Setter Property="Command" Value="{Binding DataContext.OpenRecentRepo, ElementName=window}" />
+                                        <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}" />
+                                    </Style>
+                                </MenuItem.ItemContainerStyle>
                     </MenuItem>
                     <Separator Background="Gray"/>
                     <MenuItem Header="Close repository" Click="CloseRepository" IsEnabled="{Binding CanClose}"/>

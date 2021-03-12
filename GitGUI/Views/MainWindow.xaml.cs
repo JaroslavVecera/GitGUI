@@ -219,5 +219,10 @@ namespace GitGUI
         {
             Program.GetInstance().CloseCurrentRepository();
         }
+
+        private void MenuItemClick(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("ahoj");
+        }
     }
 }

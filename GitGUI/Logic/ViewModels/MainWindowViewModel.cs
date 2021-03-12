@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GitGUI.Logic
 {
@@ -18,6 +19,8 @@ namespace GitGUI.Logic
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
         public bool EnabledStashing { get { return CanClose; } }
+        public IEnumerable<string> RecentRepos { get { return Model.RecentRepos; } }
+        public RelayCommand<MenuItem> OpenRecentRepo { get { return Model.OpenRecentRepo; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {

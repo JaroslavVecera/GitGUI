@@ -26,7 +26,6 @@ namespace GitGUI.Logic
         Program()
         {
             ActionPanelModel localAM = new ActionPanelModel();
-
             MainWindowViewModel mwvm = InitializeMainWindow();
             CreateManagers(localAM);
             InitializeEventHandlers();
@@ -35,7 +34,8 @@ namespace GitGUI.Logic
             StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
             mwvm.StashMenu = wm;
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
-            RepositoryManager.Closed += m => MainWindowModel.RepoPath = "";
+            MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
+            RepositoryManager.Closed += m => { MainWindowModel.RepoPath = ""; MainWindowModel.RecentRepos = RepositoryManager.RecentRepos; };
         }
 
         public void CloseCurrentRepository()
@@ -53,17 +53,23 @@ namespace GitGUI.Logic
 
         }
 
+        public void OpenRepository(string path)
+        {
+            RepositoryClosed();
+            TabManager.AddMainTab();
+            RepositoryManager.OpenExisting(path);
+        }
+
         public void OpenRepository()
         {
+
             var dialog = new VistaFolderBrowserDialog();
             dialog.Description = "Select directory of existing repository";
             dialog.UseDescriptionForTitle = true;
             var ans = dialog.ShowDialog();
             if (ans == null || ans == false)
                 return;
-            RepositoryClosed();
-            TabManager.AddMainTab();
-            RepositoryManager.OpenExisting(dialog.SelectedPath);
+            OpenRepository(dialog.SelectedPath);
         }
 
         void CreateManagers(ActionPanelModel localAM)

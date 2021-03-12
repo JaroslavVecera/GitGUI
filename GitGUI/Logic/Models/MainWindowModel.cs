@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GitGUI.Logic
 {
@@ -10,6 +11,7 @@ namespace GitGUI.Logic
     {
         public event Action ChangedTabs;
         public event Action ChangedIndex;
+        IEnumerable<string> _recentRepos;
         string _repoPath = "";
 
         public List<TabViewModel> Tabs { get; private set; } = new List<TabViewModel>();
@@ -17,10 +19,12 @@ namespace GitGUI.Logic
         public event Action OnContextMenuOpened;
         public event Action OnNoAggregationContextMenuOpened;
         public string RepoPath { get { return _repoPath; } set { _repoPath = value; OnPropertyChanged(); } }
+        public IEnumerable<string> RecentRepos { get { return _recentRepos; } set { _recentRepos = value; OnPropertyChanged(); } }
+        public RelayCommand<MenuItem> OpenRecentRepo { get; }
 
         public MainWindowModel()
         {
-            
+            OpenRecentRepo = new RelayCommand<MenuItem>(i => Program.GetInstance().OpenRepository((string)i.Header));
         }
 
         public void OpenAggregatingContextMenu()

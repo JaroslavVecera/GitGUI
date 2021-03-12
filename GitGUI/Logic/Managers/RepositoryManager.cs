@@ -13,6 +13,7 @@ namespace GitGUI.Logic
         RepositoryModel _current;
         string _dirPath = "Repos";
         public List<RepositoryModel> Repositories { get; private set; } = new List<RepositoryModel>();
+        public IEnumerable<string> RecentRepos { get { return Repositories.Take(7).Select(m => m.RepositoryPath); } }
 
         public delegate void RepositoryOpenedEventHandler(RepositoryModel repo);
         public delegate void RepositoryClosedEventHandler(RepositoryModel repo);
