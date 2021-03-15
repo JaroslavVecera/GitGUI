@@ -58,19 +58,18 @@ namespace GitGUI.Logic
 
         private LibGitService() { }
 
-        public string Diff(string path)
+        public PatchEntryChanges Diff(string path)
         {
-            return Repository.Diff.Compare<Patch>(Repository.Head.Tip.Tree, DiffTargets.WorkingDirectory);
+            Patch p = Repository.Diff.Compare<Patch>(Repository.Head.Tip.Tree, DiffTargets.WorkingDirectory, new List<string>() { path });
+            return p[path];
         }
 
-        public string Diff(string path, Commit c)
+        public ContentChanges Diff(string path, Commit c)
         {
-            string d = "";
-            c.Parents.ToList().ForEach(p =>
-            {
-                d += Repository.Diff.Compare<Patch>(p.Tree, c.Tree)[path].Patch;
-            });
-            return d;
+            if (!c.Parents.Any())
+                return null;
+            Commit p = c.Parents.ToList().First();
+            return Repository.Diff.Compare((Blob)p[path].Target, (Blob)c[path].Target);
         }
 
         public bool IsValidRepository(string path)

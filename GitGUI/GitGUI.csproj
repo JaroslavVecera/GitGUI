@@ -91,6 +91,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CahngedUserEventArgs.cs" />
+    <Compile Include="Logic\DiffParser.cs" />
+    <Compile Include="Logic\Hunk.cs" />
+    <Compile Include="Logic\Line.cs" />
     <Compile Include="Logic\ViewModels\StashMenuViewModel.cs" />
     <Compile Include="Logic\Models\StashMenuModel.cs" />
     <Compile Include="StashMenuContentTemplateSelector.cs" />

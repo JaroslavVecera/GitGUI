@@ -31,7 +31,7 @@ namespace GitGUI.Logic
 
         public static ChangesInfo Untracked(string path)
         {
-            return new UntrackedInfo(LibGitService.GetInstance().Diff(path));
+            return new UntrackedInfo("placeholder");
         }
     }
 }
