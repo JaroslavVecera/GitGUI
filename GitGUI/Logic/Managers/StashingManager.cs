@@ -45,7 +45,8 @@ namespace GitGUI.Logic
         public void SetRepository(Repository r)
         {
             Repository = r;
-            SetImplicitStashes();
+            if (r != null)
+                SetImplicitStashes();
         }
 
         void SetImplicitStashes()

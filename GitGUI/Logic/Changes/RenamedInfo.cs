@@ -8,7 +8,13 @@ namespace GitGUI.Logic
 {
     public class RenamedInfo :ChangesInfo
     {
-        string OldName { get; set; }
-        string NewName { get; set; }
+        public string OldName { get; private set; }
+        public string NewName { get; private set; }
+
+        public RenamedInfo(string oldPath, string newPath)
+        {
+            OldName = oldPath;
+            NewName = newPath;
+        }
     }
 }

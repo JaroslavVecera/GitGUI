@@ -6,7 +6,7 @@ namespace GitGUI.Logic
     {
         public static ChangesInfo Renamed(string oldPath, string newPath)
         {
-            return new RenamedInfo();
+            return new RenamedInfo(oldPath, newPath);
         }
 
         public static ChangesInfo Modified(string path)

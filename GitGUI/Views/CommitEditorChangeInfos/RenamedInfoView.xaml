@@ -6,9 +6,20 @@
              xmlns:local="clr-namespace:GitGUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure">
-        <TextBlock>Zatim nic </TextBlock>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="40" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="Margin" Value="150,0,150,0" />
+                <Setter Property="Foreground" Value="LightGray" />
+            </Style>
+        </StackPanel.Resources>
+        <TextBlock>Rename</TextBlock>
         <TextBlock Text="{Binding OldName}"></TextBlock>
+        <Path Data="M 16,32 L 32,16 L 16,0" Fill="LightGray"/>
         <TextBlock Text="{Binding NewName}"></TextBlock>
-    </Grid>
+    </StackPanel>
 </UserControl>

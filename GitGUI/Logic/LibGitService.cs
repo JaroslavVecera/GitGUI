@@ -233,7 +233,7 @@ namespace GitGUI.Logic
             if (Repository != null)
                 CloseRepository(Repository);
         }
-
+        
         void CloseRepository(Repository r)
         {
             DisableWatcher();
