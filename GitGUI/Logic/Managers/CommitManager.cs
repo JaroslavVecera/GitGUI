@@ -41,6 +41,7 @@ namespace GitGUI.Logic
 
         public void RestoreBranchLabel(BranchLabelModel m)
         {
+            m.Focused = false;
             Graph.RestoreBranchLabel(m);
         }
 

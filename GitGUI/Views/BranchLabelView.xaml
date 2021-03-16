@@ -30,15 +30,34 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Border x:Name="border" BorderThickness="2" MinWidth="60" VerticalAlignment="Top" CornerRadius="4" Height="30" MaxWidth="150">
-            <TextBlock Text="{Binding Name}"
+        <Border x:Name="border"  BorderThickness="0" MinWidth="60" VerticalAlignment="Top" CornerRadius="5" Height="30" MaxWidth="150">
+            <Border CornerRadius="5" BorderThickness="2" Margin="-1">
+            <TextBlock  Text="{Binding Name}"
                    TextTrimming="CharacterEllipsis"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Padding="10,0,10,0" Foreground="White" />
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Marked}" Value="true">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Focused}" Value="true" />
+                                    <Condition Binding="{Binding Marked}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
             <Border.Style>
                 <Style TargetType="Border">
-                    <Setter Property="BorderBrush" Value="#003a8c"/>
                     <Setter Property="Background" Value="#003a8c"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Marked}" Value="true">
@@ -51,24 +70,33 @@
                 </Style>
             </Border.Style>
         </Border>
-        <Path Fill="#003a8c" x:Name="arrow">
+        <Path x:Name="arrow">
             <Path.Data>
                 <PathGeometry>
-                    <PathFigure StartPoint="20,28">
+                    <PathFigure StartPoint="20,29">
                         <PathFigure.Segments>
                             <LineSegment Point="30,40" />
-                            <LineSegment Point="40,28" />
+                            <LineSegment Point="40,29" />
                         </PathFigure.Segments>
                     </PathFigure>
                 </PathGeometry>
             </Path.Data>
             <Path.Style>
                 <Style TargetType="Path">
-                    <Setter Property="Stroke" Value="#003a8c"/>
+                    <Setter Property="Fill" Value="#003a8c" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Marked}" Value="true">
-                            <Setter Property="Stroke" Value="MidnightBlue"/>
+                            <Setter Property="Fill" Value="White"/>
                         </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Marked}" Value="false" />
+                                <Condition Binding="{Binding Checkouted}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Fill" Value="Purple"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </Path.Style>

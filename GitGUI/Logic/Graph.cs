@@ -34,6 +34,11 @@ namespace GitGUI.Logic
             LibGitService.GetInstance().RepositoryChanged += () => DeployGraph();
         }
 
+        public bool Contains(Point p)
+        {
+            return Position.X <= p.X && Position.X + Size.Width >= p.X && Position.Y <= p.Y && Position.Y + Size.Height >= p.Y;
+        }
+
         public void Move(Vector move)
         {
             ZoomAndPanCanvasModel.Move(move);

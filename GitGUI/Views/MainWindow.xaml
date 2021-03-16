@@ -8,8 +8,9 @@
         xmlns:controls="http://schemas.panthernet.ru/graphx/"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        PreviewMouseUp="WindowMouseUp"
+        MouseUp="WindowMouseUp"
         MouseDown="WindowMouseDown"
+        PreviewMouseUp="OnPreviewMouseUp"
         PreviewMouseMove="WindowPreviewMouseMove"
         MouseLeave="WindowMouseLeave"
         ContextMenuService.IsEnabled="false"
@@ -763,85 +764,85 @@
 			StrokeThickness="1" />
         </Button>
     </Grid>
-    <Grid Grid.Row="1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Menu Style="{DynamicResource MenuStyle}">
-                <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
-                    <MenuItem Header="Open" Click="OpenRepository" />
-                    <MenuItem ItemsSource="{Binding RecentRepos}" Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Menu Style="{DynamicResource MenuStyle}">
+                        <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
+                            <MenuItem Header="Open" Click="OpenRepository" />
+                            <MenuItem ItemsSource="{Binding RecentRepos}" Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
                                 <MenuItem.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Command" Value="{Binding DataContext.OpenRecentRepo, ElementName=window}" />
                                         <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}" />
                                     </Style>
                                 </MenuItem.ItemContainerStyle>
-                    </MenuItem>
-                    <Separator Background="Gray"/>
-                    <MenuItem Header="Close repository" Click="CloseRepository" IsEnabled="{Binding CanClose}"/>
-                </MenuItem >
+                            </MenuItem>
+                            <Separator Background="Gray"/>
+                            <MenuItem Header="Close repository" Click="CloseRepository" IsEnabled="{Binding CanClose}"/>
+                        </MenuItem >
                         <MenuItem Header="Stashes" IsEnabled="{Binding EnabledStashing}" Template="{DynamicResource StashingMenuItemControlTemplate}">
                             <TextBlock />
                         </MenuItem>
-            </Menu>
-            <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
+                    </Menu>
+                    <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
+                </Grid>
+                <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
+                    <TabControl.Resources>
+                        <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
+                            <local:MainTabView></local:MainTabView>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
+                            <local:CommitEditorView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
+                            <local:CommitViewerTabView/>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type logic:ConflictEditorTabViewModel}">
+                            <local:ConflictEditorTabView/>
+                        </DataTemplate>
+                    </TabControl.Resources>
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
+                                <Button Visibility="{Binding Path=CloseButton, Converter={StaticResource BoolToVis}}" Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">
+                                                <Path.Style>
+                                                    <Style TargetType="{x:Type Path}">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="False">
+                                                                <Setter Property="Stroke" Value="LightGray" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Stroke" Value="Red" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                </TabControl>
+            </Grid>
         </Grid>
-        <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
-            <TabControl.Resources>
-                <DataTemplate DataType="{x:Type logic:MainTabViewModel}">
-                    <local:MainTabView></local:MainTabView>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type logic:CommitEditorTabViewModel}">
-                    <local:CommitEditorView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type logic:CommitViewerTabViewModel}">
-                    <local:CommitViewerTabView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type logic:ConflictEditorTabViewModel}">
-                    <local:ConflictEditorTabView/>
-                </DataTemplate>
-            </TabControl.Resources>
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
-                        <Button Visibility="{Binding Path=CloseButton, Converter={StaticResource BoolToVis}}" Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Path Data="M0,0 L8,8 M8,0 L0,8" StrokeThickness="3" VerticalAlignment="Center" Margin="5,4,0,2">
-                                        <Path.Style>
-                                            <Style TargetType="{x:Type Path}">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="False">
-                                                        <Setter Property="Stroke" Value="LightGray" />
-                                                    </Trigger>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Stroke" Value="Red" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Path.Style>
-                                    </Path>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-        </TabControl>
-        </Grid>
-    </Grid>
     </Border>
 </Window>
