@@ -14,6 +14,8 @@ namespace GitGUI.Logic
         IEnumerable<string> _recentRepos;
         string _repoPath = "";
 
+        public event Action Captured;
+        public event Action CaptureReleased;
         public List<TabViewModel> Tabs { get; private set; } = new List<TabViewModel>();
         public int SelectedIndex { get; private set; }
         public event Action OnContextMenuOpened;
@@ -56,6 +58,16 @@ namespace GitGUI.Logic
             if (SelectedIndex > 0)
                 SelectedIndex -= 1;
             ChangedIndex?.Invoke();
+        }
+
+        public void MouseCapture()
+        {
+            Captured?.Invoke();
+        }
+
+        public void ReleaseMouseCapture()
+        {
+            CaptureReleased?.Invoke();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace GitGUI.Logic
 {
     class MainWindowViewModel : ViewModelBase
     {
+        MainWindow _mainWindow;
         public StashMenuViewModel StashMenu { get; set; }
         public MainWindowModel Model { get; set; }
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
@@ -24,6 +25,7 @@ namespace GitGUI.Logic
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
+            _mainWindow = view;
             SubscribeModel(model, view);
             view.DataContext = this;
         }
@@ -36,6 +38,8 @@ namespace GitGUI.Logic
             model.OnContextMenuOpened += () => view.OpenContextMenu();
             model.OnNoAggregationContextMenuOpened += () => view.OpenNoAggregationContextMenu();
             model.PropertyChanged += OnPropertyChanged;
+            model.CaptureReleased += () => _mainWindow.ReleaseMouseCapture();
+            model.Captured += () => _mainWindow.CaptureMouse();
         }
 
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

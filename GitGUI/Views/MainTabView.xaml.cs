@@ -96,5 +96,16 @@ namespace GitGUI
         {
             Program.GetInstance().OnMouseWheel(e);
         }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Graph.GetInstance().Size = e.NewSize;
+        }
+
+        private void OnGraphViewLayoutUpdated(object sender, EventArgs e)
+        {
+            Graph.GetInstance().Position = graphView.TransformToAncestor(Application.Current.MainWindow)
+                          .Transform(new Point(0, 0));
+        }
     }
 }

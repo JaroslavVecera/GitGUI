@@ -22,6 +22,8 @@ namespace GitGUI.Logic
         static Graph Instance { get; set; } = new Graph();
         double Zoom { get; set; } = 1;
         Point Center { get { return GraphViewCenter(); } }
+        public Size Size { get; set; }
+        public Point Position { get; set; }
         public ZoomAndPanCanvasModel ZoomAndPanCanvasModel { get; } = new ZoomAndPanCanvasModel();
         public EventHandlerBatch EventHandlerBatch { private get; set; }
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
@@ -40,7 +42,7 @@ namespace GitGUI.Logic
         public void Scale(int wheelDelta, Point mouse)
         {
             double desiredZoom = Zoom * (wheelDelta > 0 ? 1.25 : 0.8);
-            double boundedZoom = Math.Max(0.2, Math.Min(3, desiredZoom));
+            double boundedZoom = Math.Max(0.5, Math.Min(3, desiredZoom));
             double boundedScale = boundedZoom / Zoom;
             Zoom = boundedZoom;
             AppSettings set = ((App)Application.Current).Settings;
@@ -235,12 +237,13 @@ namespace GitGUI.Logic
 
         public void BranchLabelToMouse(BranchLabelModel branch, Point mouse)
         {
+            Vector mouseRelativeToGraph = new Vector(mouse.X, mouse.Y) - new Vector(Position.X, Position.Y);
             Matrix mat = ZoomAndPanCanvasModel.TransformMatrix;
             Matrix inv = mat;
             inv.Invert();
             Point loc = branch.Location;
             Point tloc = mat.Transform(NodeTransform.Transform(loc));
-            Point diff = new Point(mouse.X - tloc.X, mouse.Y - tloc.Y);
+            Point diff = new Point(mouseRelativeToGraph.X - tloc.X, mouseRelativeToGraph.Y - tloc.Y);
             ScaleTransform scale = new ScaleTransform(inv.M11, inv.M22);
             diff = scale.Transform(diff);
             Matrix m = NodeTransform.Matrix;
@@ -250,7 +253,6 @@ namespace GitGUI.Logic
 
         void MoveCanvasToMouse(object sender, EventArgs e)
         {
-            return;
             Vector translate = Translate();
             double milliseconds = Stopwatch.ElapsedMilliseconds;
             Stopwatch.Restart();
@@ -267,11 +269,11 @@ namespace GitGUI.Logic
 
         Vector Translate()
         {
-            Vector mouse = (Vector)Program.GetInstance().Data.MousePoint;
-            if (mouse.X > 0 && mouse.X < ZoomAndPanCanvasModel.Width && mouse.Y > 0 && mouse.Y < ZoomAndPanCanvasModel.Height)
+            Vector mouseRelativeToGraph = (Vector)Program.GetInstance().Data.MousePoint - new Vector(Position.X, Position.Y);
+            if (mouseRelativeToGraph.X > Size.Width / 10 && mouseRelativeToGraph.X < Size.Width * 9 / 10 && mouseRelativeToGraph.Y > Size.Height / 10 && mouseRelativeToGraph.Y < Size.Height * 9 / 10)
                 return new Vector(0, 0);
-            mouse -= new Vector(ZoomAndPanCanvasModel.Width / 2, ZoomAndPanCanvasModel.Height / 2);
-            return -mouse / mouse.Length;
+            mouseRelativeToGraph -= new Vector(Size.Width / 2, Size.Height / 2);
+            return -mouseRelativeToGraph / mouseRelativeToGraph.Length;
         }
 
         public static Graph GetInstance()

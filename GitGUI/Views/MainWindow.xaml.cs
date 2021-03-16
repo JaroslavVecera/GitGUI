@@ -52,7 +52,7 @@ namespace GitGUI
 
         private void WindowMouseLeave(object sender, MouseEventArgs e)
         {
-
+            Program.GetInstance().MouseLeaveWindow();
         }
 
         private void ContextMenuMerge(object sender, RoutedEventArgs e)

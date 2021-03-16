@@ -20,13 +20,15 @@
             </Grid.RowDefinitions>
             <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
                        VerticalScrollBarVisibility="Disabled"
-                       Margin="5,5,5,0" VerticalAlignment="Stretch"
+                       Margin="20,20,20,0" VerticalAlignment="Stretch"
                        Content="{Binding Path=ZoomAndPanCanvas}"
                        DataContextChanged="OnDataContextChanged"
                        Focusable="False"
                        MouseUp="OnMouseUp"
                        MouseDown="OnMouseDown"
                        PreviewMouseWheel="OnPreviewMouseWheel"
+                       SizeChanged="OnSizeChanged"
+                       LayoutUpdated="OnGraphViewLayoutUpdated"
                        Background="#1E1E1E">
             </ScrollViewer>
             <ContentControl  Content="{Binding Path=ActionPanel}" Grid.Row="1">

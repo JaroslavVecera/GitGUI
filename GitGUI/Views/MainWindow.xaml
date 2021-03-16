@@ -8,7 +8,7 @@
         xmlns:controls="http://schemas.panthernet.ru/graphx/"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        MouseUp="WindowMouseUp"
+        PreviewMouseUp="WindowMouseUp"
         MouseDown="WindowMouseDown"
         PreviewMouseMove="WindowPreviewMouseMove"
         MouseLeave="WindowMouseLeave"

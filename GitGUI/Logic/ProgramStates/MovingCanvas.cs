@@ -27,14 +27,15 @@ namespace GitGUI.Logic
 
         public void WindowMouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                if (!_moved) Program.Show(null);
-                ChangeState(Normal.GetInstance());
-            }
+            MouseUp(data, e);
         }
 
         public void MouseUp(object sender, CrossStateData data, MouseButtonEventArgs e)
+        {
+            MouseUp(data, e);
+        }
+
+        void MouseUp(CrossStateData data, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
