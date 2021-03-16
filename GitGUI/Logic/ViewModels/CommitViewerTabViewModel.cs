@@ -28,8 +28,12 @@ namespace GitGUI.Logic
             ChangesTreeDirectoryItem root = new ChangesTreeDirectoryItem() { Name = "All" };
             var r2 = Model.CommitChanges.Modified;
             var r3 = Model.CommitChanges.Deleted;
+            var r = Model.CommitChanges.Added;
+            var r4 = Model.CommitChanges.Renamed;
             r2.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Modified(change.Path, Model.Commit.Commit), false));
             r3.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path, Model.Commit.Commit), false));
+            r.ToList().ForEach(change => root.InsertItem(change.Path, ChangesInfo.Untracked(change.Path), false));
+            r4.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Renamed(change.OldPath, change.Path), false); });
             if (root.Items.Any())
                 Items.Add(root);
             OnPropertyChanged("Items");
