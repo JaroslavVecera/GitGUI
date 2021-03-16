@@ -9,9 +9,15 @@ namespace GitGUI.Logic
 {
     static class Diff
     {
-        public static IEnumerable<Hunk> Parse(string diff)
+        public static IEnumerable<Hunk> ParsePatch(string diff)
         {
             IEnumerable<string> lines = ToLines(diff).Skip(4);
+            return ToHunks(lines);
+        }
+
+        public static IEnumerable<Hunk> ParseChanges(string diff)
+        {
+            IEnumerable<string> lines = ToLines(diff);
             return ToHunks(lines);
         }
 

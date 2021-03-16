@@ -18,8 +18,8 @@
             </Style>
         </StackPanel.Resources>
         <TextBlock>Rename</TextBlock>
-        <TextBlock Text="{Binding OldName}"></TextBlock>
-        <Path Data="M 16,32 L 32,16 L 16,0" Fill="LightGray"/>
-        <TextBlock Text="{Binding NewName}"></TextBlock>
+        <TextBlock Foreground="#991111" Text="{Binding OldName}"></TextBlock>
+        <Path Margin="0, 20, 10, 5" HorizontalAlignment="Center" Data="M 16,32 L 32,16 L 16,0" Fill="LightGray"/>
+        <TextBlock Foreground="#448833" Text="{Binding NewName}"></TextBlock>
     </StackPanel>
 </UserControl>

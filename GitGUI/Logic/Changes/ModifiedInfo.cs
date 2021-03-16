@@ -18,13 +18,14 @@ namespace GitGUI.Logic
         {
             Patch = changes.Patch;
             Binary = changes.IsBinaryComparison;
+            Hunks = Diff.ParseChanges(Patch);
         }
 
         public ModifiedInfo(PatchEntryChanges changes)
         {
             Patch = changes.Patch;
             Binary = changes.IsBinaryComparison;
-            Hunks = Diff.Parse(Patch);
+            Hunks = Diff.ParsePatch(Patch);
         }
     }
 }
