@@ -22,9 +22,15 @@ namespace GitGUI.Logic
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public TreeChanges CommitChanges(Commit c)
         {
-            Tree commitTree = c.Tree;
-            Tree parentCommitTree = c.Parents.First().Tree;
-            TreeChanges changes = Repository.Diff.Compare<TreeChanges>(parentCommitTree, commitTree);
+            if (!c.Parents.Any())
+                return null;
+            Commit parent = c.Parents.First();
+            return CommitChanges(c, parent);
+        }
+
+        public TreeChanges CommitChanges(Commit c, Commit parent)
+        {
+            TreeChanges changes = Repository.Diff.Compare<TreeChanges>(parent.Tree, c.Tree);
             return changes;
         }
         public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
@@ -69,7 +75,12 @@ namespace GitGUI.Logic
             if (!c.Parents.Any())
                 return null;
             Commit p = c.Parents.ToList().First();
-            return Repository.Diff.Compare((Blob)p[path].Target, (Blob)c[path].Target);
+            return Diff(path, c, p);
+        }
+
+        public ContentChanges Diff(string path, Commit c, Commit parent)
+        {
+            return Repository.Diff.Compare((Blob)parent[path].Target, (Blob)c[path].Target);
         }
 
         public bool IsValidRepository(string path)

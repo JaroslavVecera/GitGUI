@@ -19,6 +19,11 @@ namespace GitGUI.Logic
             return new ModifiedInfo(LibGitService.GetInstance().Diff(path, c));
         }
 
+        public static ChangesInfo Modified(string path, Commit c, Commit parent)
+        {
+            return new ModifiedInfo(LibGitService.GetInstance().Diff(path, c, parent));
+        }
+
         public static ChangesInfo Deleted(string path)
         {
             return new DeletedInfo();

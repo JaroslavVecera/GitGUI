@@ -14,12 +14,23 @@ namespace GitGUI.Logic
         public CommitNodeModel Commit { get; private set; }
         public string Message { get { return Commit.Message; } }
         public TreeChanges CommitChanges { get; private set; }
+        public int SelectedCommitIndex { set { SelectDiff(value); } }
+        public Commit SelectedCommit { get; set; }
 
         public CommitViewerTabModel(CommitNodeModel m)
         {
             Commit = m;
             Refresh();
             LibGitService.GetInstance().RepositoryChanged += Refresh;
+        }
+
+        void SelectDiff(int index)
+        {
+            if (index < 0)
+                return;
+            SelectedCommit = Commit.Commit.Parents.ToList()[index];
+            CommitChanges = LibGitService.GetInstance().CommitChanges(Commit.Commit, SelectedCommit);
+            RepositoryStatusChanged?.Invoke();
         }
 
         public void FreeEvents()
