@@ -33,7 +33,7 @@
     </i:Interaction.Triggers>
     <Grid x:Name="grid" 
           Style="{DynamicResource ResourceKey=CommitStyle}" Height="40" Width="{Binding Path=MaxWidth}">
-        <Path Clip="{Binding Data, RelativeSource={RelativeSource Self}}" Fill="#007ACC" x:Name="path" VerticalAlignment="Top">
+        <Path Clip="{Binding Data, RelativeSource={RelativeSource Self}}" x:Name="path" VerticalAlignment="Top">
             <Path.Data>
                 <PathGeometry x:Name="geometry"></PathGeometry>
             </Path.Data>
@@ -41,7 +41,11 @@
                 <Style TargetType="Path">
                     <Setter Property="StrokeThickness" Value="0"/>
                     <Setter Property="Stroke" Value="#007ACC" />
+                    <Setter Property="Fill" Value="#007ACC" />
                     <Style.Triggers>
+                        <DataTrigger Binding="{Binding Checkouted}" Value="true">
+                            <Setter Property="Fill" Value="Purple"/>
+                        </DataTrigger>
                         <DataTrigger Binding="{Binding Marked}" Value="true">
                             <Setter Property="StrokeThickness" Value="4"/>
                             <Setter Property="Stroke" Value="White" />

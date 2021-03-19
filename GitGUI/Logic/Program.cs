@@ -31,6 +31,7 @@ namespace GitGUI.Logic
             InitializeEventHandlers();
             InitializeState();
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
+            LibGitService.GetInstance().RepositoryChanged += () => Show(null);
             StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
             mwvm.StashMenu = wm;
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
@@ -266,7 +267,6 @@ namespace GitGUI.Logic
         public void Rebase()
         {
             //LibGitService.GetInstance().Rebase(Aggregating, Aggregated);
-            Graph.GetInstance().DeployGraph();
         }
 
         void OpenAggregatingContextMenu()

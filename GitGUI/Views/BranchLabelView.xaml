@@ -15,6 +15,9 @@
              DataContextChanged="OnDataContextChanged"
              d:DesignHeight="60" d:DesignWidth="180"
              IsHitTestVisible="{Binding HitTestVisible}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseDown">
             <i:InvokeCommandAction Command="{Binding MouseDown}"/>
@@ -85,9 +88,6 @@
                 <Style TargetType="Path">
                     <Setter Property="Fill" Value="#003a8c" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Marked}" Value="true">
-                            <Setter Property="Fill" Value="White"/>
-                        </DataTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Marked}" Value="false" />
@@ -97,6 +97,18 @@
                                 <Setter Property="Fill" Value="Purple"/>
                             </MultiDataTrigger.Setters>
                         </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Marked}" Value="false" />
+                                <Condition Binding="{Binding Focused}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Fill" Value="LightGray"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding Marked}" Value="true">
+                            <Setter Property="Fill" Value="White" />
+                        </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Path.Style>
@@ -132,5 +144,48 @@
                 </Style>
             </Button.Style>
         </Button>
+        <Path Visibility="{Binding Path=IsRemote, Converter={StaticResource ResourceKey=BoolToVis}}" Stroke="SpringGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="0,-7">
+                        <ArcSegment Size="7,7" Point="0,7" IsLargeArc="True"/>
+                        <ArcSegment Size="7,7" Point="0,-7" IsLargeArc="True"/>
+                        <ArcSegment Size="4,7" Point="0,7" IsLargeArc="True"/>
+                        <ArcSegment Size="4,7" Point="0,-7" IsLargeArc="True"/>
+                        <LineSegment Point="0,7" />
+                        <ArcSegment Size="7,7" Point="5,5" />
+                        <ArcSegment Size="7,7" Point="-5,5" />
+                        <ArcSegment Size="7,7" Point="-5,-5" SweepDirection="Clockwise" />
+                        <ArcSegment Size="7,7" Point="5,-5"/>
+                        <ArcSegment Size="7,7" Point="7,0" SweepDirection="Clockwise"/>
+                        <LineSegment Point="-7,0" />
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+        <Path Visibility="{Binding Path=IsTracked, Converter={StaticResource ResourceKey=BoolToVis}}" Stroke="SpringGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <Path.Data>
+                <GeometryGroup>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,-7">
+                            <ArcSegment Size="7,7" Point="6.32,-3" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="6,-3.5" RadiusX="1" RadiusY="1" />
+                    <PathGeometry>
+                        <PathFigure StartPoint="6,3.5">
+                            <ArcSegment Size="7,7" Point="-1,6.92" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="0,7" RadiusX="1" RadiusY="1" />
+                    <PathGeometry>
+                        <PathFigure StartPoint="-6,3.5">
+                            <ArcSegment Size="7,7" Point="-5.72,-4" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="-6,-3.5" RadiusX="1" RadiusY="1" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
     </Grid>
 </UserControl>

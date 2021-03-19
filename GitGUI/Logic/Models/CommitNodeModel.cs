@@ -25,6 +25,7 @@ namespace GitGUI.Logic
         public string Sha { get { return Commit.Sha; } }
         public string Author {  get { return Commit.Author.Name; } }
         public string Email { get { return Commit.Author.Email; } }
+        public string Time { get { return Commit.Author.When.DateTime.ToString(); } }
         public event Action<CommitNodeModel> CopyShaRequested;
         public event Action<CommitNodeModel> ShowChanges;
         public RelayCommand CopySha { get; private set; }

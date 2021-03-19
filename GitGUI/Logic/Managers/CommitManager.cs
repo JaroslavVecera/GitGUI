@@ -59,17 +59,15 @@ namespace GitGUI.Logic
         {
             LibGitService.GetInstance().Add(stagedFiles, unstagedFiles);
             LibGitService.Commit(l, message);
-            Graph.DeployGraph();
         }
 
         public void Merge(BranchLabelModel merging, BranchLabelModel merged)
         {
-            BranchLabelModel currentBranch = Graph.Checkouted;
+            BranchLabelModel currentBranch = (BranchLabelModel)Graph.Checkouted;
             Checkout(merging);
             bool succes = LibGitService.Merge(merged);
             if (succes)
                 Checkout(currentBranch);
-            Graph.DeployGraph();
         }
 
         public void Checkout(BranchLabelModel b)
@@ -86,7 +84,6 @@ namespace GitGUI.Logic
         public void Branch(GraphItemModel i, string name)
         {
             LibGitService.Branch(i, name);
-            Graph.DeployGraph();
         }
 
         public static CommitManager GetInstance()

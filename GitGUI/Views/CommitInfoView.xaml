@@ -71,11 +71,13 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Padding="15, 10, 0, 4" Foreground="White" FontSize="15">Author</TextBlock>
                     <StackPanel Margin="8" Grid.Row="1" Background="#2D2D30">
-                        <TextBlock Padding="5,5,0,0" Foreground="White">Author</TextBlock>
-                    <TextBlock TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Author}"/>
-                        <TextBlock Padding="5,20,0,0" Foreground="White">Authors email</TextBlock>
-                    <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Email}"></TextBlock>
-                    </StackPanel>
+                        <TextBlock Padding="5,5,0,0" Foreground="White">Name</TextBlock>
+                        <TextBlock TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Author}"/>
+                        <TextBlock Padding="5,8,0,0" Foreground="White">Authors email</TextBlock>
+                        <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Email}"></TextBlock>
+                        <TextBlock Padding="5,8,0,0" Foreground="White">When</TextBlock>
+                        <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Time}"></TextBlock>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

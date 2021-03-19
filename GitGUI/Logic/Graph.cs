@@ -18,7 +18,7 @@ namespace GitGUI.Logic
     {
         public GraphItemModel Marked { get; set; }
         public GraphItemModel Focused { get; set; }
-        public BranchLabelModel Checkouted { get; set; }
+        public GraphItemModel Checkouted { get; set; }
         static Graph Instance { get; set; } = new Graph();
         double Zoom { get; set; } = 1;
         Point Center { get { return GraphViewCenter(); } }
@@ -73,12 +73,12 @@ namespace GitGUI.Logic
                 model.Focused = true;
         }
 
-        public void HighlightAsCheckouted(BranchLabelModel branch)
+        public void HighlightAsCheckouted(GraphItemModel m)
         {
             if (Checkouted != null)
                 Checkouted.Checkouted = false;
-            Checkouted = branch;
-            branch.Checkouted = true;
+            Checkouted = m;
+            m.Checkouted = true;
         }
 
         Point GraphViewCenter()
@@ -97,7 +97,11 @@ namespace GitGUI.Logic
         void UpdateCheckouted()
         {
             Branch head = LibGitService.GetInstance().Head;
-            HighlightAsCheckouted(ZoomAndPanCanvasModel.Branches.Find(b => b.Branch.CanonicalName == head.CanonicalName));
+            BranchLabelModel checkoutedBranch = ZoomAndPanCanvasModel.Branches.Find(b => b.Branch.CanonicalName == head.CanonicalName);
+            if (checkoutedBranch != null)
+                HighlightAsCheckouted(checkoutedBranch);
+            else
+                HighlightAsCheckouted(ZoomAndPanCanvasModel.Commits.Find(c => c.Sha == head.Reference.TargetIdentifier));
         }
 
         void DeployBranchNodes()

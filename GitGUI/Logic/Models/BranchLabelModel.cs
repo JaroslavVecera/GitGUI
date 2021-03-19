@@ -15,7 +15,15 @@ namespace GitGUI.Logic
         bool _hitTestVisible = true, _arrow = false;
         public Branch Branch { get; set; }
         public string Name { get { return Branch.FriendlyName; } }
+        public bool IsRemote { get { return Branch.IsRemote; } }
+        public bool IsTracking { get { return Branch.IsTracking; } }
+        public string Remote { get { return Branch.RemoteName; } }
+        public string TrackedBranch {  get { return Branch.TrackedBranch?.FriendlyName; } }
+        public int? AheadBy { get { return Branch.TrackingDetails?.AheadBy; } }
+        public int? BehindBy { get { return Branch.TrackingDetails?.BehindBy; } }
+        public bool IsHead { get { return Branch.IsCurrentRepositoryHead; } }
         public bool Arrow { get { return _arrow; } set { _arrow = value; OnPropertyChanged(); } }
+        public int IntType {  get { if (Branch.IsTracking) return 1; else if (Branch.IsRemote) return 2; else return 0; } }
 
         public BranchLabelModel()
         {

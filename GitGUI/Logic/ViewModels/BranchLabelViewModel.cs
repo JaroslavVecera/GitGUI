@@ -13,6 +13,8 @@ namespace GitGUI.Logic
         public string Name { get { return ((BranchLabelModel)Model).Name; } }
         public bool Arrow { get { return ((BranchLabelModel)Model).Arrow; } }
         public MatrixTransform RenderTransform { get { return ((BranchLabelModel)Model).RenderTransform; } }
+        public bool IsRemote { get { return ((BranchLabelModel)Model).IsRemote; } }
+        public bool IsTracked { get { return ((BranchLabelModel)Model).IsTracking; } }
 
         public BranchLabelViewModel(BranchLabelModel model, BranchLabelView view) : base (model, view)
         {
