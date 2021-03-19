@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LibGit2Sharp;
 using System.IO;
+using System.Windows;
 
 namespace GitGUI.Logic
 {
@@ -13,7 +14,15 @@ namespace GitGUI.Logic
         RepositoryModel _current;
         string _dirPath = "Repos";
         public List<RepositoryModel> Repositories { get; private set; } = new List<RepositoryModel>();
-        public IEnumerable<string> RecentRepos { get { return Repositories.Take(7).Select(m => m.RepositoryPath); } }
+        public IEnumerable<string> RecentRepos
+        {
+            get
+            {
+                var sorted = new List<RepositoryModel>(Repositories);
+                sorted.Sort(CompareRepositories);
+                return sorted.Take(7).Select(m => m.RepositoryPath);
+            }
+        }
 
         public delegate void RepositoryOpenedEventHandler(RepositoryModel repo);
         public delegate void RepositoryClosedEventHandler(RepositoryModel repo);
@@ -21,25 +30,52 @@ namespace GitGUI.Logic
         public event Action<RepositoryModel> Opened;
         public event Action<RepositoryModel> Closed;
 
+        public int CompareRepositories(RepositoryModel a, RepositoryModel b)
+        {
+            if (a.LastUse < b.LastUse)
+                return 1;
+            if (a.LastUse == b.LastUse)
+                return 0;
+            return -1;
+        }
+
         public RepositoryManager()
         {
             LoadRepositories();
         }
 
-        public void Create(string path)
+        public bool Create(string path)
         {
             if (LibGitService.GetInstance().IsValidRepository(path))
-                throw new NotImplementedException("Already exists");
+                return false;
             LibGitService.GetInstance().OpenNewRepository(path);
             Open(path);
+            return true;
         }
 
-        public void OpenExisting(string path)
+        public bool OpenExisting(string path)
         {
-            if (!LibGitService.GetInstance().IsValidRepository(path))
-                throw new NotImplementedException("To do: Show that there is no valid repository on the path.");
+            if (LibGitService.GetInstance().IsValidRepository(path))
+                return OpenValid(path);
+            else
+                return PromptCreatingNew(path);
+        }
+
+        bool OpenValid(string path)
+        {
             LibGitService.GetInstance().OpenRepository(path);
             Open(path);
+            return true;
+        }
+
+        bool PromptCreatingNew(string path)
+        {
+            MessageBoxResult rslt = MessageBox.Show("Do you want to create new?", "There is no valid repository", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (rslt == MessageBoxResult.No)
+                return false;
+            LibGitService.GetInstance().OpenNewRepository(path);
+            Open(path);
+            return true;
         }
 
         public void CloseCurrent()

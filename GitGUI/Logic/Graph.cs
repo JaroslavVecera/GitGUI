@@ -101,7 +101,11 @@ namespace GitGUI.Logic
             if (checkoutedBranch != null)
                 HighlightAsCheckouted(checkoutedBranch);
             else
-                HighlightAsCheckouted(ZoomAndPanCanvasModel.Commits.Find(c => c.Sha == head.Reference.TargetIdentifier));
+            {
+                CommitNodeModel checkoutedCommit = ZoomAndPanCanvasModel.Commits.Find(c => c.Sha == head.Reference.TargetIdentifier);
+                if (checkoutedCommit != null)
+                    HighlightAsCheckouted(checkoutedCommit);
+            }
         }
 
         void DeployBranchNodes()

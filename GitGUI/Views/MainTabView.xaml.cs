@@ -104,6 +104,8 @@ namespace GitGUI
 
         private void OnGraphViewLayoutUpdated(object sender, EventArgs e)
         {
+            if (VisualTreeHelper.GetParent(this) == null)
+                return;
             Graph.GetInstance().Position = graphView.TransformToAncestor(Application.Current.MainWindow)
                           .Transform(new Point(0, 0));
         }

@@ -70,6 +70,11 @@ namespace GitGUI
             Program.GetInstance().OpenRepository();
         }
 
+        private void CreateRepository(object sender, RoutedEventArgs e)
+        {
+            Program.GetInstance().CreateRepository();
+        }
+
         private void OnChangedUser(object sender, RoutedEventArgs e)
         {
             ChangedUserEventArgs args = (ChangedUserEventArgs)e;

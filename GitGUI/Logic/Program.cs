@@ -58,12 +58,23 @@ namespace GitGUI.Logic
         {
             RepositoryClosed();
             TabManager.AddMainTab();
-            RepositoryManager.OpenExisting(path);
+            if (!RepositoryManager.OpenExisting(path))
+                TabManager.CloseAll();
+        }
+
+        public void CreateRepository(string path)
+        {
+            RepositoryClosed();
+            TabManager.AddMainTab();
+            if (!RepositoryManager.Create(path))
+            {
+                TabManager.CloseAll();
+                MessageBox.Show("There is already a repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public void OpenRepository()
         {
-
             var dialog = new VistaFolderBrowserDialog();
             dialog.Description = "Select directory of existing repository";
             dialog.UseDescriptionForTitle = true;
@@ -71,6 +82,17 @@ namespace GitGUI.Logic
             if (ans == null || ans == false)
                 return;
             OpenRepository(dialog.SelectedPath);
+        }
+
+        public void CreateRepository()
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select directory for new repository";
+            dialog.UseDescriptionForTitle = true;
+            var ans = dialog.ShowDialog();
+            if (ans == null || ans == false)
+                return;
+            CreateRepository(dialog.SelectedPath);
         }
 
         void CreateManagers(ActionPanelModel localAM)

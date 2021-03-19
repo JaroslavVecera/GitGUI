@@ -777,14 +777,26 @@
                     </Grid.ColumnDefinitions>
                     <Menu Style="{DynamicResource MenuStyle}">
                         <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
-                            <MenuItem Header="Open" Click="OpenRepository" />
-                            <MenuItem ItemsSource="{Binding RecentRepos}" Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
+                            <MenuItem Header="Create" Click="CreateRepository" >
+                                <MenuItem.Icon>
+                                    <Image Source="../icons/new-repo.ico"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="Open" Click="OpenRepository">
+                                <MenuItem.Icon>
+                                    <Image Source="../icons/open-repo.ico"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem ItemsSource="{Binding RecentRepos}" IsEnabled="{Binding AnyRecentRepos}" Header="Open recent" Template="{DynamicResource MenuSubItemControlTemplate1}">
                                 <MenuItem.ItemContainerStyle>
                                     <Style TargetType="MenuItem">
                                         <Setter Property="Command" Value="{Binding DataContext.OpenRecentRepo, ElementName=window}" />
                                         <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}}" />
                                     </Style>
                                 </MenuItem.ItemContainerStyle>
+                                <MenuItem.Icon>
+                                    <Image Source="../icons/open-recent-repo.ico"/>
+                                </MenuItem.Icon>
                             </MenuItem>
                             <Separator Background="Gray"/>
                             <MenuItem Header="Close repository" Click="CloseRepository" IsEnabled="{Binding CanClose}"/>

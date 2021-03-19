@@ -21,6 +21,7 @@ namespace GitGUI.Logic
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
         public bool EnabledStashing { get { return CanClose; } }
         public IEnumerable<string> RecentRepos { get { return Model.RecentRepos; } }
+        public bool AnyRecentRepos { get { return RecentRepos.Any(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get { return Model.OpenRecentRepo; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
@@ -50,6 +51,8 @@ namespace GitGUI.Logic
                 OnPropertyChanged("CanClose");
                 OnPropertyChanged("EnabledStashing");
             }
+            if (e.PropertyName == "RecentRepos")
+                OnPropertyChanged("AnyRecentRepos");
         }
     }
 }
