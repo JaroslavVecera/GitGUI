@@ -45,11 +45,6 @@ namespace GitGUI.Logic
             Graph.RestoreBranchLabel(m);
         }
 
-        public void Scale(int wheelDelta, Point mouse)
-        {
-            Graph.Scale(wheelDelta, mouse);
-        }
-
         public void Move(Vector move)
         {
             Graph.Move(move);

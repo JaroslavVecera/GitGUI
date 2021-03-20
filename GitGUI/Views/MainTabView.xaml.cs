@@ -108,6 +108,7 @@ namespace GitGUI
                 return;
             Graph.GetInstance().Position = graphView.TransformToAncestor(Application.Current.MainWindow)
                           .Transform(new Point(0, 0));
+            Graph.GetInstance().CheckBoundaries();
         }
     }
 }

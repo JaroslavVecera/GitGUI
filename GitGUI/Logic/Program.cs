@@ -60,6 +60,7 @@ namespace GitGUI.Logic
             TabManager.AddMainTab();
             if (!RepositoryManager.OpenExisting(path))
                 TabManager.CloseAll();
+            Graph.GetInstance().ResetTranslate();
         }
 
         public void CreateRepository(string path)
@@ -70,6 +71,10 @@ namespace GitGUI.Logic
             {
                 TabManager.CloseAll();
                 MessageBox.Show("There is already a repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                Graph.GetInstance().ResetTranslate();
             }
         }
 

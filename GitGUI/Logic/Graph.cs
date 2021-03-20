@@ -39,13 +39,27 @@ namespace GitGUI.Logic
             return Position.X <= p.X && Position.X + Size.Width >= p.X && Position.Y <= p.Y && Position.Y + Size.Height >= p.Y;
         }
 
-        public void Move(Vector move)
+        public Vector Move(Vector move)
         {
-            ZoomAndPanCanvasModel.Move(move);
+            Point p = GraphViewCenter();
+            return ZoomAndPanCanvasModel.Move(move, new Size(p.X * 2, p.Y * 2));
+        }
+
+        public void ResetTranslate()
+        {
+            ZoomAndPanCanvasModel.Rescale(1 / Zoom, new Point(0, 0));
+            Zoom = 1;
+            Move(new Vector(double.MaxValue, -GraphViewCenter().Y));
+        }
+
+        public void CheckBoundaries()
+        {
+            Move(new Vector(0, 0));
         }
 
         public void Scale(int wheelDelta, Point mouse)
         {
+            Point p = GraphViewCenter();
             double desiredZoom = Zoom * (wheelDelta > 0 ? 1.25 : 0.8);
             double boundedZoom = Math.Max(0.5, Math.Min(3, desiredZoom));
             double boundedScale = boundedZoom / Zoom;
@@ -53,6 +67,7 @@ namespace GitGUI.Logic
             AppSettings set = ((App)Application.Current).Settings;
             Point origin = set.UseMouseAsZoomOrigin ? mouse : Center;
             ZoomAndPanCanvasModel.Rescale(boundedScale, origin);
+            ZoomAndPanCanvasModel.Move(new Vector(0, 0), new Size(p.X * 2, p.Y * 2));
         }
 
         public void HighlightAsMarked(GraphItemModel model)
@@ -133,7 +148,7 @@ namespace GitGUI.Logic
             ZoomAndPanCanvasModel.Branches = branchModels;
         }
 
-        void DeployCommitNodes()
+        void  DeployCommitNodes()
         {
             var inProgress = Program.GetInstance().StashingManager.ImplicitStashBases;
             var commitRows = LibGitService.GetInstance().CommitRows();
@@ -274,9 +289,9 @@ namespace GitGUI.Logic
             translate *= milliseconds / 10;
             Matrix inv = ZoomAndPanCanvasModel.TransformMatrix;
             inv.Invert();
-            Move(translate);
+            var trimmedTranslate = Move(translate);
             Matrix m = NodeTransform.Matrix;
-            m.Translate(-translate.X * inv.M11, -translate.Y * inv.M22);
+            m.Translate(-trimmedTranslate.X * inv.M11, -trimmedTranslate.Y * inv.M22);
             NodeTransform.Matrix = m;
         }
 

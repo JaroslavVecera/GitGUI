@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace GitGUI.Logic
 {
@@ -19,7 +20,7 @@ namespace GitGUI.Logic
         public MouseButtonEventArgs MouseButtonArgs { get; set; }
         double _height = 250, _width = 250;
         public ScrollViewer ScrollViewer { get; set; }
-        public Point GraphViewCenter { get { return new Point(ScrollViewer.ActualWidth / 2, ScrollViewer.ActualHeight / 2); } }
+        public Point GraphViewCenter { get { if (ScrollViewer == null) return new Point(0, 0); else return new Point(ScrollViewer.ActualWidth / 2, ScrollViewer.ActualHeight / 2); } }
         public bool IsInfoVisible { get { return Model.Shown != null; } }
         public GraphItemModel Shown { get { return Model.Shown; } }
         public override bool CloseButton { get { return false; } }
