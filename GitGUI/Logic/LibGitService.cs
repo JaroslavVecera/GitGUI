@@ -10,6 +10,13 @@ using LibGit2Sharp;
 
 namespace GitGUI.Logic
 {
+    public enum RepositoryValidation
+    {
+        Valid,
+        Invalid,
+        ValidBare
+    }
+
     class LibGitService
     {
         string CheckoutedBranch { get; set; }
@@ -83,9 +90,14 @@ namespace GitGUI.Logic
             return Repository.Diff.Compare((Blob)parent[path].Target, (Blob)c[path].Target);
         }
 
-        public bool IsValidRepository(string path)
+        public RepositoryValidation IsValidRepository(string path)
         {
-            return LibGit2Sharp.Repository.IsValid(path);
+            if (!Repository.IsValid(path))
+                return RepositoryValidation.Invalid;
+            Repository bareTest = new Repository(path);
+            bool res = !bareTest.Info.IsBare;
+            bareTest.Dispose();
+            return res ? RepositoryValidation.Valid : RepositoryValidation.ValidBare;
         }
 
         void DisableWatcher()

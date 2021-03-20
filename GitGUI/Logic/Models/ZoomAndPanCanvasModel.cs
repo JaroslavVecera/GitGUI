@@ -62,6 +62,8 @@ namespace GitGUI.Logic
 
         public Vector Move(Vector move, Size screenSize)
         {
+            if (CanvasBoundaries == null)
+                return new Vector(0, 0);
             Matrix m = TransformMatrix;
             Point tl = TransformMatrix.Transform(new Point(CanvasBoundaries.Item1 - Margin, CanvasBoundaries.Item2 - Margin));
             Point br = TransformMatrix.Transform(new Point(CanvasBoundaries.Item3 + 150 + Margin, CanvasBoundaries.Item4 + 40 + Margin));

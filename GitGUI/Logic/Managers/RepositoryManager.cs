@@ -44,21 +44,32 @@ namespace GitGUI.Logic
             LoadRepositories();
         }
 
-        public bool Create(string path)
+        public RepositoryValidation Create(string path)
         {
-            if (LibGitService.GetInstance().IsValidRepository(path))
-                return false;
-            LibGitService.GetInstance().OpenNewRepository(path);
-            Open(path);
-            return true;
+            var v = LibGitService.GetInstance().IsValidRepository(path);
+            if (v == RepositoryValidation.Invalid)
+            {
+                LibGitService.GetInstance().OpenNewRepository(path);
+                Open(path);
+            }
+            return v;
         }
 
         public bool OpenExisting(string path)
         {
-            if (LibGitService.GetInstance().IsValidRepository(path))
+            var v = LibGitService.GetInstance().IsValidRepository(path);
+            if (v == RepositoryValidation.Valid)
                 return OpenValid(path);
-            else
+            else if (v == RepositoryValidation.Invalid)
                 return PromptCreatingNew(path);
+            else
+                InfoBare();
+            return false;
+        }
+
+        void InfoBare()
+        {
+            MessageBox.Show("Can't open bare repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         bool OpenValid(string path)
