@@ -11,6 +11,7 @@ namespace GitGUI.Logic
 {
     class RepositoryManager
     {
+        public event Action RecentRepositoryChanged;
         RepositoryModel _current;
         string _dirPath = "Repos";
         public List<RepositoryModel> Repositories { get; private set; } = new List<RepositoryModel>();
@@ -67,6 +68,28 @@ namespace GitGUI.Logic
             return false;
         }
 
+        public bool OpenRecent(string path)
+        {
+            var v = LibGitService.GetInstance().IsValidRepository(path);
+            if (v == RepositoryValidation.Valid)
+                return OpenValid(path);
+            else if (v == RepositoryValidation.Invalid)
+                PromptDelete(path);
+            else
+                InfoBare();
+            return false;
+        }
+
+        void PromptDelete(string path)
+        {
+            MessageBoxResult rslt = MessageBox.Show("Do you want to remove reference?", "The repository was deleted", MessageBoxButton.YesNo, MessageBoxImage.Error);
+            if (rslt == MessageBoxResult.No)
+                return;
+            RemoveRepository(path);
+            RecentRepositoryChanged?.Invoke();
+
+        }
+
         void InfoBare()
         {
             MessageBox.Show("Can't open bare repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -119,6 +142,15 @@ namespace GitGUI.Logic
                 repo.Load();
                 Repositories.Add(repo);
             }
+        }
+
+        void RemoveRepository(string repositoryPath)
+        {
+            var repo = Repositories.Find(r => r.RepositoryPath == repositoryPath);
+            if (repo == null)
+                return;
+            File.Delete(repo.Path);
+            Repositories.Remove(repo);
         }
 
         RepositoryModel AddRepository(string repositoryPath)

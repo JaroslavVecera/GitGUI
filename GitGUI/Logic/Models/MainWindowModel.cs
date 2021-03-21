@@ -26,7 +26,7 @@ namespace GitGUI.Logic
 
         public MainWindowModel()
         {
-            OpenRecentRepo = new RelayCommand<MenuItem>(i => Program.GetInstance().OpenRepository((string)i.Header));
+            OpenRecentRepo = new RelayCommand<MenuItem>(i => Program.GetInstance().OpenRecentRepository((string)i.Header));
         }
 
         public void OpenAggregatingContextMenu()

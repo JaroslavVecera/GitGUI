@@ -37,6 +37,7 @@ namespace GitGUI.Logic
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
             MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
             RepositoryManager.Closed += m => { MainWindowModel.RepoPath = ""; MainWindowModel.RecentRepos = RepositoryManager.RecentRepos; };
+            RepositoryManager.RecentRepositoryChanged += () => MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
         }
 
         public void CloseCurrentRepository()
@@ -59,6 +60,16 @@ namespace GitGUI.Logic
             RepositoryClosed();
             TabManager.AddMainTab();
             if (!RepositoryManager.OpenExisting(path))
+                TabManager.CloseAll();
+            else
+                Graph.GetInstance().ResetTranslate();
+        }
+
+        public void OpenRecentRepository(string path)
+        {
+            RepositoryClosed();
+            TabManager.AddMainTab();
+            if (!RepositoryManager.OpenRecent(path))
                 TabManager.CloseAll();
             else
                 Graph.GetInstance().ResetTranslate();
