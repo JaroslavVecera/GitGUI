@@ -234,7 +234,7 @@
                         <Path x:Name="Path" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="#3E3E42" Data="{Binding Path=Content, RelativeSource={RelativeSource TemplatedParent}}" />
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="Path" Property="Fill" Value="Red" />
+                                <Setter TargetName="Path" Property="Fill" Value="#FF0083A0" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Foreground" Value="Red"/>
@@ -252,7 +252,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RepeatButton}">
-                        <Border Background="#3E3E42" />
+                        <Border Background="Transparent" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -773,7 +773,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="250"/>
                     </Grid.ColumnDefinitions>
                     <Menu Style="{DynamicResource MenuStyle}">
                         <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
@@ -805,7 +805,7 @@
                             <TextBlock />
                         </MenuItem>
                     </Menu>
-                    <local:UserSelectorView BorderThickness="1" BorderBrush="#686868" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
+                    <local:UserSelectorView x:Name="userSelector" Margin="0,0,8,0" BorderThickness="1" BorderBrush="#3E3E42" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
                 </Grid>
                 <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
                     <TabControl.Resources>

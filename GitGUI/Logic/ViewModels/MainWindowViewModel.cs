@@ -16,13 +16,14 @@ namespace GitGUI.Logic
         public MainWindowModel Model { get; set; }
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
         public int SelectedIndex { get { return Model.SelectedIndex; } }
-        public List<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
+        public ObservableCollection<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
         public bool EnabledStashing { get { return CanClose; } }
         public IEnumerable<string> RecentRepos { get { return Model.RecentRepos; } }
         public bool AnyRecentRepos { get { return RecentRepos.Any(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get { return Model.OpenRecentRepo; } }
+        public RelayCommand CreateNewUser { get { return Model.CreateNewUser; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {

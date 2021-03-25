@@ -10,7 +10,6 @@ namespace GitGUI.Logic
 {
     class StashingManager
     {
-        StashMenuModel _stashWindow;
         public StashMenuModel StashMenu { get; set; } = new StashMenuModel();
         string _dirPath = "ImplicitStashes";
         StashCollection Stashes { get { return Repository?.Stashes; } }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GitGUI.Logic;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -69,12 +71,12 @@ namespace GitGUI
 
         public static readonly DependencyProperty UsersProperty =
             DependencyProperty.Register(
-                "Users", typeof(List<Logic.User>), typeof(UserSelectorView),
+                "Users", typeof(ObservableCollection<Logic.User>), typeof(UserSelectorView),
                 new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnUsersChanged)));
 
-        public List<Logic.User> Users
+        public ObservableCollection<Logic.User> Users
         {
-            get { return (List<Logic.User>)GetValue(UsersProperty); }
+            get { return (ObservableCollection<Logic.User>)GetValue(UsersProperty); }
             set { SetValue(UsersProperty, value); }
         }
 
@@ -88,7 +90,7 @@ namespace GitGUI
         private void OnUsersChanged()
         {
             if (Users.Count > 0)
-                SelectUser(Users.First());
+                SelectUser(User.Anonym);
         }
 
         private void DisplayPopup(object sender, RoutedEventArgs e)
@@ -98,7 +100,7 @@ namespace GitGUI
 
         private void UserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Logic.User newUser = e.AddedItems.Cast<Logic.User>().Single();
+            Logic.User newUser = e.AddedItems.Count > 0 ? e.AddedItems.Cast<Logic.User>().Single() : User.Anonym;
             SelectUser(newUser);
             popup.IsOpen = false;
             ChangedUserEventArgs args = new ChangedUserEventArgs(ChangedUserEvent, newUser);
@@ -107,8 +109,14 @@ namespace GitGUI
 
         void SelectUser(Logic.User user)
         {
-            CUName = user.Name;
-            CUBitmap = user.PictureCopy;
+            CUName = user?.Name;
+            CUBitmap = user?.PictureCopy;
+        }
+
+        public void SelectUser(int index)
+        {
+            list.SelectedIndex = index;
+            SelectUser(Users[index]);
         }
     }
 }

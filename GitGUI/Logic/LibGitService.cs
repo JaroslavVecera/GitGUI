@@ -246,9 +246,12 @@ namespace GitGUI.Logic
                 Repository.CreateBranch(name);
         }
 
-        public void Checkout(BranchLabelModel b)
+        public void Checkout(GraphItemModel m)
         {
-            Commands.Checkout(Repository, b.Branch);
+            if (m is BranchLabelModel)
+                Commands.Checkout(Repository, ((BranchLabelModel)m).Branch);
+            else
+                Commands.Checkout(Repository, ((CommitNodeModel)m).Commit);
         }
 
         public void CloseCurrentRepository()

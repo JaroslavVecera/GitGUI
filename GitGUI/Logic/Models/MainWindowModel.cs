@@ -22,11 +22,23 @@ namespace GitGUI.Logic
         public event Action OnNoAggregationContextMenuOpened;
         public string RepoPath { get { return _repoPath; } set { _repoPath = value; OnPropertyChanged(); } }
         public IEnumerable<string> RecentRepos { get { return _recentRepos; } set { _recentRepos = value; OnPropertyChanged(); } }
-        public RelayCommand<MenuItem> OpenRecentRepo { get; }
+        public RelayCommand<MenuItem> OpenRecentRepo { get; private set; }
+        public RelayCommand CreateNewUser { get; private set; }
+
+        public void OnUsersChanged()
+        {
+            OnPropertyChanged("Users");
+        }
 
         public MainWindowModel()
         {
+            InitializeCommands();
+        }
+
+        void InitializeCommands()
+        { 
             OpenRecentRepo = new RelayCommand<MenuItem>(i => Program.GetInstance().OpenRecentRepository((string)i.Header));
+            CreateNewUser = new RelayCommand(() => Program.GetInstance().UserManager.CreateNewUser());
         }
 
         public void OpenAggregatingContextMenu()
@@ -58,16 +70,6 @@ namespace GitGUI.Logic
             if (SelectedIndex > 0)
                 SelectedIndex -= 1;
             ChangedIndex?.Invoke();
-        }
-
-        public void MouseCapture()
-        {
-            Captured?.Invoke();
-        }
-
-        public void ReleaseMouseCapture()
-        {
-            CaptureReleased?.Invoke();
         }
     }
 }

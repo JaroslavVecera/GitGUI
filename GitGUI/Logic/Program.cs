@@ -38,6 +38,7 @@ namespace GitGUI.Logic
             MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
             RepositoryManager.Closed += m => { MainWindowModel.RepoPath = ""; MainWindowModel.RecentRepos = RepositoryManager.RecentRepos; };
             RepositoryManager.RecentRepositoryChanged += () => MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
+            UserManager.UsersChanged += () => MainWindowModel.OnUsersChanged();
         }
 
         public void CloseCurrentRepository()
@@ -136,7 +137,7 @@ namespace GitGUI.Logic
 
         public void ChangeUser(User u)
         {
-            UserManager.Current = u;
+            UserManager.ChangeUser(u);
         }
 
         public void CheckConflicts()

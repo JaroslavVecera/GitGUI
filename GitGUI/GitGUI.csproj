@@ -86,6 +86,9 @@
     <Compile Include="Logic\ViewModels\StashMenuViewModel.cs" />
     <Compile Include="Logic\Models\StashMenuModel.cs" />
     <Compile Include="StashMenuContentTemplateSelector.cs" />
+    <Compile Include="UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StashMenuView.xaml.cs">
       <DependentUpon>StashMenuView.xaml</DependentUpon>
     </Compile>
@@ -200,6 +203,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StashMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
