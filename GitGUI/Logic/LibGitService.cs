@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using LibGit2Sharp;
@@ -24,7 +25,8 @@ namespace GitGUI.Logic
         static LibGitService _instance;
         public event Action RepositoryChanged;
         Repository _repository;
-        public Repository Repository { get { return _repository; } private set { _repository = value; } }
+        public Repository Repository { get { return _repository; }
+            private set { _repository = value; } }
         public Branch Head { get { return Repository.Head; } }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
         public bool HasChanges {
@@ -163,10 +165,23 @@ namespace GitGUI.Logic
         }
 
         void Fs(object sender, FileSystemEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
+            Application.Current.Dispatcher.BeginInvoke((Action)(InvokeChange));
 
         void Rs(object sender, RenamedEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(() => { RepositoryChanged?.Invoke(); CheckBranch(); }));
+            Application.Current.Dispatcher.BeginInvoke((Action)(InvokeChange));
+
+        void InvokeChange()
+        {
+            if (Repository == null)
+                return;
+            if (IsValidRepository(Repository.Info.Path) == RepositoryValidation.Valid)
+            {
+                RepositoryChanged?.Invoke();
+                CheckBranch();
+            }
+            else
+                Program.GetInstance().CloseCurrentRepository();
+        }
 
         void SubscribeWatcherEvents(FileSystemWatcher watcher)
         { 
