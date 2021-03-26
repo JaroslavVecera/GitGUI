@@ -27,6 +27,15 @@ namespace GitGUI.Logic
         public Repository Repository { get { return _repository; } private set { _repository = value; } }
         public Branch Head { get { return Repository.Head; } }
         public TreeChanges CurrentChanges { get { return Repository.Diff.Compare<TreeChanges>(); } }
+        public bool HasChanges {
+            get
+            {
+                TreeChanges c = CurrentChanges;
+                RepositoryStatus s = Status;
+                return c.Added.Any() || c.Conflicted.Any() || c.Copied.Any() || c.Deleted.Any() || c.Modified.Any() || c.Renamed.Any() || c.TypeChanged.Any()
+                    || s.IsDirty;
+            }
+        }
         public TreeChanges CommitChanges(Commit c)
         {
             if (!c.Parents.Any())

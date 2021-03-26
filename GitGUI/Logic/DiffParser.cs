@@ -44,7 +44,7 @@ namespace GitGUI.Logic
                 if (l.First() == '@')
                 {
                     hunks.Add(new Hunk(hunkLines));
-                    hunkLines = new List<string>();
+                    hunkLines = new List<string>() { l };
                 }
                 else
                     hunkLines.Add(l);

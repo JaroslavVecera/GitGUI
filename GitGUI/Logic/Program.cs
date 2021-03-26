@@ -32,6 +32,7 @@ namespace GitGUI.Logic
             InitializeState();
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
             LibGitService.GetInstance().RepositoryChanged += () => Show(null);
+            LibGitService.GetInstance().RepositoryChanged += () => ActionsManager.OnWorkTreeChanged(LibGitService.GetInstance().HasChanges);
             StashMenuViewModel wm = new StashMenuViewModel(StashingManager.StashMenu);
             mwvm.StashMenu = wm;
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
@@ -170,6 +171,7 @@ namespace GitGUI.Logic
         {
             ActionsManager.Commit += EditCommit;
             ActionsManager.Checkout += CheckoutMarked;
+            ActionsManager.Stash += () => LibGitService.GetInstance().Stash();
         }
 
         void EditCommit()

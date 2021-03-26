@@ -19,14 +19,17 @@ namespace GitGUI.Logic
         bool _isConflict = false;
         bool _isMarkedBranch = false;
         ActionButtonModel CheckoutButton { set; get; }
+        ActionButtonModel StashButton { set; get; }
 
         public event Action Commit;
         public event Action Checkout;
+        public event Action Stash;
 
         void AddLocalRepoButtons()
         { 
-            AddButton(LocalRepoPanel, "Commit", OnCommit, b => b.Text = "Commit merge", b => b.Text = "Commit");
+            AddButton(LocalRepoPanel, "Commit", OnCommit);
             CheckoutButton = AddButton(LocalRepoPanel, "Checkout", OnCheckout);
+            StashButton = AddButton(LocalRepoPanel, "Stash", OnStash);
         }
 
         public bool IsCheckoutButtonActive()
@@ -38,6 +41,11 @@ namespace GitGUI.Logic
         {
             _isMarkedBranch = isBranch;
             CheckoutButton.Active = IsCheckoutButtonActive();
+        }
+
+        public void OnWorkTreeChanged(bool hasChanges)
+        {
+            StashButton.Active = hasChanges;
         }
 
         ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action)
@@ -79,6 +87,11 @@ namespace GitGUI.Logic
         void OnCheckout()
         {
             Checkout?.Invoke();
+        }
+
+        void OnStash()
+        {
+            Stash?.Invoke();
         }
     }
 }
