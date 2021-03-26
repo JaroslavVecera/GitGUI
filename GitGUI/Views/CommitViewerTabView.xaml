@@ -621,10 +621,11 @@
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" MinWidth="250" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
                         <ColumnDefinition Width="6*" />
                     </Grid.ColumnDefinitions>
-                    <Grid>
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
@@ -644,8 +645,8 @@
                             </ScrollViewer>
                         </Border>
                     </Grid>
-                    <GridSplitter Width="5" Margin="0,6,0,0" Grid.Column="0" Background="Transparent" />
-                    <Border Background="#3e3e42" Margin="0,6,6,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <GridSplitter Width="5" Margin="0,6,0,0" Grid.Column="1" ResizeBehavior="PreviousAndNext" Background="Transparent" />
+                    <Border Background="#3e3e42" Margin="0,6,6,0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <ContentControl   Content="{Binding ChangesInfo}">
                             <ContentControl.Resources>
                                 <DataTemplate DataType="{x:Type logic:UntrackedInfo}">

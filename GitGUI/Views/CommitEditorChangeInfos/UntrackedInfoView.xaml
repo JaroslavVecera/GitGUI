@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GitGUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" TextWrapping="WrapWithOverflow" Margin="150,0,150,0" Foreground="LightGray">
+    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" TextWrapping="WrapWithOverflow" Margin="20,0,20,0" Foreground="LightGray">
             New file added to working directory.
         </TextBlock>
 </UserControl>

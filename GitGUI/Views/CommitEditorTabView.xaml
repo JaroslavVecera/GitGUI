@@ -6,8 +6,9 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:GitGUI"
              xmlns:logic="clr-namespace:GitGUI.Logic"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d"
+             Margin="0,0,1,0"
+             d:DesignHeight="450" d:DesignWidth="800" HorizontalAlignment="Stretch">
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -370,10 +371,11 @@
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" MinWidth="250" />
-                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="6*"/>
                     </Grid.ColumnDefinitions>
-                    <Border BorderBrush="#3e3e42" BorderThickness="1" Margin="6,6,5,0">
+                    <Border Grid.Column="0" BorderBrush="#3e3e42" BorderThickness="1" Margin="6,6,5,0">
                     <ScrollViewer>
                         <TreeView Padding="0,15,0,15" Background="#1E1E1E" Foreground="LightGray" ItemsSource="{Binding Path=Items}" BorderThickness="0">
                                 <i:Interaction.Behaviors>
@@ -382,8 +384,8 @@
                             </TreeView>
                     </ScrollViewer>
                     </Border>
-                    <GridSplitter Width="5" Margin="0,6,0,0" Grid.Column="0" Background="Transparent" />
-                    <Border Background="#3e3e42" Margin="0,6,6,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <GridSplitter ResizeBehavior="PreviousAndNext" Width="5" Margin="0,6,0,0" Grid.Column="1" Background="Transparent" />
+                    <Border Background="#3e3e42" Margin="0,6,6,0" Grid.Column="2">
                     <ContentControl   Content="{Binding ChangesInfo}">
                         <ContentControl.Resources>
                             <DataTemplate DataType="{x:Type logic:UntrackedInfo}">

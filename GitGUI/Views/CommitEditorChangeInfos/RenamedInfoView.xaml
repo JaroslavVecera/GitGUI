@@ -13,7 +13,7 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontSize" Value="40" />
                 <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="Margin" Value="150,0,150,0" />
+                <Setter Property="Margin" Value="20,0,20,0" />
                 <Setter Property="Foreground" Value="LightGray" />
             </Style>
         </StackPanel.Resources>
