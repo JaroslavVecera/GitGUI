@@ -55,20 +55,23 @@ namespace GitGUI.Logic
         FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
         public BranchCollection Branches { get { return Repository?.Branches; } }
+        public List<Branch> BranchesIncludingDetachedHead
+        {
+            get { return Branches?.Union(new List<Branch>() { Repository.Head }).ToList(); }
+        }
         public bool IsInConflictState { get { return CurrentChanges.Conflicted.Any(); } }
         public IEnumerable<Commit> AllCommits
         {
             get
             {
                 List<Commit> res = new List<Commit>();
-                foreach (Branch b in Repository?.Branches)
+                List<Branch> branches = BranchesIncludingDetachedHead;
+                foreach (Branch b in branches)
                     res = res.Union(Commits.QueryBy(new CommitFilter() { IncludeReachableFrom = b })).ToList();
                 res.Sort((c1, c2) =>
                 {
-                    if (c1.Author.When > c2.Author.When)
+                    if (c1.Author.When > c2.Author.When || (c1.Author.When == c2.Author.When && c1.Parents.Contains(c2)))
                         return 1;
-                    else if (c1.Author.When == c2.Author.When)
-                        return 0;
                     else return -1;
                 });
                 return res;
@@ -229,7 +232,7 @@ namespace GitGUI.Logic
             string name = Repository?.Head.CanonicalName;
             if (CheckoutedBranch != name)
                 BranchChanged?.Invoke();
-            CheckoutedBranch = name;
+            CheckoutedBranch = name != "(no branch)" ? name : null;
         }
 
         Signature GetCurrentSignature()

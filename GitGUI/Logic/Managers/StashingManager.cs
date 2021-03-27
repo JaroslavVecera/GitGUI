@@ -111,13 +111,14 @@ namespace GitGUI.Logic
             return Stashes.ToList().FindIndex(s => s.Reference.TargetIdentifier == sha);
         }
 
-        public void ImplicitPush(BranchLabelModel checkouted)
+        public void ImplicitPush(GraphItemModel checkouted)
         {
             Branch b1 = Repository.Head;
             string str = Repository.Head.Reference.ResolveToDirectReference().TargetIdentifier;
-            if (checkouted.Branch.Reference.CanonicalName == Repository.Head.CanonicalName)
+            if (checkouted is BranchLabelModel && ((BranchLabelModel)checkouted).Branch.Reference.CanonicalName == Repository.Head.CanonicalName)
                 return;
-            string message = "Implicit stash before checkout branch " + checkouted.Name + ".";
+            string descr = checkouted is BranchLabelModel ? "branch " + ((BranchLabelModel)checkouted).Name : "commit" + ((CommitNodeModel)checkouted).Commit.Sha;
+            string message = "Implicit stash before checkout " + descr + ".";
             Stash s = Push(message);
             if (s != null)
                 LogStash(s.Reference.TargetIdentifier);

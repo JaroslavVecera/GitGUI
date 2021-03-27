@@ -12,12 +12,12 @@ namespace GitGUI.Logic
     {
         ActionPanelModel _local;
         ActionPanelModel _remote;
+        bool _isItem = false;
         public ActionPanelModel LocalRepoPanel { get { return _local; } set { _local = value; AddLocalRepoButtons(); } }
         public ActionPanelModel RemoteRepoPanel { get; set; }
         event Action ConflictTurned;
         event Action NoConflictTurned;
         bool _isConflict = false;
-        bool _isMarkedBranch = false;
         ActionButtonModel CheckoutButton { set; get; }
         ActionButtonModel StashButton { set; get; }
 
@@ -34,12 +34,12 @@ namespace GitGUI.Logic
 
         public bool IsCheckoutButtonActive()
         {
-            return _isMarkedBranch && !_isConflict;
+            return !_isConflict && _isItem;
         }
 
-        public void OnMarkedItem(bool isBranch)
+        public void OnMarkedItem(bool isItem)
         {
-            _isMarkedBranch = isBranch;
+            _isItem = isItem;
             CheckoutButton.Active = IsCheckoutButtonActive();
         }
 

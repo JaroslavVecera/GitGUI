@@ -185,10 +185,7 @@ namespace GitGUI.Logic
         void CheckoutMarked()
         {
             GraphItemModel marked = TabManager.MainTabModel.Shown;
-            if (!(marked is BranchLabelModel))
-                return;
-            StashingManager.ImplicitPush((BranchLabelModel)marked);
-            CommitManager.Checkout((BranchLabelModel)marked);
+            CommitManager.Checkout(marked);
         }
 
         void Test()
@@ -264,7 +261,7 @@ namespace GitGUI.Logic
         {
             CommitManager.Mark(item);
             TabManager.ShowItem(item);
-            ActionsManager.OnMarkedItem(item is BranchLabelModel);
+            ActionsManager.OnMarkedItem(item != null);
         }
 
         public void Aggregate(BranchLabelModel aggregating, BranchLabelModel aggregated)

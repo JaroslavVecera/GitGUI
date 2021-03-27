@@ -67,6 +67,7 @@ namespace GitGUI.Logic
 
         public void Checkout(GraphItemModel m)
         {
+            Program.GetInstance().StashingManager.ImplicitPush(m);
             LibGitService.Checkout(m);
             Graph.HighlightAsCheckouted(m);
         }
