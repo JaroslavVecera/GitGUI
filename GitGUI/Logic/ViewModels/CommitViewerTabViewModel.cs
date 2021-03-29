@@ -12,6 +12,7 @@ namespace GitGUI.Logic
         public CommitViewerTabViewModel(CommitViewerTabModel m) : base(m)
         {
             SubscribeModel(m);
+            SelectedCommitIndex = 0;
             RefreshItems();
         }
 

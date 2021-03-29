@@ -26,7 +26,7 @@ namespace GitGUI.Logic
 
         void SelectDiff(int index)
         {
-            if (index < 0)
+            if (index < 0 || !Commit.Commit.Parents.Any())
                 return;
             SelectedCommit = Commit.Commit.Parents.ToList()[index];
             CommitChanges = LibGitService.GetInstance().CommitChanges(Commit.Commit, SelectedCommit);
