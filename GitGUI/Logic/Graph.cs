@@ -19,6 +19,7 @@ namespace GitGUI.Logic
         public GraphItemModel Marked { get; set; }
         public GraphItemModel Focused { get; set; }
         public GraphItemModel Checkouted { get; set; }
+        public BranchLabelModel AggregationFocused { get; set; }
         static Graph Instance { get; set; } = new Graph();
         double Zoom { get; set; } = 1;
         Point Center { get { return GraphViewCenter(); } }
@@ -28,6 +29,16 @@ namespace GitGUI.Logic
         public EventHandlerBatch EventHandlerBatch { private get; set; }
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
         Stopwatch Stopwatch { get; set; }
+
+        public void CaptureMaouse()
+        {
+            ZoomAndPanCanvasModel.CaptureMouse();
+        }
+
+        public void ReleaseMouseCapture()
+        {
+            ZoomAndPanCanvasModel.ReleaseMouseCapture();
+        }
 
         private Graph()
         {
@@ -77,6 +88,15 @@ namespace GitGUI.Logic
             Marked = model;
             if (model != null)
                 model.Marked = true;
+        }
+
+        public void HighlightAsAggregationFocused(BranchLabelModel model)
+        {
+            if (AggregationFocused != null)
+                AggregationFocused.AggregationFocused = false;
+            AggregationFocused = model;
+            if (model != null)
+                model.AggregationFocused = true;
         }
 
         public void HighlightAsFocused(GraphItemModel model)

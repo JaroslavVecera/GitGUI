@@ -211,6 +211,7 @@ namespace GitGUI.Logic
 
         public void OnWindowMouseUp(object item, MouseButtonEventArgs e)
         {
+            Graph.GetInstance().ReleaseMouseCapture();
             State.WindowMouseUp(item, Data, e);
         }
 
@@ -226,6 +227,7 @@ namespace GitGUI.Logic
 
         public void OnMouseUp(object item, MouseButtonEventArgs e)
         {
+            Graph.GetInstance().ReleaseMouseCapture();
             State.MouseUp(item, Data, e);
         }
 
@@ -277,6 +279,7 @@ namespace GitGUI.Logic
         public void AggregationFocus(BranchLabelModel l)
         {
             AggregationFocused = l;
+            CommitManager.AggregationFocus(l);
         }
 
         public void MouseLeaveWindow()

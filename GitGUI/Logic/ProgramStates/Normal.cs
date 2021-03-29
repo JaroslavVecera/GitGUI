@@ -20,7 +20,10 @@ namespace GitGUI.Logic
             if (e.ChangedButton == MouseButton.Left)
             {
                 if (sender == null)
+                {
+                    Graph.GetInstance().CaptureMaouse();
                     ChangeState(MovingCanvas.GetInstance());
+                }
                 else
                     Aimed = (GraphItemModel)sender;
             }
@@ -33,6 +36,7 @@ namespace GitGUI.Logic
                 data.AttachedBranch = (BranchLabelModel)Aimed;
                 MovingBranch mb = MovingBranch.GetInstance();
                 mb.SetBranchLabel(data.AttachedBranch);
+                Graph.GetInstance().CaptureMaouse();
                 ChangeState(mb);
             }
         }

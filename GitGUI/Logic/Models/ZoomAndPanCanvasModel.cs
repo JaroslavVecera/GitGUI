@@ -24,6 +24,18 @@ namespace GitGUI.Logic
         public event Action<Matrix> TransformMatrixChanged;
         Tuple<double, double, double, double> CanvasBoundaries { get; set; }
         double Margin { get; } = 100;
+        public event Action Released;
+        public event Action Captured;
+
+        public void CaptureMouse()
+        {
+            Captured?.Invoke();
+        }
+
+        public void ReleaseMouseCapture()
+        {
+            Released?.Invoke();
+        }
 
         public void Update()
         {

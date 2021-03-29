@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Shapes;
+using System.Windows.Input;
 
 namespace GitGUI.Logic
 {
@@ -30,6 +31,8 @@ namespace GitGUI.Logic
             Model.TransformMatrixChanged += TransformMatrixChanged;
             Model.ContentUpdated += UpdateContent;
             CanvasTransform = new MatrixTransform(Model.TransformMatrix);
+            Model.Released += () => View.ReleaseMouseCapture();
+            Model.Captured += () => Mouse.Capture(View, CaptureMode.SubTree);
         }
 
         void UpdateContent()

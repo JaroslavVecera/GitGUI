@@ -77,6 +77,11 @@ namespace GitGUI.Logic
             Graph.HighlightAsMarked(i);
         }
 
+        public void AggregationFocus(BranchLabelModel m)
+        {
+            Graph.HighlightAsAggregationFocused(m);
+        }
+
         public void Branch(GraphItemModel i, string name)
         {
             LibGitService.Branch(i, name);

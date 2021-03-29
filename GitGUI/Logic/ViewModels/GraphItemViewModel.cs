@@ -60,7 +60,7 @@ namespace GitGUI.Logic
             HitTestVisible = false;
         }
 
-        public void SubscribeModel()
+        public virtual void SubscribeModel()
         {
             Model.PropertyChanged += (sender, e) =>
             {

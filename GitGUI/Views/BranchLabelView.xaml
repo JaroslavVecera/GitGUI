@@ -46,6 +46,9 @@
                             <DataTrigger Binding="{Binding Marked}" Value="true">
                                 <Setter Property="BorderBrush" Value="White"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding AggregationFocused}" Value="true">
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </DataTrigger>
                             <MultiDataTrigger>
                                 <MultiDataTrigger.Conditions>
                                     <Condition Binding="{Binding Focused}" Value="true" />
@@ -108,6 +111,9 @@
                         </MultiDataTrigger>
                         <DataTrigger Binding="{Binding Marked}" Value="true">
                             <Setter Property="Fill" Value="White" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AggregationFocused}" Value="true">
+                            <Setter Property="Fill" Value="Yellow"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
