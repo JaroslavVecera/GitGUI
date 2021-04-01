@@ -773,7 +773,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Menu Style="{DynamicResource MenuStyle}">
                         <MenuItem Header="Repository" Template="{DynamicResource MenuItemControlTemplate}">
@@ -805,7 +805,17 @@
                             <TextBlock />
                         </MenuItem>
                     </Menu>
-                    <local:UserSelectorView x:Name="userSelector" Margin="0,0,8,0" BorderThickness="1" BorderBrush="#3E3E42" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
+                    <ComboBox x:Name="remoteSelector" Grid.Column="1" Width="200" SelectedIndex="0" ItemsSource="{Binding Remotes}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="local:Remote">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" />
+                                    <TextBlock Text="{Binding Url}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <local:UserSelectorView HorizontalAlignment="Right" Width="250" x:Name="userSelector" Margin="0,0,8,0" BorderThickness="1" BorderBrush="#3E3E42" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
                 </Grid>
                 <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
                     <TabControl.Resources>

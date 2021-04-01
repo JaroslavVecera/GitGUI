@@ -15,12 +15,18 @@ namespace GitGUI.Logic
         public event Action UpdateCenter;
         public event Action ShownChanged;
         ActionPanelModel _panelModel;
+        ActionPanelModel _remotePanelModel;
         public event Action<MouseButtonEventArgs> MouseDown;
         public event Action<MouseButtonEventArgs> MouseUp;
         public ActionPanelModel PanelModel
         {
             get { return _panelModel; }
             set { _panelModel = value; OnPropertyChanged(); }
+        }
+        public ActionPanelModel RemotePanelModel
+        {
+            get { return _remotePanelModel; }
+            set { _remotePanelModel = value; OnPropertyChanged(); }
         }
         GraphItemModel _shown = null;
         public GraphItemModel Shown { get { return _shown; } set { _shown = value; ShownChanged?.Invoke(); } }

@@ -14,7 +14,7 @@ namespace GitGUI.Logic
         ActionPanelModel _remote;
         bool _isItem = false;
         public ActionPanelModel LocalRepoPanel { get { return _local; } set { _local = value; AddLocalRepoButtons(); } }
-        public ActionPanelModel RemoteRepoPanel { get; set; }
+        public ActionPanelModel RemoteRepoPanel { get { return _remote; } set { _remote = value; AddRemoteRepoButtons(); } }
         event Action ConflictTurned;
         event Action NoConflictTurned;
         bool _isConflict = false;
@@ -30,6 +30,11 @@ namespace GitGUI.Logic
             AddButton(LocalRepoPanel, "Commit", OnCommit);
             CheckoutButton = AddButton(LocalRepoPanel, "Checkout", OnCheckout);
             StashButton = AddButton(LocalRepoPanel, "Stash", OnStash);
+        }
+
+        void AddRemoteRepoButtons()
+        {
+            AddButton(RemoteRepoPanel, "Test", OnPokus);
         }
 
         public bool IsCheckoutButtonActive()
@@ -92,6 +97,11 @@ namespace GitGUI.Logic
         void OnStash()
         {
             Stash?.Invoke();
+        }
+
+        void OnPokus()
+        {
+            LibGitNetworkService.GetInstance().Push();
         }
     }
 }

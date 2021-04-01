@@ -9,6 +9,7 @@ namespace GitGUI.Logic
     class Program
     {
         public StashingManager StashingManager { get; set; }
+        public RemoteManager RemoteManager { get; set; }
         CommitManager CommitManager { get; set; }
         RepositoryManager RepositoryManager { get; set; }
         ActionsManager ActionsManager { get; set; }
@@ -26,8 +27,9 @@ namespace GitGUI.Logic
         Program()
         {
             ActionPanelModel localAM = new ActionPanelModel();
+            ActionPanelModel remoteAM = new ActionPanelModel();
             MainWindowViewModel mwvm = InitializeMainWindow();
-            CreateManagers(localAM);
+            CreateManagers(localAM, remoteAM);
             InitializeEventHandlers();
             InitializeState();
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
@@ -115,11 +117,12 @@ namespace GitGUI.Logic
             CreateRepository(dialog.SelectedPath);
         }
 
-        void CreateManagers(ActionPanelModel localAM)
+        void CreateManagers(ActionPanelModel localAM, ActionPanelModel remoteAM)
         {
             ActionsManager = new ActionsManager();
             ActionsManager.LocalRepoPanel = localAM;
-            TabManager = new TabManager(Data.MainWindowModel, localAM);
+            ActionsManager.RemoteRepoPanel = remoteAM;
+            TabManager = new TabManager(Data.MainWindowModel, localAM, remoteAM);
             TabManager.CommitRequested += Commit;
             TabManager.AbortRequested += AbortMerge;
             TabManager.CanvasMouseDown += OnMouseDown;
@@ -129,6 +132,7 @@ namespace GitGUI.Logic
             RepositoryManager = new RepositoryManager();
             UserManager = new UserManager();
             StashingManager = new StashingManager();
+            RemoteManager = new RemoteManager();
         }
 
         private void AbortMerge()

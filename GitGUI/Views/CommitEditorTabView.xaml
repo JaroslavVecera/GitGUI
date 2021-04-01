@@ -412,7 +412,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Foreground="#FFBCCFD8" Margin="0,20,0,0">Commit message</TextBlock>
                         <ScrollViewer Margin="0,5,10,10" Grid.Row="1" HorizontalAlignment="Stretch">
-                            <TextBox Padding="5" BorderThickness="0" Background="#1E1E1E" Foreground="LightGray" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <TextBox MaxLength="50000" Padding="5" BorderThickness="0" Background="#1E1E1E" Foreground="LightGray" AcceptsReturn="True" AcceptsTab="True" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         </ScrollViewer>
                     </Grid>
                     <Button Width="100" Height="30" Command="{Binding Path=Commit}" Content="Commit">

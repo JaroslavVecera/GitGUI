@@ -16,6 +16,7 @@ namespace GitGUI.Logic
         public event MouseButtonEventHandler CanvasMouseDown;
         public event MouseButtonEventHandler CanvasMouseUp;
         ActionPanelModel ActionPanel { get; set; }
+        ActionPanelModel RemoteActionPanel { get; set; }
         public MainTabModel MainTabModel { private set; get; }
         Dictionary<CommitNodeModel, CommitViewerTabViewModel> CommitViewers { get; } = new Dictionary<CommitNodeModel, CommitViewerTabViewModel>();
         IEnumerable<TabViewModel> Tabs
@@ -62,9 +63,10 @@ namespace GitGUI.Logic
 
         public Point GraphViewCenter { get { return MainTabModel.GraphViewCenter; } }
 
-        public TabManager(MainWindowModel w, ActionPanelModel localAM)
+        public TabManager(MainWindowModel w, ActionPanelModel localAM, ActionPanelModel remoteAM)
         {
             ActionPanel = localAM;
+            RemoteActionPanel = remoteAM;
             MainWindowModel = w;
         }
 
@@ -80,6 +82,7 @@ namespace GitGUI.Logic
             m.MouseDown += (args) => CanvasMouseDown?.Invoke(null, args);
             m.MouseUp += (args) => CanvasMouseUp?.Invoke(null, args);
             m.PanelModel = ActionPanel;
+            m.RemotePanelModel = RemoteActionPanel;
             MainTabViewModel vm = new MainTabViewModel(m);
             MainTabModel = m;
 

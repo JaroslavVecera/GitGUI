@@ -33,6 +33,9 @@ namespace GitGUI.Logic
         public ActionPanelViewModel ActionPanel
         { get { return new ActionPanelViewModel(Model.PanelModel); } }
 
+        public ActionPanelViewModel RemoteActionPanel
+        { get { return new ActionPanelViewModel(Model.RemotePanelModel); } }
+
         public MainTabViewModel(MainTabModel model) : base(model)
         {
             ZoomAndPanCanvas = new ZoomAndPanCanvasView();

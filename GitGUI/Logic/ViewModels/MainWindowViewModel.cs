@@ -17,6 +17,7 @@ namespace GitGUI.Logic
         public List<TabViewModel> Tabs { get { return new List<TabViewModel>(Model.Tabs); } }
         public int SelectedIndex { get { return Model.SelectedIndex; } }
         public ObservableCollection<User> Users { get { return Program.GetInstance().UserManager.KnownUsers; } }
+        public ObservableCollection<Remote> Remotes { get { return Program.GetInstance().RemoteManager.CurrentRemotes; } }
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
         public bool EnabledStashing { get { return CanClose; } }
