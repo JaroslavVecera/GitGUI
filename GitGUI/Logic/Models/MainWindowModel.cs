@@ -24,6 +24,7 @@ namespace GitGUI.Logic
         public IEnumerable<string> RecentRepos { get { return _recentRepos; } set { _recentRepos = value; OnPropertyChanged(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get; private set; }
         public RelayCommand CreateNewUser { get; private set; }
+        public Remote SelectedRemote { get { return Program.GetInstance().RemoteManager.SelectedRemote; } set { Program.GetInstance().RemoteManager.SelectedRemote = value; } }
 
         public void OnUsersChanged()
         {

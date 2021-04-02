@@ -25,6 +25,7 @@ namespace GitGUI.Logic
         public bool AnyRecentRepos { get { return RecentRepos.Any(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get { return Model.OpenRecentRepo; } }
         public RelayCommand CreateNewUser { get { return Model.CreateNewUser; } }
+        public Remote SelectedRemote { get { return Model.SelectedRemote; } set { Model.SelectedRemote = value; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {

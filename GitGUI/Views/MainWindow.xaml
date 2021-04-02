@@ -805,7 +805,7 @@
                             <TextBlock />
                         </MenuItem>
                     </Menu>
-                    <ComboBox x:Name="remoteSelector" Grid.Column="1" Width="200" SelectedIndex="0" ItemsSource="{Binding Remotes}">
+                    <ComboBox x:Name="remoteSelector" Grid.Column="1" Width="200" SelectedItem="{Binding SelectedRemote}" ItemsSource="{Binding Remotes}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="local:Remote">
                                 <StackPanel>

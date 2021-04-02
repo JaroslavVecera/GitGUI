@@ -21,8 +21,10 @@ namespace GitGUI.Logic
 
     class LibGitService
     {
+        ChangesWatcher ChangesWatcher { get; } = new ChangesWatcher();
         string CheckoutedBranch { get; set; }
         public event Action BranchChanged;
+        public event Action BranchUpdated;
         static LibGitService _instance;
         public event Action RepositoryChanged;
         Repository _repository;
@@ -53,7 +55,6 @@ namespace GitGUI.Logic
             return changes;
         }
         public RepositoryStatus Status { get { return Repository.RetrieveStatus(); } }
-        FileSystemWatcher Watcher { get; set; }
         public IQueryableCommitLog Commits { get { return Repository?.Commits; } }
         public BranchCollection Branches { get { return Repository?.Branches; } }
         public List<Branch> BranchesIncludingDetachedHead
@@ -86,6 +87,7 @@ namespace GitGUI.Logic
 
         private LibGitService()
         {
+            ChangesWatcher.ChangeNoticed += InvokeChange;
         }
 
         public PatchEntryChanges Diff(string path)
@@ -115,29 +117,6 @@ namespace GitGUI.Logic
             bool res = !bareTest.Info.IsBare;
             bareTest.Dispose();
             return res ? RepositoryValidation.Valid : RepositoryValidation.ValidBare;
-        }
-
-        void DisableWatcher()
-        {
-            Watcher.Changed -= Fs;
-            Watcher.Created -= Fs;
-            Watcher.Deleted -= Fs;
-            Watcher.Renamed -= Rs;
-            Watcher = null;
-        }
-
-        void StartWatch(string path)
-        {
-            Watcher = new FileSystemWatcher()
-            {
-                IncludeSubdirectories = true,
-                NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                             | NotifyFilters.FileName | NotifyFilters.DirectoryName,
-                Filter = "",
-                Path = path,
-                EnableRaisingEvents = true
-            };
-            SubscribeWatcherEvents(Watcher);
         }
 
         public Hashtable BranchCommits()
@@ -170,12 +149,6 @@ namespace GitGUI.Logic
             return res;
         }
 
-        void Fs(object sender, FileSystemEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(InvokeChange));
-
-        void Rs(object sender, RenamedEventArgs e) =>
-            Application.Current.Dispatcher.BeginInvoke((Action)(InvokeChange));
-
         void InvokeChange()
         {
             if (Repository == null)
@@ -187,14 +160,6 @@ namespace GitGUI.Logic
             }
             else
                 Program.GetInstance().CloseCurrentRepository();
-        }
-
-        void SubscribeWatcherEvents(FileSystemWatcher watcher)
-        { 
-            watcher.Changed += Fs;
-            watcher.Created += Fs;
-            watcher.Deleted += Fs;
-            watcher.Renamed += Rs;
         }
 
         public Repository OpenNewRepository(string path)
@@ -222,7 +187,7 @@ namespace GitGUI.Logic
             if (Repository != null)
                 CloseRepository(Repository);
             Repository = new Repository(path);
-            StartWatch(path);
+            ChangesWatcher.Watch(path);
             Program.GetInstance().StashingManager.SetRepository(Repository);
             RepositoryChanged.Invoke();
             CheckBranch();
@@ -235,7 +200,9 @@ namespace GitGUI.Logic
             string name = Repository?.Head.CanonicalName;
             if (CheckoutedBranch != name)
                 BranchChanged?.Invoke();
-            CheckoutedBranch = name != "(no branch)" ? name : null;
+            BranchUpdated?.Invoke();
+
+        CheckoutedBranch = name != "(no branch)" ? name : null;
         }
 
         Signature GetCurrentSignature()
@@ -292,7 +259,7 @@ namespace GitGUI.Logic
         
         void CloseRepository(Repository r)
         {
-            DisableWatcher();
+            ChangesWatcher.End();
             Repository.Dispose();
             Repository = null;
         }
