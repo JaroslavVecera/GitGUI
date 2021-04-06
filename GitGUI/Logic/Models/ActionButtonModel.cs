@@ -7,12 +7,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace GitGUI.Logic
 {
     public class ActionButtonModel : ModelBase
     {
+        public double Width { get; set; } = 150;
         string _text;
+        public Geometry PathData { set; get; }
         public string Text
         {
             get { return _text; }

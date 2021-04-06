@@ -79,7 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AuthentificationDialog.xaml.cs">
+    <Compile Include="Dialogs\AuthentificationDialog.xaml.cs">
       <DependentUpon>AuthentificationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="CahngedUserEventArgs.cs" />
@@ -92,11 +92,14 @@
     <Compile Include="Logic\Managers\RemoteManager.cs" />
     <Compile Include="Logic\ViewModels\StashMenuViewModel.cs" />
     <Compile Include="Logic\Models\StashMenuModel.cs" />
-    <Compile Include="ProgressBarDialog.xaml.cs">
+    <Compile Include="Dialogs\ProgressBarDialog.xaml.cs">
       <DependentUpon>ProgressBarDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RemoteSelectorView.xaml.cs">
+      <DependentUpon>RemoteSelectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StashMenuContentTemplateSelector.cs" />
-    <Compile Include="UserWindow.xaml.cs">
+    <Compile Include="Dialogs\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StashMenuView.xaml.cs">
@@ -125,7 +128,7 @@
     <Compile Include="Views\CommitViewerTabView.xaml.cs">
       <DependentUpon>CommitViewerTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InputDialog.xaml.cs">
+    <Compile Include="Dialogs\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Models\CommitViewerTabModel.cs" />
@@ -213,15 +216,19 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
-    <Page Include="AuthentificationDialog.xaml">
+    <Page Include="Dialogs\AuthentificationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProgressBarDialog.xaml">
+    <Page Include="Dialogs\ProgressBarDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserWindow.xaml">
+    <Page Include="Views\RemoteSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -249,7 +256,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InputDialog.xaml">
+    <Page Include="Dialogs\InputDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

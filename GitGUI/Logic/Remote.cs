@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace GitGUI.Logic
 {
-    class Remote
+    public class Remote
     {
         public string Name { get; private set; }
         public string Url { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
+        public RelayCommand OnDelete { get; private set; }
 
         public Remote()
         {
@@ -32,7 +33,7 @@ namespace GitGUI.Logic
 
         void InitializeCommands()
         {
-
+            OnDelete = new RelayCommand(() => LibGitNetworkService.GetInstance().DeleteRemote(Name));
         }
     }
 }

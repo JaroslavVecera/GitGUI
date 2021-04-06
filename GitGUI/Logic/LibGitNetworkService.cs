@@ -35,6 +35,11 @@ namespace GitGUI.Logic
             CreateErrorHandlerMap();
         }
 
+        public void DeleteRemote(string name)
+        {
+            Repository.Network.Remotes.Remove(name);
+        }
+
         void CreateErrorHandlerMap()
         {
             ErrorHandlersMap.Add("failed to send request: Operace nebyla v požadované době dokončena.\r\n", NoInternetConnection);

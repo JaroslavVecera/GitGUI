@@ -31,13 +31,6 @@
                        LayoutUpdated="OnGraphViewLayoutUpdated"
                        Background="#1E1E1E">
             </ScrollViewer>
-            <ContentControl VerticalAlignment="Top"  Content="{Binding Path=RemoteActionPanel}" Grid.Row="0">
-                <ContentControl.ContentTemplate>
-                    <DataTemplate>
-                        <local:ActionPanelView HorizontalAlignment="Center" Padding="10"></local:ActionPanelView>
-                    </DataTemplate>
-                </ContentControl.ContentTemplate>
-            </ContentControl>
             <ContentControl  Content="{Binding Path=ActionPanel}" Grid.Row="1">
                 <ContentControl.ContentTemplate>
                     <DataTemplate>

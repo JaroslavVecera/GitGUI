@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace GitGUI.Logic
 {
     class ActionsManager
     {
         ActionPanelModel _local;
-        ActionPanelModel _remote;
+        ActionPanelModel _remoteLeftGroup;
+        ActionPanelModel _remoteRightGroup;
         bool _isItem = false;
         public ActionPanelModel LocalRepoPanel { get { return _local; } set { _local = value; AddLocalRepoButtons(); } }
-        public ActionPanelModel RemoteRepoPanel { get { return _remote; } set { _remote = value; AddRemoteRepoButtons(); } }
+        public ActionPanelModel RemoteRepoLeftGroupPanel { get { return _remoteLeftGroup; } set { _remoteLeftGroup = value; AddRemoteLeftRepoButtons(); } }
+        public ActionPanelModel RemoteRepoRightGroupPanel { get { return _remoteRightGroup; } set { _remoteRightGroup = value; AddRemoteRightRepoButtons(); } }
         event Action ConflictTurned;
         event Action NoConflictTurned;
         bool _isConflict = false;
@@ -32,10 +35,14 @@ namespace GitGUI.Logic
             StashButton = AddButton(LocalRepoPanel, "Stash", OnStash);
         }
 
-        void AddRemoteRepoButtons()
+        void AddRemoteLeftRepoButtons()
         {
-            AddButton(RemoteRepoPanel, "Test", OnPokus);
-            AddButton(RemoteRepoPanel, "Test2", OnPokus2);
+            AddButton(RemoteRepoLeftGroupPanel, "Push", OnPush, 80, "M6,22 L6,9 L2,9 L8,2 L14,9 L10,9 L10,22");
+        }
+
+        void AddRemoteRightRepoButtons()
+        { 
+            AddButton(RemoteRepoRightGroupPanel, "Fetch", OnFetch, 80, "M6,2 L6,15 L2,15 L8,22 L14,15 L10,15 L10,2");
         }
 
         public bool IsCheckoutButtonActive()
@@ -52,6 +59,14 @@ namespace GitGUI.Logic
         public void OnWorkTreeChanged(bool hasChanges)
         {
             StashButton.Active = hasChanges;
+        }
+
+        ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, double width, string pathData)
+        {
+            ActionButtonModel m = AddButton(panel, text, action);
+            m.Width = width;
+            m.PathData = Geometry.Parse(pathData);
+            return m;
         }
 
         ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action)
@@ -100,12 +115,12 @@ namespace GitGUI.Logic
             Stash?.Invoke();
         }
 
-        void OnPokus()
+        void OnPush()
         {
             LibGitNetworkService.GetInstance().Push();
         }
 
-        void OnPokus2()
+        void OnFetch()
         {
             LibGitNetworkService.GetInstance().Fetch();
         }

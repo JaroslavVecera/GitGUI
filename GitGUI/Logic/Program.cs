@@ -27,9 +27,10 @@ namespace GitGUI.Logic
         Program()
         {
             ActionPanelModel localAM = new ActionPanelModel();
-            ActionPanelModel remoteAM = new ActionPanelModel();
             MainWindowViewModel mwvm = InitializeMainWindow();
-            CreateManagers(localAM, remoteAM);
+            ActionPanelModel remoteLeftAM = MainWindowModel.RemoteLeftPanelModel;
+            ActionPanelModel remoteRightAM = MainWindowModel.RemoteRightPanelModel;
+            CreateManagers(localAM, remoteLeftAM, remoteRightAM);
             InitializeEventHandlers();
             InitializeState();
             LibGitService.GetInstance().RepositoryChanged += CheckConflicts;
@@ -117,12 +118,13 @@ namespace GitGUI.Logic
             CreateRepository(dialog.SelectedPath);
         }
 
-        void CreateManagers(ActionPanelModel localAM, ActionPanelModel remoteAM)
+        void CreateManagers(ActionPanelModel localAM, ActionPanelModel remoteLeftAM, ActionPanelModel remoteRightAM)
         {
             ActionsManager = new ActionsManager();
             ActionsManager.LocalRepoPanel = localAM;
-            ActionsManager.RemoteRepoPanel = remoteAM;
-            TabManager = new TabManager(Data.MainWindowModel, localAM, remoteAM);
+            ActionsManager.RemoteRepoLeftGroupPanel = remoteLeftAM;
+            ActionsManager.RemoteRepoRightGroupPanel = remoteRightAM;
+            TabManager = new TabManager(Data.MainWindowModel, localAM);
             TabManager.CommitRequested += Commit;
             TabManager.AbortRequested += AbortMerge;
             TabManager.CanvasMouseDown += OnMouseDown;

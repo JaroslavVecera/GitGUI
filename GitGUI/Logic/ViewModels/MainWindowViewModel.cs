@@ -21,11 +21,14 @@ namespace GitGUI.Logic
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
         public bool EnabledStashing { get { return CanClose; } }
+        public bool VisibleRemoteActions { get { return CanClose; } }
         public IEnumerable<string> RecentRepos { get { return Model.RecentRepos; } }
         public bool AnyRecentRepos { get { return RecentRepos.Any(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get { return Model.OpenRecentRepo; } }
         public RelayCommand CreateNewUser { get { return Model.CreateNewUser; } }
         public Remote SelectedRemote { get { return Model.SelectedRemote; } set { Model.SelectedRemote = value; } }
+        public ActionPanelViewModel RemoteLeftActionPanel { get { return new ActionPanelViewModel(Model.RemoteLeftPanelModel); } }
+        public ActionPanelViewModel RemoteRightActionPanel { get { return new ActionPanelViewModel(Model.RemoteRightPanelModel); } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {
@@ -53,6 +56,7 @@ namespace GitGUI.Logic
             {
                 OnPropertyChanged("CanClose");
                 OnPropertyChanged("EnabledStashing");
+                OnPropertyChanged("VisibleRemoteActions");
             }
             if (e.PropertyName == "RecentRepos")
                 OnPropertyChanged("AnyRecentRepos");

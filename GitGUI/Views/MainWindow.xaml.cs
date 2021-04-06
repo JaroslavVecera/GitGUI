@@ -226,5 +226,10 @@ namespace GitGUI
             if (!Graph.GetInstance().Contains(e.GetPosition(this)))
                 WindowMouseUp(sender, e);
         }
+
+        private void OnChangedRemote(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

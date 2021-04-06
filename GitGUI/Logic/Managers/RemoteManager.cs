@@ -21,6 +21,7 @@ namespace GitGUI.Logic
         public RemoteManager()
         {
             LibGitService.GetInstance().RepositoryChanged += ChangeRemotes;
+            LibGitService.GetInstance().RepositoryChanged += SelectRemote;
             LibGitService.GetInstance().BranchUpdated += SelectRemote;
         }
 
@@ -29,6 +30,8 @@ namespace GitGUI.Logic
             if (CurrentRepository == null)
                 return;
             Remote r = CurrentRemotes.ToList().Find(rep => rep.Name == CurrentRepository.Head.RemoteName);
+            if (r == null && SelectedRemote == null && CurrentRemotes.Any())
+                r = CurrentRemotes.ToList().First();
             if (r != null)
             {
                 SelectedRemote = r;

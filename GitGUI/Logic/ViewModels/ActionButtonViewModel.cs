@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GitGUI.Logic
 {
@@ -13,6 +14,8 @@ namespace GitGUI.Logic
         public ActionButtonModel Model { get; set; }
         public RelayCommand Clicked { get; }
         public string Text { get { return Model.Text; } }
+        public double Width { get { return Model.Width; } }
+        public Geometry PathData {get {return Model.PathData; } }
 
         public ActionButtonViewModel(ActionButtonModel model)
         {

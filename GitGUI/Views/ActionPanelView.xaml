@@ -14,7 +14,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Button Command="{Binding Path=Clicked}" Width="150" Height="30">
+                <Button Command="{Binding Path=Clicked}" Width="{Binding Width}" Height="30">
                     <Button.Style>
                         <Style  TargetType="Button">
                             <Setter Property="Foreground" Value="LightGray"/>
@@ -48,8 +48,10 @@
                         </Style>
                     </Button.Style>
                     <Button.Content>
-                        <TextBlock Text="{Binding Path=Text}" Margin="2">
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Margin="0,0,3,0" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" Data="{Binding PathData}" />
+                            <TextBlock Text="{Binding Path=Text}" Margin="2" />
+                        </StackPanel>
                     </Button.Content>
                 </Button>
             </DataTemplate>

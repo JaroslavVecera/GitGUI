@@ -25,6 +25,8 @@ namespace GitGUI.Logic
         public RelayCommand<MenuItem> OpenRecentRepo { get; private set; }
         public RelayCommand CreateNewUser { get; private set; }
         public Remote SelectedRemote { get { return Program.GetInstance().RemoteManager.SelectedRemote; } set { Program.GetInstance().RemoteManager.SelectedRemote = value; } }
+        public ActionPanelModel RemoteLeftPanelModel { get; } = new ActionPanelModel();
+        public ActionPanelModel RemoteRightPanelModel { get; } = new ActionPanelModel();
 
         public void OnUsersChanged()
         {
