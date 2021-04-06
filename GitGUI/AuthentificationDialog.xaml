@@ -1,0 +1,28 @@
+﻿<Window x:Class="GitGUI.AuthentificationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GitGUI"
+        mc:Ignorable="d"
+        Background="#28282A"
+        Icon="../icons/icon.png"
+        WindowStartupLocation="CenterOwner"
+        Title="User Authentification" Height="220" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel  Margin="15, 15, 15, 0" Grid.Row="0">
+            <TextBlock Foreground="White">Name</TextBlock>
+            <TextBox Margin="0,5,0,0"  Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="NameTextBox" />
+        </StackPanel>
+        <StackPanel Margin="15,15,15,0" Grid.Row="1">
+            <TextBlock Foreground="White">Password</TextBlock>
+            <TextBox KeyUp="OnKeyUp" Margin="0,5,0,0" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="PasswordTextBox" />
+        </StackPanel>
+        <Button Grid.Row="2" Height="30" Width="100" Content="OK" x:Name="button" />
+    </Grid>
+</Window>

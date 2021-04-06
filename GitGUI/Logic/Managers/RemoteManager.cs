@@ -11,8 +11,8 @@ namespace GitGUI.Logic
     class RemoteManager
     {
         string _dirPath = "Remotes";
-        Remote _remote;
-        public Remote SelectedRemote { get { return _remote; } set { _remote = value; if (value == null) Console.WriteLine("null"); else Console.WriteLine(value.Name); } }
+        public Remote SelectedRemote { get; set; }
+        public LibGit2Sharp.Remote SelectedRepositoryRemote { get { return CurrentRepositoryRemotes?.ToList().Find(r => r.Name == SelectedRemote.Name && r.Url == SelectedRemote.Url); } }
         LibGit2Sharp.RemoteCollection CurrentRepositoryRemotes { get { return LibGitNetworkService.GetInstance().Remotes; } }
         LibGit2Sharp.Repository CurrentRepository { get; set; }
         string CurrentRepositoryDirectory { get; set; }

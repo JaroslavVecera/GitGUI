@@ -19,7 +19,7 @@ namespace GitGUI.Logic
             InitializeCommands();
         }
 
-        public Remote(string name, string url) : this(name, url, null, null) { }
+        public Remote(string name, string url) : this(name, url, "", "") { }
 
         public Remote(string name, string url, string userName, string password)
         {

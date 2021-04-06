@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AuthentificationDialog.xaml.cs">
+      <DependentUpon>AuthentificationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CahngedUserEventArgs.cs" />
     <Compile Include="Logic\ChangesWatcher.cs" />
     <Compile Include="Logic\LibGitNetworkService.cs" />
@@ -89,6 +92,9 @@
     <Compile Include="Logic\Managers\RemoteManager.cs" />
     <Compile Include="Logic\ViewModels\StashMenuViewModel.cs" />
     <Compile Include="Logic\Models\StashMenuModel.cs" />
+    <Compile Include="ProgressBarDialog.xaml.cs">
+      <DependentUpon>ProgressBarDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StashMenuContentTemplateSelector.cs" />
     <Compile Include="UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
@@ -207,6 +213,14 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="AuthentificationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProgressBarDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
