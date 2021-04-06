@@ -22,7 +22,7 @@ namespace GitGUI
         public AuthentificationDialog()
         {
             InitializeComponent();
-            OkButtonClick = new RelayCommand(() => DialogResult = true);
+            OkButtonClick = new RelayCommand(() => DialogResult = true, () => Name.Any() && Password.Any());
             button.Command = OkButtonClick;
         }
 
@@ -45,6 +45,11 @@ namespace GitGUI
         {
             if (e.Key == Key.Enter && OkButtonClick.CanExecute(null))
                 OkButtonClick.Execute(null);
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            OkButtonClick.RaiseCanExecuteChanged();
         }
     }
 }

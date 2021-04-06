@@ -16,9 +16,11 @@ namespace GitGUI.Logic
     class LibGitNetworkService
     {
         bool Cancel { get; set; }
+        bool First { get; set; }
         bool PushErrors { get; set; } = false;
         static LibGitNetworkService _instance;
         PushOptions PushOptions { get; set; }
+        FetchOptions FetchOptions { get; set; }
         LibGitService LibGitService { get; set; }
         public Repository Repository { get { return LibGitService.Repository; } }
         public RemoteCollection Remotes { get { return Repository.Network.Remotes; } }
@@ -35,7 +37,8 @@ namespace GitGUI.Logic
 
         void CreateErrorHandlerMap()
         {
-            ErrorHandlersMap.Add("failed to send request: Operace nebyla v požadované době dokončena.\r\n", TimeOut);
+            ErrorHandlersMap.Add("failed to send request: Operace nebyla v požadované době dokončena.\r\n", NoInternetConnection);
+            ErrorHandlersMap.Add("failed to send request: Nelze rozpoznat", NoInternetConnection);
             ErrorHandlersMap.Add("too many redirects or authentication replays", TooManyTries);
             ErrorHandlersMap.Add("invalid refspec", TooManyTries);
             ErrorHandlersMap.Add("UsernamePasswordCredentials contains a null Username or Password.", str => { });
@@ -48,6 +51,11 @@ namespace GitGUI.Logic
                 CredentialsProvider = CredentialsProvider,
                 OnPushStatusError = PushStatusErrorHandler,
                 OnPushTransferProgress = PushTransferProgressHandler,
+            };
+            FetchOptions = new FetchOptions()
+            {
+                CredentialsProvider = CredentialsProvider,
+                OnTransferProgress = FetchTransferProgressHandler
             };
         }
 
@@ -65,6 +73,14 @@ namespace GitGUI.Logic
             return true;
         }
 
+        public bool FetchTransferProgressHandler(TransferProgress p)
+        {
+            ProgressBarDialog.MinorThreadSetCount(p.ReceivedObjects);
+            ProgressBarDialog.MinorThreadSetTotal(p.TotalObjects);
+            ProgressBarDialog.MinorThreadSetBytes(p.ReceivedBytes);
+            return true;
+        }
+
         public void AddRemote(string name, string url)
         {
             Repository.Network.Remotes.Add(name, url);
@@ -72,10 +88,22 @@ namespace GitGUI.Logic
 
         public void Push()
         {
-            ProgressBarDialog = new ProgressBarDialog();
-            ProgressBarDialog.Owner = Application.Current.MainWindow;
-            ProgressBarDialog.Message = "Pushing data...";
-            new Action(DoPush).BeginInvoke(CloseProgressBarDialog, null);
+            ObserveProgress("Pushing data...", new Action(DoPush));
+        }
+
+        public void Fetch()
+        {
+            ObserveProgress("Fetching data...", new Action(DoFetch));
+        }
+
+        public void ObserveProgress(string message, Action action)
+        {
+            ProgressBarDialog = new ProgressBarDialog
+            {
+                Owner = Application.Current.MainWindow,
+                Message = message
+            };
+            action.BeginInvoke(CloseProgressBarDialog, null);
             ProgressBarDialog.ShowDialog();
             Wait.WaitOne();
         }
@@ -88,7 +116,8 @@ namespace GitGUI.Logic
         }
 
         void DoPush()
-        { 
+        {
+            First = true;
             Cancel = false;
             var selected = Program.GetInstance().RemoteManager.SelectedRepositoryRemote;
             string currentBranch = Repository.Head.CanonicalName;
@@ -114,6 +143,26 @@ namespace GitGUI.Logic
             PushErrors = false;
         }
 
+        void DoFetch()
+        {
+            First = true;
+            Cancel = false;
+            var selected = Program.GetInstance().RemoteManager.SelectedRepositoryRemote;
+            string currentBranch = Repository.Head.CanonicalName;
+            try
+            {
+                Repository.Network.Fetch(selected.Name, selected.FetchRefSpecs.Select(s => s.ToString()), FetchOptions);
+            }
+            catch (NonFastForwardException e)
+            {
+                NonFastForwardPush(e.Message);
+            }
+            catch (LibGit2SharpException e)
+            {
+                ParseGeneralException(e);
+            }
+        }
+
         Credentials CredentialsProvider(string url, string usernameFromUrl, SupportedCredentialTypes types)
         {
             var selected = Program.GetInstance().RemoteManager.SelectedRemote;
@@ -135,9 +184,12 @@ namespace GitGUI.Logic
             Application.Current.Dispatcher.Invoke(() =>
             {
                 dialog = new AuthentificationDialog();
+                if (!First)
+                    dialog.invalidCredentioalsInfo.Visibility = Visibility.Visible;
                 dialog.Owner = Application.Current.MainWindow;
                 dr = dialog.ShowDialog();
             });
+            First = false;
             if (dr == true)
                 return new UsernamePasswordCredentials() { Username = dialog.MinorThreadGetName(), Password = dialog.MinorThreadGetPassword() };
             return new UsernamePasswordCredentials() { Username = null, Password = null }; ;
@@ -161,7 +213,7 @@ namespace GitGUI.Logic
 
         void NonFastForwardPush(string message)
         {
-            throw new NotImplementedException(message);
+            Message("Nonfastforward push. Consider pull first.");
         }
 
         void NotImplemented(string message)
@@ -169,19 +221,25 @@ namespace GitGUI.Logic
             throw new NotImplementedException(message);
         }
 
-        void TimeOut(string message)
+        void NoInternetConnection(string message)
         {
-            throw new NotImplementedException(message);
+            Message("Bad internet connection");
         }
 
         void TooManyTries(string message)
         {
-            throw new NotImplementedException(message);
+            Message("Too many authentification tries");
         }
 
         void NoBranch(string message)
         {
             throw new NotImplementedException(message);
+        }
+
+        void Message(string message)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+                MessageBox.Show(Application.Current.MainWindow, message, "Error", MessageBoxButton.OK, MessageBoxImage.Error));
         }
 
         public static LibGitNetworkService GetInstance()

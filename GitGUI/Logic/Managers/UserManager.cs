@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibGit2Sharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -19,6 +20,11 @@ namespace GitGUI.Logic
         public User Current {
             get { return _current ?? User.Anonym; }
             set { _current = value; }
+        }
+
+        public Signature CurrentSignature
+        {
+            get { return new Signature(Current.Identity, DateTimeOffset.Now); }
         }
 
         public ObservableCollection<User> KnownUsers { get; } = new ObservableCollection<User>();

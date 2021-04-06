@@ -17,12 +17,15 @@
         </Grid.RowDefinitions>
         <StackPanel  Margin="15, 15, 15, 0" Grid.Row="0">
             <TextBlock Foreground="White">Name</TextBlock>
-            <TextBox Margin="0,5,0,0"  Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="NameTextBox" />
+            <TextBox TextChanged="OnTextChanged" Margin="0,5,0,0"  Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="NameTextBox" />
         </StackPanel>
         <StackPanel Margin="15,15,15,0" Grid.Row="1">
             <TextBlock Foreground="White">Password</TextBlock>
-            <TextBox KeyUp="OnKeyUp" Margin="0,5,0,0" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="PasswordTextBox" />
+            <TextBox  TextChanged="OnTextChanged" KeyUp="OnKeyUp" Margin="0,5,0,0" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" x:Name="PasswordTextBox" />
         </StackPanel>
-        <Button Grid.Row="2" Height="30" Width="100" Content="OK" x:Name="button" />
+        <StackPanel Grid.Row="2">
+            <TextBlock x:Name="invalidCredentioalsInfo" Visibility="Hidden" Margin="0,0,20,0" HorizontalAlignment="Right" FontSize="10" Foreground="Red">* Invalid username or password</TextBlock>
+            <Button Height="30" Width="100" Content="OK" x:Name="button" />
+        </StackPanel>
     </Grid>
 </Window>

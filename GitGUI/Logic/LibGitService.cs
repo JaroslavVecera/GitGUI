@@ -205,9 +205,9 @@ namespace GitGUI.Logic
         CheckoutedBranch = name != "(no branch)" ? name : null;
         }
 
-        Signature GetCurrentSignature()
+        public Signature GetCurrentSignature()
         {
-            return new Signature(Program.GetInstance().UserManager.Current.Identity, DateTimeOffset.Now);
+            return Program.GetInstance().UserManager.CurrentSignature;
         }
 
         public bool Merge(BranchLabelModel merged)

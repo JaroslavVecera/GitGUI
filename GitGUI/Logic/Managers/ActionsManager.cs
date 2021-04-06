@@ -35,6 +35,7 @@ namespace GitGUI.Logic
         void AddRemoteRepoButtons()
         {
             AddButton(RemoteRepoPanel, "Test", OnPokus);
+            AddButton(RemoteRepoPanel, "Test2", OnPokus2);
         }
 
         public bool IsCheckoutButtonActive()
@@ -102,6 +103,11 @@ namespace GitGUI.Logic
         void OnPokus()
         {
             LibGitNetworkService.GetInstance().Push();
+        }
+
+        void OnPokus2()
+        {
+            LibGitNetworkService.GetInstance().Fetch();
         }
     }
 }
