@@ -105,7 +105,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <Border Visibility="{Binding Converter={StaticResource BoolToVis}, Path=InProgress}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="Red" Height="15" Width="15">
-        </Border>
+        <Path Visibility="{Binding Converter={StaticResource BoolToVis}, Path=InProgress}" Fill="Orange" Data="M-2,16 L14,16 L14,14 L-2,14 M0,14 L5,0 L7,0 L12,14" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <Path Visibility="{Binding Converter={StaticResource BoolToVis}, Path=InProgress}" Fill="White" Data="M14,16 M0.6,12 L11.2,12 L10,9 L1.7,9 M2.8,6 L9,6 L8,4 L3.5,4" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
