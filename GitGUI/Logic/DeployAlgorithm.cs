@@ -18,6 +18,18 @@ namespace GitGUI.Logic
             LastOnRow[n.Row] = n;
         }
 
+        bool AreSortedByTime(List<Node> nodes)
+        {
+            DateTimeOffset t = DateTimeOffset.MinValue;
+            foreach (Node node in nodes)
+            {
+                if (node.Commit.Author.When < t)
+                    return false;
+                t = node.Commit.Author.When;
+            }
+            return true;
+        }
+
         public List<Tuple<Commit, int>> ComputeRows(IEnumerable<Commit> c, BranchCollection b)
         {
             if (!c.Any())
@@ -35,7 +47,9 @@ namespace GitGUI.Logic
                         d.Predecessors.Count - 1 == d.DeployedPredecessors)).ToList();
                 List<int> complement = n.Descendants.Except(possibleDescOnSameRow).Select(x => x.Row).ToList();
                 possibleDescOnSameRow.RemoveAll(d => complement.Contains(d.Row));
-                if (possibleDescOnSameRow.Any())
+                List<Node> sortedDescendants = new List<Node>(n.Descendants);
+                sortedDescendants.Sort((d1, d2) => { return d1.Row < d2.Row ? -1 : 1; });
+                if (possibleDescOnSameRow.Any() && (AreSortedByTime(sortedDescendants) || possibleDescOnSameRow.Min(d => d.Row) == sortedDescendants.First().Row))
                 {
                     Node descOnSameRow = possibleDescOnSameRow.Aggregate((n1, n2) => (n1.Row < n2.Row) ? n1 : n2);
                     n.Row = descOnSameRow.Row;
