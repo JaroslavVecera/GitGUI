@@ -91,6 +91,17 @@ namespace GitGUI.Logic
             Repository.Network.Remotes.Add(name, url);
         }
 
+        public void RemoveRemote(string name)
+        {
+            Repository.Network.Remotes.Remove(name);
+        }
+
+        public void UpdateRemote(string oldName, string url)
+        {
+            LibGit2Sharp.Remote r = Repository.Network.Remotes[oldName];
+            Repository.Network.Remotes.Update(oldName, rem => rem.Url = url);
+        }
+
         public void Push()
         {
             ObserveProgress("Pushing data...", new Action(DoPush));
@@ -223,7 +234,7 @@ namespace GitGUI.Logic
 
         void NotImplemented(string message)
         {
-            throw new NotImplementedException(message);
+            Message(message);
         }
 
         void NoInternetConnection(string message)

@@ -70,25 +70,13 @@ namespace GitGUI
                 CRName = "";
         }
 
-        void OnSelectionChanged(Logic.Remote r)
-        {
-            if (r == null)
-                SelectedRemote = null;
-            else
-            {
-                SelectedRemote = r;
-                CRName = SelectedRemote.Name;
-            }
-            popup.IsOpen = false;
-        }
-
-        private void RemoteSelectionChanged(object sender, SelectionChangedEventArgs e)
+        void RemoteSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var l = e.AddedItems.Cast<Logic.Remote>();
             if (l.Any())
-                OnSelectionChanged(l.First());
+                SelectedRemote = l.First();
             else
-                OnSelectionChanged(null);
+                SelectedRemote = null;
         }
 
         private void DisplayPopup(object sender, RoutedEventArgs e)

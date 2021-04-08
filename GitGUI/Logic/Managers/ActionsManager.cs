@@ -59,6 +59,7 @@ namespace GitGUI.Logic
         public void OnWorkTreeChanged(bool hasChanges)
         {
             StashButton.Active = hasChanges;
+            RemoteRepoLeftGroupPanel.Enabled = RemoteRepoRightGroupPanel.Enabled = Program.GetInstance().RemoteManager.CurrentRemotes.Any();
         }
 
         ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, double width, string pathData)

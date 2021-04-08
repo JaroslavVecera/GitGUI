@@ -812,7 +812,7 @@
                                 </DataTemplate>
                             </ContentControl.ContentTemplate>
                         </ContentControl>
-                        <local:RemoteSelectorView Margin="10,0,0,0" Width="200" Remotes="{Binding Remotes}" SelectedRemote="{Binding SelectedRemote}" />
+                        <local:RemoteSelectorView Margin="10,0,0,0" Width="200" Remotes="{Binding Remotes}" SelectedRemote="{Binding SelectedRemote, Mode=TwoWay}" />
                         <ContentControl Margin="10,0,0,0" VerticalAlignment="Stretch" Content="{Binding Path=RemoteRightActionPanel}">
                             <ContentControl.ContentTemplate>
                                 <DataTemplate>

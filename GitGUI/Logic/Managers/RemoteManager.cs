@@ -5,13 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GitGUI.Logic
 {
     class RemoteManager
     {
+        bool CanSelect { get; set; } = true;
         string _dirPath = "Remotes";
-        public Remote SelectedRemote { get; set; }
+        Remote _selectedRemote;
+        public Remote SelectedRemote { get { return _selectedRemote; } set { if (CanSelect)
+                    _selectedRemote = value; } }
         public LibGit2Sharp.Remote SelectedRepositoryRemote { get { return CurrentRepositoryRemotes?.ToList().Find(r => r.Name == SelectedRemote.Name && r.Url == SelectedRemote.Url); } }
         LibGit2Sharp.RemoteCollection CurrentRepositoryRemotes { get { return LibGitNetworkService.GetInstance().Remotes; } }
         LibGit2Sharp.Repository CurrentRepository { get; set; }
@@ -21,30 +25,48 @@ namespace GitGUI.Logic
         public RemoteManager()
         {
             LibGitService.GetInstance().RepositoryChanged += ChangeRemotes;
-            LibGitService.GetInstance().RepositoryChanged += SelectRemote;
-            LibGitService.GetInstance().BranchUpdated += SelectRemote;
+            LibGitService.GetInstance().BranchUpdated += AggressiveSelectRemote;
+        }
+
+        public void Reset()
+        {
+            SelectedRemote = null;
+            ChangeRemotes();
+            AggressiveSelectRemote();
+        }
+
+        void AggressiveSelectRemote()
+        {
+            if (CurrentRepository == null)
+                return;
+            Remote r = CurrentRemotes.ToList().Find(rep => rep.Name == CurrentRepository.Head.RemoteName);
+            if (r != null)
+                SelectedRemote = r;
+            Program.GetInstance().Data.MainWindowModel.ForceNotify("SelectedRemote");
         }
 
         void SelectRemote()
         {
             if (CurrentRepository == null)
                 return;
-            Remote r = CurrentRemotes.ToList().Find(rep => rep.Name == CurrentRepository.Head.RemoteName);
-            if (r == null && SelectedRemote == null && CurrentRemotes.Any())
+            Remote r = SelectedRemote;
+            if (r == null)
+                r = CurrentRemotes.ToList().FirstOrDefault(rem => rem.Name == SelectedRemote?.Name);
+            if (r == null && CurrentRemotes.Any())
                 r = CurrentRemotes.ToList().First();
-            if (r != null)
-            {
-                SelectedRemote = r;
-                Program.GetInstance().Data.MainWindowModel.ForceNotify("SelectedRemote");
-            }
+            SelectedRemote = r;
+            Program.GetInstance().Data.MainWindowModel.ForceNotify("SelectedRemote");
         }
 
         void ChangeRemotes()
         {
+            CanSelect = false;
             CurrentRemotes.Clear();
             SetupRepository();
             if (CurrentRepository != null)
                 SyncLoggedRemotes();
+            CanSelect = true;
+            SelectRemote();
         }
 
         void SetupRepository()
@@ -94,29 +116,24 @@ namespace GitGUI.Logic
         {
             var repRemotes = CurrentRepositoryRemotes.ToList();
             var remotes = GetRemotes();
-            DeleteLoggedButNonExisting(repRemotes, remotes);
-            remotes = remotes.Union(LogNew(repRemotes, remotes)).ToList();
+            bool anyChanges = DeleteLoggedButNonExisting(repRemotes, remotes);
+            remotes = remotes.Union(LogNew(repRemotes, remotes, anyChanges)).ToList();
             remotes.ForEach(r => CurrentRemotes.Add(r));
         }
 
-        void DeleteLoggedButNonExisting(List<LibGit2Sharp.Remote> repRemotes, List<Remote> remotes)
+        bool DeleteLoggedButNonExisting(List<LibGit2Sharp.Remote> repRemotes, List<Remote> remotes)
         {
-            List<Remote> nonExisting = remotes.Where(r => !repRemotes.Any(rr => rr.Name == r.Name && rr.Url == r.Url)).ToList();
-            nonExisting.ForEach(DeleteRemote);
+            return remotes.RemoveAll(r => !repRemotes.Any(rr => rr.Name == r.Name && rr.Url == r.Url)) > 0;
         }
 
-        List<Remote> LogNew(List<LibGit2Sharp.Remote> repRemotes, List<Remote> remotes)
+        List<Remote> LogNew(List<LibGit2Sharp.Remote> repRemotes, List<Remote> remotes, bool anyChanges)
         {
-            List<Remote> res = repRemotes.Where(rr => !remotes.Any(r => r.Name == rr.Name && r.Url == rr.Url))
+            List<Remote> newRemotes = repRemotes.Where(rr => !remotes.Any(r => r.Name == rr.Name && r.Url == rr.Url))
                                          .Select(rr => new Remote(rr.Name, rr.Url))
                                          .ToList();
-            SaveRemotes(res);
-            return res;
-        }
-
-        void DeleteRemote(Remote r)
-        {
-            throw new NotImplementedException();
+            if (newRemotes.Any() || anyChanges)
+                SaveRemotes(newRemotes.Union(remotes).ToList());
+            return newRemotes;
         }
 
         void SaveRemotes(List<Remote> remotes)
@@ -148,6 +165,60 @@ namespace GitGUI.Logic
                 res.Add(new Remote(name, url, userName, password));
             }
             return res;
+        }
+
+        public void CreateRemote()
+        {
+            RemoteWindow w = new RemoteWindow();
+            w.Owner = Application.Current.MainWindow;
+            w.ShowDialog();
+            if (w.DialogResult == true)
+                CreateRemote(w.RemoteName, w.Url, w.UserName, w.Password);
+        }
+
+        void CreateRemote(string name, string url, string userName, string password)
+        {
+            if (CurrentRepositoryRemotes.Any(rr => rr.Name == name))
+                MessageBox.Show(Application.Current.MainWindow, "Remote with name " + name + " already exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                var r = new List<Remote>() { new Remote(name, url, userName, password) };
+                SaveRemotes(r.Union(CurrentRemotes).ToList());
+                LibGitNetworkService.GetInstance().AddRemote(name, url);
+            }
+        }
+
+        public void RemoveRemote(Remote r)
+        {
+            LibGitNetworkService.GetInstance().RemoveRemote(r.Name);
+        }
+
+        public void EditRemote(Remote r)
+        {
+            RemoteWindow w = new RemoteWindow();
+            w.Owner = Application.Current.MainWindow;
+            w.Role = RemoteWindowRole.Edit;
+            w.RemoteName = r.Name;
+            w.Url = r.Url;
+            w.UserName = r.UserName;
+            w.Password = r.Password;
+            w.ShowDialog();
+            if (w.DialogResult == true)
+                EditRemote(r, w.Url, w.UserName, w.Password);
+        }
+
+        void EditRemote(Remote r, string url, string userName, string password)
+        {
+            string oldUrl = r.Url;
+            r.Update(url, userName, password);
+            UpdateRemotes();
+            if (oldUrl != url)
+                LibGitNetworkService.GetInstance().UpdateRemote(r.Name, url);
+        }
+
+        void UpdateRemotes()
+        {
+            SaveRemotes(CurrentRemotes.ToList());
         }
     }
 }

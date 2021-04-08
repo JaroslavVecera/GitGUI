@@ -40,7 +40,7 @@ namespace GitGUI.Logic
             mwvm.StashMenu = wm;
             RepositoryManager.Opened += m => MainWindowModel.RepoPath = m.RepositoryPath;
             MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
-            RepositoryManager.Closed += m => { MainWindowModel.RepoPath = ""; MainWindowModel.RecentRepos = RepositoryManager.RecentRepos; };
+            RepositoryManager.Closed += m => { MainWindowModel.RepoPath = ""; MainWindowModel.RecentRepos = RepositoryManager.RecentRepos; RemoteManager.Reset(); };
             RepositoryManager.RecentRepositoryChanged += () => MainWindowModel.RecentRepos = RepositoryManager.RecentRepos;
             UserManager.UsersChanged += () => MainWindowModel.OnUsersChanged();
         }

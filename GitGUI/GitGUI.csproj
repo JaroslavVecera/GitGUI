@@ -95,6 +95,12 @@
     <Compile Include="Dialogs\ProgressBarDialog.xaml.cs">
       <DependentUpon>ProgressBarDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Remote.xaml.cs">
+      <DependentUpon>Remote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\RemoteWindow.xaml.cs">
+      <DependentUpon>RemoteWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RemoteSelectorView.xaml.cs">
       <DependentUpon>RemoteSelectorView.xaml</DependentUpon>
     </Compile>
@@ -221,6 +227,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ProgressBarDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Remote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\RemoteWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

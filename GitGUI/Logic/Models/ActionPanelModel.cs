@@ -13,6 +13,8 @@ namespace GitGUI.Logic
     public class ActionPanelModel : ModelBase
     {
         public event Action<ActionButtonViewModel> Added;
+        bool _enabled = true;
+        public bool Enabled { get { return _enabled; } set { _enabled = value; ButtonViewModels.ForEach(m => m.Model.Active = value); } }
 
         public List<ActionButtonViewModel> ButtonViewModels { get; } = new List<ActionButtonViewModel>();
 
