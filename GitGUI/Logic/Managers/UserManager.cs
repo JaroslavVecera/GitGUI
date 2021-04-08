@@ -1,4 +1,5 @@
 ﻿using LibGit2Sharp;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ namespace GitGUI.Logic
     public class UserManager
     {
         public event Action UsersChanged;
-        string _dirPath = "Users";
+        string _dirPath = AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + "Users";
         User _current;
         public User Current {
             get { return _current ?? User.Anonym; }
@@ -103,6 +104,73 @@ namespace GitGUI.Logic
             while (Directory.Exists(_dirPath + Path.DirectorySeparatorChar + name.ToString()))
                 name++;
             return  _dirPath + Path.DirectorySeparatorChar + name.ToString();
+        }
+
+        public void ShareDatabase()
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select directory to copy user database";
+            dialog.UseDescriptionForTitle = true;
+            var ans = dialog.ShowDialog();
+            if (ans != true)
+                return;
+            ShareDatabase(dialog.SelectedPath);
+        }
+
+        void ShareDatabase(string path)
+        {
+            string target = Path.Combine(path, "Users");
+            Directory.CreateDirectory(target);
+            CopyUsersDir(new DirectoryInfo(_dirPath), new DirectoryInfo(target));
+        }
+
+        void CopyUsersDir(DirectoryInfo source, DirectoryInfo target)
+        {
+            Directory.CreateDirectory(target.FullName);
+            foreach (DirectoryInfo s in source.GetDirectories())
+            {
+                DirectoryInfo ts = target.CreateSubdirectory(s.Name);
+                CopyUser(s, ts);
+            }
+        }
+
+        void CopyUser(DirectoryInfo source, DirectoryInfo target)
+        {
+            foreach (FileInfo i in source.GetFiles())
+                i.CopyTo(Path.Combine(target.FullName, i.Name), true);
+        }
+
+        public void UpdateDatabase()
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select user database to update from";
+            dialog.UseDescriptionForTitle = true;
+            var ans = dialog.ShowDialog();
+            if (ans != true)
+                return;
+            try
+            {
+                UpdateDatabase(dialog.SelectedPath);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Corrupted user database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        void UpdateDatabase(string path)
+        {
+            List<User> newUsers = new List<User>();
+            foreach (string d in Directory.GetDirectories(path))
+            {
+                var user = new User(d);
+                if (!KnownUsers.Any(u => u.Email == user.Email && u.Name == user.Name))
+                    newUsers.Add(user);
+            }
+            newUsers.ForEach(u =>
+            {
+                AddUser(u.Name, u.Email, u.BitmapCopy);
+            });
         }
     }
 }

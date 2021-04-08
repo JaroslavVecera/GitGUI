@@ -25,8 +25,7 @@ namespace GitGUI.Logic
         public RelayCommand OnDelete { get; private set; }
         public string PicturePath
         {
-            get { return (File.Exists(PotentialPicturePath)) ? 
-                    AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + PotentialPicturePath : null;
+            get { return (File.Exists(PotentialPicturePath)) ? PotentialPicturePath : null;
             }
         }
 

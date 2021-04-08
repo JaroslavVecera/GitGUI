@@ -310,8 +310,8 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button IsEnabled="False">Update database</Button>
-                        <Button Margin="5,0,0,0" IsEnabled="False" Grid.Column="1">Share database</Button>
+                        <Button Command="{Binding UpdateDatabase}">Update database</Button>
+                        <Button Margin="5,0,0,0" Command="{Binding ShareDatabase}" Grid.Column="1">Share database</Button>
                     </Grid>
                 </Grid>
                 </Border>

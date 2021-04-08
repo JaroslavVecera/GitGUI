@@ -24,9 +24,10 @@ namespace GitGUI.Logic
         public IEnumerable<string> RecentRepos { get { return _recentRepos; } set { _recentRepos = value; OnPropertyChanged(); } }
         public RelayCommand<MenuItem> OpenRecentRepo { get; private set; }
         public RelayCommand CreateNewUser { get; private set; }
+        public RelayCommand ShareDatabase { get; private set; }
+        public RelayCommand UpdateDatabase { get; private set; }
         public RelayCommand CreateNewRemote { get; private set; }
-        public Remote SelectedRemote { get { return Program.GetInstance().RemoteManager.SelectedRemote; }
-            set { Program.GetInstance().RemoteManager.SelectedRemote = value; } }
+        public Remote SelectedRemote { get { return Program.GetInstance().RemoteManager.SelectedRemote; } set { Program.GetInstance().RemoteManager.SelectedRemote = value; } }
         public ActionPanelModel RemoteLeftPanelModel { get; } = new ActionPanelModel();
         public ActionPanelModel RemoteRightPanelModel { get; } = new ActionPanelModel();
 
@@ -45,6 +46,8 @@ namespace GitGUI.Logic
             OpenRecentRepo = new RelayCommand<MenuItem>(i => Program.GetInstance().OpenRecentRepository((string)i.Header));
             CreateNewUser = new RelayCommand(() => Program.GetInstance().UserManager.CreateNewUser());
             CreateNewRemote = new RelayCommand(() => Program.GetInstance().RemoteManager.CreateRemote());
+            UpdateDatabase = new RelayCommand(() => Program.GetInstance().UserManager.UpdateDatabase());
+            ShareDatabase = new RelayCommand(() => Program.GetInstance().UserManager.ShareDatabase());
         }
 
         public void OpenAggregatingContextMenu()
