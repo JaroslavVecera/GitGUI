@@ -15,7 +15,6 @@ namespace GitGUI.Logic
 {
     class LibGitNetworkService
     {
-        bool Cancel { get; set; }
         bool First { get; set; }
         bool PushErrors { get; set; } = false;
         static LibGitNetworkService _instance;
@@ -104,12 +103,17 @@ namespace GitGUI.Logic
 
         public void Push()
         {
-            ObserveProgress("Pushing data...", new Action(DoPush));
+            ObserveProgress("Pushing HEAD", new Action(DoPush));
         }
 
         public void Fetch()
         {
-            ObserveProgress("Fetching data...", new Action(DoFetch));
+            ObserveProgress("Fetching all tracked branches", new Action(DoFetch));
+        }
+
+        public void Pull()
+        {
+            ObserveProgress("Pulling to HEAD", new Action(DoPull));
         }
 
         public void ObserveProgress(string message, Action action)
@@ -134,7 +138,6 @@ namespace GitGUI.Logic
         void DoPush()
         {
             First = true;
-            Cancel = false;
             var selected = Program.GetInstance().RemoteManager.SelectedRepositoryRemote;
             string currentBranch = Repository.Head.CanonicalName;
             try
@@ -162,12 +165,36 @@ namespace GitGUI.Logic
         void DoFetch()
         {
             First = true;
-            Cancel = false;
             var selected = Program.GetInstance().RemoteManager.SelectedRepositoryRemote;
             string currentBranch = Repository.Head.CanonicalName;
             try
             {
                 Repository.Network.Fetch(selected.Name, selected.FetchRefSpecs.Select(s => s.ToString()), FetchOptions);
+            }
+            catch (NonFastForwardException e)
+            {
+                NonFastForwardPush(e.Message);
+            }
+            catch (LibGit2SharpException e)
+            {
+                ParseGeneralException(e);
+            }
+        }
+
+        void DoPull()
+        {
+            First = true;
+            var selected = Program.GetInstance().RemoteManager.SelectedRepositoryRemote;
+            if (selected == null)
+                Message("No remote to pull from");
+            if (Repository.Info.IsHeadDetached || Repository.Info.IsHeadDetached)
+                Message("No branch to pull");
+            Branch currentBranch = Repository.Head;
+            Repository.Branches.Update(currentBranch, b => b.Remote = selected.Name, b => b.UpstreamBranch = currentBranch.CanonicalName);
+            try
+            {
+                PullOptions options = new PullOptions() { FetchOptions = FetchOptions, };
+                Commands.Pull(Repository, Program.GetInstance().UserManager.CurrentSignature, options);
             }
             catch (NonFastForwardException e)
             {

@@ -77,6 +77,7 @@ namespace GitGUI
                 SelectedRemote = l.First();
             else
                 SelectedRemote = null;
+            popup.IsOpen = false;
         }
 
         private void DisplayPopup(object sender, RoutedEventArgs e)

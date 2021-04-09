@@ -37,12 +37,13 @@ namespace GitGUI.Logic
 
         void AddRemoteLeftRepoButtons()
         {
-            AddButton(RemoteRepoLeftGroupPanel, "Push", OnPush, 80, "M6,22 L6,9 L2,9 L8,2 L14,9 L10,9 L10,22");
+            AddButton(RemoteRepoLeftGroupPanel, "Push", OnPush, 80, "M6,22 L6,9 L2,9 L8,2 L14,9 L10,9 L10,22", true);
         }
 
         void AddRemoteRightRepoButtons()
         { 
-            AddButton(RemoteRepoRightGroupPanel, "Fetch", OnFetch, 80, "M6,2 L6,15 L2,15 L8,22 L14,15 L10,15 L10,2");
+            AddButton(RemoteRepoRightGroupPanel, "Fetch", OnFetch, 80, "M6,2 L6,15 L2,15 L8,22 L14,15 L10,15 L10,2", false);
+            AddButton(RemoteRepoRightGroupPanel, "Pull", OnPull, 80, "M6,2 L6,15 L2,15 L8,22 L14,15 L10,15 L10,2", true);
         }
 
         public bool IsCheckoutButtonActive()
@@ -62,10 +63,11 @@ namespace GitGUI.Logic
             RemoteRepoLeftGroupPanel.Enabled = RemoteRepoRightGroupPanel.Enabled = Program.GetInstance().RemoteManager.CurrentRemotes.Any();
         }
 
-        ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, double width, string pathData)
+        ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, double width, string pathData, bool filled)
         {
             ActionButtonModel m = AddButton(panel, text, action);
             m.Width = width;
+            m.FilledPath = filled;
             m.PathData = Geometry.Parse(pathData);
             return m;
         }
@@ -119,6 +121,11 @@ namespace GitGUI.Logic
         void OnPush()
         {
             LibGitNetworkService.GetInstance().Push();
+        }
+
+        void OnPull()
+        {
+            LibGitNetworkService.GetInstance().Pull();
         }
 
         void OnFetch()

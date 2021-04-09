@@ -15,6 +15,7 @@ namespace GitGUI.Logic
     public class ActionButtonModel : ModelBase
     {
         public double Width { get; set; } = 150;
+        public bool FilledPath { get; set; } = true;
         string _text;
         public Geometry PathData { set; get; }
         public string Text

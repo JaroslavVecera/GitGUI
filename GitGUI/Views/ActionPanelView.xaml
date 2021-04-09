@@ -49,7 +49,18 @@
                     </Button.Style>
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <Path Margin="0,0,3,0" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" Data="{Binding PathData}" />
+                            <Path Margin="0,0,3,0" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" Data="{Binding PathData}">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FilledPath}" Value="false">
+                                                <Setter Property="Fill" Value="Transparent" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
                             <TextBlock Text="{Binding Path=Text}" Margin="2" />
                         </StackPanel>
                     </Button.Content>

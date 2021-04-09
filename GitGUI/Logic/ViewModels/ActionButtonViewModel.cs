@@ -16,6 +16,7 @@ namespace GitGUI.Logic
         public string Text { get { return Model.Text; } }
         public double Width { get { return Model.Width; } }
         public Geometry PathData {get {return Model.PathData; } }
+        public bool FilledPath { get { return Model.FilledPath; } }
 
         public ActionButtonViewModel(ActionButtonModel model)
         {
