@@ -175,9 +175,9 @@
                             Path=ActualWidth}"
                        PlacementTarget ="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:UserSelectorView}}}">
-                <Border BorderBrush="Gray">
-                <Grid Background="#1e1e1e">
-                    <Grid.Resources>
+                <Border BorderBrush="Gray" BorderThickness="1">
+                    <Grid Background="#1e1e1e">
+                        <Grid.Resources>
                             <Style  TargetType="Button">
                                 <Setter Property="Foreground" Value="LightGray"/>
                                 <Setter Property="Background" Value="#3E3E42"/>
@@ -209,111 +209,111 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Resources>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="25" />
-                    </Grid.RowDefinitions>
-                    <ListView x:Name="list" BorderThickness="0" Background="#1e1e1e" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, 
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="25" />
+                        </Grid.RowDefinitions>
+                        <ListView x:Name="list" BorderThickness="0" Background="#1e1e1e" Foreground="White" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, 
                                 AncestorType={x:Type local:UserSelectorView}}, Path=Users, Mode=OneWay, NotifyOnSourceUpdated=True}" SelectionChanged="UserSelectionChanged" SelectionMode="Single">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                            <Grid>
-                                                <Border x:Name="ListBoxItemRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" CornerRadius="2" Uid="Border_57">
-                                                    <Grid Height="40" x:Name="ListBoxItemContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Uid="ListBoxItemContent" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="40"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Rectangle>
-                                                            <Rectangle.Fill>
-                                                                <ImageBrush ImageSource="{Binding PictureCopy}" />
-                                                            </Rectangle.Fill>
-                                                        </Rectangle>
-                                                        <StackPanel Grid.Column="1" Margin="5,0,0,0">
-                                                            <TextBlock TextTrimming="CharacterEllipsis" FontSize="16" Text="{Binding Name}" />
-                                                            <TextBlock TextTrimming="CharacterEllipsis" Padding="0,0,0,5" Text="{Binding Email}" />
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </Border>
-                                                <StackPanel Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="buttons">
-                                                    <Button Visibility="{Binding IsEditable, Converter={StaticResource ResourceKey=BoolToVis}}"  Command="{Binding OnEdit}" Style="{DynamicResource ButtonStyle2}">
-                                                        <Button.LayoutTransform>
-                                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                                                        </Button.LayoutTransform>
-                                                    </Button>
-                                                        <Button Visibility="{Binding IsEditable, Converter={StaticResource ResourceKey=BoolToVis}}" Margin="3,0,3,0" Command="{Binding OnDelete}" Style="{DynamicResource ButtonStyle3}">
-                                                        <Button.LayoutTransform>
-                                                            <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
-                                                        </Button.LayoutTransform>
-                                                    </Button>
-                                                </StackPanel>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Visibility" Value="Visible" TargetName="buttons" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="IsMouseOver" Value="True"/>
-                                            <Condition Property="IsSelected" Value="False"/>
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="Background" Value="#3D26A0DA"/>
-                                        <Setter Property="BorderBrush" Value="#FF26A0DA"/>
-                                    </MultiTrigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#3e3e42"/>
-                                        <Setter Property="BorderBrush" Value="#3e3e42"/>
-                                    </Trigger>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Foreground" Value="#DADADADA"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                                <Style.BasedOn>
-                                    <Style TargetType="{x:Type ListBoxItem}">
-                                        <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                        <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MessageFontFamilyKey}}"/>
-                                        <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"/>
-                                        <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MessageFontWeightKey}}"/>
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Setter Property="Padding" Value="4,2"/>
-                                        <Setter Property="MinHeight" Value="20"/>
-                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                    <Border x:Name="ListBoxItemRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Uid="ListBoxItemRoot">
-
-
-
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <Grid>
+                                                    <Border x:Name="ListBoxItemRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}" CornerRadius="2" Uid="Border_57">
+                                                        <Grid Height="40" x:Name="ListBoxItemContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Uid="ListBoxItemContent" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="40"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Rectangle>
+                                                                <Rectangle.Fill>
+                                                                    <ImageBrush ImageSource="{Binding PictureCopy}" />
+                                                                </Rectangle.Fill>
+                                                            </Rectangle>
+                                                            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                                                                <TextBlock TextTrimming="CharacterEllipsis" FontSize="16" Text="{Binding Name}" />
+                                                                <TextBlock TextTrimming="CharacterEllipsis" Padding="0,0,0,5" Text="{Binding Email}" />
+                                                            </StackPanel>
+                                                        </Grid>
                                                     </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Style.BasedOn>
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                    <Button Margin="5,5,5,5" Grid.Row="1" Command="{Binding CreateNewUser}">Create</Button>
-                    <Grid Margin="5,0,5,5" Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Button Command="{Binding UpdateDatabase}">Update database</Button>
-                        <Button Margin="5,0,0,0" Command="{Binding ShareDatabase}" Grid.Column="1">Share database</Button>
+                                                    <StackPanel Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" x:Name="buttons">
+                                                        <Button Visibility="{Binding IsEditable, Converter={StaticResource ResourceKey=BoolToVis}}"  Command="{Binding OnEdit}" Style="{DynamicResource ButtonStyle2}">
+                                                            <Button.LayoutTransform>
+                                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                                            </Button.LayoutTransform>
+                                                        </Button>
+                                                        <Button Visibility="{Binding IsEditable, Converter={StaticResource ResourceKey=BoolToVis}}" Margin="3,0,3,0" Command="{Binding OnDelete}" Style="{DynamicResource ButtonStyle3}">
+                                                            <Button.LayoutTransform>
+                                                                <ScaleTransform ScaleX="0.8" ScaleY="0.8" />
+                                                            </Button.LayoutTransform>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" TargetName="buttons" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsMouseOver" Value="True"/>
+                                                <Condition Property="IsSelected" Value="False"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" Value="#3D26A0DA"/>
+                                            <Setter Property="BorderBrush" Value="#FF26A0DA"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#3e3e42"/>
+                                            <Setter Property="BorderBrush" Value="#3e3e42"/>
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="#DADADADA"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                    <Style.BasedOn>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                            <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MessageFontFamilyKey}}"/>
+                                            <Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MessageFontSizeKey}}"/>
+                                            <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MessageFontWeightKey}}"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Padding" Value="4,2"/>
+                                            <Setter Property="MinHeight" Value="20"/>
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                        <Border x:Name="ListBoxItemRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Uid="ListBoxItemRoot">
+
+
+
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Style.BasedOn>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                        <Button Margin="5,5,5,5" Grid.Row="1" Command="{Binding CreateNewUser}">Create</Button>
+                        <Grid Margin="5,0,5,5" Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Button Command="{Binding UpdateDatabase}">Update database</Button>
+                            <Button Margin="5,0,0,0" Command="{Binding ShareDatabase}" Grid.Column="1">Share database</Button>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Border>
             </Popup>
         </Button>

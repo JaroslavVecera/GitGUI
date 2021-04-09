@@ -196,7 +196,7 @@
                             Path=ActualWidth}"
                        PlacementTarget ="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:RemoteSelectorView}}}">
-                <Border BorderBrush="Gray">
+                <Border BorderBrush="Gray" BorderThickness="1">
                     <Grid Background="#1e1e1e">
                         <Grid.Resources>
                             <Style  TargetType="Button">
