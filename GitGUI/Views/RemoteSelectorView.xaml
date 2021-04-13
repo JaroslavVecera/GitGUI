@@ -41,10 +41,14 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="border" Background="Transparent" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <StackPanel>
-                                <Path HorizontalAlignment="Center" Fill="LightGray" x:Name="arrow" Data="M0,10L8,10 4,14z" Style="{DynamicResource PathStyle1}" />
-                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Left" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                                <Path Margin="5,0,5,0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Fill="LightGray" x:Name="arrow" Data="M0,0L8,0 4,4z" Style="{DynamicResource PathStyle1}" />
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -145,12 +149,14 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+    <Button Click="DisplayPopup" BorderThickness="0"
+                Grid.Column="2" Style="{DynamicResource ButtonStyle1}">
+        <StackPanel Orientation="Horizontal">
     <Grid Margin="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="55"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="25"/>
-        </Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
         <Path Margin="5,0,5,0" Fill="White">
             <Path.Data>
                 <CombinedGeometry>
@@ -189,8 +195,8 @@
                             AncestorType={x:Type local:RemoteSelectorView}}, 
                             Path=CRName}"
                     Padding="3" TextTrimming="CharacterEllipsis"/>
-            <Button Click="DisplayPopup"  Margin="2"
-                Grid.Column="2" Style="{DynamicResource ButtonStyle1}">
+
+            </Grid>
             <Popup MaxHeight="400" Name="popup" StaysOpen="False" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:RemoteSelectorView}}, 
                             Path=ActualWidth}"
@@ -301,9 +307,6 @@
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                         <Border x:Name="ListBoxItemRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Uid="ListBoxItemRoot">
-
-
-
                                                         </Border>
                                                     </ControlTemplate>
                                                 </Setter.Value>
@@ -317,6 +320,6 @@
                     </Grid>
                 </Border>
             </Popup>
-        </Button>
-    </Grid>
+        </StackPanel>
+    </Button>
 </UserControl>

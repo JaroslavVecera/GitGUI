@@ -40,11 +40,15 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" Background="Transparent" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                            <StackPanel>
-                                <Path HorizontalAlignment="Center" Fill="LightGray" x:Name="arrow" Data="M0,10L8,10 4,14z" Style="{DynamicResource PathStyle1}" />
-                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            </StackPanel>
+                        <Border x:Name="border" Background="Transparent" BorderThickness="0" SnapsToDevicePixels="true">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Path Grid.Column="1" Margin="5,0,5,0" HorizontalAlignment="Center" Fill="LightGray" x:Name="arrow" Data="M0,0L8,0 4,4z" VerticalAlignment="Center" Style="{DynamicResource PathStyle1}" />
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
+                            </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="true">
@@ -145,31 +149,9 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="1">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="{Binding RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type local:UserSelectorView}}, 
-                            Path=ActualHeight}"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="25"/>
-        </Grid.ColumnDefinitions>
-        <Grid Background="#28282a" Margin="2">
-            <TextBlock Foreground="#1e1e1e" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20">?</TextBlock>
-            <Rectangle>
-                <Rectangle.Fill>
-                    <ImageBrush  ImageSource="{Binding RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type local:UserSelectorView}}, 
-                            Path=CUBitmap, TargetNullValue={x:Null}}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </Grid>
-        <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Grid.Column="1" Foreground="White"
-                    Text="{Binding RelativeSource={RelativeSource FindAncestor, 
-                            AncestorType={x:Type local:UserSelectorView}}, 
-                            Path=CUName}"
-                    Padding="3" TextTrimming="CharacterEllipsis"/>
-        <Button Click="DisplayPopup" Margin="2"
+    <Button Click="DisplayPopup" BorderThickness="0"
                 Grid.Column="2" Style="{DynamicResource ButtonStyle1}">
+        <StackPanel>
             <Popup MaxHeight="400" Name="popup" StaysOpen="False" Width="{Binding RelativeSource={RelativeSource FindAncestor, 
                             AncestorType={x:Type local:UserSelectorView}}, 
                             Path=ActualWidth}"
@@ -316,6 +298,30 @@
                     </Grid>
                 </Border>
             </Popup>
-        </Button>
-    </Grid>
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type local:UserSelectorView}}, 
+                            Path=ActualHeight}"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="#28282a">
+                    <TextBlock Foreground="#1e1e1e" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20">?</TextBlock>
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <ImageBrush  ImageSource="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type local:UserSelectorView}}, 
+                            Path=CUBitmap, TargetNullValue={x:Null}}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+                <TextBlock Margin="5,0,5,0" VerticalAlignment="Center" Grid.Column="1" Foreground="White"
+                    Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            AncestorType={x:Type local:UserSelectorView}}, 
+                            Path=CUName}"
+                    Padding="3" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+        </StackPanel>
+    </Button>
 </UserControl>
