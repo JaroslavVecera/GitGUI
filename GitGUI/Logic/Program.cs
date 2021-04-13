@@ -96,6 +96,41 @@ namespace GitGUI.Logic
             }
         }
 
+        public void CloneRepository()
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            dialog.Description = "Select directory for new repository";
+            dialog.UseDescriptionForTitle = true;
+            var ans = dialog.ShowDialog();
+            if (ans == null || ans == false)
+                return;
+            CloneRepository(dialog.SelectedPath);
+        }
+
+        public void CloneRepository(string path)
+        {
+            RepositoryClosed();
+            TabManager.AddMainTab();
+            var v = LibGitService.GetInstance().IsValidRepository(path);
+            if (v != RepositoryValidation.Invalid)
+            {
+                TabManager.CloseAll();
+                MessageBox.Show("There is already a repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            var dialog = new CloneDialog();
+            var ans = dialog.ShowDialog();
+            if (ans == null || ans == false)
+                return;
+            v = RepositoryManager.Clone(path, dialog.ResponseText);
+            if (v != RepositoryValidation.Valid)
+                TabManager.CloseAll();
+            else
+            {
+                Graph.GetInstance().ResetTranslate();
+            }
+        }
+
         public void OpenRepository()
         {
             var dialog = new VistaFolderBrowserDialog();

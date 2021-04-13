@@ -781,6 +781,11 @@
                                     <Image Source="../icons/new-repo.ico"/>
                                 </MenuItem.Icon>
                             </MenuItem>
+                            <MenuItem Header="Clone" Click="CloneRepository">
+                                <MenuItem.Icon>
+                                    <Image Source="../icons/clone-repo.ico"/>
+                                </MenuItem.Icon>
+                            </MenuItem>
                             <MenuItem Header="Open" Click="OpenRepository">
                                 <MenuItem.Icon>
                                     <Image Source="../icons/open-repo.ico"/>

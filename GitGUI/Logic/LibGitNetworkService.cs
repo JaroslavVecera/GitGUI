@@ -103,17 +103,22 @@ namespace GitGUI.Logic
 
         public void Push()
         {
-            ObserveProgress("Pushing HEAD", new Action(DoPush));
+            ObserveProgress("Pushing HEAD", DoPush);
         }
 
         public void Fetch()
         {
-            ObserveProgress("Fetching all tracked branches", new Action(DoFetch));
+            ObserveProgress("Fetching all tracked branches", DoFetch);
         }
 
         public void Pull()
         {
-            ObserveProgress("Pulling to HEAD", new Action(DoPull));
+            ObserveProgress("Pulling to HEAD", DoPull);
+        }
+
+        public void Clone(string path, string url)
+        {
+            ObserveProgress("Clonning repository", () => DoClone(path, url));
         }
 
         public void ObserveProgress(string message, Action action)
@@ -199,6 +204,18 @@ namespace GitGUI.Logic
             catch (NonFastForwardException e)
             {
                 NonFastForwardPush(e.Message);
+            }
+            catch (LibGit2SharpException e)
+            {
+                ParseGeneralException(e);
+            }
+        }
+
+        void DoClone(string path, string url)
+        {
+            try
+            {
+                Repository.Clone(url, path, new CloneOptions() { FetchOptions = FetchOptions });
             }
             catch (LibGit2SharpException e)
             {

@@ -56,6 +56,18 @@ namespace GitGUI.Logic
             return v;
         }
 
+        public RepositoryValidation Clone(string path, string url)
+        {
+            LibGitNetworkService.GetInstance().Clone(path, url);
+            var v = LibGitService.GetInstance().IsValidRepository(path);
+            if (v == RepositoryValidation.Valid)
+            {
+                LibGitService.GetInstance().OpenNewRepository(path);
+                Open(path);
+            }
+            return v;
+        }
+
         public bool OpenExisting(string path)
         {
             var v = LibGitService.GetInstance().IsValidRepository(path);

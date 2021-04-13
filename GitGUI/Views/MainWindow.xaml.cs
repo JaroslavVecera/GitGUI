@@ -75,6 +75,11 @@ namespace GitGUI
             Program.GetInstance().CreateRepository();
         }
 
+        private void CloneRepository(object sender, RoutedEventArgs e)
+        {
+            Program.GetInstance().CloneRepository();
+        }
+
         private void OnChangedUser(object sender, RoutedEventArgs e)
         {
             ChangedUserEventArgs args = (ChangedUserEventArgs)e;
