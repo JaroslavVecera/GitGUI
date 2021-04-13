@@ -53,5 +53,11 @@ namespace GitGUI
         }
 
         protected override void RefreshMaximizeRestoreButton() { }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && OkButtonClick.CanExecute(null))
+                OkButtonClick.Execute(null);
+        }
     }
 }

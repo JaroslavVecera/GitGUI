@@ -33,7 +33,7 @@ namespace GitGUI.Logic
             modified.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Modified(change.Path), true); changed.Add(change.Path); });
             deleted.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Deleted(change.Path), true); changed.Add(change.Path); });
             renamed.ToList().ForEach(change => { root.InsertItem(change.Path, ChangesInfo.Renamed(change.OldPath, change.Path), true); changed.Add(change.Path); });
-            conflicted.ToList().ForEach(change => { root.InsertStaticItem(change.Path, null, true); changed.Add(change.Path); });
+            conflicted.ToList().ForEach(change => { root.InsertStaticItem(change.Path, ChangesInfo.Conflict(change.Path), true); changed.Add(change.Path); });
             var removed = Model.RepositoryStatus.Removed;
             removed.Where(sc => !changed.Contains(sc.FilePath)).ToList().ForEach(sc => { root.InsertItem(sc.FilePath, ChangesInfo.Deleted(sc.FilePath), true); });
             var modified2 = Model.RepositoryStatus.Modified;

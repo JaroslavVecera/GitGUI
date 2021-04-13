@@ -88,17 +88,13 @@
                 </Button>
             </Grid>
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*"/>
-                    <ColumnDefinition Width="8*"/>
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:InputDialog}}" Grid.Column="1" Margin="13,13,195,13" />
-                <TextBox Height="25" TextChanged="TextChanged" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" Margin="15,15,15,13" x:Name="ResponseTextBox" Grid.ColumnSpan="2" />
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:InputDialog}}"  Margin="13" />
+                <TextBox Height="25" TextChanged="TextChanged" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" Margin="15,15,15,13" x:Name="ResponseTextBox" KeyDown="OnKeyDown" />
                 <Button Grid.Row="2" Height="30" Width="100" Content="OK" x:Name="button" Grid.ColumnSpan="2" Margin="145,11" />
             </Grid>
         </Grid>

@@ -79,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\CommitEditorChangeInfos\ConflictInfoView.xaml.cs">
+      <DependentUpon>ConflictInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\Changes\ConflictInfo.cs" />
     <Compile Include="WindowBase.cs" />
     <Compile Include="Dialogs\AuthentificationDialog.xaml.cs">
       <DependentUpon>AuthentificationDialog.xaml</DependentUpon>
@@ -223,6 +227,10 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\CommitEditorChangeInfos\ConflictInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AuthentificationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

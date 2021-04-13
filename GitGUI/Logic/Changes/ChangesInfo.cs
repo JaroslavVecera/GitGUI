@@ -36,7 +36,12 @@ namespace GitGUI.Logic
 
         public static ChangesInfo Untracked(string path)
         {
-            return new UntrackedInfo("placeholder");
+            return new UntrackedInfo();
+        }
+
+        public static ChangesInfo Conflict(string path)
+        {
+            return new ConflictInfo();
         }
     }
 }

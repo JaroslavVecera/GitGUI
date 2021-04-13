@@ -405,7 +405,7 @@
                     </Border>
                 </Grid>
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Grid Width="300">
+                    <Grid Width="500">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
