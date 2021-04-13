@@ -825,7 +825,7 @@
                             </ContentControl.ContentTemplate>
                         </ContentControl>
                     </StackPanel>
-                    <local:UserSelectorView HorizontalAlignment="Right" Width="250" x:Name="userSelector" Margin="0,0,8,0" BorderThickness="1" BorderBrush="#3E3E42" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
+                    <local:UserSelectorView HorizontalAlignment="Right" Width="250" x:Name="userSelector" Margin="0,0,8,0" Grid.Column="2" Users="{Binding Users}" ChangedUser="OnChangedUser"/>
                 </Grid>
                 <TabControl Grid.Row="1" BorderThickness="0" Background="#28282A" ItemsSource="{Binding Path=Tabs}" SelectedIndex="{Binding Path=SelectedIndex, Mode=OneWay}">
                     <TabControl.Resources>

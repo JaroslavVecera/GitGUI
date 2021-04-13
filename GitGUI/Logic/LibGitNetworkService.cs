@@ -215,7 +215,12 @@ namespace GitGUI.Logic
         {
             try
             {
-                Repository.Clone(url, path, new CloneOptions() { FetchOptions = FetchOptions });
+                Repository.Clone(url, path, new CloneOptions()
+                {
+                    FetchOptions = FetchOptions,
+                    CredentialsProvider = CredentialsProvider,
+                    OnTransferProgress = FetchTransferProgressHandler
+                });
             }
             catch (LibGit2SharpException e)
             {
