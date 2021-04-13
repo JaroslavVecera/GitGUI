@@ -79,9 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Dialogs\CloneDialog.xaml.cs">
-      <DependentUpon>CloneDialog.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="WindowBase.cs" />
     <Compile Include="Dialogs\AuthentificationDialog.xaml.cs">
       <DependentUpon>AuthentificationDialog.xaml</DependentUpon>
     </Compile>
@@ -225,10 +223,6 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
-    <Page Include="Dialogs\CloneDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Dialogs\AuthentificationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

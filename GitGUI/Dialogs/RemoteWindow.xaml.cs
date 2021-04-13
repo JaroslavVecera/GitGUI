@@ -23,7 +23,7 @@ namespace GitGUI
     /// <summary>
     /// Interakční logika pro RemoteWindow.xaml
     /// </summary>
-    public partial class RemoteWindow : Window
+    public partial class RemoteWindow : WindowBase
     {
         bool IsNameValid { get { return Role == RemoteWindowRole.Edit || Logic.LibGitService.GetInstance().IsValidRefName(nameBox.Text); } }
         bool IsUrlValid { get { return url.Text.Any(); } }
@@ -139,5 +139,7 @@ namespace GitGUI
         {
             Close();
         }
+
+        protected override void RefreshMaximizeRestoreButton() { }
     }
 }

@@ -18,20 +18,25 @@ namespace GitGUI
     /// <summary>
     /// Interakční logika pro InputDialog.xaml
     /// </summary>
-    public partial class InputDialog : Window
+    public partial class InputDialog : WindowBase
     {
+        Func<string, bool> _validator;
+        public Func<string, bool> Validator { get { return _validator; } set { _validator = value; SetCommand(); } }
+
         public InputDialog()
         {
             InitializeComponent();
-            OkButtonClick = new RelayCommand(
-                () => DialogResult = true,
-                IsValidName);
-            button.Command = OkButtonClick;
+            RefreshMaximizeRestoreButton();
         }
 
-        bool IsValidName()
+        public string Text { get; set; }
+
+        void SetCommand()
         {
-            return Logic.LibGitService.GetInstance().IsValidRefName(ResponseText);
+            OkButtonClick = new RelayCommand(
+                () => DialogResult = true,
+                () => Validator(ResponseText));
+            button.Command = OkButtonClick;
         }
 
         public string ResponseText
@@ -46,5 +51,7 @@ namespace GitGUI
         {
             OkButtonClick.RaiseCanExecuteChanged();
         }
+
+        protected override void RefreshMaximizeRestoreButton() { }
     }
 }

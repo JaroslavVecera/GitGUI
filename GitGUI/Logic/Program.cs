@@ -118,7 +118,7 @@ namespace GitGUI.Logic
                 MessageBox.Show("There is already a repository", "", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            var dialog = new CloneDialog();
+            var dialog = new InputDialog() { Text = "Enter clone url", Validator = text => true, Owner = Application.Current.MainWindow };
             var ans = dialog.ShowDialog();
             if (ans == null || ans == false)
                 return;
@@ -283,6 +283,8 @@ namespace GitGUI.Logic
         public void OnAddBranch(GraphItemModel m)
         {
             var dialog = new InputDialog();
+            dialog.Validator = text => Logic.LibGitService.GetInstance().IsValidRefName(text);
+            dialog.Text = "Enter name of new branch";
             if (dialog.ShowDialog() == true)
             {
                 LibGitService.GetInstance().Branch(m, dialog.ResponseText);

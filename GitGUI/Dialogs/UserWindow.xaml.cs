@@ -27,7 +27,7 @@ namespace GitGUI
     /// <summary>
     /// Interakční logika pro UserWindow.xaml
     /// </summary>
-    public partial class UserWindow : Window
+    public partial class UserWindow : WindowBase
     {
         bool PictureChoosed { get; set; }
         bool IsNameValid { get { return name.Text.Any(); } }
@@ -91,7 +91,6 @@ namespace GitGUI
         public UserWindow()
         {
             InitializeComponent();
-            Role = UserWindowRole.Edit;
         }
 
         void Open(object sender, RoutedEventArgs e)
@@ -183,5 +182,7 @@ namespace GitGUI
             DialogResult = false;
             Close();
         }
+
+        protected override void RefreshMaximizeRestoreButton() { }
     }
 }
