@@ -38,6 +38,9 @@
                     </DataTemplate>
                 </ContentControl.ContentTemplate>
             </ContentControl>
+            <Button ToolTip="Open repository directory in file explorer" Width="25" Height="25" Focusable="False" Margin="0,0,20,0" BorderThickness="0" Grid.Row="1" HorizontalAlignment="Right" Click="OpenFolder" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="../icons/open-directory.ico"/>
+            </Button>
         </Grid>
         <ContentControl  Content="{Binding Shown}" Grid.Row="2" x:Name="nodePanel">
             <ContentControl.Resources>

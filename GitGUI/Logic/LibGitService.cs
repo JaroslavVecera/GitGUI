@@ -48,6 +48,7 @@ namespace GitGUI.Logic
             Commit parent = c.Parents.First();
             return CommitChanges(c, parent);
         }
+        public string CurrentRepositoryPath { get { return Directory.GetParent(Repository.Info.Path).Parent.FullName; } }
 
         public TreeChanges CommitChanges(Commit c, Commit parent)
         {

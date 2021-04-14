@@ -110,5 +110,15 @@ namespace GitGUI
                           .Transform(new Point(0, 0));
             Graph.GetInstance().CheckBoundaries();
         }
+
+        private void OpenFolder(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+            {
+                FileName = LibGitService.GetInstance().CurrentRepositoryPath,
+                UseShellExecute = true,
+                Verb = "open"
+            });
+        }
     }
 }
