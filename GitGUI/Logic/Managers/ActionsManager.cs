@@ -51,6 +51,11 @@ namespace GitGUI.Logic
             return !_isConflict && _isItem;
         }
 
+        public bool IsCheckoutButtonActive(bool hasChanges)
+        {
+            return !_isConflict && hasChanges;
+        }
+
         public void OnMarkedItem(bool isItem)
         {
             _isItem = isItem;
@@ -59,7 +64,7 @@ namespace GitGUI.Logic
 
         public void OnWorkTreeChanged(bool hasChanges)
         {
-            StashButton.Active = hasChanges;
+            StashButton.Active = IsCheckoutButtonActive(hasChanges);
             RemoteRepoLeftGroupPanel.Enabled = RemoteRepoRightGroupPanel.Enabled = Program.GetInstance().RemoteManager.CurrentRemotes.Any();
         }
 
