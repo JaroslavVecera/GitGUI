@@ -13,7 +13,7 @@ namespace GitGUI.Logic
     {
         public event Action RecentRepositoryChanged;
         RepositoryModel _current;
-        string _dirPath = "Repos";
+        string _dirPath;
         public List<RepositoryModel> Repositories { get; private set; } = new List<RepositoryModel>();
         public IEnumerable<string> RecentRepos
         {
@@ -40,8 +40,9 @@ namespace GitGUI.Logic
             return -1;
         }
 
-        public RepositoryManager()
+        public RepositoryManager(string dataFolder)
         {
+            _dirPath = Path.Combine(dataFolder, "Repos");
             LoadRepositories();
         }
 

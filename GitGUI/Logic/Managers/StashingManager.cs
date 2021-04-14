@@ -11,7 +11,7 @@ namespace GitGUI.Logic
     class StashingManager
     {
         public StashMenuModel StashMenu { get; set; } = new StashMenuModel();
-        string _dirPath = "ImplicitStashes";
+        string _dirPath;
         StashCollection Stashes { get { return Repository?.Stashes; } }
         Repository Repository { get; set; }
         public IEnumerable<Tuple<string, string>> ManualStashNames
@@ -27,8 +27,9 @@ namespace GitGUI.Logic
         }
         List<string> ImplicitStashesShas { get; } = new List<string>();
 
-        public StashingManager()
+        public StashingManager(string dataFolder)
         {
+            _dirPath = Path.Combine(dataFolder, "ImplicitStashes");
             LibGitService.GetInstance().RepositoryChanged += UpdateStashWindow;
             LibGitService.GetInstance().BranchChanged += ImplicitPop;
             StashMenu.StashApplyed += Apply;

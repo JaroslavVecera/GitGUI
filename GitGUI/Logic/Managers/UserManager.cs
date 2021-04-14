@@ -16,7 +16,7 @@ namespace GitGUI.Logic
     public class UserManager
     {
         public event Action UsersChanged;
-        string _dirPath = AppDomain.CurrentDomain.BaseDirectory + System.IO.Path.DirectorySeparatorChar + "Users";
+        string _dirPath;
         User _current;
         public User Current {
             get { return _current ?? User.Anonym; }
@@ -30,8 +30,9 @@ namespace GitGUI.Logic
 
         public ObservableCollection<User> KnownUsers { get; } = new ObservableCollection<User>();
 
-        public UserManager()
+        public UserManager(string dataFolder)
         {
+            _dirPath = Path.Combine(dataFolder, "Users");
             InitializeKnownUsers();
         }
 

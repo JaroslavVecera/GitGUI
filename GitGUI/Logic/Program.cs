@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using Ookii.Dialogs.Wpf;
@@ -8,6 +9,7 @@ namespace GitGUI.Logic
 {
     class Program
     {
+        string _dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GitGUI");
         public StashingManager StashingManager { get; set; }
         public RemoteManager RemoteManager { get; set; }
         CommitManager CommitManager { get; set; }
@@ -166,10 +168,10 @@ namespace GitGUI.Logic
             TabManager.CanvasMouseUp += OnMouseUp;
             SubscribeActionsManager();
             CommitManager = CommitManager.GetInstance();
-            RepositoryManager = new RepositoryManager();
-            UserManager = new UserManager();
-            StashingManager = new StashingManager();
-            RemoteManager = new RemoteManager();
+            RepositoryManager = new RepositoryManager(_dataFolder);
+            UserManager = new UserManager(_dataFolder);
+            StashingManager = new StashingManager(_dataFolder);
+            RemoteManager = new RemoteManager(_dataFolder);
         }
 
         private void AbortMerge()

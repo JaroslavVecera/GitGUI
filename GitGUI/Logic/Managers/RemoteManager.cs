@@ -12,7 +12,7 @@ namespace GitGUI.Logic
     class RemoteManager
     {
         bool CanSelect { get; set; } = true;
-        string _dirPath = "Remotes";
+        string _dirPath;
         Remote _selectedRemote;
         public Remote SelectedRemote { get { return _selectedRemote; } set { if (CanSelect)
                     _selectedRemote = value; } }
@@ -22,8 +22,9 @@ namespace GitGUI.Logic
         string CurrentRepositoryDirectory { get; set; }
         public ObservableCollection<Remote> CurrentRemotes { get; } = new ObservableCollection<Remote>();
 
-        public RemoteManager()
+        public RemoteManager(string dataFolder)
         {
+            _dirPath = Path.Combine(dataFolder, "Remotes");
             LibGitService.GetInstance().RepositoryChanged += ChangeRemotes;
             LibGitService.GetInstance().BranchUpdated += AggressiveSelectRemote;
         }
