@@ -17,7 +17,7 @@ namespace GitGUI
     /// <summary>
     /// Interakční logika pro AuthentificationDialog.xaml
     /// </summary>
-    public partial class AuthentificationDialog : Window
+    public partial class AuthentificationDialog : WindowBase
     {
         public AuthentificationDialog()
         {
@@ -46,6 +46,8 @@ namespace GitGUI
             if (e.Key == Key.Enter && OkButtonClick.CanExecute(null))
                 OkButtonClick.Execute(null);
         }
+
+        protected override void RefreshMaximizeRestoreButton() { }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
