@@ -37,13 +37,13 @@ namespace GitGUI.Logic
         public double TextStartDist { get { return LeftContactDist + _margin + (EnabledPhoto ? Height / 2 : 0); } }
         double TextEndDist { get { return TextStartDist + TextWidth; } }
         public double RightContactDist { get { return TextEndDist + _margin; } }
-        public double MaxWidth { get { return 2 * _margin + TextWidth + Height + (EnabledPhoto ? Height / 2 : 0); } }
+        public double MaxWidth { get { return RightContactDist + Height / 2; } }
         public double MaxW { get { return 150; } }
         public double TextWidth
         {
             get
             {
-                double w = MessageWidth;
+                double w = MessageWidth + 10;
                 return (w <= MaxW) ? w : Math.Min(MaxW, w / 2);
             }
         }
