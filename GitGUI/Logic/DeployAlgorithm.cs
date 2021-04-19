@@ -42,7 +42,6 @@ namespace GitGUI.Logic
             {
                 List<Node> possibleDescOnSameRow = n.Descendants.Where(d =>
                     !d.HasPredecessorOnSameRow && (
-                        !branchTips.Contains(d) ||
                         d.Predecessors.Count == 1 ||
                         d.Predecessors.Count - 1 == d.DeployedPredecessors)).ToList();
                 List<int> complement = n.Descendants.Except(possibleDescOnSameRow).Select(x => x.Row).ToList();

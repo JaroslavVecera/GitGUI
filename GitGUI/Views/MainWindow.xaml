@@ -849,7 +849,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
+                                <TextBlock Height="16" Grid.Column="0" Text="{Binding Path=Header, Mode=OneWay}"></TextBlock>
                                 <Button Visibility="{Binding Path=CloseButton, Converter={StaticResource BoolToVis}}" Grid.Column="1" Name="button_close" Command="{Binding Path=CloseCommand}">
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">

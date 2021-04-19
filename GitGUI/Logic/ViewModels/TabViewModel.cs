@@ -8,8 +8,8 @@ using System.Windows.Input;
 namespace GitGUI.Logic
 {
     public abstract class TabViewModel : ViewModelBase
-    {
-        public string Header { get { return Model.Header; } }
+    { 
+        public string Header { get { return new string(Model.Header.Take(30).ToArray()); } }
         public ICommand CloseCommand { get; }
         public virtual TabModel Model { get; private set; }
 
