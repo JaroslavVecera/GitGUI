@@ -39,21 +39,22 @@ namespace GitGUI.Logic
         {
             View.Children.Clear();
             Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel> dict = new Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel>();
-            Model.Commits.ForEach(m =>
+            List<Control> controls = new List<Control>();
+            foreach (CommitNodeModel m in Model.Commits)
             {
                 CommitNodeView v = new CommitNodeView();
                 CommitNodeViewModel vm = new CommitNodeViewModel(m, v);
                 v.Update();
                 dict.Add(m.Commit, vm);
-                View.Children.Add(v);
-            });
-            Model.Branches.ForEach(m =>
+                controls.Add(v);
+            }
+            foreach (BranchLabelModel m in Model.Branches)
             {
                 BranchLabelView v = new BranchLabelView();
                 BranchLabelViewModel vm = new BranchLabelViewModel(m, v);
-                View.Children.Add(v);
-            });
-            Model.Commits.ForEach(m =>
+                controls.Add(v);
+            }
+            foreach (CommitNodeModel m in Model.Commits)
             {
                 foreach (LibGit2Sharp.Commit c in m.Commit.Parents)
                 {
@@ -66,9 +67,10 @@ namespace GitGUI.Logic
                         StrokeThickness = 2,
                         Stroke = new SolidColorBrush(Colors.Gray)
                     };
-                    View.Children.Add(e);
+                    controls.Add(e);
                 }
-            });
+            }
+            controls.ForEach(c => View.Children.Add(c));
         }
 
         private void TransformMatrixChanged(Matrix m)

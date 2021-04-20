@@ -67,17 +67,12 @@ namespace GitGUI.Logic
         {
             get
             {
-                List<Commit> res = new List<Commit>();
-                List<Branch> branches = BranchesIncludingDetachedHead;
-                foreach (Branch b in branches)
-                    res = res.Union(Commits.QueryBy(new CommitFilter() { IncludeReachableFrom = b })).ToList();
-                res.Sort((c1, c2) =>
+                var filter = new CommitFilter
                 {
-                    if (c1.Author.When > c2.Author.When || (c1.Author.When == c2.Author.When && c1.Parents.Contains(c2)))
-                        return 1;
-                    else return -1;
-                });
-                return res;
+                    SortBy = CommitSortStrategies.Time | CommitSortStrategies.Reverse| CommitSortStrategies.Topological,
+                    IncludeReachableFrom = BranchesIncludingDetachedHead
+                };
+                return Commits.QueryBy(filter).ToList();
             }
         }
 
