@@ -65,6 +65,15 @@ namespace GitGUI.Logic
                 Checkout(checkouted);
         }
 
+        public void Rebase(BranchLabelModel rebasing, BranchLabelModel rebased)
+        {
+            GraphItemModel checkouted = Graph.Checkouted;
+            Checkout(rebasing);
+            bool succes = LibGitService.Merge(rebased);
+            if (succes)
+                Checkout(rebased);
+        }
+
         public void Checkout(GraphItemModel m)
         {
             Program.GetInstance().StashingManager.ImplicitPush(m);

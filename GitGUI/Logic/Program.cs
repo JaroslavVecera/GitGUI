@@ -354,7 +354,7 @@ namespace GitGUI.Logic
 
         public void Rebase()
         {
-            //LibGitService.GetInstance().Rebase(Aggregating, Aggregated);
+            CommitManager.Rebase(Aggregating, Aggregated);
         }
 
         void OpenAggregatingContextMenu()
