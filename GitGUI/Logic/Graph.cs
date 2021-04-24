@@ -11,6 +11,7 @@ using LibGit2Sharp;
 using System.Collections;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace GitGUI.Logic
 {
@@ -42,7 +43,7 @@ namespace GitGUI.Logic
 
         private Graph()
         {
-            LibGitService.GetInstance().RepositoryChanged += () => DeployGraph();
+            LibGitService.GetInstance().RepositoryChangedPreview += () => DeployGraph();
         }
 
         public bool Contains(Point p)
@@ -123,10 +124,26 @@ namespace GitGUI.Logic
 
         public void DeployGraph()
         {
-            DeployCommitNodes();
-            DeployBranchNodes();
-            UpdateCheckouted();
-            ZoomAndPanCanvasModel.Update();
+            WaitingDialogResult r = WaitingDialogResult.Flawless;
+            Program.GetInstance().ShowWaitingDialog();
+            try
+            {
+                DeployCommitNodes();
+                DeployBranchNodes();
+                UpdateCheckouted();
+                ZoomAndPanCanvasModel.Update();
+            }
+            catch (OutOfMemoryException e)
+            {
+                r = WaitingDialogResult.OutOfMemory;
+            }
+            catch (TooMuchCommitsException e)
+            {
+                r = WaitingDialogResult.TooMuchCommits;
+            }
+            Program.GetInstance().EndWaitingDialog(r);
+            if (r != WaitingDialogResult.Flawless)
+                Program.GetInstance().CloseCurrentRepository();
         }
 
         void UpdateCheckouted()

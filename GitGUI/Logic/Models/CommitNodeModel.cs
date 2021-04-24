@@ -49,13 +49,12 @@ namespace GitGUI.Logic
         }
         double MeasureMessageWidth()
         {
-            var tb = new TextBlock();
             var formattedText = new FormattedText(
                 Message,
                 CultureInfo.CurrentCulture,
                 System.Windows.FlowDirection.LeftToRight,
-                new Typeface(tb.FontFamily, tb.FontStyle, tb.FontWeight, tb.FontStretch),
-                tb.FontSize,
+                new Typeface("Segoe UI"),
+                12,
                 System.Windows.Media.Brushes.White,
                 new NumberSubstitution(),
                 TextFormattingMode.Display);

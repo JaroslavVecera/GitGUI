@@ -111,7 +111,8 @@ namespace GitGUI.Logic
         bool OpenValid(string path)
         {
             LibGitService.GetInstance().OpenRepository(path);
-            Open(path);
+            if (LibGitService.GetInstance().Repository != null)
+                Open(path);
             return true;
         }
 
@@ -140,9 +141,8 @@ namespace GitGUI.Logic
 
         void Close()
         {
-            if (_current == null)
-                return;
-            _current.LastUse = DateTimeOffset.Now;
+            if (_current != null)
+                _current.LastUse = DateTimeOffset.Now;
             Closed?.Invoke(_current);
         }
 

@@ -99,10 +99,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TooMuchCommitsException.cs" />
     <Compile Include="Views\CommitEditorChangeInfos\ConflictInfoView.xaml.cs">
       <DependentUpon>ConflictInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Changes\ConflictInfo.cs" />
+    <Compile Include="Dialogs\WaitingDialog.xaml.cs">
+      <DependentUpon>WaitingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowBase.cs" />
     <Compile Include="Dialogs\AuthentificationDialog.xaml.cs">
       <DependentUpon>AuthentificationDialog.xaml</DependentUpon>
@@ -358,6 +362,10 @@
     <Page Include="Views\CommitEditorChangeInfos\UntrackedInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\WaitingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

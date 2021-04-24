@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Ookii.Dialogs.Wpf;
 
 namespace GitGUI.Logic
@@ -25,6 +27,8 @@ namespace GitGUI.Logic
         BranchLabelModel Aggregating { get; set; }
         BranchLabelModel Aggregated { get; set; }
         bool _conflict = false;
+        WaitingDialog WaitingDialog { get; set; } = new WaitingDialog();
+        Thread DialogThread { get; set; }
 
         Program()
         {
@@ -380,6 +384,31 @@ namespace GitGUI.Logic
         void UpdateMousePosition(MouseEventArgs e)
         {
             Data.MousePoint = e.GetPosition((MainWindow)Application.Current.MainWindow);
+        }
+
+        public void ShowWaitingDialog()
+        {
+            DialogThread = new Thread(new ThreadStart(ShowDialog));
+            DialogThread.SetApartmentState(ApartmentState.STA);
+            DialogThread.IsBackground = true;
+            DialogThread.Start();
+        }
+
+        void ShowDialog()
+        {
+            WaitingDialog = new WaitingDialog();
+            WaitingDialog.ShowDialog();
+            Dispatcher.Run();
+        }
+
+        public void EndWaitingDialog(WaitingDialogResult r)
+        {
+            WaitingDialog.Dispatcher.BeginInvoke((Action)(() => WaitingDialog.CloseDialog()));
+            DialogThread.Join();
+            if (r == WaitingDialogResult.OutOfMemory)
+                MessageBox.Show("The repository is too large or there is not enough space in device.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+            else if (r == WaitingDialogResult.TooMuchCommits)
+                MessageBox.Show("The repository has too much commits.\nLimit is 2 000 commits.", "", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public static Program GetInstance()

@@ -17,6 +17,7 @@ namespace GitGUI.Logic
         FileSystemWatcher Watcher { get; set; }
         System.Timers.Timer ChangesGroupTimer { get; }
         Semaphore Mutex { get; } = new Semaphore(1, 1);
+        public bool IsActive { get { return Watcher != null; } }
 
         public event Action ChangeNoticed;
 
@@ -28,6 +29,8 @@ namespace GitGUI.Logic
 
         public void Watch(string path)
         {
+            if (IsActive)
+                End();
             Watcher = new FileSystemWatcher()
             {
                 IncludeSubdirectories = true,
@@ -42,6 +45,8 @@ namespace GitGUI.Logic
 
         public void End()
         {
+            if (!IsActive)
+                return;
             UnsubscribeWatcherEvents();
             Watcher = null;
         }

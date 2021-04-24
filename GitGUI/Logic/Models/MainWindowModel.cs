@@ -13,6 +13,7 @@ namespace GitGUI.Logic
         public event Action ChangedIndex;
         IEnumerable<string> _recentRepos;
         string _repoPath = "";
+        bool _isWaiting = false;
 
         public event Action Captured;
         public event Action CaptureReleased;
@@ -30,6 +31,7 @@ namespace GitGUI.Logic
         public Remote SelectedRemote { get { return Program.GetInstance().RemoteManager.SelectedRemote; } set { Program.GetInstance().RemoteManager.SelectedRemote = value; } }
         public ActionPanelModel RemoteLeftPanelModel { get; } = new ActionPanelModel();
         public ActionPanelModel RemoteRightPanelModel { get; } = new ActionPanelModel();
+        public bool IsWaiting { get { return _isWaiting; } set { _isWaiting = value; OnPropertyChanged(); } }
 
         public void OnUsersChanged()
         {

@@ -32,6 +32,7 @@ namespace GitGUI.Logic
         public Remote SelectedRemote { get { return Model.SelectedRemote; } set { Model.SelectedRemote = value; } }
         public ActionPanelViewModel RemoteLeftActionPanel { get { return new ActionPanelViewModel(Model.RemoteLeftPanelModel); } }
         public ActionPanelViewModel RemoteRightActionPanel { get { return new ActionPanelViewModel(Model.RemoteRightPanelModel); } }
+        public bool IsWaiting { get { return Model.IsWaiting; } }
 
         public MainWindowViewModel(MainWindowModel model, MainWindow view)
         {

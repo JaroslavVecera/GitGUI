@@ -17,6 +17,7 @@
         Icon="../icon.png"
         WindowStyle="None"
         StateChanged="WindowStateChanged"
+                  Closing="OnClosing"
         Loaded="WindowLoaded"
         Background="#28282A">
     <WindowChrome.WindowChrome>

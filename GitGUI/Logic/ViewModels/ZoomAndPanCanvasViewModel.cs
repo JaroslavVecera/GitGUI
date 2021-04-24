@@ -37,7 +37,6 @@ namespace GitGUI.Logic
 
         void UpdateContent()
         {
-            View.Children.Clear();
             Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel> dict = new Dictionary<LibGit2Sharp.Commit, CommitNodeViewModel>();
             List<Control> controls = new List<Control>();
             foreach (CommitNodeModel m in Model.Commits)
@@ -70,6 +69,7 @@ namespace GitGUI.Logic
                     controls.Add(e);
                 }
             }
+            View.Children.Clear();
             controls.ForEach(c => View.Children.Add(c));
         }
 

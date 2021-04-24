@@ -27,6 +27,7 @@ namespace GitGUI.Logic
         public event Action BranchUpdated;
         static LibGitService _instance;
         public event Action RepositoryChanged;
+        public event Action RepositoryChangedPreview;
         Repository _repository;
         public Repository Repository { get { return _repository; }
             private set { _repository = value; } }
@@ -140,6 +141,9 @@ namespace GitGUI.Logic
         public List<Tuple<Commit, int>> CommitRows()
         {
             DeployAlgorithm a = new DeployAlgorithm();
+            IEnumerable<Commit> allCommits = AllCommits;
+            if (allCommits.Count() > 2000)
+                throw new TooMuchCommitsException();
             var res = a.ComputeRows(AllCommits, Repository.Branches);
             res.Reverse();
             return res;
@@ -151,8 +155,12 @@ namespace GitGUI.Logic
                 return;
             if (IsValidRepository(Repository.Info.Path) == RepositoryValidation.Valid)
             {
-                RepositoryChanged?.Invoke();
-                CheckBranch();
+                RepositoryChangedPreview?.Invoke();
+                if (Repository != null)
+                {
+                    RepositoryChanged?.Invoke();
+                    CheckBranch();
+                }
             }
             else
                 Program.GetInstance().CloseCurrentRepository();
@@ -183,10 +191,9 @@ namespace GitGUI.Logic
             if (Repository != null)
                 CloseRepository(Repository);
             Repository = new Repository(path);
-            ChangesWatcher.Watch(path);
             Program.GetInstance().StashingManager.SetRepository(Repository);
-            RepositoryChanged.Invoke();
-            CheckBranch();
+            InvokeChange();
+            ChangesWatcher.Watch(path);
             
             return Repository;
         }

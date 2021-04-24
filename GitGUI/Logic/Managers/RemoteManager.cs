@@ -61,6 +61,8 @@ namespace GitGUI.Logic
 
         void ChangeRemotes()
         {
+            if (CurrentRepository == null)
+                return;
             CanSelect = false;
             CurrentRemotes.Clear();
             SetupRepository();

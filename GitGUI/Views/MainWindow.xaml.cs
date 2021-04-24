@@ -115,5 +115,10 @@ namespace GitGUI
         {
 
         }
+
+        private void OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(Environment.ExitCode);
+        }
     }
 }
