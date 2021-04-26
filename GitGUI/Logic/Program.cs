@@ -63,27 +63,26 @@ namespace GitGUI.Logic
             var n = Normal.GetInstance();
             n.Program = this;
             State = n;
-
         }
 
-        public void OpenRepository(string path)
+        void OpenRepository(Func<bool> func)
         {
             RepositoryClosed();
             TabManager.AddMainTab();
-            if (!RepositoryManager.OpenExisting(path))
+            if (!func())
                 TabManager.CloseAll();
             else
                 Graph.GetInstance().ResetTranslate();
+        }
+
+        public void OpenSelectedRepository(string path)
+        {
+            OpenRepository(() => RepositoryManager.OpenExisting(path));
         }
 
         public void OpenRecentRepository(string path)
         {
-            RepositoryClosed();
-            TabManager.AddMainTab();
-            if (!RepositoryManager.OpenRecent(path))
-                TabManager.CloseAll();
-            else
-                Graph.GetInstance().ResetTranslate();
+            OpenRepository(() => RepositoryManager.OpenRecent(path));
         }
 
         public void CreateRepository(string path)
@@ -145,7 +144,7 @@ namespace GitGUI.Logic
             var ans = dialog.ShowDialog();
             if (ans == null || ans == false)
                 return;
-            OpenRepository(dialog.SelectedPath);
+            OpenSelectedRepository(dialog.SelectedPath);
         }
 
         public void CreateRepository()
@@ -388,27 +387,18 @@ namespace GitGUI.Logic
 
         public void ShowWaitingDialog()
         {
-            DialogThread = new Thread(new ThreadStart(ShowDialog));
-            DialogThread.SetApartmentState(ApartmentState.STA);
-            DialogThread.IsBackground = true;
-            DialogThread.Start();
-        }
-
-        void ShowDialog()
-        {
             WaitingDialog = new WaitingDialog();
+            WaitingDialog.Owner = Application.Current.MainWindow;
             WaitingDialog.ShowDialog();
-            Dispatcher.Run();
         }
 
         public void EndWaitingDialog(WaitingDialogResult r)
         {
-            WaitingDialog.Dispatcher.BeginInvoke((Action)(() => WaitingDialog.CloseDialog()));
-            DialogThread.Join();
+            WaitingDialog.Close();
             if (r == WaitingDialogResult.OutOfMemory)
                 MessageBox.Show("The repository is too large or there is not enough space in device.", "", MessageBoxButton.OK, MessageBoxImage.Error);
             else if (r == WaitingDialogResult.TooMuchCommits)
-                MessageBox.Show("The repository has too much commits.\nLimit is 2 000 commits.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The repository has too much commits.\nLimit is 10 000 commits.", "", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         public static Program GetInstance()

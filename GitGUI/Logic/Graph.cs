@@ -30,6 +30,7 @@ namespace GitGUI.Logic
         public EventHandlerBatch EventHandlerBatch { private get; set; }
         MatrixTransform NodeTransform { get; } = new MatrixTransform();
         Stopwatch Stopwatch { get; set; }
+        WaitingDialogResult WaitingResult { get; set; } = WaitingDialogResult.Flawless;
 
         public void CaptureMaouse()
         {
@@ -124,26 +125,47 @@ namespace GitGUI.Logic
 
         public void DeployGraph()
         {
-            WaitingDialogResult r = WaitingDialogResult.Flawless;
+            WaitingResult = WaitingDialogResult.Flawless;
+            ZoomAndPanCanvasModel.Clear();
+            ((Action)DoDeployGraph).BeginInvoke(OnDeployedGraph, null);
             Program.GetInstance().ShowWaitingDialog();
+        }
+
+        void OnDeployedGraph(IAsyncResult ar)
+        {
+            Application.Current.Dispatcher.Invoke(() => UpdateGraph(ar));
+        }
+
+        void UpdateGraph(IAsyncResult ar)
+        { 
+            if (WaitingResult == WaitingDialogResult.Flawless)
+            {
+                Point p = GraphViewCenter();
+                ZoomAndPanCanvasModel.Update(new Size(p.X * 2, p.Y * 2));
+            }
+            else
+                Program.GetInstance().CloseCurrentRepository();
+            Program.GetInstance().EndWaitingDialog(WaitingResult);
+        }
+
+        void DoDeployGraph()
+        {
+            WaitingResult = WaitingDialogResult.Flawless;
             try
             {
                 DeployCommitNodes();
                 DeployBranchNodes();
                 UpdateCheckouted();
-                ZoomAndPanCanvasModel.Update();
+                ZoomAndPanCanvasModel.CreateEdgePairs();
             }
             catch (OutOfMemoryException e)
             {
-                r = WaitingDialogResult.OutOfMemory;
+                WaitingResult = WaitingDialogResult.OutOfMemory;
             }
             catch (TooMuchCommitsException e)
             {
-                r = WaitingDialogResult.TooMuchCommits;
+                WaitingResult = WaitingDialogResult.TooMuchCommits;
             }
-            Program.GetInstance().EndWaitingDialog(r);
-            if (r != WaitingDialogResult.Flawless)
-                Program.GetInstance().CloseCurrentRepository();
         }
 
         void UpdateCheckouted()

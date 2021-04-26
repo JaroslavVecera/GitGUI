@@ -64,7 +64,7 @@ namespace GitGUI.Logic
             get { return Branches?.Union(new List<Branch>() { Repository.Head }).ToList(); }
         }
         public bool IsInConflictState { get { return CurrentChanges.Conflicted.Any(); } }
-        public IEnumerable<Commit> AllCommits
+        public List<Commit> AllCommits
         {
             get
             {
@@ -116,6 +116,19 @@ namespace GitGUI.Logic
             return res ? RepositoryValidation.Valid : RepositoryValidation.ValidBare;
         }
 
+        public int Size(string path)
+        {
+            Repository sizeTest = new Repository(path);
+            var filter = new CommitFilter
+            {
+                SortBy = CommitSortStrategies.Time | CommitSortStrategies.Reverse | CommitSortStrategies.Topological,
+                IncludeReachableFrom = sizeTest.Branches
+            };
+            int res = sizeTest.Commits.QueryBy(filter).ToList().Count;
+            sizeTest.Dispose();
+            return res;
+        }
+
         public Hashtable BranchCommits()
         {
             if (Repository == null)
@@ -142,8 +155,6 @@ namespace GitGUI.Logic
         {
             DeployAlgorithm a = new DeployAlgorithm();
             IEnumerable<Commit> allCommits = AllCommits;
-            if (allCommits.Count() > 2000)
-                throw new TooMuchCommitsException();
             var res = a.ComputeRows(AllCommits, Repository.Branches);
             res.Reverse();
             return res;

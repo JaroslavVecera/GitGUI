@@ -51,6 +51,12 @@ namespace GitGUI.Logic
             var v = LibGitService.GetInstance().IsValidRepository(path);
             if (v == RepositoryValidation.Invalid)
             {
+                if (LibGitService.GetInstance().Size(path) > 10000)
+                {
+                    var result = MessageBox.Show("Opening repository with more than 10000 commits is not recommanded due to slow redrawing. Do you want to open the repository anyways?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.No)
+                        return RepositoryValidation.Valid;
+                }
                 LibGitService.GetInstance().OpenNewRepository(path);
                 Open(path);
             }
@@ -63,6 +69,12 @@ namespace GitGUI.Logic
             var v = LibGitService.GetInstance().IsValidRepository(path);
             if (v == RepositoryValidation.Valid)
             {
+                if (LibGitService.GetInstance().Size(path) > 10000)
+                {
+                    var result = MessageBox.Show("Opening repository with more than 10000 commits is not recommanded due to slow redrawing. Do you want to open the repository anyways?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.No)
+                        return RepositoryValidation.Valid;
+                }
                 LibGitService.GetInstance().OpenNewRepository(path);
                 Open(path);
             }
@@ -110,9 +122,15 @@ namespace GitGUI.Logic
 
         bool OpenValid(string path)
         {
+            if (LibGitService.GetInstance().Size(path) > 10000)
+            {
+                var result = MessageBox.Show("Opening repository with more than 10000 commits is not recommanded due to slow redrawing. Do you want to open the repository anyways?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                    return false;
+            }
             LibGitService.GetInstance().OpenRepository(path);
             if (LibGitService.GetInstance().Repository != null)
-                Open(path);
+                return Open(path);
             return true;
         }
 
@@ -121,9 +139,14 @@ namespace GitGUI.Logic
             MessageBoxResult rslt = MessageBox.Show("Do you want to create new?", "There is no valid repository", MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (rslt == MessageBoxResult.No)
                 return false;
+            if (LibGitService.GetInstance().Size(path) > 10000)
+            {
+                var result = MessageBox.Show("Opening repository with more than 10000 commits is not recommanded due to slow redrawing. Do you want to open the repository anyways?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.No)
+                    return false;
+            }
             LibGitService.GetInstance().OpenNewRepository(path);
-            Open(path);
-            return true;
+            return Open(path);
         }
 
         public void CloseCurrent()
@@ -132,11 +155,12 @@ namespace GitGUI.Logic
             LibGitService.GetInstance().CloseCurrentRepository();
         }
 
-        void Open(string path)
+        bool Open(string path)
         {
             Close();
             _current = AddRepository(path);
             Opened?.Invoke(_current);
+            return true;
         }
 
         void Close()

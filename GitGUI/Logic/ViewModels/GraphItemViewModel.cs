@@ -9,9 +9,9 @@ using System.Windows.Input;
 
 namespace GitGUI.Logic
 {
-    class GraphItemViewModel : ViewModelBase
+    abstract class GraphItemViewModel : ViewModelBase
     {
-        UserControl _control;
+        public UserControl Control { get; set; }
         bool _hitTestVisible = true;
         protected virtual GraphItemModel Model { get; set; }
         public Point Location { get { return Model.Location; } }
@@ -36,44 +36,49 @@ namespace GitGUI.Logic
         {
             Model = model;
             SubscribeModel();
-            _control = view;
+            Control = view;
             view.DataContext = this;
             InitializeCommands();
         }
 
         protected void InitializeLocation()
         {
-            Canvas.SetLeft(_control, 0);
-            Canvas.SetTop(_control, 0);
+            Canvas.SetLeft(Control, 0);
+            Canvas.SetTop(Control, 0);
             LocationChanged?.Invoke(Location);
         }
 
         protected void BackgroundPush()
         {
-            Panel.SetZIndex(_control, 2);
+            Panel.SetZIndex(Control, 2);
             HitTestVisible = true;
         }
 
         protected void ForegroundPull()
         {
-            Panel.SetZIndex(_control, 3);
+            Panel.SetZIndex(Control, 3);
             HitTestVisible = false;
         }
 
         public virtual void SubscribeModel()
         {
-            Model.PropertyChanged += (sender, e) =>
-            {
-                if (e.PropertyName == "Marked")
-                {
+            Model.PropertyChanged += OnPropertyChanged;
+        }
 
-                }
-                OnPropertyChanged(e.PropertyName);
-                if (e.PropertyName == "Focused")
-                    FocusedChanged?.Invoke();
-                if (e.PropertyName == "Checkouted")
-                    CheckoutedChanged?.Invoke();
-            };
+        protected abstract void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e);
+
+        protected void CommonPropertyChanged(System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(e.PropertyName);
+            if (e.PropertyName == "Focused")
+                FocusedChanged?.Invoke();
+            if (e.PropertyName == "Checkouted")
+                CheckoutedChanged?.Invoke();
+        }
+
+        public virtual void UnsubscribeModel()
+        {
+            Model.PropertyChanged -= OnPropertyChanged;
         }
 
         protected virtual void InitializeCommands()

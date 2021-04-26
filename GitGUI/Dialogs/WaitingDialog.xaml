@@ -26,7 +26,7 @@
             </Style>
         </Border.Style>
         <Grid Margin="30,0" VerticalAlignment="Center">
-        <TextBlock FontSize="20" Foreground="White">Drawing Graph</TextBlock>
+        <TextBlock x:Name="text" FontSize="20" Foreground="White">Drawing Graph</TextBlock>
                 <Path HorizontalAlignment="Right" Stroke="AliceBlue" Width="40" Height="40" StrokeThickness="5">
                     <Path.Data>
                         <PathGeometry>

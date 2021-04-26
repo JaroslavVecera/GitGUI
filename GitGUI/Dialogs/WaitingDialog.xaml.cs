@@ -25,6 +25,8 @@ namespace GitGUI
             InitializeComponent();
         }
 
+        public string Text { set { text.Text = value; } }
+
         public void CloseDialog()
         {
             Close();

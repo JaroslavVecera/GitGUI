@@ -25,6 +25,7 @@ namespace GitGUI.Logic
         public double TextStartDist { get { return ((CommitNodeModel)Model).TextStartDist; } }
         public double MaxWidth { get { return ((CommitNodeModel)Model).MaxWidth; } }
         public double TextWidth { get { return ((CommitNodeModel)Model).TextWidth; } }
+        public CommitNodeModel GetModel() { return (CommitNodeModel)Model; }
 
         public bool InProgress { get { return ((CommitNodeModel)Model).InProgress; } }
 
@@ -32,7 +33,6 @@ namespace GitGUI.Logic
         {
             SubscribeViewEvents(view);
             InitializeLocation();
-            Model.PropertyChanged += OnPropertyChanged;
         }
 
         void SubscribeViewEvents(CommitNodeView view)
@@ -43,13 +43,13 @@ namespace GitGUI.Logic
             CheckoutedChanged += view.OnCheckoutedChanged;
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Path")
                 OnPropertyChanged("Bitmap");
             if (e.PropertyName == "Message")
                 OnPropertyChanged("TextWidth");
-            OnPropertyChanged(e.PropertyName);
+            CommonPropertyChanged(e);
         }
     }
 }

@@ -11,7 +11,8 @@ namespace GitGUI.Logic
     public class ZoomAndPanCanvasModel : ModelBase
     {
         Matrix _matrix = new Matrix(1, 0, 0, 1, 0, 0);
-        public event Action ContentUpdated;
+        public event Action<Tuple<double,double,double,double>> ContentUpdated;
+        public event Action ContentCleared;
 
         public double Width { get; set; }
         public double Height { get; set; }
@@ -20,12 +21,21 @@ namespace GitGUI.Logic
         public Point Center { get { return new Point(Width / 2, Height / 2); } }
         public List<CommitNodeModel> Commits { get; set; }
         public List<BranchLabelModel> Branches { get; set; }
-        public List<Tuple<Point, Point>> Edges { get; set; }
+        public Dictionary<LibGit2Sharp.Commit, CommitNodeModel> CommitToModel { get; } = new Dictionary<LibGit2Sharp.Commit, CommitNodeModel>();
+        public Dictionary<CommitNodeModel, List<Tuple<CommitNodeModel, CommitNodeModel>>> Edges { get; set; } = new Dictionary<CommitNodeModel, List<Tuple<CommitNodeModel, CommitNodeModel>>>();
         public event Action<Matrix> TransformMatrixChanged;
         Tuple<double, double, double, double> CanvasBoundaries { get; set; }
         double Margin { get; } = 100;
         public event Action Released;
         public event Action Captured;
+        Tuple<double, double, double, double> GetViewportBoundaries(Size screenSize)
+        {
+            Matrix m = TransformMatrix;
+            m.Invert();
+            Point tl = m.Transform(new Point(0, 0));
+            Point br = m.Transform(new Point(screenSize.Width, screenSize.Height));
+            return new Tuple<double, double, double, double>(tl.X, tl.Y, br.X, br.Y);
+        }
 
         public void CaptureMouse()
         {
@@ -37,10 +47,24 @@ namespace GitGUI.Logic
             Released?.Invoke();
         }
 
-        public void Update()
+        public void Update(Size screenSize)
         {
-            ContentUpdated?.Invoke();
             ComputeCanvasBoundaries();
+            UpdateControls(screenSize);
+        }
+
+        public void Clear()
+        {
+            Commits?.Clear();
+            Branches?.Clear();
+            Edges?.Clear();
+            CommitToModel?.Clear();
+            ContentCleared?.Invoke();
+        }
+
+        void UpdateControls(Size screenSize)
+        { 
+            ContentUpdated?.Invoke(GetViewportBoundaries(screenSize));
         }
 
         void ComputeCanvasBoundaries()
@@ -95,6 +119,7 @@ namespace GitGUI.Logic
                 DoMove(new Vector(0, res.Y = minSize.Height - br.Y));
             else
                 DoMove(new Vector(0, res.Y = move.Y));
+            UpdateControls(screenSize);
             return res;
         }
 
@@ -114,6 +139,25 @@ namespace GitGUI.Logic
         void OnTransformMatrixChanged()
         {
             TransformMatrixChanged?.Invoke(TransformMatrix);
+        }
+
+        public void CreateEdgePairs()
+        {
+            CommitToModel.Clear();
+            Edges.Clear();
+            foreach (var c in Commits)
+            {
+                CommitToModel.Add(c.Commit, c);
+                Edges.Add(c, new List<Tuple<CommitNodeModel, CommitNodeModel>>());
+            }
+            foreach (var c in Commits)
+            {
+                foreach (var parent in c.Commit.Parents)
+                {
+                    Edges[CommitToModel[parent]].Add(new Tuple<CommitNodeModel, CommitNodeModel>(CommitToModel[parent], c));
+                    Edges[c].Add(new Tuple<CommitNodeModel, CommitNodeModel>(CommitToModel[parent], c));
+                }
+            }
         }
     }
 }

@@ -24,8 +24,6 @@ namespace GitGUI.Logic
             Panel.SetZIndex(view, 2);
             SubscribeViewEvents(view);
             InitializeLocation();
-            model.Pushed += () => { Panel.SetZIndex(view, 2); HitTestVisible = true; };
-            model.Pulled += () => { Panel.SetZIndex(view, 3); HitTestVisible = false; };
         }
 
         void SubscribeViewEvents(BranchLabelView view)
@@ -38,11 +36,32 @@ namespace GitGUI.Logic
         public override void SubscribeModel()
         {
             base.SubscribeModel();
-            Model.PropertyChanged += (sender, e) =>
-            {
-                if (e.PropertyName == "AggregationFocused")
-                    AggregationFocusedChanged?.Invoke();
-            };
+            Model.Pushed += Push;
+            Model.Pulled += Pull;
+        }
+
+        public override void UnsubscribeModel()
+        {
+            base.UnsubscribeModel();
+            Model.Pushed -= Push;
+            Model.Pulled -= Pull;
+        }
+
+        void Push()
+        {
+            Panel.SetZIndex(Control, 2); HitTestVisible = true;
+        }
+
+        void Pull()
+        {
+            Panel.SetZIndex(Control, 3); HitTestVisible = false;
+        }
+
+        protected override void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "AggregationFocused")
+                AggregationFocusedChanged?.Invoke();
+            CommonPropertyChanged(e);
         }
     }
 }
