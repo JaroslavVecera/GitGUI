@@ -120,5 +120,10 @@ namespace GitGUI
                 Verb = "open"
             });
         }
+
+        private void NavigateHead(object sender, RoutedEventArgs e)
+        {
+            Graph.GetInstance().AimHead();
+        }
     }
 }

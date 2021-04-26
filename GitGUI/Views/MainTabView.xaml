@@ -42,6 +42,40 @@
                 <Image Source="../icons/open-directory.ico"/>
             </Button>
         </Grid>
+        <Button Click="NavigateHead" Height="20" Width="50" Content="HEAD" Margin="22" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button.Style>
+                <Style  TargetType="Button">
+                    <Setter Property="Foreground" Value="LightGray"/>
+                    <Setter Property="Background" Value="#3E3E42"/>
+                    <Style.Triggers>
+                        <Trigger Property="Button.IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="LightGray" BorderBrush="LightGray" BorderThickness="1" x:Name="border">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="DarkGray" BorderThickness="0">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Foreground" Value="#666666" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <ContentControl  Content="{Binding Shown}" Grid.Row="2" x:Name="nodePanel">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type logic:CommitNodeModel}">

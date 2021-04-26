@@ -131,6 +131,29 @@ namespace GitGUI.Logic
             Program.GetInstance().ShowWaitingDialog();
         }
 
+        public void AimHead()
+        {
+            GraphItemModel i = ZoomAndPanCanvasModel.Branches.Find(b => b.IsHead);
+            if (i == null)
+                i = ZoomAndPanCanvasModel.Commits.Find(c => c.Checkouted);
+            Aim(i);
+        }
+
+        public Tuple<List<CommitNodeModel>, List<BranchLabelModel>, List<CommitNodeModel>> Find(string text)
+        {
+            var commitsByMessage = ZoomAndPanCanvasModel.Commits?.Where(c => c.Message.StartsWith(text)).Take(3).ToList();
+            var branches = ZoomAndPanCanvasModel.Branches?.Where(b => b.Name.StartsWith(text)).Take(3).ToList();
+            var commitsBySha = ZoomAndPanCanvasModel.Commits?.Where(c => c.Sha.StartsWith(text)).Take(3).ToList();
+            return new Tuple<List<CommitNodeModel>, List<BranchLabelModel>, List<CommitNodeModel>>(commitsByMessage, branches, commitsBySha);
+        }
+
+        public void Aim(GraphItemModel i)
+        {
+            Program.GetInstance().Show(i);
+            ResetTranslate();
+            Move(new Vector(-i.Location.X, -i.Location.Y));
+        }
+
         void OnDeployedGraph(IAsyncResult ar)
         {
             Application.Current.Dispatcher.Invoke(() => UpdateGraph(ar));
