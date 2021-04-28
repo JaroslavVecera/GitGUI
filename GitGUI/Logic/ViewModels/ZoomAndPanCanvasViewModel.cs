@@ -51,11 +51,10 @@ namespace GitGUI.Logic
         {
             if (Model.Commits.Count == 0)
                 return;
-            List<CommitNodeViewModel> badCommits = Commits.Where(commit => commit.Location.X > screenBoundaries.Item3 || commit.Location.X + 151 < screenBoundaries.Item1).ToList();
-            List<BranchLabelViewModel> badBranches = Branches.Where(branch => branch.Location.X > screenBoundaries.Item3 || branch.Location.X + 151 < screenBoundaries.Item1 && branch.HitTestVisible).ToList();
-            List<Edge> badEdges = Edges.Where(edge => (edge.Source.X < screenBoundaries.Item1 - 151 && edge.Sink.X < screenBoundaries.Item1 - 151) || (edge.Source.X > screenBoundaries.Item3 + 200 && edge.Sink.X > screenBoundaries.Item3 + 200)).ToList();
-            foreach (var edge in badEdges) {
-                Edges.Remove(edge); View.Children.Remove(edge); }
+            List<CommitNodeViewModel> badCommits = Commits.Where(commit => commit.Location.X > screenBoundaries.Item3 || commit.Location.X + 251 < screenBoundaries.Item1).ToList();
+            List<BranchLabelViewModel> badBranches = Branches.Where(branch => branch.Location.X > screenBoundaries.Item3 || branch.Location.X + 251 < screenBoundaries.Item1 && branch.HitTestVisible).ToList();
+            List<Edge> badEdges = Edges.Where(edge => (edge.Sink.X < screenBoundaries.Item1 - 251 && edge.Source.X < screenBoundaries.Item1 - 251) || (edge.Sink.X > screenBoundaries.Item3 + 300 && edge.Source.X > screenBoundaries.Item3 + 300)).ToList();
+            foreach (var edge in badEdges) { Edges.Remove(edge); View.Children.Remove(edge); }
             foreach (var bb in badBranches) { View.Children.Remove(bb.Control); Branches.Remove(bb); bb.UnsubscribeModel(); }
             List<Point> badCommitLocations = badCommits.Select(commit => commit.Location).ToList();
             foreach (var bc in badCommits) { View.Children.Remove(bc.Control); Commits.Remove(bc); bc.UnsubscribeModel(); }
@@ -66,7 +65,7 @@ namespace GitGUI.Logic
             int f, c;
             for (f = 0; f < Model.Commits.Count; f++)
             {
-                if (Model.Commits[f].Location.X + 151 >= screenBoundaries.Item1)
+                if (Model.Commits[f].Location.X + 251 >= screenBoundaries.Item1)
                     break;
             }
             for (c = f; c < Model.Commits.Count; c++)
