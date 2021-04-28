@@ -99,6 +99,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NamedGroup.cs" />
+    <Compile Include="Views\GroupingPreviewListView.xaml.cs">
+      <DependentUpon>GroupingPreviewListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupingSuggestiveSearchBar.xaml.cs">
+      <DependentUpon>GroupingSuggestiveSearchBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TooMuchCommitsException.cs" />
     <Compile Include="Views\CommitEditorChangeInfos\ConflictInfoView.xaml.cs">
       <DependentUpon>ConflictInfoView.xaml</DependentUpon>
@@ -251,6 +258,14 @@
       <DependentUpon>UntrackedInfoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ZoomAndPanCanvasView.cs" />
+    <Page Include="Views\GroupingPreviewListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GroupingSuggestiveSearchBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\CommitEditorChangeInfos\ConflictInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

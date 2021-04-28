@@ -31,6 +31,11 @@ namespace GitGUI.Logic
             Model.GraphViewCenter = new Point(_width, _height);
         }
 
+        public void RemoveSearchFocus()
+        {
+            Console.WriteLine("rem");
+        }
+
         public ActionPanelViewModel ActionPanel
         { get { return new ActionPanelViewModel(Model.PanelModel); } }
 

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="GitGUI.GroupingSuggestiveSearchBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitGUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <TextBox PreviewKeyDown="OnKeyDown" TextChanged="OnTextChanged" BorderBrush="#686868" Background="#333337" Foreground="White" x:Name="tb" Height="20"  Margin="2" LostFocus="OnLostFocus"/>
+        <Popup Closed="OnClosed" StaysOpen="False" x:Name="popup"  Width="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.ActualWidth}"
+          Placement="Bottom" PlacementTarget="{Binding ElementName=tb}">
+            <local:GroupingPreviewListView x:Name="list" Foreground="White" MatchedBackground="YellowGreen"></local:GroupingPreviewListView>
+        </Popup>
+    </StackPanel>
+</UserControl>

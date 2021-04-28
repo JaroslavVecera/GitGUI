@@ -58,11 +58,17 @@ namespace GitGUI.Logic
             return ZoomAndPanCanvasModel.Move(move, new Size(p.X * 2, p.Y * 2));
         }
 
+        Vector AggresiveMove(Vector move)
+        {
+            Point p = GraphViewCenter();
+            return ZoomAndPanCanvasModel.AggresiveMove(move, new Size(p.X * 2, p.Y * 2));
+        }
+
         public void ResetTranslate()
         {
             ZoomAndPanCanvasModel.Rescale(1 / Zoom, new Point(0, 0));
             Zoom = 1;
-            Move(new Vector(double.MaxValue, -GraphViewCenter().Y));
+            Move(new Vector(double.MaxValue, double.MaxValue));
         }
 
         public void CheckBoundaries()
@@ -149,9 +155,9 @@ namespace GitGUI.Logic
 
         public void Aim(GraphItemModel i)
         {
-            Program.GetInstance().Show(i);
             ResetTranslate();
-            Move(new Vector(-i.Location.X, -i.Location.Y));
+            AggresiveMove(new Vector(-i.Location.X, -i.Location.Y));
+            Program.GetInstance().Show(i);
         }
 
         void OnDeployedGraph(IAsyncResult ar)

@@ -33,6 +33,11 @@ namespace GitGUI.Logic
             }
         }
 
+        public void RemoveSearchFocus()
+        {
+            MainTab?.RemoveSearchFocus();
+        }
+
         public MainWindowModel MainWindowModel { get; set; }
         CommitEditorTabViewModel CommitEditorTab
         {

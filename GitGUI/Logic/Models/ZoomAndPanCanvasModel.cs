@@ -123,6 +123,12 @@ namespace GitGUI.Logic
             return res;
         }
 
+        public Vector AggresiveMove(Vector move, Size screenSize)
+        {
+            DoMove(move);
+            return move;
+        }
+
         void DoMove(Vector move)
         { 
             Matrix m = TransformMatrix;
