@@ -1,0 +1,308 @@
+\documentclass[
+%  printversion,
+  biblatex,
+  glossaries,
+  index
+]{kidiplom}
+
+%% Uživatelské příkazy
+\newcommand{\pic}[4]{
+\begin{figure}[h]
+\centering
+\includegraphics[width=#1]{#2}
+\caption{#3}
+\label{fig:#4}
+\end{figure}}
+
+%% Název práce, česky a anglicky.
+\title{Grafické uživatelské rozhraní pro systém správy verzí Git}
+\title[english]{Graphical user interface for version control system Git}
+
+%% Jméno autora práce.
+\author{Jaroslav Večeřa}
+
+%% Jméno vedoucího práce (včetně titulů).
+\supervisor{Mgr. Radek Janoštík}
+
+%% Anotace práce, včetně anglické
+\annotation{Grafické rozhraní pro Windows, které zprostředková přehlednou a intuitivní práci se základními funkcemi systému Git, a to převážně pomocí grafu.}
+
+\annotation[english]{Windows graphical user interface that allows
+intuitive git workflow using graph representation.}
+
+%% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
+\keywords{git; verzování; graf; grafické rozhraní}
+\keywords[english]{git; version control; graphical interface}
+
+%% Poděkování
+\thanks{Děkuji, děkuji, děkuji.}
+
+%% Cesta k souboru s bibliografií pro její sazbu pomocí BibLaTeXu
+\bibliography{bibliografie.bib}
+
+%% Další dodatečné styly (balíky) potřebné pro sazbu vlastního textu
+%% práce.
+\usepackage{lipsum}
+
+%% Cesta ke složce s grafikou
+\graphicspath{{graphics/}}
+
+%% Reference BibLaTeXu
+\bibliography{bibliografie.bib}
+
+\begin{document}
+\maketitle
+
+%% Vlastní text závěrečné práce. Pro povinné závěry, před přílohami,
+%% použijte prostředí kiconclusions. Povinná je i příloha s obsahem
+%% přiloženého CD/DVD.
+
+%% -------------------------------------------------------------------
+
+\newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
+
+\section{Úvod}
+Při vývoji programů, zvláště pak těch netriviálních, je často třeba
+dělat změny nebo nové verze. Protože však není možné vytvořit program
+bez chyb, objevuje se také potřeba vracet se k libovolným starším
+verzím a zakládat na nich nové, či dokonce vyvíjet více verzí zároveň v
+případě skupiny lidí. Tato činnost lze samozřejmě provádět ručně,
+zabírá to ale čas a zvyšuje riziko chyby. Může dojít ke změně souboru
+nebo jeho smazání na špatném místě. Přece jen udržovat si v uložišti
+desítky záloh nebo obměn dat a spravovat je ručně vyžaduje podrobný
+popis jednotlivých verzí, který časem musí být značně nepřehledný.
+Z tohoto důvodu byly vytvořeny takzvané verzovací systémy.
+
+Systém správy verzí (dále SSV) je zpravidla softwarový nástroj,
+umožňující spravovat verze projektu částečně automaticky (nebo alespoň
+přehledně a jednoduše). Přitom daný projekt nemusí být zdrojovým kódem
+v nějakém programovacím jazyce, může se jednat vlastně o libovolná data.
+Vracet zpět provedené změny, nebo pracovat ve skupině lidí může být
+užitečné například i grafikům, střihačům videí, spisovatelům a podobně.
+Systém uchovává jak soubory samotné, tak různé informace související
+se správou verzí. To se samozřejmě napříč konkrétními systémy liší,
+obvykle je ale k dispozici:
+\begin{itemize}
+\item Popis změny (ručně zadaný)
+\item Čas změny
+\item Autor změny a jeho kontaktní údaje
+\end{itemize}
+
+Tyto údaje jsou zejména užitečné v případě týmu lidí pracujících na
+společném projektu, historicky však nejprve vznikla skupina takzvaných
+lokálních SSV.
+
+\subsection{Lokální SSV}
+Tyto systémy se soustředily na práci jednotlivce, celý projekt byl 
+ukládán na místním disku a nebyl nikde sdílen. Konkrétním zástupcem je 
+například RCS (Revision Control System). RCS si uchovává poslední podobu  
+daného souboru spolu se zpětnými rozdíly. Aplikací těchto rozdílů (delt) 
+na soubor lze rekonstruovat některou jeho předchozí verzi.
+
+Nevýhoda lokálního SSV je, že projekt je umístěn pouze na jednom 
+zařízení, a při chybě disku tak hrozí ztráta dat. Další nevýhodou je 
+nemožnost projekty pohodlně sdílet po síti.
+
+\subsection{Centralizované SSV}
+Centralizované systémy (CSSV)~\cite{otte} jsou historicky dalším vývojovým stupněm SSV. 
+Představují opačný extrém k lokálním SSV, na rozdíl od nich totiž 
+většinu souborů a práci přesouvají od koncového uživatele na jeden 
+společný centrální server, ten je skrze síť dostupný odkudkoliv na světě. Metodu zachycuje obrázek \ref{fig:centralized} \cite{gitreference}.
+
+\pic{10cm}{centralized.png}{Centrálizovaný systém správy verzí}{centralized}
+
+Od chvíle, kdy uživatel $A$ udělá na souboru $S$ nějaké změny a nasdílí
+je do společné databáze, už žádný další uživatel nemá aktuální
+verzi souboru $S$.
+Pro obdržení aktuální verze musí svoji kopii každý opět aktualizovat.
+V případě, že další uživatel provedl jiné změny na témže souboru,
+systém se je pokusí sloučit dohromady. Uživatelé se tedy nemusí starat o 
+případy, ve kterých nedojde k závažnému konfliktu. Pokud však uživatel $A$ 
+upravil stejný řádek souboru $S$, jako uživatel $B$, ale jinak, je třeba se 
+o vyřešení konfliktu postarat ručně výběrem správné verze, případně
+spojením obou změn.
+
+Pro snížení počtu konfliktů je v CSSV dostupná funkce větvení. Umožňuje 
+vytvářet historii změn s jinší než lineární strukturou. Větvení se častou 
+používá pro implementaci ucelené funkcionality programu, nebo pro 
+experimentální záležitosti, které nemusejí být po svém ukončení začleněny 
+do projektu. Uživatel může pracovat na verzích větve aniž by ovlivňovaly
+verze větve jiného uživatele.
+
+Výhodou CSSV je například
+šetření místa jednotlivých uživatelů. Ti na svých zařízeních mají fyzickou 
+kopii pouze aktuální verze projektu, zbytek historie je uložen na serveru.
+To však přináší nemalá rizika v případě výpadku. Pokud uživatel není
+schopen připojení k síti, nemůže na projektu pracovat, jelikož veškerá
+práce se systémem vyžaduje síťové připojení. Pokud dokonce dojde k
+porušení této společné databáze, veškerá historie dat je nenávratně
+ztracena, stejně jako v Lokálním SSV se totiž nachází pouze na jednom místě. Drobnou výhodou 
+zůstává, že alespoň aktuální verze se nachází na více zařízeních.
+
+\subsection{Distribuované SSV}
+Distribuované systémy (DSSV)~\cite{otte} se vyvinuly po centralizovaných a představují 
+jakýsi kompromis obou předchozích systémů. DSSV se snaží těžit z výhod obou 
+metod. Projekt lze snadno sdílet pomocí sítě. Kromě uživatelů obsahuje 
+servery, na kterých se nachází tzv. vzdálené repozitáře. Tyto repozitáře 
+plní stejnou funkci jako v CSSV, nejedná se však o jedinou kopii projektu.
+Každý uživatel, který s ním pracuje, vlastní úplnou kopii
+celé historie. Jednotlivé repozitáře uživatelů a serverů se mezi sebou 		
+aktualizují pomocí k tomu určených příkazů. Tyto příkazy se často nazývají
+push (pro pokus včlenit změny do zvoleného vzdáleného repozitáře), fetch
+(pro stažení dat ze vzdáleného repozitáře) a pull (pro včlenění dat ze 
+vzdáleného repozitáře).
+
+\pic{10cm}{distributed.png}{Distribuovaný systém správy verzí}{distributed}
+
+Jak je v obrázku \ref{fig:distributed} \cite{gitreference} naznačeno přerušovaným spojení mezi uživateli A a B, přímé sdílení projektu sice DSSV umožňuje, není však tolik využívané. Mnohem častěji sdílí uživatelé práci se společným serverem, který tak hraje roli jakéhosi pasivního uživatele, se kterým ostatní komunikují.
+
+Příklady takových nástrojů jsou Mercurial, Bazaar, nebo Git, kterého se
+tato práce týká.
+
+\section{Git}
+Git~\cite{git} je distribuovaný SSV, který na rozdíl od ostatních SSV uchovává historii   takovým způsobem, že většina operací nad soubory je výrazně rychlejší. V článku~\cite{gitreference-history} je popsána historie vzniku Gitu.
+
+Většina verzovacích systémů má uložený soubor a pro každou jeho verzi dopředné, či zpětné rozdíly. Pomocí skládání těchto rozdílů lze znovu zhotovit libovolnou verzi souboru. Hlavní výhoda tohoto přístupu spočívá v ušetřeném místě, oproti ukládání celé kopie se totiž ušetří části, které se mezi jednotlivými verzemi nezměnily. Má to však dopad na rychlost opětovného sestrojení  konkrétních verzí.
+
+Git naproti tomu uchovává pro jednotlivé verze celé kopie (nazývají se snapchoty). Rychlost sestrojení souborů v historii tak není ovlivněna množstvím verzí, které od té doby byly zhotoveny. Git samozřejmě ukládání optimalizuje, a to tak, že pokud nejsou v souboru provedené změny, místo nového snapshotu se uloží odkaz na starý. Celý repozitář také podléhá bezeztrátové kompresi.
+
+Verze projektu také budeme nazývat revize. Každá revize, kromě počáteční, má jeden nebo více předků. Jeden v případě prostého vytvoření další verze, více v případě slévání změn z více verzí (merge). Celá historie se tak dá reprezentovat jako orientovaný, souvislý a acyklický graf s uzly vyjadřujícími revize a hranami vyjadřujícími vztah rodič -- potomek. Vytvořit aplikaci reprezentující tímto způsobem historii vytvořenou gitem je také hlavní cíl této práce.
+
+Jednotlivé větve pak git ukládá vnitřně pouze jako ukazatele na poslední revizi větve. Při vytváření nových verzí se tyto ukazatele posunují na novější commit. Žádná data o tom, v jaké větvi byla revize původně vytvořena, nejsou k dispozici a často se nedají nijak dohledat. Tato informace bude později důležitá při popisu heuristiky rozmístění uzlů v grafu na straně \pageref{subsec:algorithm}
+
+Poté ještě v repozitáři existuje speciální ukazatel HEAD, který ukazuje na větev, či přímo revizi, které jsou aktuálně prohlíženy.
+
+Následující seznam popisuje základní funkce pro práci s Gitem.
+
+\begin{description}
+  \item[Commit]  vytvoří novou verzi, přitom se na ni přesune ukazatel větve, na kterou ukazuje HEAD, případně se posune HEAD, pokud ukazuje přímo na revizi.
+  \item[Branch] Vytvoří nový ukazatel větve na aktuální verzi.
+  \item[Checkout] znovu sestrojí verzi předanou argumentem. Buď formou větve, kdy HEAD začne odkazovat na onu větev, nebo formou revize přímo, potom HEAD odkazuje na revizi a repozitář se nachází v experimentálním módu.
+  \item[Stash] v závislosti na argumentu ukládají, aplikují a mažou provedené změny od poslední verze na strukturu zásobníkového charakteru.
+  \item[Merge] spojuje vybrané větve do jedné. V případě, že nelze konflikty automaticky vyřešit, je o to uživatel požádán.
+  \item[Rebase] oproti merge manipuluje s historií. Přeskládá revize aktuální větve ($B_1$) jako by se od dané větve ($B_2$) oddělovaly až na konci $B_2$.
+  \item[Diff] je nástroj pro vytvoření rozdílů v souborech, nebo celých verzích.
+  \item[Log] ukazuje strukturu historie.
+  \item[Fetch] stáhne historii ze vzdáleného repozitáře.
+  \item[Pull] provede fetch a následně merge.
+  \item[Push] naopak začlení změny do vzdáleného repozitáře.
+\end{description}
+
+\subsection{Základní postupy práce v Gitu}
+Git poskytuje velkou volnost ve způsobu správy větví a to jak lokálně~\cite{gitreference-local} , tak v práci se vzdálenými repozitáři~\cite{gitreference-distributed}.
+
+\subsubsection{Postupy větvení}
+\paragraph*{Dlouhodobé větve}
+Při práci tímto způsobem obvykle repozitář obsahuje větve tří úrovní. První úroveň tvoří hlavní větev (často s názvem {\it master}, nebo {\it main}), která obsahuje pouze dobře otestované revize připravené k publikaci.
+
+Vedle toho bývá k dispozici větev s názvem jako je {\it next}, nebo {\it develop}, která obsahuje méně stabilní kód, který není ucelený, nebo teprve čeká na otestování. Z této větve jsou revize podle potřeby slučovány do hlavní větve.
+
+Poslední úroveň tvoří větve pro jednotlivé funkcionality. Tyto větve slouží k oddělení funkcionalit, které jsou v současné době ve vývoji. Z nich je práce po dokončení slučována do {\it develop} větve.
+
+\paragraph*{Krátkodobé větve}
+Tento způsob práce (někdy nazývaný {\it topic branch}) není tak striktní ve způsobu slučování větví. Dovoluje slučování starších větví do novějších i naopak a tím vzniká tendence udržovat větve krátkodobější a s menším počtem revizí.
+
+Dá se říct, že se jedná o odlehčenou verzi metody dlouhodobých větví, která obsahuje pouze nejnižší úroveň stability. Pro tyto vlastnosti je postup vhodný spíše u menších projektů.
+
+\subsubsection{Distribuovaná práce s větvemi}
+\paragraph*{Centralizovaný postup}
+
+Tento postup je hojně využíván hlavně pro svoji jednoduchost. Také je vhodný při přechodu z centralizovaného SSV pro jejich podobnost. Centralizovaný postup je vhodný pro týmy, ve kterých nehraje velkou roli hierarchie vývojářů, popřípadě nejsou příliš početné.
+
+Prostředkem pro sdílení projektu je jediný vzdálený repozitář, ze kterého/který přispěvatelé aktualizují. Uživatelé, kteří chtějí na projektu pracovat, provedou operaci merge, či clone. Pokud naopak chtějí svoji práci sdílet do vzdáleného repozitáře, provedou push. V případě, že jiný uživatel mezitím sdílel svoji práci, nemá daný uživatel aktuální verzi a musí nejprve včlenit historii z centrální databáze do své, poté až provést push. Přitom samozřejmě může nastat, sice nepravděpodobná, ale stále možná situace, kdy, než uživatel stihl včlenit změny a provést push, opět někdo aktualizoval centrální databázi. Proces je potom třeba opakovat.
+
+\paragraph*{Postup s integračním manažerem}
+Tento postup lépe využívá možnosti DSSV a vyžaduje jeden centrální vzdálený repozitář a dále jeden vzdálený repozitář pro každého běžného přispěvatele.
+
+K centrálnímu repozitáři mají opět přístup všichni, ale právo zápisu má jen správce (integrační manažer). Ostatní smí zapisovat pouze do soukromých vzdálených repozitářů.
+
+Pokud chce uživatel aktualizovat svůj repozitář, jednoduše provede pull, či clone, jako u předchozího postupu. V případě sdílení je ale situace odlišná. Uživatel odešle data do svého vzdáleného repozitáře a uvědomí o změnách správce. Ten včlení změny uživatelova vzdáleného repozitáře do svého lokálního repozitáře a poté je sdílí do centrálního vzdáleného repozitáře. Tam k datům mají opět přístup všichni ostatní.
+
+\paragraph*{Postup s diktátorem a poručíky}
+Předchozí postup lze ještě vylepšit přidáním více správců a rozdělením jejich rolí do heirarchie: jeden diktátor a ostatní poručíci. Tento postup najde uplatnění spíše u projektů extrémních rozměrů, jako například vývoj Linuxového~jádra~\cite{linux}
+
+Běžní vývojáři svojí práci včleňují na vrchol diktátorovi větve {\it master} pomocí příkazu rebase. Poručíci potom včlení větve vývojářů do svých větví {\it master}. Diktátor včlení větve poručíků do své větve {\it master} a zpřístupní ji do centrálního repozitáře ostatním.
+
+
+
+
+\subsection{Algoritmus rozmístění uzlů v grafu}
+\label{subsec:algorithm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
+%% nastavený jazyk práce (nepovinným parametrem language makra
+%% \documentclass, výchozí český) se zadává použitím makra s uvedením
+%% jazyka jako nepovinného parametru.
+\begin{kiconclusions}
+Závěr práce v \uv{českém} jazyce.
+\end{kiconclusions}
+
+\begin{kiconclusions}[english]
+Thesis conclusions in \uv{English}.
+\end{kiconclusions}
+
+%% Přílohy obsahu textu práce, za makrem \appendix.
+\appendix
+
+%% Obsah přiloženého CD/DVD. Poslední příloha. Upravte podle vlastní
+%% práce!
+\section{Obsah přiloženého CD/DVD} \label{sec:ObsahCD}
+
+\begin{description}
+
+\item[\texttt{bin/}] \hfill \\
+  Instalátor
+
+\end{description}
+
+Navíc CD/DVD obsahuje:
+
+\begin{description}
+
+\item[\texttt{literature/}] \hfill \\
+  Vybrané položky bibliografie, příp.~jiná užitečná literatura
+  vztahující se k~práci.
+
+\end{description}
+
+%% -------------------------------------------------------------------
+
+%% Sazba volitelného seznamu zkratek, za přílohami.
+\printglossary
+
+%% Sazba povinné bibliografie, za přílohami (případně i za seznamem
+%% zkratek). Při použití BibLaTeXu použijte makro
+%% \printbibliography. jinak prostředí thebibliography. Ne obojí!
+
+%% Sazba i v textu necitovaných zdrojů, při použití
+%% BibLaTeXu. Volitelné.
+\nocite{*}
+%% Vlastní sazba bibliografie při použití BibLaTeXu.
+\printbibliography
+
+%% Bibliografie, včetně sazby, při nepoužití BibLaTeXu.
+% \begin{thebibliography}{9}
+%\bibitem{kniha2} \uppercase{Hawke}, Paul. NanoHttpd: Light-weight HTTP server designed for embedding in other applications. GitHub [online]. 2014-05-12. [cit. 2014-12-06]. Dostupné z: \url{https://github.com/NanoHttpd/nanohttpd}
+%
+%\bibitem{jeske13} \uppercase{Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
+%
+%\bibitem{uzis2012} \uppercase{ÚSTAV ZDRAVOTNICKÝCH INFORMACÍ A STATISTIKY ČR}. Lékaři, zubní lékaři a farmaceuti 2012 [online]. Praha 2, Palackého náměstí 4: Ústav zdravotnických informací a statistiky ČR, 2012 [cit. 2014-12-06]. ISBN 978-80-7472-089-5. Dostupné z: \url{http://www.uzis.cz/publikace/lekari-zubni-lekari-farmaceuti-2012}
+% \end{thebibliography}
+
+%% Sazba volitelného rejstříku, za bibliografií.
+\printindex
+
+\end{document}
