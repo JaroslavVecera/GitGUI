@@ -390,6 +390,24 @@ Všechny revize, které mají autora, jenž je známý, a má přidělený profi
 Databázi uživatelů lze také sdílet. Po zvolení této možnosti se program dotáže na umístění, do kterého zkopíruje složku s daty o uživatelích. Opačně lze z takto sdílené složky aktualizovat databázi programu.
 
 \subsection{Vytváření revizí}
+Stisknutím tlačítka {\it Commit} se otevře nová karta. Je-l již karta pro vytvoření nové revize otevřena, nevytvoří se nová, ale přepne se na stávající.
+
+Karta se dělí na tři hlavní části: adresář změn, okno pro detail změny a oblast pro specifikaci zprávy revize.
+
+\subsubsection{Adresář změn}
+Nachází se v levé části karty. Adresář tvoří stromovou strukturu. V listových uzlech stromu se nachází soubory, které byly změněny. V nelistových pak rodičovské složky až ke kořenové cestě, odpovídající uzel se nazývá {\it All}.
+
+Každý listový uzel lze vybrat a tím zobrazit v pravé části karty detail změny. Většinou se jedná o jednoduchou textovou informaci, jako například: \uv{Nový soubor}, \uv{Smazaný soubor}, \uv{Přejmenovaný soubor}, \uv{změna je binární}. V případě textové změny je však zobrazen gitový \uv{diff}, neboli rozdíl současné verze od předchozí.
+
+Každý uzel stromu také obsahuje zaškrtávací políčko. Zaškrtnuté změny se projeví v revizi, stejně jako kdyby se v příkazovém řádku přidaly do indexu pomocí příkazu \kiinlinecode{text}{;}{git add}. Ve výchozím stavu jsou všechny změny aktivní, to platí jak pro nově vytvořenou kartu, tak po jakékoliv změně v repozitáři.
+
+\subsubsection{Detail změny}
+Jak již bylo uvedeno, jediným zajímavým obsahem této oblasti je zobrazení souborového rozdílu. Postupně jsou pod sebou vypsané skývy ({\it hunk}) kódu obsahující změnu. Ty mají stejnou hlavičku, jako ve výsledku volání \kiinlinecode{text}{;}{git diff}. Obsah změny je ale formátován přehledněji a je barevně odlišená stará verze nová verze a nezměněná část.
+
+\subsubsection{Zpráva}
+Poslední částí je pole pro zprávu revize s tlačítkem potvrzení. Tlačítko je aktivní pouze když je vybrána alespoň jedna změna a text zprávy je neprázdný.
+
+\pic{10cm}{create-commit.png}{Výřez karty vytvoření revize}{}
 
 \subsection{Práce s větvemi}
 

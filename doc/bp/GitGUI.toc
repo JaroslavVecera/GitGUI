@@ -33,18 +33,24 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.6}Vytváření revizí}{20}{subsection.3.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7}Práce s větvemi}{20}{subsection.3.7}%
+\contentsline {subsubsection}{\numberline {3.6.1}Adresář změn}{20}{subsubsection.3.6.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.8}Algoritmus rozmístění uzlů v grafu}{20}{subsection.3.8}%
+\contentsline {subsubsection}{\numberline {3.6.2}Detail změny}{21}{subsubsection.3.6.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Z\'av\v er}{21}{section*.22}%
+\contentsline {subsubsection}{\numberline {3.6.3}Zpráva}{21}{subsubsection.3.6.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.7}Práce s větvemi}{21}{subsection.3.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.8}Algoritmus rozmístění uzlů v grafu}{21}{subsection.3.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Z\'av\v er}{22}{section*.23}%
 \babel@toc {czech}{}
 \babel@toc {czech}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Conclusions}{22}{section*.24}%
+\contentsline {section}{Conclusions}{23}{section*.25}%
 \babel@toc {english}{}
 \babel@toc {czech}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{23}{appendix.A}%
+\contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{24}{appendix.A}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Seznam zkratek}{24}{section*.26}%
+\contentsline {section}{Seznam zkratek}{25}{section*.27}%

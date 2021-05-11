@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.28)  11 MAY 2021 21:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.28)  12 MAY 2021 00:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1390,7 +1390,7 @@ LaTeX Warning: Citation 'otte' on page 7 undefined on input line 109.
 
 LaTeX Warning: Citation 'gitreference' on page 7 undefined on input line 112.
 
-<graphics/centralized.png, id=127, 602.25pt x 418.56375pt>
+<graphics/centralized.png, id=131, 602.25pt x 418.56375pt>
 File: graphics/centralized.png Graphic file (type png)
 <use graphics/centralized.png>
 Package pdftex.def Info: graphics/centralized.png  used on input line 114.
@@ -1402,7 +1402,7 @@ Package pdftex.def Info: graphics/centralized.png  used on input line 114.
 LaTeX Warning: Citation 'otte' on page 8 undefined on input line 145.
 
 [8 <./graphics/centralized.png>]
-<graphics/distributed.png, id=141, 502.87875pt x 602.25pt>
+<graphics/distributed.png, id=145, 502.87875pt x 602.25pt>
 File: graphics/distributed.png Graphic file (type png)
 <use graphics/distributed.png>
 Package pdftex.def Info: graphics/distributed.png  used on input line 157.
@@ -1454,7 +1454,7 @@ LaTeX Font Info:    Trying to load font information for T1+pcr on input line 27
  (c:/texlive/2020/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<graphics/non-upward-planar.png, id=182, 248.72925pt x 192.11775pt>
+<graphics/non-upward-planar.png, id=186, 248.72925pt x 192.11775pt>
 File: graphics/non-upward-planar.png Graphic file (type png)
 <use graphics/non-upward-planar.png>
 Package pdftex.def Info: graphics/non-upward-planar.png  used on input line 292
@@ -1464,7 +1464,7 @@ Package pdftex.def Info: graphics/non-upward-planar.png  used on input line 292
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<graphics/Repository.png, id=185, 289.68225pt x 176.45924pt>
+<graphics/Repository.png, id=189, 289.68225pt x 176.45924pt>
 File: graphics/Repository.png Graphic file (type png)
 <use graphics/Repository.png>
 Package pdftex.def Info: graphics/Repository.png  used on input line 306.
@@ -1473,7 +1473,7 @@ Package pdftex.def Info: graphics/Repository.png  used on input line 306.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [14]
-<graphics/clonning.png, id=211, 304.13625pt x 94.55325pt>
+<graphics/clonning.png, id=215, 304.13625pt x 94.55325pt>
 File: graphics/clonning.png Graphic file (type png)
 <use graphics/clonning.png>
 Package pdftex.def Info: graphics/clonning.png  used on input line 318.
@@ -1482,19 +1482,19 @@ Package pdftex.def Info: graphics/clonning.png  used on input line 318.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<graphics/graph.png, id=213, 487.8225pt x 207.77625pt>
+<graphics/graph.png, id=217, 487.8225pt x 207.77625pt>
 File: graphics/graph.png Graphic file (type png)
 <use graphics/graph.png>
 Package pdftex.def Info: graphics/graph.png  used on input line 324.
 (pdftex.def)             Requested size: 284.52756pt x 121.18877pt.
 [15 <./graphics/non-upward-planar.png>] [16 <./graphics/Repository.png> <./grap
 hics/clonning.png> <./graphics/graph.png>]
-<graphics/commit-viewer.png, id=228, 776.30025pt x 151.767pt>
+<graphics/commit-viewer.png, id=232, 776.30025pt x 151.767pt>
 File: graphics/commit-viewer.png Graphic file (type png)
 <use graphics/commit-viewer.png>
 Package pdftex.def Info: graphics/commit-viewer.png  used on input line 346.
 (pdftex.def)             Requested size: 369.88582pt x 72.31238pt.
-<graphics/branch-viewer.png, id=229, 779.3115pt x 151.767pt>
+<graphics/branch-viewer.png, id=233, 779.3115pt x 151.767pt>
 File: graphics/branch-viewer.png Graphic file (type png)
 <use graphics/branch-viewer.png>
 Package pdftex.def Info: graphics/branch-viewer.png  used on input line 352.
@@ -1504,18 +1504,18 @@ Package pdftex.def Info: graphics/branch-viewer.png  used on input line 352.
 LaTeX Warning: Citation 'libgitreference' on page 18 undefined on input line 36
 5.
 
-<graphics/searchbar.png, id=237, 274.626pt x 170.43675pt>
+<graphics/searchbar.png, id=241, 274.626pt x 170.43675pt>
 File: graphics/searchbar.png Graphic file (type png)
 <use graphics/searchbar.png>
 Package pdftex.def Info: graphics/searchbar.png  used on input line 367.
 (pdftex.def)             Requested size: 284.52756pt x 176.58165pt.
 [18 <./graphics/searchbar.png>]
-<graphics/users.png, id=244, 230.0595pt x 214.401pt>
+<graphics/users.png, id=248, 230.0595pt x 214.401pt>
 File: graphics/users.png Graphic file (type png)
 <use graphics/users.png>
 Package pdftex.def Info: graphics/users.png  used on input line 374.
 (pdftex.def)             Requested size: 284.52756pt x 265.19363pt.
-<graphics/user.png, id=246, 203.5605pt x 138.5175pt>
+<graphics/user.png, id=250, 203.5605pt x 138.5175pt>
 File: graphics/user.png Graphic file (type png)
 <use graphics/user.png>
 Package pdftex.def Info: graphics/user.png  used on input line 388.
@@ -1524,19 +1524,25 @@ Package pdftex.def Info: graphics/user.png  used on input line 388.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[19 <./graphics/users.png>] [20 <./graphics/user.png>] [21
-
-] [22
+[19 <./graphics/users.png>] [20 <./graphics/user.png>]
+<graphics/create-commit.png, id=262, 468.5505pt x 236.68425pt>
+File: graphics/create-commit.png Graphic file (type png)
+<use graphics/create-commit.png>
+Package pdftex.def Info: graphics/create-commit.png  used on input line 410.
+(pdftex.def)             Requested size: 284.52756pt x 143.73071pt.
+ [21 <./graphics/create-commit.png>] [22
 
 ] [23
 
+] [24
+
 ]
 No file GitGUI.acr.
-[24
+[25
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 470.
+LaTeX Warning: Empty bibliography on input line 488.
 
 No file GitGUI.ind.
 
@@ -1544,11 +1550,11 @@ AED: lastpage setting LastPage
 \tf@loe=\write13
 \openout13 = `GitGUI.loe'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 484.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 484.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 502.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 502.
 (./GitGUI.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 484.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 484.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 502.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 502.
 
 
 LaTeX Warning: There were undefined references.
@@ -1564,27 +1570,21 @@ Package biblatex Warning: Please (re)run Biber on the file:
 Package logreq Info: Writing requests to 'GitGUI.run.xml'.
 \openout1 = `GitGUI.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 484.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 502.
  ) 
 Here is how much of TeX's memory you used:
- 30059 strings out of 482115
- 505530 string characters out of 5938959
+ 30072 strings out of 482115
+ 505746 string characters out of 5938959
  1380017 words of memory out of 5000000
- 45234 multiletter control sequences out of 15000+600000
+ 45243 multiletter control sequences out of 15000+600000
  591718 words of font info for 67 fonts, out of 8000000 for 9000
  137 hyphenation exceptions out of 8191
- 72i,9n,96p,2604b,1956s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section*.27} has been referenced but does not exi
+ 72i,9n,96p,2604b,1954s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{section*.28} has been referenced but does not exi
 st, replaced by a fixed one
 
-pdfTeX warning (dest): name{subsubsection.3.5.3} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsubsection.3.5.2} has been referenced but does n
-ot exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsubsection.3.5.1} has been referenced but does n
-ot exist, replaced by a fixed one
+pdfTeX warning (dest): name{section*.22} has been referenced but does not exist
+, replaced by a fixed one
 
 {c:/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2020/texmf-
 dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/texlive/2020/texmf-dist/fonts/enc/dvi
@@ -1601,10 +1601,10 @@ e1/public/lm/lmri12.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy1
 0.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b><c:/texlive/2020/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/20
 20/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on GitGUI.pdf (24 pages, 420024 bytes).
+Output written on GitGUI.pdf (25 pages, 444650 bytes).
 PDF statistics:
- 437 PDF objects out of 1000 (max. 8388607)
- 370 compressed objects within 4 object streams
- 103 named destinations out of 1000 (max. 500000)
- 282 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 457 PDF objects out of 1000 (max. 8388607)
+ 387 compressed objects within 4 object streams
+ 106 named destinations out of 1000 (max. 500000)
+ 311 words of extra memory for PDF output out of 10000 (max. 10000000)
 
