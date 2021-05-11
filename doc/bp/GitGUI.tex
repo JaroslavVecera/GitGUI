@@ -125,7 +125,7 @@ o vyřešení konfliktu postarat ručně výběrem správné verze, případně
 spojením obou změn.
 
 Pro snížení počtu konfliktů je v CSSV dostupná funkce větvení. Umožňuje 
-vytvářet historii změn s jinší než lineární strukturou. Větvení se častou 
+vytvářet historii změn s jiný než lineární strukturou. Větvení se častou 
 používá pro implementaci ucelené funkcionality programu, nebo pro 
 experimentální záležitosti, které nemusejí být po svém ukončení začleněny 
 do projektu. Uživatel může pracovat na verzích větve aniž by ovlivňovaly
@@ -298,10 +298,7 @@ zlepšoval by přehlednost jiným způsobem, je rozdělení revizí do řádků 
 
 Poslední možností je tedy způsob, který rozdělí uzly revizí chronologicky jedním směrem (konkrétně doprava). Navíc jsou rozděleny do řádků, které mohou odpovídat větvím vytvoření, není to však zaručeno. Popis algoritmu je popsán v podkapitole \ref{subsec:algorithm}.
 
-\subsection{Funkce programu}
-Program nabízí řadu funkcí gitu:
-
-\subsubsection{Vytvoření a otevření repozitáře}
+\subsection{Vytvoření a otevření repozitáře}
 V příkazové řádce se repozitář otevírá jednoduše pomocí otevření adresáře, který je pod správou verzí gitu. Pokud se na zmiňované cestě ještě repozitář nenachází, je možné jej vytvořit zadáním \kiinlinecode{text}{;}{git init}.
 
 V programu k tomu slouží záložka {\it Repository} v menu horní lišty. Jak je vidět na obrázku \ref{fig:menu-repository}, záložka umožňuje dva způsoby otevření ({\it Open} a {\it Open recent}) a položku pro vytvoření nového repozitáře ({it Create}).
@@ -314,7 +311,14 @@ Druhou možností je potom {\it Open Recent}, která obsahuje další rozbalovac
 
 Použití {\it Create} je analogické k {\it Open} s tím rozdílem, že pokud už je ve zvoleném umístění existující repozitář, je uživatel informován hláškou {\it There is already a repository}. Po úspěšném vytvoření se repozitář automaticky otevře.
 
-\subsubsection{Práce s grafem a git log}
+\subsubsection{Klonování repozitáře}
+Dalším způsobem, jak lokálně vytvořit repozitář, je jeho naklonování. Funkce je přístupná z nabídky {\it Repository} pod názvem {\it Clone}. Nejprve se program dotáže na požadované umístění, přitom se chová jako {\it Create}, potom se dotáže na url vzdáleného repozitáře. Během stahování je zobrazeno okno s průběhem klonování \ref{fig:clone}.
+
+
+\pic{10cm}{clonning.png}{Dialog postupu klonování}{clone}
+
+
+\subsection{Práce s grafem a git log}
 Jednoduchý graf je vyobrazen v \ref{fig:graph}.
 
 \pic{10cm}{graph.png}{Příklad grafu}{graph}
@@ -368,6 +372,27 @@ Nástroj obsahuje pole pro vložení hledaného výrazu a vyskakovací našeptá
 Současně s verzemi se v gitu ukládají i informace o autorovi, konkrétně jméno a e-mailová adresa. V programu GitGUI se automaticky použije výchozí uživatel se jménem \uv{Anonym} a adresou \uv{-}. Tento výchozí uživatel nelze smazat ani upravit. Je však možné dle libosti mazat, upravovat a vytvářet další uživatele. Slouží k tomu rozbalovací nabídka v pravém horním rohu okna \ref{fig:users}.
 
 \pic{10cm}{users.png}{Nabídka uživatelů}{users}
+
+Jak je na obrázku vidět, nabídka se skládá ze seznamu uživatelů (který po překročení určité velikosti stane rolovatelný) a tlačítek pro vytvoření nového uživatele a sdílení nebo aktualizaci databáze uživatelů.
+
+Každý uživatel může kromě, z gitu známého, jména a adresy obsahovat ještě profilový obrázek. Výběrem tlačítka na pravé straně nevýchozího uživatele lze uživatele upravit, nebo smazat. Uživatel je vytvářen/upravován v samostatném okně. Výběr obrázku je nepovinný, ale jméno a adresa musí být validní. Pokud nejsou zadané hodnoty přípustné, u daného řádku je symbol červeného křížku a tlačítko pro potvrzení není povoleno, v opačném případě se objeví symbol zelené fajfky.
+
+Požadavky pro hodnoty jsou:
+\begin{description}
+\item[Pro jméno:] neprázdný řetězec obsahující alespoň jeden znak, který není bílý.
+\item[Pro adresu:] správný tvar e-mailové adresy.
+\end{description}
+
+Všechny revize, které mají autora, jenž je známý, a má přidělený profilový obrázek, mají jeho miniaturu umístěnou v levé části uzlu \ref{fig:user}.
+
+\pic{10cm}{user.png}{Revize s obrázkem autora}{user}
+
+Databázi uživatelů lze také sdílet. Po zvolení této možnosti se program dotáže na umístění, do kterého zkopíruje složku s daty o uživatelích. Opačně lze z takto sdílené složky aktualizovat databázi programu.
+
+\subsection{Vytváření revizí}
+
+\subsection{Práce s větvemi}
+
  
 
 
