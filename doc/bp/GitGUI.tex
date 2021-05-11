@@ -43,6 +43,8 @@ intuitive git workflow using graph representation.}
 %% Další dodatečné styly (balíky) potřebné pro sazbu vlastního textu
 %% práce.
 \usepackage{lipsum}
+\usepackage{caption}
+\usepackage{subcaption}
 
 %% Cesta ke složce s grafikou
 \graphicspath{{graphics/}}
@@ -68,7 +70,7 @@ bez chyb, objevuje se také potřeba vracet se k libovolným starším
 verzím a zakládat na nich nové, či dokonce vyvíjet více verzí zároveň v
 případě skupiny lidí. Tato činnost lze samozřejmě provádět ručně,
 zabírá to ale čas a zvyšuje riziko chyby. Může dojít ke změně souboru
-nebo jeho smazání na špatném místě. Přece jen udržovat si v uložišti
+nebo jeho smazání na špatném místě. Přece jen udržovat si v úložišti
 desítky záloh nebo obměn dat a spravovat je ručně vyžaduje podrobný
 popis jednotlivých verzí, který časem musí být značně nepřehledný.
 Z tohoto důvodu byly vytvořeny takzvané verzovací systémy.
@@ -109,7 +111,7 @@ Představují opačný extrém k lokálním SSV, na rozdíl od nich totiž
 většinu souborů a práci přesouvají od koncového uživatele na jeden 
 společný centrální server, ten je skrze síť dostupný odkudkoliv na světě. Metodu zachycuje obrázek \ref{fig:centralized} \cite{gitreference}.
 
-\pic{10cm}{centralized.png}{Centrálizovaný systém správy verzí}{centralized}
+\pic{10cm}{centralized.png}{Centralizovaný systém správy verzí}{centralized}
 
 Od chvíle, kdy uživatel $A$ udělá na souboru $S$ nějaké změny a nasdílí
 je do společné databáze, už žádný další uživatel nemá aktuální
@@ -222,6 +224,155 @@ Pokud chce uživatel aktualizovat svůj repozitář, jednoduše provede pull, č
 Předchozí postup lze ještě vylepšit přidáním více správců a rozdělením jejich rolí do heirarchie: jeden diktátor a ostatní poručíci. Tento postup najde uplatnění spíše u projektů extrémních rozměrů, jako například vývoj Linuxového~jádra~\cite{linux}
 
 Běžní vývojáři svojí práci včleňují na vrchol diktátorovi větve {\it master} pomocí příkazu rebase. Poručíci potom včlení větve vývojářů do svých větví {\it master}. Diktátor včlení větve poručíků do své větve {\it master} a zpřístupní ji do centrálního repozitáře ostatním.
+
+\section{Uživatelská dokumentace}
+Většina návodů pro práci s gitem obsahuje ve velké míře grafovou reprezentaci pro lepší pochopení. Vytvořený program vnáší tento prvek přímo do práce s ním. Má za cíl zobrazovat stav repozitáře gitu vizuálně pomocí grafu a poskytovat přehlednou práci s ním. Cílí tak na začátečníky, kteří se ještě neorientují s příkazovou řádkou, ale i na uživatele, kteří se potřebují rychle zorientovat ve struktuře revizí a větví.
+
+Projekt je však vhodný spíše pro menší repozitáře. Jednak se přehlednost zvoleného zobrazení se zvětšujícím počtem revizí snižuje a jednak se prodlužuje čas potřebný k vykreslení a překreslení grafu.
+
+\subsection{Reprezentace repozitáře grafem}
+Charakter vztahů {\it rodič -- potomek} u jednotlivých revizí je ideální pro znázornění pomocí acyklického orientovaného grafu. Jednotlivé uzly mohou reprezentovat revize a jednotlivé hrany zase zmiňované vztahy {\it rodič -- potomek} mezi revizemi.
+
+Přitom acykličnost takového grafu je zřejmá, protože v gitu nově vytvořená revize nemůže mít přidělené potomky a žádná už vytvořená revize $r$ nelze připojit jako rodič jiného (obecně ne přímého) rodiče $r$.
+
+\subsection{Výběr způsobu rozložení grafu}
+
+Původní volba byla vzestupné rovinné nakreslení grafu. Pro popis toho, co je to rovinné nakreslení grafu je třeba nejprve vysvětlit rovinné nakreslení grafu.
+
+Před definicí nakreslení grafu je však ještě třeba objasnit pojem {\it oblouk}.
+
+\begin{definition}
+Mějme libovolné prosté spojité zobrazení $\alpha\colon\langle 0;1\rangle\to\mathbb{R}^2$ intervalu $\langle 0;1\rangle$ do roviny. Potom podmnožinu roviny $a=\{\alpha(x)\mid x\in\langle 0;1\rangle\}$ nazveme obloukem.
+\end{definition}
+
+\begin{definition}
+Nakreslením grafu $G=(V,E)$ se rozumí prosté zobrazení $d$, které každému vrcholu $v\in V$ grafu přiřazuje bod $b(v)$ roviny, a každé hraně $e=\{u,v\}$ přiřazuje oblouk $a(e)$ v rovině s koncovými body $b_u$ a $b_v$. Přitom žádný z bodů $b_v$ ($v\in V$) není
+nekoncovým bodem žádného z oblouků $a(e)$ ($e\in E$).
+
+Teď když jsme formálně představili pojem nakreslení grafu, je možné zadefinovat rovinné nakreslení grafu
+
+\end{definition}
+Nakreslení grafu $G = (V,E)$, v němž oblouky odpovídající různým hranám mají
+společné nanejvýš koncové body, se nazývá rovinné nakreslení.
+\begin{definition}
+
+Pro acyklické orientované grafy má navíc smysl uvažovat pojem vzestupné rovinné nakreslení grafu. Rovinné nakreslení grafu $G=(V,E)$ nazveme vzestupné, platí-li $\forall e=(u; v)\in E,\ u[u_x,u_y],\ v[v_y,u_y]\colon v_y > v_x$. Podobně lze samozřejmě graf kreslit vertikálně, či v libovolném dalším směru.
+\end{definition}
+
+Takováto reprezentace by byla ideální kvůli přehlednosti, žádné hrany by se nekřížily a podmínka o postupném rozložení v jednom směru je vhodná pro znázornění, jak byly vrcholy reprezentující revize v čase postupně vytvořeny.
+
+Ne každý acyklický orientovaný graf však má nějaké vzestupné rovinné nakreslení. Grafová reprezentace gitového repozitáře má kromě acykličnosti sice některé další omezující podmínky, existence vzestupného rovinného nakreslení však nelze zaručit.
+
+Jednoduchý příklad takové struktury je vidět na obrázku \ref{fig:non-upward-planar}.
+
+Strukturu lze zreplikovat pomocí posloupnosti příkazů \ref{kod:non-planar-repository} (vynechány jsou příkazy {\it add} pro přidání změn do indexu).
+Z obrázku je zřejmé, že uzly 5, 6 a 7 nelze rozmístit tak, aby se hrany nekřížily.
+
+\begin{kicode}{}{kod:non-planar-repository}{Vytvoření struktury, která nejde vzestupně rozložit v rovině}
+git branch a
+git branch b
+git branch c
+git checkout a
+git commit
+git checkout b
+git commit
+git checkout c
+git commit
+git checkout a
+git branch d
+git merge b
+git checkout c
+git branch e
+git merge b
+git checkout d
+git merge e
+git merge a c
+\end{kicode}
+
+\pic{10cm}{non-upward-planar.png}{}{non-upward-planar}
+
+Z předcházející úvahy je vidět, že při stávajících požadavcích (uzly kreslené chronologicky jedním směrem) se nelze vyhnout překřížení hran.
+
+Dalším způsobem, který by sice výše uvedenou podmínku nesplňoval, ale
+zlepšoval by přehlednost jiným způsobem, je rozdělení revizí do řádků podle větví, kterým patří (tedy ve kterých byly vytvořeny). I zde však narážíme na překážku, a tou je způsob ukládání revizí v gitu. Jak už bylo dříve popsáno, větve jsou v gitu pouze ukazatele na poslední revize oné větve, není tedy možné dopátrat větev vytvoření.
+
+Poslední možností je tedy způsob, který rozdělí uzly revizí chronologicky jedním směrem (konkrétně doprava). Navíc jsou rozděleny do řádků, které mohou odpovídat větvím vytvoření, není to však zaručeno. Popis algoritmu je popsán v podkapitole \ref{subsec:algorithm}.
+
+\subsection{Funkce programu}
+Program nabízí řadu funkcí gitu:
+
+\subsubsection{Vytvoření a otevření repozitáře}
+V příkazové řádce se repozitář otevírá jednoduše pomocí otevření adresáře, který je pod správou verzí gitu. Pokud se na zmiňované cestě ještě repozitář nenachází, je možné jej vytvořit zadáním \kiinlinecode{text}{;}{git init}.
+
+V programu k tomu slouží záložka {\it Repository} v menu horní lišty. Jak je vidět na obrázku \ref{fig:menu-repository}, záložka umožňuje dva způsoby otevření ({\it Open} a {\it Open recent}) a položku pro vytvoření nového repozitáře ({it Create}).
+
+\pic{10cm}{Repository.png}{Menu - Repozitář}{menu-repository}
+
+Po výběru možnosti {\it Open} se zobrazí klasický dialog prohlížeče souborů, ve kterém je třeba najít požadovanou složku s repozitářem. Po jejím úspěšném výběru se repozitář otevře a vykreslí graf. V případě, že se jedná o takzvaný bare repozitář (ten neobsahuje pracovní strom souborů a tudíž s ním nejde pracovat přímo a nemá tak smysl, aby ho program podporoval), je o tom uživatel zpraven chybovou hláškou: {\it Can't open bare repository}. Pokud se ve zvoleném místě nenachází žádný repozitář, pak je uživatel dotázán, zda-li si přeje vytvořit nový.
+
+Druhou možností je potom {\it Open Recent}, která obsahuje další rozbalovací menu poskytující výběr nanejvýš pěti nedávno uzavřených repozitářů. Tento výběr je seřazen od nejpozději uzavřeného. Přitom za uzavření repozitáře se bere výběr možnosti {\it Close} v záložce {\it Repository}, otevření jiného repozitáře, či zavření aplikace. Pokud se vybraná položka již nenachází ve svém původním umístění, dostane uživatel prostřednictvím dialogového okna na výběr, jestli chce smazat odkaz.
+
+Použití {\it Create} je analogické k {\it Open} s tím rozdílem, že pokud už je ve zvoleném umístění existující repozitář, je uživatel informován hláškou {\it There is already a repository}. Po úspěšném vytvoření se repozitář automaticky otevře.
+
+\subsubsection{Práce s grafem a git log}
+Jednoduchý graf je vyobrazen v \ref{fig:graph}.
+
+\pic{10cm}{graph.png}{Příklad grafu}{graph}
+
+Skládá se ze světle modrých bublin reprezentujících uzly revizí a tmavších bublin ve tvaru obdélníku reprezentujících větve. Přitom je mezi revizemi naznačen vztah rodičů a potomků hranami, které jsou rovné v případě uzlů na stejném řádku a zaoblené jinak.
+
+Tvar hrany pro uzly na různých řádcích je třeba více přiblížit, jelikož je rovněž potřebný pro výběr algoritmu. Tvar hrany se rozděluje na tyto dva případy:
+\begin{description}
+\item[Rodič je na vyšším řádku, než potomek:]
+Potom se křivka těsně za rodičem lomí obloukem směrem nahoru a před horním řádkem se rovněž obloukem lomí zpět a pokračuje horizontálně.
+\item[Rodič je na nižším řádku, než potomek:]
+Křivka se stáčí stejnýmm způsobem jako v předchozím případě, jen se stáčí až před potomkem (a samozřejmě směrem nahoru).
+\end{description}
+Jinými slovy větší část křivky se nachází na nižším z daných řádků.
+
+Protože na revizi může v jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz \ref{fig:graph}, větve b2 -- b4. S tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z větví.
+
+Aktuální hlava (tedy větev, či přímo revize), je potom barevně odlišena fialovou barvou.
+
+Po výběru myší, nebo později popsaným nástrojem pro vyhledávání, se danému uzlu zvýrazní okraj a ve spodní části obrazovky se objeví panel s informacemi. Obě možnosti vzhledu panelu v závislosti na typu objektu jsou na obrázku \ref{fig:item-info}. Jsou k dispozici informace jako zpráva, název, autor, čas vytvoření, hash (a tlačítko pro zkopírování), nebo tlačítko pro zobrazení změn. Panel se vypne po kliknutí do prázdného prostoru grafu, nebo po překreslení grafu.
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{13cm}
+   \includegraphics[width=1\linewidth]{commit-viewer.png}
+   \caption{Verze pro revizi}
+
+\vspace{5 mm}
+\end{subfigure}
+\begin{subfigure}[b]{13cm}
+   \includegraphics[width=1\linewidth]{branch-viewer.png}
+   \caption{Verze pro větev}
+\end{subfigure}
+\caption{Panel s informacemi o zvoleném objektu grafu}
+\label{fig:item-info}
+\end{figure}
+
+Každý uzel větve navíc může obsahovat ikony indikující, že je větev vzdálená, nebo že má připojenou některou vzdálenou větev. Panel s informacemi potom ukazuje o kolik verzí je daný uzel před/za sledovanou vzdálenou větví.
+
+V grafu se lze pohybovat pomocí myši po stisknutí a podržení pravého tlačítka v oblasti grafu. Znázorňuje to i kurzor myši pro pohyb ve všech směrech. Celý graf lze pomocí kolečka myši nebo touchepadu zvětšovat a zmenšovat. Hranice pro posun se nachází několik centimetrů za nejkrajnějším objektem grafu.
+
+V krajním případě lze na sebe nahromadit velké množství větví. Tento příklad v praxi nenastává, ale je možný. V takovém případě je výsledek nejen vizuálně ne příliš hezký, ale také je potom možné graf po celé délce posunovat zbytečně vysoko a navíc se kvůli velkému počtu grafických prvků na jednom místě může zhoršovat plynulost posunování v grafu. Do budoucna je proto počítáno s úspornějším řešením. Například zobrazit pouze jeden uzel a tlačítko pro výčet ostatních.
+
+Koncept příkazu \kiinlinecode{text}{;}{git log} je v programu GitGUI nahrazen samotným grafem, který zrcadlí historii. Ve větších projektech ale může být obtížné vyhledávat konkrétní revize či větve pouze procházením grafu. Proto je v pravém horním rohu plochy pro zobrazení grafu přístupný nástroj pro vyhledávání \ref{fig:searchtool} (ukázka je provedena na projektu \cite{libgitreference}
+
+\pic{10cm}{searchbar.png}{Ukázka vyhledávání}{searchtool}
+
+Nástroj obsahuje pole pro vložení hledaného výrazu a vyskakovací našeptávač. Kromě toho také obsahuje tlačítko speciálně pro nalezení hlavy repozitáře. Našeptávač se zobrazí v případě, že byl upraven vyhledávací výraz, jeho délka je nenulová a některé položky grafu vyhledávání vyhovují. Přejít na hledanou položku v grafu je možné pouze výběrem (myší, nebo klávesnicí) v našeptávači. Tím se otevře panel s informacemi o položce a graf se posune hledanou položkou do zorného pole. Našeptávač je rozdělen do tří kategorií. Každá z těchto kategorií pak obsahuje nanejvýš tři návrhy, popřípadě není zobrazena neexistuje-li pro hledaný výraz žádný návrh. Kategorie jsou popořadě: Revize podle prvního řádku zprávy, větve podle názvu a revize podle jejich hash kódů. Nutno dodat, že se vyhledávané hodnoty porovnávají pouze od začátku.
+
+\subsection{Uživatelé}
+Současně s verzemi se v gitu ukládají i informace o autorovi, konkrétně jméno a e-mailová adresa. V programu GitGUI se automaticky použije výchozí uživatel se jménem \uv{Anonym} a adresou \uv{-}. Tento výchozí uživatel nelze smazat ani upravit. Je však možné dle libosti mazat, upravovat a vytvářet další uživatele. Slouží k tomu rozbalovací nabídka v pravém horním rohu okna \ref{fig:users}.
+
+\pic{10cm}{users.png}{Nabídka uživatelů}{users}
+ 
+
+
+
+ 
 
 
 

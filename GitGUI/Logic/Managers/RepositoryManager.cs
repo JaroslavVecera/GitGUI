@@ -51,12 +51,6 @@ namespace GitGUI.Logic
             var v = LibGitService.GetInstance().IsValidRepository(path);
             if (v == RepositoryValidation.Invalid)
             {
-                if (LibGitService.GetInstance().Size(path) > 10000)
-                {
-                    var result = MessageBox.Show("Opening repository with more than 10000 commits is not recommended due to slow redrawing. Do you want to open the repository anyways?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.No)
-                        return RepositoryValidation.Valid;
-                }
                 LibGitService.GetInstance().OpenNewRepository(path);
                 Open(path);
             }
