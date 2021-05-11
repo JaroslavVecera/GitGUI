@@ -98,16 +98,21 @@ namespace GitGUI.Logic
         {
             get
             {
-                string path = PicturePath;
-                if (path == null)
-                    return null;
-                BitmapImage bit = new BitmapImage();
-                bit.BeginInit();
-                bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                bit.CacheOption = BitmapCacheOption.OnLoad;
-                bit.UriSource = new Uri(path);
-                bit.EndInit();
-                return bit;
+                BitmapImage res = null;
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    string path = PicturePath;
+                    if (path == null)
+                        return;
+                    BitmapImage bit = new BitmapImage();
+                    bit.BeginInit();
+                    bit.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    bit.CacheOption = BitmapCacheOption.OnLoad;
+                    bit.UriSource = new Uri(path);
+                    bit.EndInit();
+                    res = bit;
+                });
+                return res;
             }
         }
 
@@ -115,10 +120,15 @@ namespace GitGUI.Logic
         {
             get
             {
-                string path = PicturePath;
-                if (path == null)
-                    return null;
-                return new Bitmap(path);
+                Bitmap res = null;
+                App.Current.Dispatcher.Invoke(() =>
+                {
+                    string path = PicturePath;
+                    if (path == null)
+                        return;
+                    res = new Bitmap(path);
+                });
+                return res;
             }
         }
     }

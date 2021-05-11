@@ -30,14 +30,15 @@ namespace GitGUI
     public partial class UserWindow : WindowBase
     {
         bool PictureChoosed { get; set; }
-        bool IsNameValid { get { return name.Text.Any(); } }
+        bool IsNameValid { get { return !string.IsNullOrWhiteSpace(name.Text); } }
         bool IsEmailValid { get { return email.Text.Any() && new EmailAddressAttribute().IsValid(email.Text); } }
         Bitmap _bitmap;
+        public bool ChangedBitmap { get; set; } = false;
 
         public Bitmap Bitmap
         {
             get { return _bitmap; }
-            set { _bitmap = value; if (value != null) Open(BitmapToBitmapImage(value)); }
+            set { ChangedBitmap = true; if (_bitmap != null) _bitmap.Dispose(); _bitmap = value; if (value != null) Open(BitmapToBitmapImage(value)); }
         }
 
         public static readonly DependencyProperty RoleProperty =
@@ -167,6 +168,7 @@ namespace GitGUI
         private void Remove(object sender, RoutedEventArgs e)
         {
             image.Source = null;
+            Bitmap = null;
             PictureChoosed = false;
             ValidateInput();
         }

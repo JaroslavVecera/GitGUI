@@ -78,21 +78,37 @@ namespace GitGUI.Logic
             w.UserName = u.Name;
             w.Email = u.Email;
             w.Bitmap = u.BitmapCopy;
+            w.ChangedBitmap = false;
             if (w.ShowDialog() == true)
             {
-                DeleteUser(u);
-                AddUser(w.UserName, w.Email, w.Bitmap);
+                if (!w.ChangedBitmap && w.Bitmap != null)
+                    w.Bitmap.Dispose();
+                DoDeleteUser(u);
+                DoAddUser(w.UserName, w.Email, w.Bitmap);
             }
+            Graph.GetInstance().DeployGraph();
         }
 
         public void DeleteUser(User u)
         {
+            DoDeleteUser(u);
+            Graph.GetInstance().DeployGraph();
+        }
+
+        void DoDeleteUser(User u)
+        { 
             KnownUsers.Remove(u);
             u.Delete();
         }
 
         public void AddUser(string name, string email, Bitmap picture)
         {
+            DoAddUser(name, email, picture);
+            Graph.GetInstance().DeployGraph();
+        }
+
+        void DoAddUser(string name, string email, Bitmap picture)
+        { 
             if (KnownUsers.ToList().Any(u => u.HasIdentity(new LibGit2Sharp.Identity(name,email))))
                 return;
             KnownUsers.Add(new User(FindNextName(), name, email, picture));
