@@ -410,6 +410,11 @@ Poslední částí je pole pro zprávu revize s tlačítkem potvrzení. Tlačít
 \pic{10cm}{create-commit.png}{Výřez karty vytvoření revize}{}
 
 \subsection{Práce s větvemi}
+Operace \kiinlinecode{text}{;}{git checkout} lze v GitGUI provést výběrem požadované větve, nebo revize v grafu a stisknutím tlačítka {\it Checkout}, to je aktivní právě když je některý uzel vybrán.
+
+Kromě vytváření nových větví je potřeba je slučovat. Tato operace se provádí přímo v grafu stylem přetáhnutí uzlu jedné větve na druhou. Tím se vyvolá kontextová nabídka s výběrem požadované operace, a to buď Merge, anebo Rebase.
+
+Při přetahování uzlu může nastat situace, kdy se slučovaná větev nenachází v aktuálním zorném poli. Jedna vlastnost, která toto řeší je možností oddalovat a přibližovat graf během přesunování. Tou druhou je automatické odsunování plátna grafu
 
  
 
