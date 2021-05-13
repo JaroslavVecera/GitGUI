@@ -1,6 +1,4 @@
 \defcounter {refsection}{0}\relax 
-\contentsline {definition}{\numberline {1}Definice}{13}{definition.1}%
+\contentsline {definition}{\ifthmt@listswap Definice~1\else \numberline {1}Definice\fi }{13}{definition.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {definition}{\numberline {2}Definice}{13}{definition.2}%
-\defcounter {refsection}{0}\relax 
-\contentsline {definition}{\numberline {3}Definice}{13}{definition.3}%
+\contentsline {definition}{\ifthmt@listswap Definice~2\else \numberline {2}Definice\fi }{13}{definition.2}%

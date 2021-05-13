@@ -43,6 +43,7 @@ intuitive git workflow using graph representation.}
 %% Další dodatečné styly (balíky) potřebné pro sazbu vlastního textu
 %% práce.
 \usepackage{lipsum}
+\usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
 
@@ -233,7 +234,7 @@ Projekt je však vhodný spíše pro menší repozitáře. Jednak se přehlednos
 \subsection{Reprezentace repozitáře grafem}
 Charakter vztahů {\it rodič -- potomek} u jednotlivých revizí je ideální pro znázornění pomocí acyklického orientovaného grafu. Jednotlivé uzly mohou reprezentovat revize a jednotlivé hrany zase zmiňované vztahy {\it rodič -- potomek} mezi revizemi.
 
-Přitom acykličnost takového grafu je zřejmá, protože v gitu nově vytvořená revize nemůže mít přidělené potomky a žádná už vytvořená revize $r$ nelze připojit jako rodič jiného (obecně ne přímého) rodiče $r$.
+Přitom acykličnost takového grafu je zřejmá, protože v gitu nově vytvořená revize nemůže mít přidělené potomky a žádnou už vytvořenou revizi $r$ nelze připojit jako rodiče jiného (obecně ne přímého) rodiče revize $r$.
 
 \subsection{Výběr způsobu rozložení grafu}
 
@@ -248,16 +249,13 @@ Mějme libovolné prosté spojité zobrazení $\alpha\colon\langle 0;1\rangle\to
 \begin{definition}
 Nakreslením grafu $G=(V,E)$ se rozumí prosté zobrazení $d$, které každému vrcholu $v\in V$ grafu přiřazuje bod $b(v)$ roviny, a každé hraně $e=\{u,v\}$ přiřazuje oblouk $a(e)$ v rovině s koncovými body $b_u$ a $b_v$. Přitom žádný z bodů $b_v$ ($v\in V$) není
 nekoncovým bodem žádného z oblouků $a(e)$ ($e\in E$).
-
-Teď když jsme formálně představili pojem nakreslení grafu, je možné zadefinovat rovinné nakreslení grafu
-
 \end{definition}
+
+Teď, když jsme formálně představili pojem nakreslení grafu, je možné zadefinovat rovinné nakreslení grafu
 Nakreslení grafu $G = (V,E)$, v němž oblouky odpovídající různým hranám mají
 společné nanejvýš koncové body, se nazývá rovinné nakreslení.
-\begin{definition}
 
 Pro acyklické orientované grafy má navíc smysl uvažovat pojem vzestupné rovinné nakreslení grafu. Rovinné nakreslení grafu $G=(V,E)$ nazveme vzestupné, platí-li $\forall e=(u; v)\in E,\ u[u_x,u_y],\ v[v_y,u_y]\colon v_y > v_x$. Podobně lze samozřejmě graf kreslit vertikálně, či v libovolném dalším směru.
-\end{definition}
 
 Takováto reprezentace by byla ideální kvůli přehlednosti, žádné hrany by se nekřížily a podmínka o postupném rozložení v jednom směru je vhodná pro znázornění, jak byly vrcholy reprezentující revize v čase postupně vytvořeny.
 
@@ -268,7 +266,7 @@ Jednoduchý příklad takové struktury je vidět na obrázku \ref{fig:non-upwar
 Strukturu lze zreplikovat pomocí posloupnosti příkazů \ref{kod:non-planar-repository} (vynechány jsou příkazy {\it add} pro přidání změn do indexu).
 Z obrázku je zřejmé, že uzly 5, 6 a 7 nelze rozmístit tak, aby se hrany nekřížily.
 
-\begin{kicode}{}{kod:non-planar-repository}{Vytvoření struktury, která nejde vzestupně rozložit v rovině}
+\begin{kicode}{}{kod:non-planar-repository}{Vytvoření struktury, která nejde vzestupně rozložit v rovině.}
 git branch a
 git branch b
 git branch c
@@ -336,7 +334,7 @@ Jinými slovy větší část křivky se nachází na nižším z daných řádk
 
 Protože na revizi může v jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz \ref{fig:graph}, větve b2 -- b4. S tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z větví.
 
-Aktuální hlava (tedy větev, či přímo revize), je potom barevně odlišena fialovou barvou.
+Aktuální hlava (tedy větev, či přímo revize) je potom barevně odlišena fialovou barvou.
 
 Po výběru myší, nebo později popsaným nástrojem pro vyhledávání, se danému uzlu zvýrazní okraj a ve spodní části obrazovky se objeví panel s informacemi. Obě možnosti vzhledu panelu v závislosti na typu objektu jsou na obrázku \ref{fig:item-info}. Jsou k dispozici informace jako zpráva, název, autor, čas vytvoření, hash (a tlačítko pro zkopírování), nebo tlačítko pro zobrazení změn. Panel se vypne po kliknutí do prázdného prostoru grafu, nebo po překreslení grafu.
 
@@ -402,7 +400,7 @@ Každý listový uzel lze vybrat a tím zobrazit v pravé části karty detail z
 Každý uzel stromu také obsahuje zaškrtávací políčko. Zaškrtnuté změny se projeví v revizi, stejně jako kdyby se v příkazovém řádku přidaly do indexu pomocí příkazu \kiinlinecode{text}{;}{git add}. Ve výchozím stavu jsou všechny změny aktivní, to platí jak pro nově vytvořenou kartu, tak po jakékoliv změně v repozitáři.
 
 \subsubsection{Detail změny}
-Jak již bylo uvedeno, jediným zajímavým obsahem této oblasti je zobrazení souborového rozdílu. Postupně jsou pod sebou vypsané skývy ({\it hunk}) kódu obsahující změnu. Ty mají stejnou hlavičku, jako ve výsledku volání \kiinlinecode{text}{;}{git diff}. Obsah změny je ale formátován přehledněji a je barevně odlišená stará verze nová verze a nezměněná část.
+Jak již bylo uvedeno, jediným zajímavým obsahem této oblasti je zobrazení souborového rozdílu. Postupně jsou pod sebou vypsané skývy ({\it hunk}) kódu obsahující změnu. Ty mají stejnou hlavičku, jako ve výsledku volání \kiinlinecode{text}{;}{git diff}. Obsah změny je ale formátován přehledněji a je barevně odlišená stará verze, nová verze a nezměněná část.
 
 \subsubsection{Zpráva}
 Poslední částí je pole pro zprávu revize s tlačítkem potvrzení. Tlačítko je aktivní pouze když je vybrána alespoň jedna změna a text zprávy je neprázdný.
@@ -414,19 +412,119 @@ Operace \kiinlinecode{text}{;}{git checkout} lze v GitGUI provést výběrem po�
 
 Kromě vytváření nových větví je potřeba je slučovat. Tato operace se provádí přímo v grafu stylem přetáhnutí uzlu jedné větve na druhou. Tím se vyvolá kontextová nabídka s výběrem požadované operace, a to buď Merge, anebo Rebase.
 
-Při přetahování uzlu může nastat situace, kdy se slučovaná větev nenachází v aktuálním zorném poli. Jedna vlastnost, která toto řeší je možností oddalovat a přibližovat graf během přesunování. Tou druhou je automatické odsunování plátna grafu
+Při přetahování uzlu může nastat situace, kdy se slučovaná větev nenachází v aktuálním zorném poli. Jedna vlastnost, která toto řeší je možnost oddalovat a přibližovat graf během přesunování. Tou druhou je automatické odsouvání plátna grafu po najetí dostatečně blízko k okraji plátna. Směr odsouvání je od středu ke kurzoru myši.
 
- 
+Ani tyto ovládací mechanismy však výrazně nepomohou v případě velkých repozitářů. Do budoucna by bylo dobré přidat druhotné způsoby provedení Merge/Rebase operace.
 
+Standartní postup při slučování v gitu je přejít do slučující větve (\kiinlinecode{text}{;}{git checkout <slucujici vetev>}) a provést merge se slučovanou větví (\kiinlinecode{text}{;}{git merge <slucovana vetev>}). GitGUI se snaží uživatele odstínit od nutnosti nejprve do větve přejít, a to tak, že akci provede za uživatele a to i v případě, že jsou ve stávající větvi neuložené změny. To je zařízeno pomocí implicitního provádění {\it stash} (viz dále). Vše samozřejmě nemůže být vždy zcela transparentní, jelikož během slučování může dojít ke konfliktu. V takovém případě se o konflikt musí postarat uživatel a po jeho vyřešení se vrátit do původní větve manuálně.
 
+\subsubsection{Konflikty}
+V konfliktním stavu nelze vytvářet nové revize, provádět stash ani slučovat větve. odpovídající tlačítka jsou proto neaktivní. Také se v tomto stavu otevře prohlížeč konfliktu podobný kartě vytvoření revize. Adresář změn obsahuje rozbalovací nabídku, která slouží pro volbu větve, se kterou se mají provádět rozdíly souborů.
 
- 
+Po manuálním vyřešení konfliktů je možné změny potvrdit, nebo sloučení zrušit. Všechny soubory konfliktů jsou automaticky zašrtnuté, protože bez nich nemá dokončení operace smysl.
 
+Pokud se uživatel rozhodne v konfliktním stavu prohlížeč konfliktu vypnout, je možné jej kdykoliv opět otevřít pomocí tlačítka commit v hlavní kartě. Také se sám otevře po každé změně v repozitáři.
 
+\subsection{Prohlížeč revize}
+Prohlížeč změn v revizi je karta podobná kartě pro vytvoření revize. Obsahuje stejný adresář, ve kterém jde prohlížet změny v jednotlivých souborech a oblast s výpisem zprávy.
 
+\subsection{Stash}
+Stash lze vytvořit pomocí tlačítka {\it Stash} v hlavní kartě. Pokud jsou nějaké stashe dostupné pro aktuální repozitář, zdostupní se záložka {\it Stashing} v horní nabídce. Zde je dostupný seznam vytvořených stashů, které lze pomocí barevně odlišených tlačítek aplikovat nebo/a odstraňovat.
+
+\subsection{Implicitní stash}
+Zajímavým prvkem GitGUI je implicitní stash. Vytvoří se automaticky při pokusu o checkout jiné větve (v případě, že jsou provedeny změny, které lze uložit jako stash). Tato vlastnost by měla pomoct zjednodušit práci s gitem. Je vhodná například pokud se chceme v průběhu práce na revizi podívat na zdrojový kód v jiné revizi, ale nechceme ještě ukládat změny jako samostatnou verzi.
+
+Uložený stash není k dispozici v nabídce stashing, ale je pro uživatele viditelný jako ikona kužele na uzlu revize, od které byly změny provedeny. Vnitřně implicitní stash uložen jako běžný stash a je proto dostupný z příkazové řádky.
+
+Po checkoutu větve ukazující na revizi \uv{obsahující} implicitní stash se automaticky aplikuje.
+
+\subsection{Vzdálené repozitáře}
+
+\section{Programátorská dokumentace}
 
 \subsection{Algoritmus rozmístění uzlů v grafu}
 \label{subsec:algorithm}
+Pro lepší přehlednost i zjednodušení algoritmu nejsou žádné dva uzly revizí nad sebou. Uzly revizí jsou rozmisťovány zleva v pořadí od nejdříve vytvořeného. To právě umožňuje neklást požadavky na místo zabrané uzly větví, nemůžou totiž překrývat jiné revize, protože se ve stejném sloupci nachází jen jedna. Dále tedy budou uvažovány jen revize.
+
+Algoritmus jako vstup bere seřazenou posloupnost uzlů a snaží se je rozdělit na řádky tak, aby hrany, jejichž tvar byl již popsán, nebyly překryté žádným uzlem. Neboli každému uzlu přidělí správný řádek. Uzly přitom obsahují seznamy svých předchůdců i následníků. Poslednímu uzlu je přidělen řádek číslo nula a poté je ostatním uzlům od konce přidělováno číslo řádku podle incidujících hran.
+
+Pro účely představení algoritmu bude použit pseudokód podobný skutečné implementaci v jazyce C\#. Každý uzel obsahuje tyto vlastnosti:
+
+\begin{table}[H]
+\begin{tabular}{@{}ll@{}}
+Predecessors               & Seznam předchůdců                                                 \\
+Descendants                & Seznam následníků                                                 \\
+Row                        & Index řádku
+\\
+DeployedPredecessors                        & Počet již umístěných předchůdců                                                                                         \\
+HasPredecessorOnTheSameRow & Udává, jestli je na stejném řádku již umístěný
+ některý předchůdce
+\end{tabular}
+\end{table}
+
+Algoritmus se v první řadě snaží uzel umístit na řádek některého jeho následníka. Není-li to možné, hledá odshora volný řádek, přes který už žádná hrana nemůže vést.
+
+\begin{kicode}{text}{kod:node-placement}{Umístění uzlu n.}
+posDesc = PossibleDescendantsOnTheSameRow(n)
+sortedDesc = n.Descendants.Sort(d1, d2  £*$\to$*£ d1.Row < d2.Row)
+if (Satisfies(posDesc, sortedDesc))
+	d = posDesc.Aggregate(n1, n2   £*$\to$*£ if (n1.Row < n2.Row) n1 else n2)
+	n.Row = d.Row
+	d.HasPredecessorOnTheSameRow = true
+else
+	for(i = 0 to LastOnRow.Count)
+		if (HasSpace(i))
+			break;
+	n.Row = i
+n.Descendants.ForEach(d £*$\to$*£ d.DeployedPredecessors++)
+LastOnRow[i] = n
+\end{kicode}
+
+\begin{kicode}{text}{kod:possible}{Výběr možných následníků na stejném řádku.}
+PossibleDescendantsOnTheSameRow(n)
+	posDesc = n.Where(d £*$\to$*£
+		!d.HesPredecessorsOnTheSameRow && (
+		d.Predecessors.Count == 1 ||
+		d.Predecessors.Count - 1 == d.DeployedPredecessors))
+	complRows = Map(n.Descendants £*$\smallsetminus$*£ posDesc, d £*$\!\to\!$*£ d.Row)
+	return posDesc.Filter(p £*$\to$*£ p.Row £*$\not\in$*£ complRows)
+\end{kicode}
+
+\begin{kicode}{text}{kod:space}{Zjištění, zda je na řádku volné místo.}
+HasSpace(i)
+	return LastOnRow[i].DeployedPredecessors == 	LastOnRow[i].Predecessors.Count && 	LastOnRow[i].HasPredecessorOnSameRow == false
+\end{kicode}
+
+\begin{kicode}{text}{kod:satisfies}{Predikát kontrolující, jestli je možné použít řádek vrchího z posDesc.}
+Satisfies(p, s)
+	p £*$\neq\emptyset\ \wedge{}$*£ (AreSortedByTime(s) £*$\vee$*£ p.Min(d £*$\to$*£ d.Row) = s.First.Row)
+\end{kicode}
+
+V prvním řádku jsou vybráni následníci, kteří nemají předchůdce na stejném řádku a počet předchůdců je jedna, nebo o jedna menší než počet rozmístěných uzlů. Z toho jsou odebraní následníci se stejným řádkem, jinak by došlo k překřížení.
+
+Dále se algoritmus větví na dva případy. První možností je, že kolekce následníků {\it posDesc} je neprázdná a současně jsou buď seřazení následníci podle řádků i chronologicky, nebo je nejvyšší možný řádek pro právě umisťovaný uzel totožný s řádkem nejvyššího následníka.
+
+Při splnění těchto podmínek je uzlu přidělen horní z navrhovaných řádků a nastaví se patřičné proměnné potřebné k rozmístění ostatních uzlů. U časově seřazených následníků na pozici uzlu nezáleží (hrany zasahují do ostatních sloupců jen ve spodním z incidentních řádků). Pro neseřazené uzly je dostatečná podmínka, aby nebyl žádný následník výš
+
+Nejsou-li podmínky splněny, hledá se první řádek, který zaručuje, že už nemůže obsahovat další horizontálně vedenou hranu křížící tento sloupec.
+
+Nakonec se upraví kolekce posledních revizí na řádku a cyklus pokračuje pro případný další uzel.
+
+\paragraph*{Ověření správnosti}
+Takový algoritmus by bylo dobré alespoň neformálně ověřit, využít k tomu můžeme matematickou indukci.
+
+Z tvaru hran víme, že můžeme požadavky na neprotnutí uzlu hranou matematicky formulovat takto:
+
+$$\forall a,b\in\text{Commits},\ a.\text{Descendants} = b$$
+$$\not\exists c\in\text{Commits}\colon$$
+$$a<b<c\ \wedge\ c.\text{Row}=\min(a.\text{Row},b.\text{Row})$$
+
+Jinak řečeno, pro žádnou dvojici incidentních uzlů neexistuje uzel umístěný v mezilehlém sloupci s řádkem totožným s nižším z daných incidentních uzlů. Tato podmínka bude třeba v indukci, stačí aby ji splňovaly všechny doposud rozmístěné uzly.
+
+
+
+
+
 
 
 
