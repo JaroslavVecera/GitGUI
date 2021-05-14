@@ -192,11 +192,13 @@ namespace GitGUI.Logic
             _conflict = LibGitService.GetInstance().IsInConflictState;
             if (_conflict)
             {
+                MainWindowModel.NoConflicts = false;
                 ActionsManager.TurnConflictState();
                 TabManager.TurnConflictState();
             }
             else
             {
+                MainWindowModel.NoConflicts = true;
                 ActionsManager.TurnNoConflictState();
                 TabManager.TurnNoConflictState();
             }

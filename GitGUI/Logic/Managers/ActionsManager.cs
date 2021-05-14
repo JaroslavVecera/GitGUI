@@ -65,7 +65,7 @@ namespace GitGUI.Logic
         public void OnWorkTreeChanged(bool hasChanges)
         {
             StashButton.Active = IsCheckoutButtonActive(hasChanges);
-            RemoteRepoLeftGroupPanel.Enabled = RemoteRepoRightGroupPanel.Enabled = Program.GetInstance().RemoteManager.CurrentRemotes.Any();
+            RemoteRepoLeftGroupPanel.Enabled = RemoteRepoRightGroupPanel.Enabled = Program.GetInstance().RemoteManager.CurrentRemotes.Any() && !_isConflict;
         }
 
         ActionButtonModel AddButton(ActionPanelModel panel, string text, Action action, double width, string pathData, bool filled)

@@ -20,7 +20,8 @@ namespace GitGUI.Logic
         public ObservableCollection<Remote> Remotes { get { return Program.GetInstance().RemoteManager.CurrentRemotes; } }
         public string RepoPath { get { return Model.RepoPath; } }
         public bool CanClose { get { return RepoPath != null && RepoPath != ""; } }
-        public bool EnabledStashing { get { return CanClose; } }
+        public bool NoConflicts { get { return Model.NoConflicts; } }
+        public bool EnabledStashing { get { return CanClose && NoConflicts; } }
         public bool VisibleRemoteActions { get { return CanClose; } }
         public IEnumerable<string> RecentRepos { get { return Model.RecentRepos; } }
         public bool AnyRecentRepos { get { return RecentRepos.Any(); } }
@@ -56,7 +57,7 @@ namespace GitGUI.Logic
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e.PropertyName);
-            if (e.PropertyName == "RepoPath")
+            if (e.PropertyName == "RepoPath" || e.PropertyName == "NoConflicts")
             {
                 OnPropertyChanged("CanClose");
                 OnPropertyChanged("EnabledStashing");

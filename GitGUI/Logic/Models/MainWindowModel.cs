@@ -14,6 +14,8 @@ namespace GitGUI.Logic
         IEnumerable<string> _recentRepos;
         string _repoPath = "";
         bool _isWaiting = false;
+        bool _noConflicts = true;
+        public bool NoConflicts { get { return _noConflicts; } set { _noConflicts = value; OnPropertyChanged(); } }
 
         public event Action Captured;
         public event Action CaptureReleased;

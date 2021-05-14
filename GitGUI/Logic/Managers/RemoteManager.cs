@@ -61,7 +61,7 @@ namespace GitGUI.Logic
 
         void ChangeRemotes()
         {
-            if (CurrentRepository == null)
+            if (LibGitService.GetInstance().Repository == null)
                 return;
             CanSelect = false;
             CurrentRemotes.Clear();
