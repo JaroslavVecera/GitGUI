@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  13 MAY 2021 09:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  17 MAY 2021 00:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1120,6 +1120,304 @@ Package: subcaption 2020/10/07 v1.3j Sub-captions (AR)
 \c@subfigure=\count467
 \c@subtable=\count468
 )
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks50
+\pgfutil@tempdima=\dimen196
+\pgfutil@tempdimb=\dimen197
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-lists.tex)
+) (c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box107
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2020/12/27 v3.1.8b (3.1.8b)
+))
+Package: pgf 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks51
+\pgfkeys@temptoks=\toks52
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
+\pgfkeys@tmptoks=\toks53
+))
+\pgf@x=\dimen198
+\pgf@y=\dimen199
+\pgf@xa=\dimen256
+\pgf@ya=\dimen257
+\pgf@xb=\dimen258
+\pgf@yb=\dimen259
+\pgf@xc=\dimen260
+\pgf@yc=\dimen261
+\pgf@xd=\dimen262
+\pgf@yd=\dimen263
+\w@pgf@writea=\write9
+\r@pgf@reada=\read4
+\c@pgf@counta=\count469
+\c@pgf@countb=\count470
+\c@pgf@countc=\count471
+\c@pgf@countd=\count472
+\t@pgf@toka=\toks54
+\t@pgf@tokb=\toks55
+\t@pgf@tokc=\toks56
+\pgf@sys@id@count=\count473
+ (c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2020/12/27 v3.1.8b (3.1.8b)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2020/12/27 v3.1.8b (3.1.8b)
+)))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfsyssoftpath@smallbuffer@items=\count474
+\pgfsyssoftpath@bigbuffer@items=\count475
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)) (c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen264
+\pgfmath@count=\count476
+\pgfmath@box=\box108
+\pgfmath@toks=\toks57
+\pgfmath@stack@operand=\toks58
+\pgfmath@stack@operation=\toks59
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.te
+x)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric
+.code.tex)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.t
+ex)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.co
+de.tex)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.te
+x)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithm
+etics.code.tex)))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count477
+))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@picminx=\dimen265
+\pgf@picmaxx=\dimen266
+\pgf@picminy=\dimen267
+\pgf@picmaxy=\dimen268
+\pgf@pathminx=\dimen269
+\pgf@pathmaxx=\dimen270
+\pgf@pathminy=\dimen271
+\pgf@pathmaxy=\dimen272
+\pgf@xx=\dimen273
+\pgf@xy=\dimen274
+\pgf@yx=\dimen275
+\pgf@yy=\dimen276
+\pgf@zx=\dimen277
+\pgf@zy=\dimen278
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.cod
+e.tex
+File: pgfcorepathconstruct.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@path@lastx=\dimen279
+\pgf@path@lasty=\dimen280
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.te
+x
+File: pgfcorepathusage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@shorten@end@additional=\dimen281
+\pgf@shorten@start@additional=\dimen282
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfpic=\box109
+\pgf@hbox=\box110
+\pgf@layerbox@main=\box111
+\pgf@picture@serial@count=\count478
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code
+.tex
+File: pgfcoregraphicstate.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgflinewidth=\dimen283
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.c
+ode.tex
+File: pgfcoretransformations.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@pt@x=\dimen284
+\pgf@pt@y=\dimen285
+\pgf@pt@temp=\dimen286
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.co
+de.tex
+File: pgfcorepathprocessing.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfarrowsep=\dimen287
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@max=\dimen288
+\pgf@sys@shading@range@num=\count479
+\pgf@shadingcount=\count480
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfexternal@startupbox=\box112
+))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code
+.tex
+File: pgfcoretransparency.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+) (c:/texlive/2021/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+))) (c:/texlive/2021/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.te
+x
+File: pgfmoduleshapes.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfnodeparttextbox=\box113
+)
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.st
+y
+Package: pgfcomp-version-0-65 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@nodesepstart=\dimen289
+\pgf@nodesepend=\dimen290
+)
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.st
+y
+Package: pgfcomp-version-1-18 2020/12/27 v3.1.8b (3.1.8b)
+)) (c:/texlive/2021/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(c:/texlive/2021/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen291
+\pgffor@skip=\dimen292
+\pgffor@stack=\toks60
+\pgffor@toks=\toks61
+))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.co
+de.tex
+File: pgflibraryplothandlers.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgf@plot@mark@count=\count481
+\pgfplotmarksize=\dimen293
+)
+\tikz@lastx=\dimen294
+\tikz@lasty=\dimen295
+\tikz@lastxsaved=\dimen296
+\tikz@lastysaved=\dimen297
+\tikz@lastmovetox=\dimen298
+\tikz@lastmovetoy=\dimen299
+\tikzleveldistance=\dimen300
+\tikzsiblingdistance=\dimen301
+\tikz@figbox=\box114
+\tikz@figbox@bg=\box115
+\tikz@tempbox=\box116
+\tikz@tempbox@bg=\box117
+\tikztreelevel=\count482
+\tikznumberofchildren=\count483
+\tikznumberofcurrentchild=\count484
+\tikz@fig@count=\count485
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfmatrixcurrentrow=\count486
+\pgfmatrixcurrentcolumn=\count487
+\pgf@matrix@numberofcolumns=\count488
+)
+\tikz@expandcount=\count489
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+)))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\arrowsize=\dimen302
+))
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryautomata.code.tex
+File: tikzlibraryautomata.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+
+(c:/texlive/2021/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.m
+ultipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2020/12/27 v3.1.8b (3.1.8b)
+\pgfnodepartlowerbox=\box118
+\pgfnodeparttwobox=\box119
+\pgfnodepartthreebox=\box120
+\pgfnodepartfourbox=\box121
+\pgfnodeparttwentybox=\box122
+\pgfnodepartnineteenbox=\box123
+\pgfnodeparteighteenbox=\box124
+\pgfnodepartseventeenbox=\box125
+\pgfnodepartsixteenbox=\box126
+\pgfnodepartfifteenbox=\box127
+\pgfnodepartfourteenbox=\box128
+\pgfnodepartthirteenbox=\box129
+\pgfnodeparttwelvebox=\box130
+\pgfnodepartelevenbox=\box131
+\pgfnodeparttenbox=\box132
+\pgfnodepartninebox=\box133
+\pgfnodeparteightbox=\box134
+\pgfnodepartsevenbox=\box135
+\pgfnodepartsixbox=\box136
+\pgfnodepartfivebox=\box137
+)))
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Enabling multilingual quotes.
@@ -1132,42 +1430,42 @@ Package biblatex Warning: Attempt to redefine deprecated '\mkbibnamelast'.
 
 Package biblatex Warning: Conflicting options.
 (biblatex)                'urldate=iso' requires 'seconds=true'.
-(biblatex)                Setting 'seconds=true' on input line 56.
+(biblatex)                Setting 'seconds=true' on input line 58.
 
 (./GitGUI.aux)
 \openout1 = `GitGUI.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
  (c:/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count469
-\scratchdimen=\dimen196
-\scratchbox=\box107
-\nofMPsegments=\count470
-\nofMParguments=\count471
-\everyMPshowfont=\toks50
-\MPscratchCnt=\count472
-\MPscratchDim=\dimen197
-\MPnumerator=\count473
-\makeMPintoPDFobject=\count474
-\everyMPtoPDFconversion=\toks51
+\scratchcounter=\count490
+\scratchdimen=\dimen303
+\scratchbox=\box138
+\nofMPsegments=\count491
+\nofMParguments=\count492
+\everyMPshowfont=\toks62
+\MPscratchCnt=\count493
+\MPscratchDim=\dimen304
+\MPnumerator=\count494
+\makeMPintoPDFobject=\count495
+\everyMPtoPDFconversion=\toks63
 ) (c:/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -1177,7 +1475,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 56.
+Package hyperref Info: Link coloring ON on input line 58.
 
 (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -1188,12 +1486,12 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (c:/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count475
+\c@section@level=\count496
 )
-LaTeX Info: Redefining \ref on input line 56.
-LaTeX Info: Redefining \pageref on input line 56.
-LaTeX Info: Redefining \nameref on input line 56.
-\c@lstlisting=\count476
+LaTeX Info: Redefining \ref on input line 58.
+LaTeX Info: Redefining \pageref on input line 58.
+LaTeX Info: Redefining \nameref on input line 58.
+\c@lstlisting=\count497
 
 (./GitGUI.glsdefs)
 Package biblatex Info: Trying to load language 'czech' -> 'czech-iso'...
@@ -1264,8 +1562,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'GitGUI.bbl' found.
 
 (./GitGUI.bbl)
-Package biblatex Info: Reference section=0 on input line 56.
-Package biblatex Info: Reference segment=0 on input line 56.
+Package biblatex Info: Reference section=0 on input line 58.
+Package biblatex Info: Reference segment=0 on input line 58.
 
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1302,56 +1600,56 @@ Package biblatex Info: Reference segment=0 on input line 56.
 
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 56.
+(lastpage)             ! on input line 58.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-<graphics/kititle-cz-nofont.pdf, id=4, 375.4025pt x 72.27pt>
+<graphics/kititle-cz-nofont.pdf, id=7, 375.4025pt x 72.27pt>
 File: graphics/kititle-cz-nofont.pdf Graphic file (type pdf)
 <use graphics/kititle-cz-nofont.pdf>
-Package pdftex.def Info: graphics/kititle-cz-nofont.pdf  used on input line 57.
+Package pdftex.def Info: graphics/kititle-cz-nofont.pdf  used on input line 59.
 
 (pdftex.def)             Requested size: 225.24323pt x 43.36232pt.
-<graphics/UP_znak.pdf, id=5, 101.59215pt x 101.59215pt>
+<graphics/UP_znak.pdf, id=8, 101.59215pt x 101.59215pt>
 File: graphics/UP_znak.pdf Graphic file (type pdf)
 <use graphics/UP_znak.pdf>
-Package pdftex.def Info: graphics/UP_znak.pdf  used on input line 57.
+Package pdftex.def Info: graphics/UP_znak.pdf  used on input line 59.
 (pdftex.def)             Requested size: 101.59187pt x 101.59187pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 5
-7.
+9.
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 5
-7.
+9.
 
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-57.
+59.
 
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-57.
+59.
 
 (c:/texlive/2021/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 57.
+(Font)              <12> on input line 59.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 57.
+(Font)              <8> on input line 59.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 57.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
+(Font)              <6> on input line 59.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
 
 
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 59.
 
 
 (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1363,25 +1661,25 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 {c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./graphics/kiti
 tle-cz-nofont.pdf> <./graphics/UP_znak.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 57.
+(Font)              <10.95> on input line 59.
  [2] [3
 
 ] [4
 
-] (./GitGUI.toc)
-\tf@toc=\write9
-\openout9 = `GitGUI.toc'.
+] (./GitGUI.toc [5
 
- [5
+])
+\tf@toc=\write10
+\openout10 = `GitGUI.toc'.
 
-] (./GitGUI.lof)
-\tf@lof=\write10
-\openout10 = `GitGUI.lof'.
+ [6] (./GitGUI.lof)
+\tf@lof=\write11
+\openout11 = `GitGUI.lof'.
 
 
 (./GitGUI.lot)
-\tf@lot=\write11
-\openout11 = `GitGUI.lot'.
+\tf@lot=\write12
+\openout12 = `GitGUI.lot'.
 
 
 showing definition
@@ -1392,206 +1690,176 @@ showing theorem
 showing proof
 showing example
 (./GitGUI.loe) (./GitGUI.lol)
-\tf@lol=\write12
-\openout12 = `GitGUI.lol'.
+\tf@lol=\write13
+\openout13 = `GitGUI.lol'.
 
- [6
+ [7
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
-9.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 9
+1.
 
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-
-LaTeX Warning: Citation 'otte' on page 7 undefined on input line 110.
-
-
-LaTeX Warning: Citation 'gitreference' on page 7 undefined on input line 113.
-
-<graphics//centralized.png, id=151, 602.25pt x 418.56375pt>
+<graphics//centralized.png, id=185, 602.25pt x 418.56375pt>
 File: graphics//centralized.png Graphic file (type png)
 <use graphics//centralized.png>
-Package pdftex.def Info: graphics//centralized.png  used on input line 115.
+Package pdftex.def Info: graphics//centralized.png  used on input line 117.
 (pdftex.def)             Requested size: 284.52756pt x 197.75325pt.
-[7
+ [8
 
 ]
 
-LaTeX Warning: Citation 'otte' on page 8 undefined on input line 146.
+LaTeX Warning: Citation 'svn' on page 9 undefined on input line 147.
 
-[8 <./graphics//centralized.png>]
-<graphics//distributed.png, id=165, 502.87875pt x 602.25pt>
+[9 <./graphics//centralized.png>]
+<graphics//distributed.png, id=202, 502.87875pt x 602.25pt>
 File: graphics//distributed.png Graphic file (type png)
 <use graphics//distributed.png>
-Package pdftex.def Info: graphics//distributed.png  used on input line 158.
+Package pdftex.def Info: graphics//distributed.png  used on input line 162.
 (pdftex.def)             Requested size: 284.52756pt x 340.74974pt.
 
 
-LaTeX Warning: Citation 'gitreference' on page 9 undefined on input line 160.
+LaTeX Warning: Citation 'bazaar' on page 10 undefined on input line 166.
 
-
-LaTeX Warning: Citation 'git' on page 9 undefined on input line 166.
-
-
-LaTeX Warning: Citation 'gitreference-history' on page 9 undefined on input lin
-e 166.
-
-[9 <./graphics//distributed.png>] [10]
-
-LaTeX Warning: Citation 'gitreference-local' on page 11 undefined on input line
- 195.
-
-
-LaTeX Warning: Citation 'gitreference-distributed' on page 11 undefined on inpu
-t line 195.
-
-
-Overfull \hbox (45.05086pt too wide) in paragraph at lines 195--196
-\T1/lmr/m/n/12 Git po-sky-tuje vel-kou vol-nost ve zp·-sobu správy v¥tví a to j
-ak lo-káln¥ [[]]
- []
-
-
-Overfull \hbox (1.94376pt too wide) in paragraph at lines 199--200
+[10 <./graphics//distributed.png>] [11]
+Overfull \hbox (1.94376pt too wide) in paragraph at lines 203--204
  []\T1/lmr/bx/n/12 Dlouhodobé v¥tve \T1/lmr/m/n/12 P°i práci tímto zp·-so-bem o
 b-vykle re-po-zi-tá° ob-sa-huje v¥tve
  []
 
-[11]
-
-LaTeX Warning: Citation 'linux' on page 12 undefined on input line 225.
-
-[12]
+[12] [13]
 Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
-nput line 246.
+nput line 252.
+ [14]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 269.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 26
-9.
+nput line 275.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 27
+5.
  (c:/texlive/2021/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<graphics//non-upward-planar.png, id=194, 248.72925pt x 192.11775pt>
-File: graphics//non-upward-planar.png Graphic file (type png)
-<use graphics//non-upward-planar.png>
-Package pdftex.def Info: graphics//non-upward-planar.png  used on input line 29
-0.
-(pdftex.def)             Requested size: 284.52756pt x 219.77576pt.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[13]
-<graphics//Repository.png, id=208, 289.68225pt x 176.45924pt>
+<graphics//Repository.png, id=254, 289.68225pt x 176.45924pt>
 File: graphics//Repository.png Graphic file (type png)
 <use graphics//Repository.png>
-Package pdftex.def Info: graphics//Repository.png  used on input line 304.
+Package pdftex.def Info: graphics//Repository.png  used on input line 337.
 (pdftex.def)             Requested size: 284.52756pt x 173.33275pt.
 
-
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14]
-<graphics//clonning.png, id=234, 304.13625pt x 94.55325pt>
+[15] [16 <./graphics//Repository.png>]
+<graphics//clonning.png, id=285, 304.13625pt x 94.55325pt>
 File: graphics//clonning.png Graphic file (type png)
 <use graphics//clonning.png>
-Package pdftex.def Info: graphics//clonning.png  used on input line 316.
+Package pdftex.def Info: graphics//clonning.png  used on input line 349.
 (pdftex.def)             Requested size: 284.52756pt x 88.45877pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<graphics//graph.png, id=236, 487.8225pt x 207.77625pt>
+<graphics//graph.png, id=287, 487.8225pt x 207.77625pt>
 File: graphics//graph.png Graphic file (type png)
 <use graphics//graph.png>
-Package pdftex.def Info: graphics//graph.png  used on input line 322.
+Package pdftex.def Info: graphics//graph.png  used on input line 355.
 (pdftex.def)             Requested size: 284.52756pt x 121.18877pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[15 <./graphics//non-upward-planar.png>] [16 <./graphics//Repository.png> <./gr
-aphics//clonning.png>]
-<graphics//commit-viewer.png, id=250, 776.30025pt x 151.767pt>
+ [17 <./graphics//clonning.png> <./graphics//graph.png>]
+<graphics//commit-viewer.png, id=296, 776.30025pt x 151.767pt>
 File: graphics//commit-viewer.png Graphic file (type png)
 <use graphics//commit-viewer.png>
-Package pdftex.def Info: graphics//commit-viewer.png  used on input line 344.
+Package pdftex.def Info: graphics//commit-viewer.png  used on input line 377.
 (pdftex.def)             Requested size: 369.88582pt x 72.31238pt.
-<graphics//branch-viewer.png, id=251, 779.3115pt x 151.767pt>
+<graphics//branch-viewer.png, id=297, 779.3115pt x 151.767pt>
 File: graphics//branch-viewer.png Graphic file (type png)
 <use graphics//branch-viewer.png>
-Package pdftex.def Info: graphics//branch-viewer.png  used on input line 350.
+Package pdftex.def Info: graphics//branch-viewer.png  used on input line 383.
 (pdftex.def)             Requested size: 369.88582pt x 72.03448pt.
- [17 <./graphics//graph.png> <./graphics//commit-viewer.png> <./graphics//branc
-h-viewer.png>]
-
-LaTeX Warning: Citation 'libgitreference' on page 18 undefined on input line 36
-3.
-
-<graphics//searchbar.png, id=260, 274.626pt x 170.43675pt>
+ [18 <./graphics//commit-viewer.png> <./graphics//branch-viewer.png>]
+<graphics//searchbar.png, id=307, 274.626pt x 170.43675pt>
 File: graphics//searchbar.png Graphic file (type png)
 <use graphics//searchbar.png>
-Package pdftex.def Info: graphics//searchbar.png  used on input line 365.
+Package pdftex.def Info: graphics//searchbar.png  used on input line 398.
 (pdftex.def)             Requested size: 284.52756pt x 176.58165pt.
-<graphics//users.png, id=262, 230.0595pt x 214.401pt>
+ [19 <./graphics//searchbar.png>]
+<graphics//users.png, id=316, 230.0595pt x 214.401pt>
 File: graphics//users.png Graphic file (type png)
 <use graphics//users.png>
-Package pdftex.def Info: graphics//users.png  used on input line 372.
+Package pdftex.def Info: graphics//users.png  used on input line 405.
 (pdftex.def)             Requested size: 284.52756pt x 265.19363pt.
-[18 <./graphics//searchbar.png>]
-<graphics//user.png, id=269, 203.5605pt x 138.5175pt>
+<graphics//user.png, id=318, 203.5605pt x 138.5175pt>
 File: graphics//user.png Graphic file (type png)
 <use graphics//user.png>
-Package pdftex.def Info: graphics//user.png  used on input line 386.
+Package pdftex.def Info: graphics//user.png  used on input line 419.
 (pdftex.def)             Requested size: 284.52756pt x 193.63994pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[19 <./graphics//users.png>]
-<graphics//create-commit.png, id=276, 468.5505pt x 236.68425pt>
+ [20 <./graphics//users.png>] [21 <./graphics//user.png>]
+<graphics//create-commit.png, id=329, 468.5505pt x 236.68425pt>
 File: graphics//create-commit.png Graphic file (type png)
 <use graphics//create-commit.png>
-Package pdftex.def Info: graphics//create-commit.png  used on input line 408.
+Package pdftex.def Info: graphics//create-commit.png  used on input line 441.
 (pdftex.def)             Requested size: 284.52756pt x 143.73071pt.
- [20 <./graphics//user.png>] [21 <./graphics//create-commit.png>] [22]
-Overfull \hbox (107.79985pt too wide) in paragraph at lines 454--463
+ [22 <./graphics//create-commit.png>] [23] [24]
+Overfull \hbox (19.39008pt too wide) in paragraph at lines 526--527
+ []\T1/lmr/bx/n/12 Microsoft.Xaml.Behaviors.Wpf a Sys-tem.Windows.Interactivity
+.Wpf \T1/lmr/m/n/12 Ba-
+ []
+
+[25]
+Overfull \hbox (107.79985pt too wide) in paragraph at lines 539--548
 [][] 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 469.
+(Font)              <10> on input line 554.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 469.
+(Font)              <7> on input line 554.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 469.
-[23] [24] [25] [26
+(Font)              <5> on input line 554.
+[26] [27]
+Overfull \hbox (9.60867pt too wide) in paragraph at lines 628--629
+[]\T1/lmr/m/n/12 Reagovat na to-lik zm¥n je ne-p°í-pustné, proto se vy-tvo-°ila
+ t°ída Chan-gesWatcher
+ []
 
-] [27
+[28]
+Overfull \hbox (0.80984pt too wide) in paragraph at lines 681--682
+\T1/lmr/m/n/12 chronn¥ pro-vá-d¥t p°e-kres-lo-vání grafu a dal²í ak-ti-vity. Ja
+kmile práce skon£í, funkce
+ []
 
-] [28
+[29] [30] [31] [32
+
+] [33
+
+] [34
 
 ]
 No file GitGUI.acr.
-[29
+[35
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 591.
+Package biblatex Warning: Name format 'last-first' deprecated.
+(biblatex)                Please use 'family-given' instead.
+(biblatex)                Using 'family-given' now.
 
+
+Overfull \hbox (188.6768pt too wide) in paragraph at lines 762--762
+[][]\T1/lmr/m/n/12 . \T1/lmr/m/it/12 li-b-git2sharp\T1/lmr/m/n/12 . 2010. Do-st
+up-ný z: $\OMS/lmsy/m/n/12 h$[][]\T1/lmr/m/n/12 https://github.com/libgit2/libg
+it2sharp[][]$\OMS/lmsy/m/n/12 i$\T1/lmr/m/n/12 . 
+ []
+
+[36
+
+]
 No file GitGUI.ind.
 
 AED: lastpage setting LastPage
-\tf@loe=\write13
-\openout13 = `GitGUI.loe'.
+\tf@loe=\write14
+\openout14 = `GitGUI.loe'.
 
 (./GitGUI.aux)
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1603,35 +1871,32 @@ Package logreq Info: Writing requests to 'GitGUI.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 30111 strings out of 480061
- 512311 string characters out of 5890819
- 1525159 words of memory out of 5000000
- 46817 multiletter control sequences out of 15000+600000
- 477829 words of font info for 86 fonts, out of 8000000 for 9000
+ 41279 strings out of 480061
+ 766100 string characters out of 5890819
+ 1750223 words of memory out of 5000000
+ 57691 multiletter control sequences out of 15000+600000
+ 475462 words of font info for 87 fonts, out of 8000000 for 9000
  527 hyphenation exceptions out of 8191
- 123i,9n,121p,2604b,1986s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section*.34} has been referenced but does not exi
-st, replaced by a fixed one
-
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2021/texmf-
-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/l
-m/lm-mathit.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c
-:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texmf-
-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2021/texmf-dist/fonts/type1/publi
-c/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c
-:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2021/tex
-mf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1
-/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pf
-b><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2021/
-texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/typ
-e1/public/lm/lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy1
-0.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
-b><c:/texlive/2021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/20
-21/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on GitGUI.pdf (29 pages, 463181 bytes).
+ 123i,10n,121p,2604b,2525s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2021/texm
+f-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips
+/lm/lm-mathit.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texm
+f-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2021/texmf-dist/fonts/type1/pub
+lic/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
+<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2021/t
+exmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/typ
+e1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.
+pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/202
+1/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/t
+ype1/public/lm/lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
+y10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/
+2021/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on GitGUI.pdf (36 pages, 486241 bytes).
 PDF statistics:
- 550 PDF objects out of 1000 (max. 8388607)
- 475 compressed objects within 5 object streams
- 147 named destinations out of 1000 (max. 500000)
- 359 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 722 PDF objects out of 1000 (max. 8388607)
+ 640 compressed objects within 7 object streams
+ 219 named destinations out of 1000 (max. 500000)
+ 446 words of extra memory for PDF output out of 10000 (max. 10000000)
 

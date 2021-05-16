@@ -2136,14 +2136,17 @@
   <bcf:section number="0">
     <bcf:citekey order="1">otte</bcf:citekey>
     <bcf:citekey order="2">gitreference</bcf:citekey>
-    <bcf:citekey order="3">otte</bcf:citekey>
-    <bcf:citekey order="4">gitreference</bcf:citekey>
-    <bcf:citekey order="5">git</bcf:citekey>
-    <bcf:citekey order="6">gitreference-history</bcf:citekey>
-    <bcf:citekey order="7">gitreference-local</bcf:citekey>
-    <bcf:citekey order="8">gitreference-distributed</bcf:citekey>
-    <bcf:citekey order="9">linux</bcf:citekey>
-    <bcf:citekey order="10">libgitreference</bcf:citekey>
+    <bcf:citekey order="3">svn</bcf:citekey>
+    <bcf:citekey order="4">otte</bcf:citekey>
+    <bcf:citekey order="5">gitreference</bcf:citekey>
+    <bcf:citekey order="6">mercurial</bcf:citekey>
+    <bcf:citekey order="7">bazaar</bcf:citekey>
+    <bcf:citekey order="8">git</bcf:citekey>
+    <bcf:citekey order="9">gitreference-local</bcf:citekey>
+    <bcf:citekey order="10">gitreference-distributed</bcf:citekey>
+    <bcf:citekey order="11">linux</bcf:citekey>
+    <bcf:citekey order="12">libgitreference</bcf:citekey>
+    <bcf:citekey order="13">libgitreference</bcf:citekey>
     <bcf:citekey order="0" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->

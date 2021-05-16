@@ -1,68 +1,90 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \babel@toc {czech}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1}Úvod}{7}{section.1}%
+\contentsline {section}{\numberline {1}Úvod}{8}{section.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1}Lokální SSV}{7}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.1}Lokální SSV}{8}{subsection.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2}Centralizované SSV}{7}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.2}Centralizované SSV}{8}{subsection.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3}Distribuované SSV}{9}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.3}Distribuované SSV}{10}{subsection.1.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Git}{10}{section.2}%
+\contentsline {section}{\numberline {2}Git}{11}{section.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1}Základní postupy práce v Gitu}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.1}Základní postupy práce v Gitu}{12}{subsection.2.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.1.1}Postupy větvení}{11}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Postupy větvení}{12}{subsubsection.2.1.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.1.2}Distribuovaná práce s větvemi}{11}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}Distribuovaná práce s větvemi}{12}{subsubsection.2.1.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Uživatelská dokumentace}{12}{section.3}%
+\contentsline {section}{\numberline {3}Uživatelská část}{13}{section.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Reprezentace repozitáře grafem}{13}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Reprezentace repozitáře grafem}{14}{subsection.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Výběr způsobu rozložení grafu}{13}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.2}Výběr způsobu rozložení grafu}{14}{subsection.3.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}Vytvoření a otevření repozitáře}{14}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Vytvoření a otevření repozitáře}{15}{subsection.3.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.1}Klonování repozitáře}{15}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.1}Klonování repozitáře}{17}{subsubsection.3.3.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4}Práce s grafem a git log}{15}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Práce s grafem a git log}{17}{subsection.3.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5}Uživatelé}{18}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.5}Uživatelé}{20}{subsection.3.5}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6}Vytváření revizí}{20}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.6}Vytváření revizí}{21}{subsection.3.6}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.6.1}Adresář změn}{20}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {3.6.1}Adresář změn}{21}{subsubsection.3.6.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.6.2}Detail změny}{20}{subsubsection.3.6.2}%
+\contentsline {subsubsection}{\numberline {3.6.2}Detail změny}{22}{subsubsection.3.6.2}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.6.3}Zpráva}{21}{subsubsection.3.6.3}%
+\contentsline {subsubsection}{\numberline {3.6.3}Zpráva}{22}{subsubsection.3.6.3}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7}Práce s větvemi}{21}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.7}Práce s větvemi}{22}{subsection.3.7}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.7.1}Konflikty}{22}{subsubsection.3.7.1}%
+\contentsline {subsubsection}{\numberline {3.7.1}Konflikty}{23}{subsubsection.3.7.1}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.8}Prohlížeč revize}{22}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.8}Prohlížeč revize}{23}{subsection.3.8}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.9}Stash}{22}{subsection.3.9}%
+\contentsline {subsection}{\numberline {3.9}Stash}{23}{subsection.3.9}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.10}Implicitní stash}{22}{subsection.3.10}%
+\contentsline {subsection}{\numberline {3.10}Implicitní stash}{23}{subsection.3.10}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.11}Vzdálené repozitáře}{23}{subsection.3.11}%
+\contentsline {subsection}{\numberline {3.11}Vzdálené repozitáře}{24}{subsection.3.11}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Programátorská dokumentace}{23}{section.4}%
+\contentsline {subsection}{\numberline {3.12}Další}{24}{subsection.3.12}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Algoritmus rozmístění uzlů v grafu}{23}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Programátorská část}{24}{section.4}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Z\'av\v er}{26}{section*.29}%
+\contentsline {subsection}{\numberline {4.1}Přehled}{24}{subsection.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2}.NET}{24}{subsection.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.2.1}.NET Framework}{24}{subsubsection.4.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.2.2}Windows Presentation Foundation (WPF)}{25}{subsubsection.4.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.2.3}NuGet}{25}{subsubsection.4.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.3}Algoritmus rozmístění uzlů v grafu}{26}{subsection.4.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.4}Vykreslování grafu}{27}{subsection.4.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.5}Sledování změn}{28}{subsection.4.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.6}Ukládání dat}{29}{subsection.4.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {4.6.1}Umístění a formát}{30}{subsubsection.4.6.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Z\'av\v er}{32}{section*.37}%
 \babel@toc {czech}{}
 \babel@toc {czech}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Conclusions}{27}{section*.31}%
+\contentsline {section}{Conclusions}{33}{section*.39}%
 \babel@toc {english}{}
 \babel@toc {czech}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{28}{appendix.A}%
+\contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{34}{appendix.A}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Seznam zkratek}{29}{section*.33}%
+\contentsline {section}{Seznam zkratek}{35}{section*.41}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{Literatura}{36}{section*.42}%

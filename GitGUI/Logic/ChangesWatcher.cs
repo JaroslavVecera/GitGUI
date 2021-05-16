@@ -96,7 +96,7 @@ namespace GitGUI.Logic
                 Repeat = false;
                 Processing = true;
                 Mutex.Release();
-                Application.Current.Dispatcher.BeginInvoke((Action)(InvokeChange));
+                Application.Current.Dispatcher.Invoke((Action)(InvokeChange));
                 Mutex.WaitOne();
                 if (Repeat)
                 {

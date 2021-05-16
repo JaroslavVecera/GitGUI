@@ -1,0 +1,8 @@
+[1] Config.pm:311> INFO - This is Biber 2.16
+[2] Config.pm:314> INFO - Logfile is 'kidiplom.blg'
+[2983] biber-MSWIN32:340> INFO - === 
+[3419] Biber.pm:415> INFO - Reading 'kidiplom.bcf'
+[5600] Utils.pm:411> ERROR - Error: Found biblatex control file version 3.5, expected version 3.7.
+This means that your biber (2.16) and biblatex (3.12) versions are incompatible.
+See compat matrix in biblatex or biber PDF documentation.
+[5601] Biber.pm:132> INFO - ERRORS: 1

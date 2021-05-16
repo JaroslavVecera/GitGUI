@@ -1,4 +1,4 @@
-\documentclass[
+   \documentclass[
 %  printversion,
   biblatex,
   glossaries,
@@ -35,7 +35,7 @@ intuitive git workflow using graph representation.}
 \keywords[english]{git; version control; graphical interface}
 
 %% Poděkování
-\thanks{Děkuji, děkuji, děkuji.}
+\thanks{Děkuji Mgr. Radkovi Janoštíkovi za ochotu a pomoc při vývoji programu i psaní textu práce. Také děkuji rodině a blízkým osobám za podporu.}
 
 %% Cesta k souboru s bibliografií pro její sazbu pomocí BibLaTeXu
 \bibliography{bibliografie.bib}
@@ -46,6 +46,8 @@ intuitive git workflow using graph representation.}
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
 
 %% Cesta ke složce s grafikou
 \graphicspath{{graphics/}}
@@ -76,7 +78,7 @@ desítky záloh nebo obměn dat a spravovat je ručně vyžaduje podrobný
 popis jednotlivých verzí, který časem musí být značně nepřehledný.
 Z tohoto důvodu byly vytvořeny takzvané verzovací systémy.
 
-Systém správy verzí (dále SSV) je zpravidla softwarový nástroj,
+Systém správy verzí (SSV) je zpravidla softwarový nástroj,
 umožňující spravovat verze projektu částečně automaticky (nebo alespoň
 přehledně a jednoduše). Přitom daný projekt nemusí být zdrojovým kódem
 v nějakém programovacím jazyce, může se jednat vlastně o libovolná data.
@@ -98,7 +100,7 @@ lokálních SSV.
 \subsection{Lokální SSV}
 Tyto systémy se soustředily na práci jednotlivce, celý projekt byl 
 ukládán na místním disku a nebyl nikde sdílen. Konkrétním zástupcem je 
-například RCS (Revision Control System). RCS si uchovává poslední podobu  
+například Revision Control System (RCS). RCS si uchovává poslední podobu  
 daného souboru spolu se zpětnými rozdíly. Aplikací těchto rozdílů (delt) 
 na soubor lze rekonstruovat některou jeho předchozí verzi.
 
@@ -126,7 +128,7 @@ o vyřešení konfliktu postarat ručně výběrem správné verze, případně
 spojením obou změn.
 
 Pro snížení počtu konfliktů je v CSSV dostupná funkce větvení. Umožňuje 
-vytvářet historii změn s jiný než lineární strukturou. Větvení se častou 
+vytvářet historii změn s jinou než lineární strukturou. Větvení se často
 používá pro implementaci ucelené funkcionality programu, nebo pro 
 experimentální záležitosti, které nemusejí být po svém ukončení začleněny 
 do projektu. Uživatel může pracovat na verzích větve aniž by ovlivňovaly
@@ -139,8 +141,10 @@ To však přináší nemalá rizika v případě výpadku. Pokud uživatel není
 schopen připojení k síti, nemůže na projektu pracovat, jelikož veškerá
 práce se systémem vyžaduje síťové připojení. Pokud dokonce dojde k
 porušení této společné databáze, veškerá historie dat je nenávratně
-ztracena, stejně jako v Lokálním SSV se totiž nachází pouze na jednom místě. Drobnou výhodou 
+ztracena, stejně jako v lokálním SSV se totiž nachází pouze na jednom místě. Drobnou výhodou 
 zůstává, že alespoň aktuální verze se nachází na více zařízeních.
+
+Typickým zástupcem těchto CSSV je systém Subversion \cite{svn}.
 
 \subsection{Distribuované SSV}
 Distribuované systémy (DSSV)~\cite{otte} se vyvinuly po centralizovaných a představují 
@@ -151,7 +155,7 @@ plní stejnou funkci jako v CSSV, nejedná se však o jedinou kopii projektu.
 Každý uživatel, který s ním pracuje, vlastní úplnou kopii
 celé historie. Jednotlivé repozitáře uživatelů a serverů se mezi sebou 		
 aktualizují pomocí k tomu určených příkazů. Tyto příkazy se často nazývají
-push (pro pokus včlenit změny do zvoleného vzdáleného repozitáře), fetch
+{\it push} (pro pokus včlenit změny do zvoleného vzdáleného repozitáře), fetch
 (pro stažení dat ze vzdáleného repozitáře) a pull (pro včlenění dat ze 
 vzdáleného repozitáře).
 
@@ -159,21 +163,21 @@ vzdáleného repozitáře).
 
 Jak je v obrázku \ref{fig:distributed} \cite{gitreference} naznačeno přerušovaným spojení mezi uživateli A a B, přímé sdílení projektu sice DSSV umožňuje, není však tolik využívané. Mnohem častěji sdílí uživatelé práci se společným serverem, který tak hraje roli jakéhosi pasivního uživatele, se kterým ostatní komunikují.
 
-Příklady takových nástrojů jsou Mercurial, Bazaar, nebo Git, kterého se
+Příklady takových nástrojů jsou Mercurial\cite{mercurial}, Bazaar\cite{bazaar}, nebo Git\cite{git}, kterého se
 tato práce týká.
 
 \section{Git}
-Git~\cite{git} je distribuovaný SSV, který na rozdíl od ostatních SSV uchovává historii   takovým způsobem, že většina operací nad soubory je výrazně rychlejší. V článku~\cite{gitreference-history} je popsána historie vzniku Gitu.
+Git je distribuovaný SSV vytvořený Linusem Torvaldsem pro jeho projekt Linux, kterému žádný dostupný SSV nevyhovoval. Git na rozdíl od ostatních SSV uchovává historii   takovým způsobem, že většina operací nad soubory je výrazně rychlejší.
 
 Většina verzovacích systémů má uložený soubor a pro každou jeho verzi dopředné, či zpětné rozdíly. Pomocí skládání těchto rozdílů lze znovu zhotovit libovolnou verzi souboru. Hlavní výhoda tohoto přístupu spočívá v ušetřeném místě, oproti ukládání celé kopie se totiž ušetří části, které se mezi jednotlivými verzemi nezměnily. Má to však dopad na rychlost opětovného sestrojení  konkrétních verzí.
 
 Git naproti tomu uchovává pro jednotlivé verze celé kopie (nazývají se snapchoty). Rychlost sestrojení souborů v historii tak není ovlivněna množstvím verzí, které od té doby byly zhotoveny. Git samozřejmě ukládání optimalizuje, a to tak, že pokud nejsou v souboru provedené změny, místo nového snapshotu se uloží odkaz na starý. Celý repozitář také podléhá bezeztrátové kompresi.
 
-Verze projektu také budeme nazývat revize. Každá revize, kromě počáteční, má jeden nebo více předků. Jeden v případě prostého vytvoření další verze, více v případě slévání změn z více verzí (merge). Celá historie se tak dá reprezentovat jako orientovaný, souvislý a acyklický graf s uzly vyjadřujícími revize a hranami vyjadřujícími vztah rodič -- potomek. Vytvořit aplikaci reprezentující tímto způsobem historii vytvořenou gitem je také hlavní cíl této práce.
+Verze projektu také budeme nazývat revize. Každá revize, kromě počáteční, má jeden nebo více předků. Jeden v případě prostého vytvoření další verze, více v případě slévání změn z více verzí (merge). Celá historie se tak dá reprezentovat jako orientovaný, souvislý a acyklický graf s uzly vyjadřujícími revize a hranami vyjadřujícími vztah rodič -- potomek. Vytvořit aplikaci reprezentující tímto způsobem historii vytvořenou Gitem je také hlavní cíl této práce.
 
-Jednotlivé větve pak git ukládá vnitřně pouze jako ukazatele na poslední revizi větve. Při vytváření nových verzí se tyto ukazatele posunují na novější commit. Žádná data o tom, v jaké větvi byla revize původně vytvořena, nejsou k dispozici a často se nedají nijak dohledat. Tato informace bude později důležitá při popisu heuristiky rozmístění uzlů v grafu na straně \pageref{subsec:algorithm}
+Jednotlivé větve pak Git ukládá vnitřně pouze jako ukazatele na poslední revizi větve. Při vytváření nových verzí se na ně tyto ukazatele posunují. Žádná data o tom, v jaké větvi byla revize původně vytvořena, nejsou k dispozici a často se nedají nijak dohledat. Tato informace bude později důležitá při popisu heuristiky rozmístění uzlů v grafu na straně \pageref{subsec:algorithm}.
 
-Poté ještě v repozitáři existuje speciální ukazatel HEAD, který ukazuje na větev, či přímo revizi, které jsou aktuálně prohlíženy.
+Poté ještě v repozitáři existuje speciální ukazatel hlavy (HEAD), který ukazuje na větev, či přímo revizi, které jsou aktuálně prohlíženy.
 
 Následující seznam popisuje základní funkce pro práci s Gitem.
 
@@ -222,19 +226,21 @@ K centrálnímu repozitáři mají opět přístup všichni, ale právo zápisu 
 Pokud chce uživatel aktualizovat svůj repozitář, jednoduše provede pull, či clone, jako u předchozího postupu. V případě sdílení je ale situace odlišná. Uživatel odešle data do svého vzdáleného repozitáře a uvědomí o změnách správce. Ten včlení změny uživatelova vzdáleného repozitáře do svého lokálního repozitáře a poté je sdílí do centrálního vzdáleného repozitáře. Tam k datům mají opět přístup všichni ostatní.
 
 \paragraph*{Postup s diktátorem a poručíky}
-Předchozí postup lze ještě vylepšit přidáním více správců a rozdělením jejich rolí do heirarchie: jeden diktátor a ostatní poručíci. Tento postup najde uplatnění spíše u projektů extrémních rozměrů, jako například vývoj Linuxového~jádra~\cite{linux}
+Předchozí postup lze ještě vylepšit přidáním více správců a rozdělením jejich rolí do heirarchie: jeden diktátor a ostatní poručíci. Tento postup najde uplatnění spíše u projektů extrémních rozměrů, jako například vývoj Linuxového~jádra~\cite{linux}.
 
 Běžní vývojáři svojí práci včleňují na vrchol diktátorovi větve {\it master} pomocí příkazu rebase. Poručíci potom včlení větve vývojářů do svých větví {\it master}. Diktátor včlení větve poručíků do své větve {\it master} a zpřístupní ji do centrálního repozitáře ostatním.
 
-\section{Uživatelská dokumentace}
-Většina návodů pro práci s gitem obsahuje ve velké míře grafovou reprezentaci pro lepší pochopení. Vytvořený program vnáší tento prvek přímo do práce s ním. Má za cíl zobrazovat stav repozitáře gitu vizuálně pomocí grafu a poskytovat přehlednou práci s ním. Cílí tak na začátečníky, kteří se ještě neorientují s příkazovou řádkou, ale i na uživatele, kteří se potřebují rychle zorientovat ve struktuře revizí a větví.
+\section{Uživatelská část}
+Většina návodů pro práci s Gitem obsahuje ve velké míře grafovou reprezentaci pro lepší pochopení. Vytvořený program \textbf{GitGUI} vnáší tento prvek přímo do práce s ním. Má za cíl zobrazovat stav repozitáře Gitu vizuálně pomocí grafu a poskytovat přehlednou práci s ním. Cílí tak na začátečníky, kteří se ještě neorientují s příkazovou řádkou, ale i na uživatele, kteří se potřebují rychle zorientovat ve struktuře revizí a větví.
 
 Projekt je však vhodný spíše pro menší repozitáře. Jednak se přehlednost zvoleného zobrazení se zvětšujícím počtem revizí snižuje a jednak se prodlužuje čas potřebný k vykreslení a překreslení grafu.
+
+Nutno podotknout, že uživatelské rozhraní GitGUI je v anglickém jazyce. Angličtina byla zvolena ze dvou důvodů. Většina uživatelů je již zvyklá na použité anglické výrazy a jiný jazyk by je mohl spíše mást. Dalším důvodem jsou špatně přeložitelné výrazy, například \textit{stash} (skrýt), nebo i commit. Protějšky v českém jazyce dostatečně nevystihují danou operaci, nebo by mohly být zavádějící.
 
 \subsection{Reprezentace repozitáře grafem}
 Charakter vztahů {\it rodič -- potomek} u jednotlivých revizí je ideální pro znázornění pomocí acyklického orientovaného grafu. Jednotlivé uzly mohou reprezentovat revize a jednotlivé hrany zase zmiňované vztahy {\it rodič -- potomek} mezi revizemi.
 
-Přitom acykličnost takového grafu je zřejmá, protože v gitu nově vytvořená revize nemůže mít přidělené potomky a žádnou už vytvořenou revizi $r$ nelze připojit jako rodiče jiného (obecně ne přímého) rodiče revize $r$.
+Přitom acykličnost takového grafu je zřejmá, protože v Gitu nově vytvořená revize nemůže mít přidělené potomky a žádnou už vytvořenou revizi $r$ nelze připojit jako rodiče jiného (obecně ne přímého) rodiče revize $r$.
 
 \subsection{Výběr způsobu rozložení grafu}
 
@@ -243,7 +249,7 @@ Původní volba byla vzestupné rovinné nakreslení grafu. Pro popis toho, co j
 Před definicí nakreslení grafu je však ještě třeba objasnit pojem {\it oblouk}.
 
 \begin{definition}
-Mějme libovolné prosté spojité zobrazení $\alpha\colon\langle 0;1\rangle\to\mathbb{R}^2$ intervalu $\langle 0;1\rangle$ do roviny. Potom podmnožinu roviny $a=\{\alpha(x)\mid x\in\langle 0;1\rangle\}$ nazveme obloukem.
+Mějme libovolné prosté spojité zobrazení $\alpha\colon\langle 0,1\rangle\to\mathbb{R}^2$ intervalu $\langle 0,1\rangle$ do roviny. Potom podmnožinu roviny $a=\{\alpha(x)\mid x\in\langle 0,1\rangle\}$ nazveme obloukem.
 \end{definition}
 
 \begin{definition}
@@ -255,7 +261,7 @@ Teď, když jsme formálně představili pojem nakreslení grafu, je možné zad
 Nakreslení grafu $G = (V,E)$, v němž oblouky odpovídající různým hranám mají
 společné nanejvýš koncové body, se nazývá rovinné nakreslení.
 
-Pro acyklické orientované grafy má navíc smysl uvažovat pojem vzestupné rovinné nakreslení grafu. Rovinné nakreslení grafu $G=(V,E)$ nazveme vzestupné, platí-li $\forall e=(u; v)\in E,\ u[u_x,u_y],\ v[v_y,u_y]\colon v_y > v_x$. Podobně lze samozřejmě graf kreslit vertikálně, či v libovolném dalším směru.
+Pro acyklické orientované grafy má navíc smysl uvažovat pojem vzestupné rovinné nakreslení grafu. Rovinné nakreslení grafu $G=(V,E)$ nazveme vzestupné, platí-li $\forall e=(a, b)\in E,\ a[a_x,a_y],\ b[b_x,b_y]\colon b_y > a_y$. Podobně lze samozřejmě graf kreslit vertikálně, či v libovolném dalším směru.
 
 Takováto reprezentace by byla ideální kvůli přehlednosti, žádné hrany by se nekřížily a podmínka o postupném rozložení v jednom směru je vhodná pro znázornění, jak byly vrcholy reprezentující revize v čase postupně vytvořeny.
 
@@ -263,7 +269,7 @@ Ne každý acyklický orientovaný graf však má nějaké vzestupné rovinné n
 
 Jednoduchý příklad takové struktury je vidět na obrázku \ref{fig:non-upward-planar}.
 
-Strukturu lze zreplikovat pomocí posloupnosti příkazů \ref{kod:non-planar-repository} (vynechány jsou příkazy {\it add} pro přidání změn do indexu).
+Strukturu lze zreplikovat pomocí posloupnosti příkazů zdrojového kódu \ref{kod:non-planar-repository} (vynechány jsou příkazy {\it add} pro přidání změn do indexu).
 Z obrázku je zřejmé, že uzly 5, 6 a 7 nelze rozmístit tak, aby se hrany nekřížily.
 
 \begin{kicode}{}{kod:non-planar-repository}{Vytvoření struktury, která nejde vzestupně rozložit v rovině.}
@@ -287,37 +293,64 @@ git merge e
 git merge a c
 \end{kicode}
 
-\pic{10cm}{non-upward-planar.png}{}{non-upward-planar}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+        scale = 1,transform shape]
+\node[state] (1) {$1$};
+  \node[state] (3) [right of=1] {$3$};
+  \node[state] (2) [above of=3] {$2$};
+  \node[state] (4) [below of=3] {$4$};
+  \node[state] (5) [right of=2] {$5$};
+  \node[state] (6) [right of=3] {$6$};
+  \node[state] (7) [right of=4] {$7$};
+  \node[state] (8) [right of=6] {$8$};
+  \path (1) edge              node {} (2)
+        (1) edge              node {} (3)
+        (1) edge              node {} (4)
+        (2) edge              node {} (5)
+        (3) edge              node {} (5)
+        (2) edge              node {} (6)
+        (4) edge              node {} (6)
+        (3) edge              node {} (7)
+        (4) edge              node {} (7)
+        (5) edge              node {} (8)
+        (6) edge              node {} (8)
+        (7) edge              node {} (8);
+\end{tikzpicture}
+\caption{Graf, který nelze vzestupně nakreslit.}
+\label{fig:non-upward-planar}
+\end{figure}
 
 Z předcházející úvahy je vidět, že při stávajících požadavcích (uzly kreslené chronologicky jedním směrem) se nelze vyhnout překřížení hran.
 
 Dalším způsobem, který by sice výše uvedenou podmínku nesplňoval, ale
-zlepšoval by přehlednost jiným způsobem, je rozdělení revizí do řádků podle větví, kterým patří (tedy ve kterých byly vytvořeny). I zde však narážíme na překážku, a tou je způsob ukládání revizí v gitu. Jak už bylo dříve popsáno, větve jsou v gitu pouze ukazatele na poslední revize oné větve, není tedy možné dopátrat větev vytvoření.
+zlepšoval by přehlednost jiným způsobem, je rozdělení revizí do řádků podle větví, kterým patří (tedy ve kterých byly vytvořeny). I zde však narážíme na překážku, a tou je způsob ukládání revizí v gitu. Jak už bylo dříve popsáno, větve jsou v Gitu pouze ukazatele na poslední revize oné větve, není tedy možné dopátrat větev vytvoření.
 
 Poslední možností je tedy způsob, který rozdělí uzly revizí chronologicky jedním směrem (konkrétně doprava). Navíc jsou rozděleny do řádků, které mohou odpovídat větvím vytvoření, není to však zaručeno. Popis algoritmu je popsán v podkapitole \ref{subsec:algorithm}.
 
 \subsection{Vytvoření a otevření repozitáře}
-V příkazové řádce se repozitář otevírá jednoduše pomocí otevření adresáře, který je pod správou verzí gitu. Pokud se na zmiňované cestě ještě repozitář nenachází, je možné jej vytvořit zadáním \kiinlinecode{text}{;}{git init}.
+V příkazové řádce se repozitář otevírá jednoduše pomocí otevření adresáře, který je pod správou verzí Gitu. Pokud se na zmiňované cestě ještě repozitář nenachází, je možné jej vytvořit zadáním \kiinlinecode{text}{;}{git init}.
 
-V programu k tomu slouží záložka {\it Repository} v menu horní lišty. Jak je vidět na obrázku \ref{fig:menu-repository}, záložka umožňuje dva způsoby otevření ({\it Open} a {\it Open recent}) a položku pro vytvoření nového repozitáře ({it Create}).
+V programu k tomu slouží záložka {\it Repository} v menu horní lišty. Jak je vidět na obrázku \ref{fig:menu-repository}, záložka umožňuje dva způsoby otevření ({\it Open} a {\it Open recent}) a položku pro vytvoření nového repozitáře ({\it Create}).
 
 \pic{10cm}{Repository.png}{Menu - Repozitář}{menu-repository}
 
-Po výběru možnosti {\it Open} se zobrazí klasický dialog prohlížeče souborů, ve kterém je třeba najít požadovanou složku s repozitářem. Po jejím úspěšném výběru se repozitář otevře a vykreslí graf. V případě, že se jedná o takzvaný bare repozitář (ten neobsahuje pracovní strom souborů a tudíž s ním nejde pracovat přímo a nemá tak smysl, aby ho program podporoval), je o tom uživatel zpraven chybovou hláškou: {\it Can't open bare repository}. Pokud se ve zvoleném místě nenachází žádný repozitář, pak je uživatel dotázán, zda-li si přeje vytvořit nový.
+Po výběru možnosti {\it Open} se zobrazí klasický dialog prohlížeče souborů, ve kterém je třeba najít požadovaný adresář s repozitářem. Po jejím úspěšném výběru se repozitář otevře a vykreslí graf. V případě, že se jedná o takzvaný bare repozitář (ten neobsahuje pracovní strom souborů a tudíž s ním nejde pracovat přímo a nemá tak smysl, aby ho program podporoval), je o tom uživatel zpraven chybovou hláškou: {\it Can't open bare repository}. Pokud se ve zvoleném místě nenachází žádný repozitář, pak je uživatel dotázán, zda-li si přeje vytvořit nový.
 
 Druhou možností je potom {\it Open Recent}, která obsahuje další rozbalovací menu poskytující výběr nanejvýš pěti nedávno uzavřených repozitářů. Tento výběr je seřazen od nejpozději uzavřeného. Přitom za uzavření repozitáře se bere výběr možnosti {\it Close} v záložce {\it Repository}, otevření jiného repozitáře, či zavření aplikace. Pokud se vybraná položka již nenachází ve svém původním umístění, dostane uživatel prostřednictvím dialogového okna na výběr, jestli chce smazat odkaz.
 
 Použití {\it Create} je analogické k {\it Open} s tím rozdílem, že pokud už je ve zvoleném umístění existující repozitář, je uživatel informován hláškou {\it There is already a repository}. Po úspěšném vytvoření se repozitář automaticky otevře.
 
 \subsubsection{Klonování repozitáře}
-Dalším způsobem, jak lokálně vytvořit repozitář, je jeho naklonování. Funkce je přístupná z nabídky {\it Repository} pod názvem {\it Clone}. Nejprve se program dotáže na požadované umístění, přitom se chová jako {\it Create}, potom se dotáže na url vzdáleného repozitáře. Během stahování je zobrazeno okno s průběhem klonování \ref{fig:clone}.
+Dalším způsobem, jak lokálně vytvořit repozitář, je jeho naklonování. Funkce je přístupná z nabídky {\it Repository} pod názvem {\it Clone}. Nejprve se program dotáže na požadované umístění, přitom se chová jako {\it Create}, potom se dotáže na url vzdáleného repozitáře. Jak je vidět na obrázku \ref{fig:clone}, během stahování je zobrazeno okno s průběhem klonování.
 
 
 \pic{10cm}{clonning.png}{Dialog postupu klonování}{clone}
 
 
 \subsection{Práce s grafem a git log}
-Jednoduchý graf je vyobrazen v \ref{fig:graph}.
+Jednoduchý graf je vyobrazen na obrázku \ref{fig:graph}.
 
 \pic{10cm}{graph.png}{Příklad grafu}{graph}
 
@@ -332,7 +365,7 @@ Křivka se stáčí stejnýmm způsobem jako v předchozím případě, jen se s
 \end{description}
 Jinými slovy větší část křivky se nachází na nižším z daných řádků.
 
-Protože na revizi může v jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz \ref{fig:graph}, větve b2 -- b4. S tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z větví.
+Protože na revizi může v jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz obrázek\ref{fig:graph}, větve b2--b4. S tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z větví.
 
 Aktuální hlava (tedy větev, či přímo revize) je potom barevně odlišena fialovou barvou.
 
@@ -360,20 +393,20 @@ V grafu se lze pohybovat pomocí myši po stisknutí a podržení pravého tlač
 
 V krajním případě lze na sebe nahromadit velké množství větví. Tento příklad v praxi nenastává, ale je možný. V takovém případě je výsledek nejen vizuálně ne příliš hezký, ale také je potom možné graf po celé délce posunovat zbytečně vysoko a navíc se kvůli velkému počtu grafických prvků na jednom místě může zhoršovat plynulost posunování v grafu. Do budoucna je proto počítáno s úspornějším řešením. Například zobrazit pouze jeden uzel a tlačítko pro výčet ostatních.
 
-Koncept příkazu \kiinlinecode{text}{;}{git log} je v programu GitGUI nahrazen samotným grafem, který zrcadlí historii. Ve větších projektech ale může být obtížné vyhledávat konkrétní revize či větve pouze procházením grafu. Proto je v pravém horním rohu plochy pro zobrazení grafu přístupný nástroj pro vyhledávání \ref{fig:searchtool} (ukázka je provedena na projektu \cite{libgitreference}
+Koncept příkazu \kiinlinecode{text}{;}{git log} je v programu GitGUI nahrazen samotným grafem, který zrcadlí historii. Ve větších projektech ale může být obtížné vyhledávat konkrétní revize či větve pouze procházením grafu. Proto je v pravém horním rohu plochy pro zobrazení grafu přístupný nástroj pro vyhledávání (ukázka a obrázku \ref{fig:searchtool} je provedena na projektu \cite{libgitreference})
 
 \pic{10cm}{searchbar.png}{Ukázka vyhledávání}{searchtool}
 
 Nástroj obsahuje pole pro vložení hledaného výrazu a vyskakovací našeptávač. Kromě toho také obsahuje tlačítko speciálně pro nalezení hlavy repozitáře. Našeptávač se zobrazí v případě, že byl upraven vyhledávací výraz, jeho délka je nenulová a některé položky grafu vyhledávání vyhovují. Přejít na hledanou položku v grafu je možné pouze výběrem (myší, nebo klávesnicí) v našeptávači. Tím se otevře panel s informacemi o položce a graf se posune hledanou položkou do zorného pole. Našeptávač je rozdělen do tří kategorií. Každá z těchto kategorií pak obsahuje nanejvýš tři návrhy, popřípadě není zobrazena neexistuje-li pro hledaný výraz žádný návrh. Kategorie jsou popořadě: Revize podle prvního řádku zprávy, větve podle názvu a revize podle jejich hash kódů. Nutno dodat, že se vyhledávané hodnoty porovnávají pouze od začátku.
 
 \subsection{Uživatelé}
-Současně s verzemi se v gitu ukládají i informace o autorovi, konkrétně jméno a e-mailová adresa. V programu GitGUI se automaticky použije výchozí uživatel se jménem \uv{Anonym} a adresou \uv{-}. Tento výchozí uživatel nelze smazat ani upravit. Je však možné dle libosti mazat, upravovat a vytvářet další uživatele. Slouží k tomu rozbalovací nabídka v pravém horním rohu okna \ref{fig:users}.
+Současně s verzemi se v Gitu ukládají i informace o autorovi, konkrétně jméno a e-mailová adresa. V programu GitGUI se automaticky použije výchozí uživatel se jménem \uv{Anonym} a adresou \uv{-}. Tento výchozí uživatel nelze smazat ani upravit. Je však možné dle libosti mazat, upravovat a vytvářet další uživatele. Slouží k tomu rozbalovací nabídka vyobrazená na obrázku \ref{fig:users}.
 
 \pic{10cm}{users.png}{Nabídka uživatelů}{users}
 
 Jak je na obrázku vidět, nabídka se skládá ze seznamu uživatelů (který po překročení určité velikosti stane rolovatelný) a tlačítek pro vytvoření nového uživatele a sdílení nebo aktualizaci databáze uživatelů.
 
-Každý uživatel může kromě, z gitu známého, jména a adresy obsahovat ještě profilový obrázek. Výběrem tlačítka na pravé straně nevýchozího uživatele lze uživatele upravit, nebo smazat. Uživatel je vytvářen/upravován v samostatném okně. Výběr obrázku je nepovinný, ale jméno a adresa musí být validní. Pokud nejsou zadané hodnoty přípustné, u daného řádku je symbol červeného křížku a tlačítko pro potvrzení není povoleno, v opačném případě se objeví symbol zelené fajfky.
+Každý uživatel může kromě, z Gitu známého, jména a adresy obsahovat ještě profilový obrázek. Výběrem tlačítka na pravé straně nevýchozího uživatele lze uživatele upravit, nebo smazat. Uživatel je vytvářen/upravován v samostatném okně. Výběr obrázku je nepovinný, ale jméno a adresa musí být validní. Pokud nejsou zadané hodnoty přípustné, u daného řádku je symbol červeného křížku a tlačítko pro potvrzení není povoleno, v opačném případě se objeví symbol zelené fajfky.
 
 Požadavky pro hodnoty jsou:
 \begin{description}
@@ -381,26 +414,26 @@ Požadavky pro hodnoty jsou:
 \item[Pro adresu:] správný tvar e-mailové adresy.
 \end{description}
 
-Všechny revize, které mají autora, jenž je známý, a má přidělený profilový obrázek, mají jeho miniaturu umístěnou v levé části uzlu \ref{fig:user}.
+Všechny revize, které mají autora, jenž je známý, a má přidělený profilový obrázek, mají jeho miniaturu umístěnou v levé části uzlu. Detail je zachycený na obrázku \ref{fig:user}.
 
 \pic{10cm}{user.png}{Revize s obrázkem autora}{user}
 
-Databázi uživatelů lze také sdílet. Po zvolení této možnosti se program dotáže na umístění, do kterého zkopíruje složku s daty o uživatelích. Opačně lze z takto sdílené složky aktualizovat databázi programu.
+Databázi uživatelů lze také sdílet. Po zvolení této možnosti se program dotáže na umístění, do kterého zkopíruje adresář s daty o uživatelích. Opačně lze z takto sdíleného adresáře aktualizovat databázi programu.
 
 \subsection{Vytváření revizí}
-Stisknutím tlačítka {\it Commit} se otevře nová karta. Je-l již karta pro vytvoření nové revize otevřena, nevytvoří se nová, ale přepne se na stávající.
+Stisknutím tlačítka {\it Commit} se otevře nová karta. Je-li již karta pro vytvoření nové revize otevřena, nevytvoří se nová, ale přepne se na stávající.
 
 Karta se dělí na tři hlavní části: adresář změn, okno pro detail změny a oblast pro specifikaci zprávy revize.
 
 \subsubsection{Adresář změn}
-Nachází se v levé části karty. Adresář tvoří stromovou strukturu. V listových uzlech stromu se nachází soubory, které byly změněny. V nelistových pak rodičovské složky až ke kořenové cestě, odpovídající uzel se nazývá {\it All}.
+Nachází se v levé části karty. Adresář tvoří stromovou strukturu. V listových uzlech stromu se nachází soubory, které byly změněny. V nelistových pak rodičovské adresáře až ke kořenové cestě, odpovídající uzel se nazývá {\it All}.
 
 Každý listový uzel lze vybrat a tím zobrazit v pravé části karty detail změny. Většinou se jedná o jednoduchou textovou informaci, jako například: \uv{Nový soubor}, \uv{Smazaný soubor}, \uv{Přejmenovaný soubor}, \uv{změna je binární}. V případě textové změny je však zobrazen gitový \uv{diff}, neboli rozdíl současné verze od předchozí.
 
 Každý uzel stromu také obsahuje zaškrtávací políčko. Zaškrtnuté změny se projeví v revizi, stejně jako kdyby se v příkazovém řádku přidaly do indexu pomocí příkazu \kiinlinecode{text}{;}{git add}. Ve výchozím stavu jsou všechny změny aktivní, to platí jak pro nově vytvořenou kartu, tak po jakékoliv změně v repozitáři.
 
 \subsubsection{Detail změny}
-Jak již bylo uvedeno, jediným zajímavým obsahem této oblasti je zobrazení souborového rozdílu. Postupně jsou pod sebou vypsané skývy ({\it hunk}) kódu obsahující změnu. Ty mají stejnou hlavičku, jako ve výsledku volání \kiinlinecode{text}{;}{git diff}. Obsah změny je ale formátován přehledněji a je barevně odlišená stará verze, nová verze a nezměněná část.
+Jak již bylo uvedeno, jediným zajímavým obsahem této oblasti je zobrazení souborového rozdílu. Postupně jsou pod sebou vypsané části ({\it hunk}) kódu obsahující změnu. Ty mají stejnou hlavičku, jako ve výsledku volání \kiinlinecode{text}{;}{git diff}. Obsah změny je ale formátován přehledněji a je barevně odlišená stará verze, nová verze a nezměněná část.
 
 \subsubsection{Zpráva}
 Poslední částí je pole pro zprávu revize s tlačítkem potvrzení. Tlačítko je aktivní pouze když je vybrána alespoň jedna změna a text zprávy je neprázdný.
@@ -416,7 +449,7 @@ Při přetahování uzlu může nastat situace, kdy se slučovaná větev nenach
 
 Ani tyto ovládací mechanismy však výrazně nepomohou v případě velkých repozitářů. Do budoucna by bylo dobré přidat druhotné způsoby provedení Merge/Rebase operace.
 
-Standartní postup při slučování v gitu je přejít do slučující větve (\kiinlinecode{text}{;}{git checkout <slucujici vetev>}) a provést merge se slučovanou větví (\kiinlinecode{text}{;}{git merge <slucovana vetev>}). GitGUI se snaží uživatele odstínit od nutnosti nejprve do větve přejít, a to tak, že akci provede za uživatele a to i v případě, že jsou ve stávající větvi neuložené změny. To je zařízeno pomocí implicitního provádění {\it stash} (viz dále). Vše samozřejmě nemůže být vždy zcela transparentní, jelikož během slučování může dojít ke konfliktu. V takovém případě se o konflikt musí postarat uživatel a po jeho vyřešení se vrátit do původní větve manuálně.
+Standardní postup při slučování v Gitu je přejít do slučující větve (\kiinlinecode{text}{;}{git checkout <slucujici vetev>}) a provést merge se slučovanou větví (\kiinlinecode{text}{;}{git merge <slucovana vetev>}). GitGUI se snaží uživatele odstínit od nutnosti nejprve do větve přejít, a to tak, že akci provede za uživatele a to i v případě, že jsou ve stávající větvi neuložené změny. To je zařízeno pomocí implicitního provádění {\it stash} (viz dále). Vše samozřejmě nemůže být vždy zcela transparentní, jelikož během slučování může dojít ke konfliktu. V takovém případě se o konflikt musí postarat uživatel a po jeho vyřešení se vrátit do původní větve manuálně.
 
 \subsubsection{Konflikty}
 V konfliktním stavu nelze vytvářet nové revize, provádět stash ani slučovat větve. odpovídající tlačítka jsou proto neaktivní. Také se v tomto stavu otevře prohlížeč konfliktu podobný kartě vytvoření revize. Adresář změn obsahuje rozbalovací nabídku, která slouží pro volbu větve, se kterou se mají provádět rozdíly souborů.
@@ -432,7 +465,7 @@ Prohlížeč změn v revizi je karta podobná kartě pro vytvoření revize. Obs
 Stash lze vytvořit pomocí tlačítka {\it Stash} v hlavní kartě. Pokud jsou nějaké stashe dostupné pro aktuální repozitář, zdostupní se záložka {\it Stashing} v horní nabídce. Zde je dostupný seznam vytvořených stashů, které lze pomocí barevně odlišených tlačítek aplikovat nebo/a odstraňovat.
 
 \subsection{Implicitní stash}
-Zajímavým prvkem GitGUI je implicitní stash. Vytvoří se automaticky při pokusu o checkout jiné větve (v případě, že jsou provedeny změny, které lze uložit jako stash). Tato vlastnost by měla pomoct zjednodušit práci s gitem. Je vhodná například pokud se chceme v průběhu práce na revizi podívat na zdrojový kód v jiné revizi, ale nechceme ještě ukládat změny jako samostatnou verzi.
+Zajímavým prvkem GitGUI je implicitní stash. Vytvoří se automaticky při pokusu o checkout jiné větve (v případě, že jsou provedeny změny, které lze uložit jako stash). Tato vlastnost by měla pomoct zjednodušit práci s Gitem. Je vhodná například pokud se chceme v průběhu práce na revizi podívat na zdrojový kód v jiné revizi, ale nechceme ještě ukládat změny jako samostatnou verzi.
 
 Uložený stash není k dispozici v nabídce stashing, ale je pro uživatele viditelný jako ikona kužele na uzlu revize, od které byly změny provedeny. Vnitřně implicitní stash uložen jako běžný stash a je proto dostupný z příkazové řádky.
 
@@ -440,7 +473,59 @@ Po checkoutu větve ukazující na revizi \uv{obsahující} implicitní stash se
 
 \subsection{Vzdálené repozitáře}
 
-\section{Programátorská dokumentace}
+\subsection{Další}
+Na závěr je dobré zmínit dvě jednoduché funkce, které mohou uživatelský zážitek zpříjemnit.
+Ve středu titulkového pruhu okna se nachází text s cestou k právě otevřenému repozitáři (je-li nějaký otevřen) a vpravo od tlačítek pro revizi, větvení a stash se nachází ikona, která otevře adresář aktuálního repozitáře v prohlížeči souborů.
+
+\section{Programátorská část}
+
+\subsection{Přehled}
+Tato kapitola popisuje použité technologie a zajímavé problémy, se kterými se bylo třeba v průběhu vývoje vypořádat.
+
+\subsection{.NET}
+.Net je volně dostupná open source platforma poskytující programovací jazyky, editory a knihovny pro vývoj aplikací na mobilní zařízení, stolní počítače i web. Platforma používá jazyky C\#, Visual Basic a F\#. Prostředí je vyvíjeno firmou Microsoft.
+
+Konkrétní implementace .NET se zaměřují na různé oblasti vývoje.
+
+\begin{description}
+\item[.NET Core] Slouží pro tvorbu webových stránek a serverů a pro vývoj konzolových aplikací spustitelných v operačních systémech Windows, Linux a macOS.
+
+\item[.NET Framework] Slouží obecně k vytváření aplikací a služeb pro OS Windows. Stejně tak podporuje vývoj webových stránek. Jedná se o původní a současně nejvíce rozšířenou implementací .NET.
+
+\item[Xamarin/Mono] Tato implementace je vhodná k vývoji aplikací pro většinu mobilních zařízení (Android, iOS, macOS , ale i další).
+
+\item[.NET Standard] Standard je souhrnná specifikace aplikačních rozhraní společná pro všechny implementace. Tyto služby tak lze využít pro vývoj libovolné aplikace v .NET.
+\end{description}
+
+\subsubsection{.NET Framework}
+Framework umožňuje psát aplikace pro Windows v libovolném ze tří možných jazyků. Tento kód následně příslušný překladač přeloží do společného jazyka Common Intermediate Language (CLI) nezávislého na původním programovacím jazyce. Soubory s tímto kódem překladač rozdělí do souborů s příponami \uv{.exe} a \uv{.dll}. Spuštění programu potom vyvolá JIT (Just in time) překladač, který kód přeloží za běhu do strojového kódu a ten spustí. GitGUI je vytvořen konkrétně ve verzi .NET Framework 4.6.1.
+
+\subsubsection{Windows Presentation Foundation (WPF)}
+Windows Presentaion Foundation je součást .NET umožňující snadné vytváření aplikací s grafickým uživatelským rozhraním pro Windows. Proto je také program GitGUI pomocí WPF vytvořen.
+
+WPF odděluje logiku aplikace od grafického aparátu. Logika je psána v C\# (či jiném zvoleném jazyce) a uživatelské grafické prvky jsou popisovány pomocí dvou souborů, jeden v jazyce XAML a druhý v C\#.
+
+Jazyk XAML je deklarativní značkovací jazyk popisující stromovou strukturou vzhled daného prvku. Druhá část kódu se běžně označuje jako {\it code behind}, je psaná v jednom ze zvolených jazyků a slouží k implementaci chování (grafického prvku), které není možné zajistit pomocí značkovacího jazyka.
+
+WPF disponuje velkým množstvím standardních prvků GUI, jako jsou tlačítka, nabídky, tabulky, seznamy, mřížky, obrázky, textové pole a vstupy a další. Ty jdou upravit dle požadavků uživatele pomocí velkého množství proměnných dostupných z XAML i kódu, případně lze kompletně měnit vzhled speciálními technikami jako jsou styly či šablony. Jde tak používat používat předem dané prvky a upravovat je podle svých představ i vytvářet nové.
+
+Ačkoliv WPF zjednodušuje spoustu věcí, není jednoduché provést některé zdánlivě jednoduché úkoly. Příkladem je změna titulkového pruhu okna. I pouhé \uv{přebarvení} pruhu vyžaduje jeho vytvoření od začátku. Pruh okna je totiž v režii OS. Jedinou možností je tak odstranit rámeček okna a vytvořit jej znovu i s funkcionalitou tlačítek a přetahování okna. Tuto část kódu, jež je společná pro všechny okna v programu kromě dialogových oken chybových hlášek a výběru souborů a složek, jsem převzal od Davida Rickarda. Reference je uvedená i v kódu, konkrétně v souboru WindowBase.cs. 
+
+\subsubsection{NuGet}
+Jako prostředek pro rozšíření funkcionality obsahuje .NET správce balíčků NuGet. Ten umožňuje vytvářet balíčky, sdílet je a přidávat je do projektů.
+
+GitGUI obsahuje některé z balíčků nabízených službou NuGet:
+
+\paragraph*{LibGit2Srarp}
+Balíček LibGit2Sharp je nejdůležitějším a nejpoužívanějším balíčkem. Vzniká jako open source projekt na githubu \citep{libgitreference}. Obstarává v programu velkou část funkcionality Gitu.
+
+\paragraph*{Ooki.Dialogs.WPF}
+Tento balíček obsahuje třídu dialogu pro výběr složky. V běžných knihovnách .NET se tato funkcionalita nenachází v takové podobě, aby okno vypadalo stejně jako prohlížeč souborů.
+
+\paragraph*{Microsoft.Xaml.Behaviors.Wpf a System.Windows.Interactivity.Wpf}
+Balíčky obsahují funkce, které zjednodušily tvorbu některých komponent v xaml.
+
+
 
 \subsection{Algoritmus rozmístění uzlů v grafu}
 \label{subsec:algorithm}
@@ -510,45 +595,124 @@ Nejsou-li podmínky splněny, hledá se první řádek, který zaručuje, že u�
 
 Nakonec se upraví kolekce posledních revizí na řádku a cyklus pokračuje pro případný další uzel.
 
-\paragraph*{Ověření správnosti}
-Takový algoritmus by bylo dobré alespoň neformálně ověřit, využít k tomu můžeme matematickou indukci.
+%\paragraph*{Ověření správnosti}
+%Takový algoritmus by bylo dobré alespoň neformálně ověřit, využít k %tomu můžeme matematickou indukci.
+%
+%Z tvaru hran víme, že můžeme požadavky na neprotnutí uzlu hranou %matematicky formulovat takto:
+%
+%$$\forall a,b\in\text{Commits},\ a.\text{Descendants} = b$$
+%$$\not\exists c\in\text{Commits}\colon$$
+%$$a<b<c\ \wedge\ c.\text{Row}=\min(a.\text{Row},b.\text{Row})$$
+%
+%Jinak řečeno, pro žádnou dvojici incidentních uzlů neexistuje uzel %umístěný v mezilehlém sloupci s řádkem totožným s nižším z daných %incidentních uzlů. Tato podmínka bude třeba v indukci, stačí aby ji %splňovaly všechny doposud rozmístěné uzly.
 
-Z tvaru hran víme, že můžeme požadavky na neprotnutí uzlu hranou matematicky formulovat takto:
+\subsection{Vykreslování grafu}
+Původní plán na zobrazování grafu spočíval ve výpočtu pozic uzlů popsaném v předešlé podkapitole a následném umístění odpovídajících grafických prvků. Prvky grafického rozhraní se vložily do položky schopné své vizuální potomky zobrazovat na plátně tak, že obsah, který přeteče, je skryt. Zbývající viditelná oblast je potom rolovatelná.
 
-$$\forall a,b\in\text{Commits},\ a.\text{Descendants} = b$$
-$$\not\exists c\in\text{Commits}\colon$$
-$$a<b<c\ \wedge\ c.\text{Row}=\min(a.\text{Row},b.\text{Row})$$
+Problém s touto metodou je dvojí. Všechny prvky jsou od začátku vložené v plátně a všechny se neustále vykreslují. To však pro již vykreslený graf nepředstavuje výkonnostní potíže. Horší je to ale s rychlostí překreslování při otevření projektu, nebo zachycení změny.
 
-Jinak řečeno, pro žádnou dvojici incidentních uzlů neexistuje uzel umístěný v mezilehlém sloupci s řádkem totožným s nižším z daných incidentních uzlů. Tato podmínka bude třeba v indukci, stačí aby ji splňovaly všechny doposud rozmístěné uzly.
+Experimentálně se zjistilo, že proces výpočtu algoritmu rozmístění trvá pro větší projekty (kolem 200000 revizí) kolem minuty, kdežto samotné vytvoření odpovídajících UI elementů až desítky minut.
 
+Bylo nutné použít jinou metodu. Algoritmus rozmístění nebylo třeba nijak upravovat, \uv{bottleneck} se skrývá ve vytváření objektů. Obejít to lze vytvářením pouze nutných (rezumějme viditelných) objektů. Při každé změně polohy nebo velikosti zorného pole plátna se nyní vytvoří nově viditelné prvky a zruší se nepotřebné. Tímto se výrazně zrychlilo počáteční vykreslení za cenu drobného zpomalení při změně zorného pole.
 
+\subsection{Sledování změn}
+Sledování změn v otevřeném repozitáři je z pohledu uživatelského pohodlí nevyhnutelné. V opačném případě by uživatel musel vědět, kdy a jestli změna nastala a náhled pomocí nějakého ovládacího prvku obnovit. To je samo o sobě nepohodlné, navíc by toto řešení přinášelo problémy spojené s možností omylem pracovat se starými daty.
 
+Dalším důvodem je určité propojení s ostatními způsoby práce s repozitářem. Není vyloučeno (a dokonce se s tím, že by tento pracovní postup bude běžný), že uživatel bude současně pracovat s GitGUI i příkazovou řádkou, či jiným nástrojem pro Git. GitGUI by se mohl využívat pro úkony jednoduššího charakteru nebo pro rychlé získávání přehledu a současně jiný nástroj pro vykonání složitějších příkazů.
+GitGUI tedy musí počítat s tím, že se může historie kdykoliv změnit.
 
+Knihovna System.IO obsahuje třídu FileSystemWatcher. Objekty této třídy jsou schopné sledovat změny v nastaveném adresáři případně i zanořených adresářích. Každé přejmenování, vytvoření souboru, modifikace, nebo smazání souboru spustí na vedlejším vlákně vybrané zpětné volání.
 
+Pro potřeby tohoto projektu není vhodné využívat jako události vyvolávající překreslení grafu přímo všechna zpětná volání. I jednoduchá změna jednoho souboru může vnitřně znamenat více jednoduchých operací (a ty jsou všechny objektem zachyceny). Navíc operace v Gitu můžou najednou vytvořit desítky, nebo stovky souborů (například operace \kiinlinecode{text}{;}{git add}).
 
+Reagovat na tolik změn je nepřípustné, proto se vytvořila třída ChangesWatcher jako vyšší úroveň abstrakce nad třídou FileSystemWatcher.
 
+\paragraph*{ChangesWatcher}
+Vnější rozhraní třídy tvoří selektor {\it IsActive} pro zjištění, jestli objekt sleduje nějaký adresář a funkce {\it Watch} a {\it End} společně s událostí {\it ChangeNoticed}. Objekt této třídy zachytává v adresáři a podadresářích zvolené cesty všechny typy změn za krátký časový úsek. Jakmile je to vhodné, podá o nich souhrnnou zprávu pomocí události.
 
+V této třídě je důležitá explicitní práce s vlákny. Jakmile FileSystemWatcher zachytí nějakou změnu, spustí se na jeho vlákně funkce {\it InvokeChangeIfLastNotifyFromSequence} (ukázka v kódu \ref{kod:changes}). Je potřeba, aby bylo provedení této funkce rychlé, jinak by se mohly ve FileSystemWatcheru začít hromadit události a jeho kontejner přetéct.
 
+Ve zmiňované funkci se nachází kritická sekce realizovaná semaforem. Uvnitř kritické sekce se postupuje následovně: Pokud se již zpracovává  událost k poslání, nebo je dokonce prováděn kód, který událost vyvolává (v tomto případě překreslování grafu), pouze se nastaví sdílený příznak opakování {\it Repeat}. Pokud se nic nezpracovává a funkce je volána poprvé v případné sekvenci rychle za sebou následujících volání, aktivuje se časovač nastavený na jednu sekundu. Jinak (když se nic nezpracovává a časovač je aktivní) se časovač restartuje opět na jednu sekundu.
 
+Když se tedy objeví sekvence změn s časovým rozestupem méně než jednu sekundu, vyčkává se a časovač se neustále resetuje. Jakmile přestanou chodit zprávy o změnách v souborovém systému, dojde časovač na hodnotu nula. Ve speciálním vlákně je tím spuštěna funkce OnTimedEvent.
+Ve funkci OnTimeEvent probíhá nekonečná smyčka, která se zastaví až když v průběhu zpracování ChangeNoticed nedojde k výskytu další změny.
 
+\begin{kicode}{csharp}{kod:changes}{Sledování poslední změny v sekvenci}
+void InvokeChangeIfLastNotifyFromSequence()
+{
+    Mutex.WaitOne();
+    if (Processing)
+        Repeat = true;
+    else if (ChangesGroupTimer.Enabled)
+        RestartTimer();
+    else if (First)
+    {
+        First = false;
+        ChangesGroupTimer.Start();
+    }
+    Mutex.Release();
+}
 
+void OnTimedEvent(object sender, System.Timers.ElapsedEventArgs e)
+{
+    while (true)
+    {
+        Mutex.WaitOne();
+        Repeat = false;
+        Processing = true;
+        Mutex.Release();
+        Application.Current.Dispatcher.Invoke((Action)(InvokeChange));
+        Mutex.WaitOne();
+        if (Repeat)
+        {
+            Mutex.Release();
+            continue;
+        }
+        Processing = false;
+        First = true;
+        Mutex.Release();
+        return;
+    }
+}
+\end{kicode}
 
+Bylo by dobré upozornit na některé části kódu \ref{kod:changes}. Nutnost kritické sekce na řádcích 20--23 je zřejmá, 25--28 / 25--33 však už nemusí být. Kdybychom čistě zkontrolovali podmínku a na jejím základě buď pokračovali další iterací, nebo skončili, mohlo by dojít k následující situaci. Podmínka {\it Repeat} by se vyhodnotila, protože ale nejsme uvnitř kritické sekce, může nyní pokračovat funkce {\it InvokeChangeIfLastNotifyFromSequence}. Příznak {\it Processing} v tuto chvíli musí být pravdivý, proto se vykoná instrukce na řádku číslo pět. Ve funkci {\it OnTimeEvent} by se nyní provedly další příkazy. Podmínka již byla vyhodnocena negativně, proto se pouze obnoví ostatní příznaky na původní hodnotu a funkce skončí. Informace, že došlo ke změně, by tím byla ztracena.
 
+Za zmínku stojí i řádek 24. Ten zajistí, že se na hlavním vlákně začne synchronně provádět překreslování grafu a další aktivity. Jakmile práce skončí, funkce pokračuje na řádku 25.
 
+\subsection{Ukládání dat}
+Některé oblasti vyžadují ukládání dat, proto je třeba vyřešit jejich umístění a formát.
 
+\paragraph*{Naposledy otevřené repozitáře}
+Je nutné ukládat cesty k repozitářům, se kterými se pracovalo a časy jejich ukončení. Na základě těchto časů jsou záznamy spravovány a seřazovány.
 
+\paragraph*{Seznam známých uživatelů}
+Mezi jednotlivými uživateli jde přepínat a nastavovat jejich obrázky. Je tedy třeba jméno uživatele, adresa uživatele a volitelně obrázek.
 
+\paragraph*{Vzdálenné repozitáře}
+Vzdálené repozitáře jsou ukládány pro každý projekt pomocí knihovny LibGit2Sharp stejně jako to dělá Git. Je však třeba ukládat po dvojicích údaje o vzdáleném repozitáři a případné přihlašovací údaje, aby je uživatel nemusel opakovaně zadávat.
+
+\paragraph*{Implicitní stash}
+Při implicitním vytvoření stash se vytvoří stash tak, aby byla dostupná jako normální stash, je ale třeba někam uložit jejich hash kód, aby se uvnitř aplikace daly rozpoznat.
+
+\subsubsection{Umístění a formát}
+Jak je vidět, všechna data jsou jednoduchá a tudíž nemá smysl pro ně vytvářet databázi. Pro takto jednoduchý úkol lze použít obyčejné uložení v souborovém systému. Data jsou uložena v adresáři AppData.
 
 %% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
 %% nastavený jazyk práce (nepovinným parametrem language makra
 %% \documentclass, výchozí český) se zadává použitím makra s uvedením
 %% jazyka jako nepovinného parametru.
 \begin{kiconclusions}
-Závěr práce v \uv{českém} jazyce.
+Vytvořený program GitGUI slouží jako jednoduchý nástroj pro přehlednou práci s Gitem. Lze používat samostatně i jako doplněk současně s jiným nástrojem, například příkazovou řádkou.
+
+Splnil jsem hlavní cíle práce, tedy grafický nástroj umožňující provedení základních operací Gitu převážně pomocí grafu. Do budoucna plánuji optimalizovat rychlost aplikace a rozšířit ji o další funkce.
 \end{kiconclusions}
 
 \begin{kiconclusions}[english]
-Thesis conclusions in \uv{English}.
+The created GitGUI program serves as a simple tool for clear work with Git. It can be used separately or with another tool, such as the command line, at the same time.
+
+I fulfilled the main goals of the work. Ie I created a graphical tool that allows one to perform basic Git operations mainly using a graph. In the future, I plan to expand functionality and optimize program speed.
+
 \end{kiconclusions}
 
 %% Přílohy obsahu textu práce, za makrem \appendix.
@@ -561,7 +725,13 @@ Thesis conclusions in \uv{English}.
 \begin{description}
 
 \item[\texttt{bin/}] \hfill \\
-  Instalátor
+  Spustitelná verze programu GitGUI v samostatném exe souboru.
+  
+\item[\texttt{doc/}] \hfill \\
+  Bakalářská práce v pdf souboru a jeho zdrojové kódy pro typografický systém latex.
+  
+\item[\texttt{src/}] \hfill \\
+Projekt pro Visual Studio obsahující veškeré zdrojové kódy a ostatní soubory potřebné pro kompilaci na výsledný program.
 
 \end{description}
 
