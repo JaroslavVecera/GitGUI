@@ -70,7 +70,34 @@
       \verb https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control
       \endverb
     \endentry
-    \entry{mercurial}{book}{}
+    \entry{svn}{online}{}
+      \name{author}{1}{}{%
+        {{hash=d4a5bef067a1f1bba1782027ad219e93}{%
+           family={Foundation},
+           familyi={F\bibinitperiod},
+           given={Apache\bibnamedelima Software},
+           giveni={A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{d4a5bef067a1f1bba1782027ad219e93}
+      \strng{fullhash}{d4a5bef067a1f1bba1782027ad219e93}
+      \strng{bibnamehash}{d4a5bef067a1f1bba1782027ad219e93}
+      \strng{authorbibnamehash}{d4a5bef067a1f1bba1782027ad219e93}
+      \strng{authornamehash}{d4a5bef067a1f1bba1782027ad219e93}
+      \strng{authorfullhash}{d4a5bef067a1f1bba1782027ad219e93}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Apache Subversion}
+      \field{year}{2000\\}
+      \verb{urlraw}
+      \verb https://subversion.apache.org/
+      \endverb
+      \verb{url}
+      \verb https://subversion.apache.org/
+      \endverb
+    \endentry
+    \entry{mercurial}{online}{}
       \name{author}{1}{}{%
         {{hash=94e3244dcd1ec531caf0917d6b602db3}{%
            family={Mackall},
@@ -89,7 +116,13 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Mercurial}
-      \field{year}{3 May 2021}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb www.mercurial-scm.org/repo/hg-stable
+      \endverb
+      \verb{url}
+      \verb www.mercurial-scm.org/repo/hg-stable
+      \endverb
     \endentry
     \entry{git}{book}{}
       \name{author}{2}{}{%
@@ -135,8 +168,8 @@
       \strng{authornamehash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \strng{authorfullhash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \field{extraname}{2}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{12}
@@ -218,7 +251,7 @@
       \field{labeltitlesource}{title}
       \field{month}{11}
       \field{title}{libgit2sharp}
-      \field{year}{2010}
+      \field{year}{2010\\}
       \verb{urlraw}
       \verb https://github.com/libgit2/libgit2sharp
       \endverb
@@ -247,7 +280,6 @@
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{isbn}{1097122654}
       \field{title}{Professional WPF and C\# Programming: Practical Software Development Using WPF and C\#}
       \field{year}{2019}
       \true{nocite}

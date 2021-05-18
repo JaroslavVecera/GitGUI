@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="GitGUI.MainTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:GitGUI"
+             xmlns:logic="clr-namespace:GitGUI.Logic"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ScrollViewer  Grid.Row="0" Cursor="SizeAll" x:Name="graphView"
+                       VerticalScrollBarVisibility="Disabled"
+                       Margin="20,20,20,0" VerticalAlignment="Stretch"
+                       Content="{Binding Path=ZoomAndPanCanvas}"
+                       DataContextChanged="OnDataContextChanged"
+                       Focusable="False"
+                       MouseUp="OnMouseUp"
+                       MouseDown="OnMouseDown"
+                       PreviewMouseWheel="OnPreviewMouseWheel"
+                       SizeChanged="OnSizeChanged"
+                       LayoutUpdated="OnGraphViewLayoutUpdated"
+                       Background="#1E1E1E">
+            </ScrollViewer>
+            <ContentControl  Content="{Binding Path=ActionPanel}" Grid.Row="1">
+                <ContentControl.ContentTemplate>
+                    <DataTemplate>
+                        <local:ActionPanelView HorizontalAlignment="Center" Padding="10"></local:ActionPanelView>
+                    </DataTemplate>
+                </ContentControl.ContentTemplate>
+            </ContentControl>
+            <Button ToolTip="Open repository directory in file explorer" Width="25" Height="25" Focusable="False" Margin="0,0,20,0" BorderThickness="0" Grid.Row="1" HorizontalAlignment="Right" Click="OpenFolder" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                <Image Source="../icons/open-directory.ico"/>
+            </Button>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,20,0" VerticalAlignment="Top">
+            <local:GroupingSuggestiveSearchBar Height="24" Width="250"></local:GroupingSuggestiveSearchBar>
+            <Button Click="NavigateHead" Height="20" Width="50" Content="HEAD">
+                <Button.Style>
+                    <Style  TargetType="Button">
+                        <Setter Property="Foreground" Value="LightGray"/>
+                        <Setter Property="Background" Value="#3E3E42"/>
+                        <Style.Triggers>
+                            <Trigger Property="Button.IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="LightGray" BorderBrush="LightGray" BorderThickness="1" x:Name="border">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="DarkGray" BorderThickness="0">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="#666666" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <ContentControl  Content="{Binding Shown}" Grid.Row="2" x:Name="nodePanel">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type logic:CommitNodeModel}">
+                    <local:CommitInfoView Padding="5" BorderThickness="2" BorderBrush="#686868" Background="#333337"/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type logic:BranchLabelModel}">
+                    <local:BranchInfoView Padding="5" BorderThickness="2" BorderBrush="#686868" Background="#333337"/>
+                </DataTemplate>
+            </ContentControl.Resources>
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsInfoVisible}" Value="true">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+    </Grid>
+</UserControl>

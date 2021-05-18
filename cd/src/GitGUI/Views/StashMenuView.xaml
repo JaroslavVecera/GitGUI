@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="GitGUI.StashMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitGUI"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:StashMenuContentTemplateSelector x:Key="StashMenuContentTemplateSelector"/>
+        <Style TargetType="Button">
+                <Setter Property="Foreground" Value="LightGray"/>
+                <Setter Property="Background" Value="#3E3E42"/>
+                <Style.Triggers>
+                    <Trigger Property="Button.IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="LightGray" BorderBrush="LightGray" BorderThickness="1">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        <DataTemplate x:Key="SomeStashes" DataType="StashMenuViewModel">
+            <Grid  Background="#1E1E1E">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <ScrollViewer Grid.Row="0" Height="100">
+                    <ListView SelectionMode="Single" ItemsSource="{Binding Stashes, 
+                     RelativeSource={RelativeSource AncestorType={x:Type local:StashMenuView}, 
+                     Mode=FindAncestor}}" Background="#28282A" SelectedItem="{Binding Selected, Mode=OneWayToSource}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock TextTrimming="CharacterEllipsis" Foreground="White" Background="#3E3E42"  Margin="5" Padding="5,0,5,0" Width ="400" Height="20" Text="{Binding Item1}"></TextBlock>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Background="Green" Margin="10" Command="{Binding Apply}">Apply</Button>
+                    <Button Grid.Column="1" Background="Orange" Margin="10" Command="{Binding Pop}">Pop</Button>
+                    <Button Grid.Column="2" Background="DarkRed" Margin="10" Command="{Binding Delete}">Delete</Button>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="NoStashes" DataType="StashMenuViewModel">
+            <TextBlock Background="#1E1E1E" Foreground="White">No stashes</TextBlock>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Border BorderBrush="#FF999999" BorderThickness="1">
+        <ContentControl Content="{Binding DataContext, RelativeSource={RelativeSource Self}}" ContentTemplateSelector="{DynamicResource StashMenuContentTemplateSelector}"/>
+    </Border>
+</UserControl>

@@ -2146,7 +2146,8 @@
     <bcf:citekey order="10">gitreference-distributed</bcf:citekey>
     <bcf:citekey order="11">linux</bcf:citekey>
     <bcf:citekey order="12">libgitreference</bcf:citekey>
-    <bcf:citekey order="13">libgitreference</bcf:citekey>
+    <bcf:citekey order="13">wpfandcsharp</bcf:citekey>
+    <bcf:citekey order="14">libgitreference</bcf:citekey>
     <bcf:citekey order="0" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->

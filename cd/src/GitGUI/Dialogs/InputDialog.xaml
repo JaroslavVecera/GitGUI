@@ -1,0 +1,102 @@
+﻿<local:WindowBase      x:Class="GitGUI.InputDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitGUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Width="400"
+             Background="#28282A"
+             WindowStyle="None"
+             WindowStartupLocation="CenterOwner"
+             Height="200"
+             MinHeight="200" MinWidth="400">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32" ResizeBorderThickness="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="TitleBarButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+					x:Name="border"
+					Background="Transparent"
+					BorderThickness="0"
+					SnapsToDevicePixels="true">
+                            <ContentPresenter
+						x:Name="contentPresenter"
+						Margin="0"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Focusable="False"
+						RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#333337" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="#3D26A0DA" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border>
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="BorderBrush" Value="Gray" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                        <Setter Property="BorderThickness" Value="0" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Width="22" Height="22" Margin="4" Source="../icon.png" />
+                <Button
+		Grid.Column="2"
+		Click="OnCloseButtonClick"
+		Style="{StaticResource TitleBarButtonStyle}">
+                    <Path
+			Width="46"
+			Height="32"
+			Data="M 18,11 27,20 M 18,20 27,11"
+			Stroke="{Binding Path=Foreground,
+							 RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+			StrokeThickness="1" />
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="White" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:InputDialog}}"  Margin="13" />
+                <TextBox Height="25" TextChanged="TextChanged" Background="#3E3E42" FontSize="15" Foreground="White" Grid.Row="1" Margin="15,15,15,13" x:Name="ResponseTextBox" KeyDown="OnKeyDown" />
+                <Button Grid.Row="2" Height="30" Width="100" Content="OK" x:Name="button" Grid.ColumnSpan="2" Margin="145,11" />
+            </Grid>
+        </Grid>
+    </Border>
+</local:WindowBase>

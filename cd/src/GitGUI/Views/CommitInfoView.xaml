@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="GitGUI.CommitInfoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitGUI"
+             mc:Ignorable="d" 
+             Height="200"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#3E3E42"/>
+                    <Style.Triggers>
+                        <Trigger Property="Button.IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border Background="LightGray" BorderBrush="LightGray" BorderThickness="1">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Foreground="White" FontSize="15">Commit viewer</TextBlock>
+        <Grid Grid.Row="1" Background="#3E3E42">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Padding="15, 10, 0, 4" Foreground="White" FontSize="15">Message</TextBlock>
+                <ScrollViewer Grid.Row="1" Margin="8">
+                    <TextBlock Padding="5" Foreground="White" Text="{Binding Message}" Background="#2D2D30" TextWrapping="Wrap"/>
+                </ScrollViewer>
+            </Grid>
+            <StackPanel Grid.Column="2" Margin="30, 40, 25, 0">
+                <TextBlock Foreground="White">Hash</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Sha}" TextTrimming="WordEllipsis" Foreground="White"/>
+                    <Button Grid.Column="1" Width="50" Command="{Binding CopySha}" Content="Copy"/>
+                </Grid>
+            </StackPanel>
+            <Button Background="DarkCyan" Grid.Column="2" Width="100" Margin="0,0,0,30" VerticalAlignment="Bottom" Command="{Binding OnShowChanges}" Content="Changes">
+            </Button>
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Padding="15, 10, 0, 4" Foreground="White" FontSize="15">Author</TextBlock>
+                    <StackPanel Margin="8" Grid.Row="1" Background="#2D2D30">
+                        <TextBlock Padding="5,5,0,0" Foreground="White">Name</TextBlock>
+                        <TextBlock TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Author}"/>
+                        <TextBlock Padding="5,8,0,0" Foreground="White">Authors email</TextBlock>
+                        <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Email}"></TextBlock>
+                        <TextBlock Padding="5,8,0,0" Foreground="White">When</TextBlock>
+                        <TextBlock  TextTrimming="WordEllipsis" Padding="5,0,0,0" Foreground="White" Text="{Binding Time}"></TextBlock>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

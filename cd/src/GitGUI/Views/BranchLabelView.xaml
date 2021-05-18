@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="GitGUI.BranchLabelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:local="clr-namespace:GitGUI"
+             mc:Ignorable="d"
+             Cursor="Hand"
+             MouseDown="OnMouseDown"
+             MouseUp="OnMouseUp"
+             MouseEnter="OnMouseEnter"
+             MouseLeave="OnMouseLeave"
+             RenderTransform="{Binding Path=RenderTransform}"
+             DataContextChanged="OnDataContextChanged"
+             d:DesignHeight="60" d:DesignWidth="180"
+             IsHitTestVisible="{Binding HitTestVisible}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <i:InvokeCommandAction Command="{Binding MouseDown}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseUp">
+            <i:InvokeCommandAction Command="{Binding MouseUp}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseEnter">
+            <i:InvokeCommandAction Command="{Binding MouseEnter}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="MouseLeave">
+            <i:InvokeCommandAction Command="{Binding MouseLeave}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border x:Name="border"  BorderThickness="0" MinWidth="60" VerticalAlignment="Top" CornerRadius="5" Height="30" MaxWidth="150">
+            <Border CornerRadius="5" BorderThickness="2" Margin="-1">
+            <TextBlock  Text="{Binding Name}"
+                   TextTrimming="CharacterEllipsis"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Padding="10,0,10,0" Foreground="White" />
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Marked}" Value="true">
+                                <Setter Property="BorderBrush" Value="White"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AggregationFocused}" Value="true">
+                                <Setter Property="BorderBrush" Value="Yellow"/>
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Focused}" Value="true" />
+                                    <Condition Binding="{Binding Marked}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="BorderBrush" Value="DarkGray"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Background" Value="#003a8c"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Marked}" Value="true">
+                            <Setter Property="BorderBrush" Value="MidnightBlue"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Checkouted}" Value="true">
+                            <Setter Property="Background" Value="Purple"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+        <Path x:Name="arrow">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="20,29">
+                        <PathFigure.Segments>
+                            <LineSegment Point="30,40" />
+                            <LineSegment Point="40,29" />
+                        </PathFigure.Segments>
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+            <Path.Style>
+                <Style TargetType="Path">
+                    <Setter Property="Fill" Value="#003a8c" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Marked}" Value="false" />
+                                <Condition Binding="{Binding Checkouted}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Fill" Value="Purple"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Marked}" Value="false" />
+                                <Condition Binding="{Binding Focused}" Value="true" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="Fill" Value="LightGray"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding Marked}" Value="true">
+                            <Setter Property="Fill" Value="White" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AggregationFocused}" Value="true">
+                            <Setter Property="Fill" Value="Yellow"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Path.Style>
+        </Path>
+        <Button Margin="0,-10,0,0" VerticalAlignment="Top" x:Name="plusButton" 
+             PreviewMouseDown="OnPreviewMouseDown"  PreviewMouseLeftButtonUp="ButtonUp">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse Width="20" Height="20" Fill="Green"></Ellipse>
+                                    <TextBlock Margin="0, -6, 0, 0" Foreground="White" Text="+" Width="20" TextAlignment="Center" FontSize="20"></TextBlock>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Ellipse Width="20" Height="20" Fill="ForestGreen"></Ellipse>
+                                            <TextBlock Margin="0, -6, 0, 0" Foreground="White" Text="+" Width="20" TextAlignment="Center" FontSize="20"></TextBlock>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Path Visibility="{Binding Path=IsRemote, Converter={StaticResource ResourceKey=BoolToVis}}" Stroke="SpringGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <Path.Data>
+                <PathGeometry>
+                    <PathFigure StartPoint="0,-7">
+                        <ArcSegment Size="7,7" Point="0,7" IsLargeArc="True"/>
+                        <ArcSegment Size="7,7" Point="0,-7" IsLargeArc="True"/>
+                        <ArcSegment Size="4,7" Point="0,7" IsLargeArc="True"/>
+                        <ArcSegment Size="4,7" Point="0,-7" IsLargeArc="True"/>
+                        <LineSegment Point="0,7" />
+                        <ArcSegment Size="7,7" Point="5,5" />
+                        <ArcSegment Size="7,7" Point="-5,5" />
+                        <ArcSegment Size="7,7" Point="-5,-5" SweepDirection="Clockwise" />
+                        <ArcSegment Size="7,7" Point="5,-5"/>
+                        <ArcSegment Size="7,7" Point="7,0" SweepDirection="Clockwise"/>
+                        <LineSegment Point="-7,0" />
+                    </PathFigure>
+                </PathGeometry>
+            </Path.Data>
+        </Path>
+        <Path Visibility="{Binding Path=IsTracked, Converter={StaticResource ResourceKey=BoolToVis}}" Stroke="SpringGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <Path.Data>
+                <GeometryGroup>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,-7">
+                            <ArcSegment Size="7,7" Point="6.32,-3" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="6,-3.5" RadiusX="1" RadiusY="1" />
+                    <PathGeometry>
+                        <PathFigure StartPoint="6,3.5">
+                            <ArcSegment Size="7,7" Point="-1,6.92" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="0,7" RadiusX="1" RadiusY="1" />
+                    <PathGeometry>
+                        <PathFigure StartPoint="-6,3.5">
+                            <ArcSegment Size="7,7" Point="-5.72,-4" SweepDirection="Clockwise"/>
+                        </PathFigure>
+                    </PathGeometry>
+                    <EllipseGeometry Center="-6,-3.5" RadiusX="1" RadiusY="1" />
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+    </Grid>
+</UserControl>

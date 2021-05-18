@@ -1,0 +1,810 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GitGUI.ChangedUserEventArgs" Collapsed="true">
+    <Position X="67.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>CahngedUserEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.AuthentificationDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAACAAAAAAAEAAAQAAAAAAAACAAAAAAAABAA=</HashCode>
+      <FileName>Dialogs\AuthentificationDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.InputDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAQAAAAAkAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\InputDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.ProgressBarDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="62.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SAAAQCAAAAEAAAAAAAACAAQAAQAAQAAAAA4IIAAQAAA=</HashCode>
+      <FileName>Dialogs\ProgressBarDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.RemoteWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="58.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAIgAAAQCAAOgAAgAAAAAAQAhAKCSAAAQACAAA=</HashCode>
+      <FileName>Dialogs\RemoteWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.UserWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="67.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAEAAAAIASAAYCAAOAoApAAAACAAAgCIAQAAAQAAAAA=</HashCode>
+      <FileName>Dialogs\UserWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.Edge" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="60.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAkIAAAAAiAQAgQSAKEAAAAACAgEIAAADACEYgEAAgA=</HashCode>
+      <FileName>Edge.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.ObservableUIElementCollection" Collapsed="true">
+    <Position X="58.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAQAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObservableUIElementCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.RelayCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="65.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQEACAAQIAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.RelayCommand&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQEACAAQIAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>RelayCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.Remote" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="67.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Remote.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.BindableSelectedItemBehavior" Collapsed="true">
+    <Position X="65.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAFAAAAAAAAAAAAABABAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>SelectedItemBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.StashMenuContentTemplateSelector" Collapsed="true">
+    <Position X="69.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StashMenuContentTemplateSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.ActionPanelView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ActionPanelView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.BranchInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="67.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\BranchInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.BranchLabelView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="69.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAAIAAJgEAAwAgAAoBQACAAgAEAgAAAIAgAAAACAQA=</HashCode>
+      <FileName>Views\BranchLabelView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.DeletedInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="69.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitEditorChangeInfos\DeletedInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.ModifiedInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="65.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitEditorChangeInfos\ModifiedInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.RenamedInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="60.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitEditorChangeInfos\RenamedInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.UntrackedInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="60.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitEditorChangeInfos\UntrackedInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.CommitEditorView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitEditorTabView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.CommitInfoView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="58.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitInfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.CommitNodeView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="62.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGRAIAAbqEAAgAgACoBQACAIgQEYgAAwIAgAAAACAQA=</HashCode>
+      <FileName>Views\CommitNodeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.CommitViewerTabView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CommitViewerTabView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.ConflictEditorTabView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="65.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ConflictEditorTabView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.MainTabView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="62.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQQBAAABAAgAAAAIgEAAAAEAAAAAIAAAAAASAIA=</HashCode>
+      <FileName>Views\MainTabView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="64" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACACEAAAgAQAAgAAhIgIAABCAgAAgIFREAEBBAAQ=</HashCode>
+      <FileName>Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.RemoteSelectorView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAACAgAAAAAAAIQAAAAABAAAAAAAAAIAAQACAAA=</HashCode>
+      <FileName>Views\RemoteSelectorView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.StashMenuView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAQAgAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Views\StashMenuView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.UserSelectorView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="65.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAAhAAAAAACIAAEAAABQAAAAgBAAEAAAAECAA=</HashCode>
+      <FileName>Views\UserSelectorView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.ZoomAndPanCanvasView" Collapsed="true">
+    <Position X="57" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ZoomAndPanCanvasView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.App" Collapsed="true">
+    <Position X="60.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgQAAAAAQAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Logic\App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.AppSettings" Collapsed="true">
+    <Position X="62.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACAAAAA=</HashCode>
+      <FileName>Logic\AppSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.DeployAlgorithm" Collapsed="true">
+    <Position X="57" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgIAAAAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAAIAAA=</HashCode>
+      <FileName>Logic\DeployAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.Diff" Collapsed="true">
+    <Position X="58.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAQAAAAAAgAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Logic\DiffParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.EventHandlerBatch" Collapsed="true">
+    <Position X="62.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAYAAAAAAAAAAAAAAgAgAgAAAAABAAAAAAAAAAAAE=</HashCode>
+      <FileName>Logic\EventHandlerBatch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.Graph" Collapsed="true">
+    <Position X="64" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACgECABAAIAAkAVkEAIgAQIBJAIIAEQAQCIEhAocAwA=</HashCode>
+      <FileName>Logic\Graph.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.Hunk" Collapsed="true">
+    <Position X="65.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAEAAAAAAAAAAIIAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Logic\Hunk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.DeletedInfo" Collapsed="true">
+    <Position X="7.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Changes\DeletedInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ChangesInfo" Collapsed="true">
+    <Position X="3.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAABAAEAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Logic\Changes\ChangesInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ChangesTreeDirectoryItem" Collapsed="true">
+    <Position X="12.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAABAACJACBIAAAgBAAAAEAAAAAABDAAGAABAAAA=</HashCode>
+      <FileName>Logic\Changes\ChangesTreeDirectoryItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ChangesTreeFileItem" Collapsed="true">
+    <Position X="10.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAABCQAAAEAAAAA=</HashCode>
+      <FileName>Logic\Changes\ChangesTreeFileItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ChangesTreeItem" Collapsed="true">
+    <Position X="11.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAACAEIAAAAQAgAAAAABBAABgAEAAgAA=</HashCode>
+      <FileName>Logic\Changes\ChangesTreeItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GitGUI.Logic.ModifiedInfo" Collapsed="true">
+    <Position X="0.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAIgAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Changes\ModifiedInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.RenamedInfo" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Changes\RenamedInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.UntrackedInfo" Collapsed="true">
+    <Position X="5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Changes\UntrackedInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ChangesWatcher" Collapsed="true">
+    <Position X="69.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIACIAAQAAAAYgAAAAAAgACAAgKgAAAAAIgAAASAAA=</HashCode>
+      <FileName>Logic\ChangesWatcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.LibGitNetworkService" Collapsed="true">
+    <Position X="58.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEACoAEkAAAQgIEAEAAAFCBQwAAATQQIIJJEBMiAM=</HashCode>
+      <FileName>Logic\LibGitNetworkService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.LibGitService" Collapsed="true">
+    <Position X="60.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IKIUCEIEAARAhMACEECABgAADEIAgQgAAAAAQAiBAAA=</HashCode>
+      <FileName>Logic\LibGitService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.Line" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAgQAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.HeaderLine" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.NonHeaderLine" Collapsed="true">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.UnchangedLine" Collapsed="true">
+    <Position X="2.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.OldLine" Collapsed="true">
+    <Position X="5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.NewLine" Collapsed="true">
+    <Position X="7.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ActionsManager" Collapsed="true">
+    <Position X="58.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAEgAAMYEBAABAQAABAhAAEICwAAAZEBAQIACAQA=</HashCode>
+      <FileName>Logic\Managers\ActionsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitManager" Collapsed="true">
+    <Position X="60.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACGBAAIAABABAAAAAAAAABAAAAQgAQACAAAoAAQA=</HashCode>
+      <FileName>Logic\Managers\CommitManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.RemoteManager" Collapsed="true">
+    <Position X="69.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEyBAAgAYAhAAAAAACIAAgJABgIACBBgAAAAABAAU=</HashCode>
+      <FileName>Logic\Managers\RemoteManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.RepositoryManager" Collapsed="true">
+    <Position X="62.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAgAQAEaAIAAACAAAAAQAGAgAAEAAEAAIBACAAAw=</HashCode>
+      <FileName>Logic\Managers\RepositoryManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.StashingManager" Collapsed="true">
+    <Position X="67.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QARIIgIAYBIAQAQAAAAAgAAgAAiAAAAQAAGICAAACAA=</HashCode>
+      <FileName>Logic\Managers\StashingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.TabManager" Collapsed="true">
+    <Position X="58.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAMCAAAAUASAAAABQFAAAAAAAAGYABQgACAAGgQI=</HashCode>
+      <FileName>Logic\Managers\TabManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.UserManager" Collapsed="true">
+    <Position X="64" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAyEAoBAAAEAACEAAAAAAgAAAAgAAQABAAABgA=</HashCode>
+      <FileName>Logic\Managers\UserManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ActionButtonModel" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAEAAAQAAACAoAAAQCAIAAAA=</HashCode>
+      <FileName>Logic\Models\ActionButtonModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ActionPanelModel" Collapsed="true">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAIAAAAAADEAAAAAAAAAQAAAgAAAAAAA=</HashCode>
+      <FileName>Logic\Models\ActionPanelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.BranchLabelModel" Collapsed="true">
+    <Position X="25.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACBEIAQAgEAEQIAEAQAIAAAAAgAAAgIAAABAAA=</HashCode>
+      <FileName>Logic\Models\BranchLabelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitEditorTabModel" Collapsed="true">
+    <Position X="18.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Models\CommitEditorTabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitNodeModel" Collapsed="true">
+    <Position X="27.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIIEADDiAAAAAAgAAAIAAAAQgQAAgQkACAoBAAARg=</HashCode>
+      <FileName>Logic\Models\CommitNodeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitViewerTabModel" Collapsed="true">
+    <Position X="16.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEAAAARIAAAAAAAAAQAAAAAAgAAAAAAAMAAAACA=</HashCode>
+      <FileName>Logic\Models\CommitViewerTabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ConflictEditorTabModel" Collapsed="true">
+    <Position X="20.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Models\ConflictEditorTabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.EditorTabModel" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAEAAACDIQAAAAAAAAAAAAAAACAgAAAgAMAAAEAg=</HashCode>
+      <FileName>Logic\Models\EditorTabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.GraphItemModel" Collapsed="true">
+    <Position X="26.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABQBAgIAAAAgEQBggJAASJAgEQEEAAAICAgAAACAAA=</HashCode>
+      <FileName>Logic\Models\GraphItemModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.MainTabModel" Collapsed="true">
+    <Position X="14" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ZAABBAAAAgAAAEAAAAAAAAAAAAAAEAQAIAgAAAECAgA=</HashCode>
+      <FileName>Logic\Models\MainTabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.MainWindowModel" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ggACAgQiggKAAIEUAQQCAAACBAEQAEAAAKRAAAAAAAA=</HashCode>
+      <FileName>Logic\Models\MainWindowModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ModelBase" Collapsed="true">
+    <Position X="15" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Models\ModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.RepositoryModel" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIBAAAAAAAIAAAAAAAQIAAAAAAAAgAAIAAAAAAA=</HashCode>
+      <FileName>Logic\Models\RepositoryModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.StashMenuModel" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAgAAGAAAAAEAABAAAQAAE=</HashCode>
+      <FileName>Logic\Models\StashMenuModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.TabModel" Collapsed="true">
+    <Position X="17.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Logic\Models\TabModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ZoomAndPanCanvasModel" Collapsed="true">
+    <Position X="23" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIQAgAEEBIAEAAAEASCAAEQAAAIAAAEIAAgAAQAIAAA=</HashCode>
+      <FileName>Logic\Models\ZoomAndPanCanvasModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.Program" Collapsed="true">
+    <Position X="60.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEECkisEAABBSCAgRBMAAKANFAEARgEaEAQDIAHQAA=</HashCode>
+      <FileName>Logic\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CrossStateData" Collapsed="true">
+    <Position X="67.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAhAAACAAAAAAAAAAAAAAAAAAAAEAAQ=</HashCode>
+      <FileName>Logic\ProgramStates\CrossStateData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.MovingBranch" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="67.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAgBEAAAgAIAABABAAAEAggQAAAgACAAAA=</HashCode>
+      <FileName>Logic\ProgramStates\MovingBranch.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.Logic.MovingCanvas" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="69.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAgBEAAAgAIAABABAAAEAggQAAAAACAAAA=</HashCode>
+      <FileName>Logic\ProgramStates\MovingCanvas.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.Logic.Normal" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAgBEAAAgAIAABABAAAEAggQAIAAACAAAA=</HashCode>
+      <FileName>Logic\ProgramStates\Normal.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GitGUI.Logic.PropertyChangedNotifier" Collapsed="true">
+    <Position X="28.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\PropertyChangedNotifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GitGUI.Logic.Remote" Collapsed="true">
+    <Position X="29.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAIAAAAAQCAAAAAQACDQAAAAAAAAA=</HashCode>
+      <FileName>Logic\Remote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.User" Collapsed="true">
+    <Position X="62.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAIiAAAAIAIAAAIAQCADUCAQAAQEACAAAAAAg=</HashCode>
+      <FileName>Logic\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ViewHistory" Collapsed="true">
+    <Position X="69.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIAIAAABAAAAgAAAAAAAAAAAAAAAAAAAAAKAAEAAAA=</HashCode>
+      <FileName>Logic\ViewHistory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ActionButtonViewModel" Collapsed="true">
+    <Position X="38.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAABAIAAAAEAAAQAAACAAAAgACAIAAAA=</HashCode>
+      <FileName>Logic\ViewModels\ActionButtonViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ActionPanelViewModel" Collapsed="true">
+    <Position X="43.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAABAAAAAAEAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\ActionPanelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.BranchLabelViewModel" Collapsed="true">
+    <Position X="32" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAQAAABAAAAAAAQAIAAAAAAAAIgIAACAAAA=</HashCode>
+      <FileName>Logic\ViewModels\BranchLabelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitEditorTabViewModel" Collapsed="true">
+    <Position X="50" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\CommitEditorTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitNodeViewModel" Collapsed="true">
+    <Position X="34.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAADCAQAAAAAIAgAAAAAAQAAAAAQAAAAIBAAABA=</HashCode>
+      <FileName>Logic\ViewModels\CommitNodeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.CommitViewerTabViewModel" Collapsed="true">
+    <Position X="45.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQACABAAAEAAQAACBIAAAEAgBgAIACAAAA=</HashCode>
+      <FileName>Logic\ViewModels\CommitViewerTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ConflictEditorTabViewModel" Collapsed="true">
+    <Position X="47.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAACAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\ConflictEditorTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.EditorTabViewModel" Collapsed="true">
+    <Position X="48.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAEAAAAAACABAQAEAAAAACBEAAAEAgBgAIAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\EditorTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.GraphItemViewModel" Collapsed="true">
+    <Position X="33" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABBACAAABAgE1AAgIQAQBSggAAkwAAAAggAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\GraphItemViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.MainTabViewModel" Collapsed="true">
+    <Position X="52.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABIAAAIACAAEjAAAAQAAAAABAAEAQAAAgAAAAEAAQ=</HashCode>
+      <FileName>Logic\ViewModels\MainTabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.MainWindowViewModel" Collapsed="true">
+    <Position X="36.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAgGCQiAgCAAABAIAABAAAABAAQAlAAAIwIAAAAAQA=</HashCode>
+      <FileName>Logic\ViewModels\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.StashMenuViewModel" Collapsed="true">
+    <Position X="41" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAABAAAAAAIAAAAAAiAAGAAAEAAAgAAAAAAAI=</HashCode>
+      <FileName>Logic\ViewModels\StashMenuViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.TabViewModel" Collapsed="true">
+    <Position X="48.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAAAAAAAAAAAAAAAEAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\TabViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ViewModelBase" Collapsed="true">
+    <Position X="43.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Logic.ZoomAndPanCanvasViewModel" Collapsed="true">
+    <Position X="54.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAAAIAAAAAAAAAgAAABAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Logic\ViewModels\ZoomAndPanCanvasViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Properties.Resources" Collapsed="true">
+    <Position X="64" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GitGUI.Properties.Settings" Collapsed="true">
+    <Position X="65.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GitGUI.Logic.IProgramState" Collapsed="true">
+    <Position X="57" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAgAEAAAgAIAABAAAAAEAggAAAAAACAAAA=</HashCode>
+      <FileName>Logic\ProgramStates\IProgramState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GitGUI.RemoteWindowRole" Collapsed="true">
+    <Position X="62.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\RemoteWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GitGUI.UserWindowRole" Collapsed="true">
+    <Position X="65.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Dialogs\UserWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GitGUI.Logic.AggregatingBehaviour" Collapsed="true">
+    <Position X="57" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAgAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\AggregatingBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GitGUI.Logic.ChangeType" Collapsed="true">
+    <Position X="58.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\Changes\ChangeType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GitGUI.Logic.RepositoryValidation" Collapsed="true">
+    <Position X="64" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Logic\LibGitService.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GitGUI.Logic.LineType" Collapsed="true">
+    <Position X="60.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACBCAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Logic\Line.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="GitGUI.ActionPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GitGUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ItemsControl ItemsSource="{Binding Path=Buttons}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Button Command="{Binding Path=Clicked}" Width="{Binding Width}" Height="30">
+                    <Button.Style>
+                        <Style  TargetType="Button">
+                            <Setter Property="Foreground" Value="LightGray"/>
+                            <Setter Property="Background" Value="#3E3E42"/>
+                            <Style.Triggers>
+                                <Trigger Property="Button.IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="LightGray" BorderBrush="LightGray" BorderThickness="1" x:Name="border">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="DarkGray" BorderThickness="0">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="#666666" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Margin="0,0,3,0" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" Data="{Binding PathData}">
+                                <Path.Style>
+                                    <Style TargetType="Path">
+                                        <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=Button, Mode=FindAncestor}, Path=Foreground}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding FilledPath}" Value="false">
+                                                <Setter Property="Fill" Value="Transparent" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Path.Style>
+                            </Path>
+                            <TextBlock Text="{Binding Path=Text}" Margin="2" />
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

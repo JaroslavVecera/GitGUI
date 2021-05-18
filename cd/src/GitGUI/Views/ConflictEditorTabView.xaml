@@ -1,0 +1,447 @@
+﻿<UserControl x:Class="GitGUI.ConflictEditorTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:GitGUI"
+             xmlns:logic="clr-namespace:GitGUI.Logic"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="OptionMark.Static.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FF707070"/>
+        <Style x:Key="OptionMarkFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="#FFF3F9FF"/>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#FF5593FF"/>
+        <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
+        <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#FFD9ECFF"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FF3C77DD"/>
+        <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121"/>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource OptionMark.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding BorderBrush}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid">
+                                    <Path x:Name="optionMark" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z " Fill="{StaticResource OptionMark.Static.Glyph}" Margin="1" Opacity="0" Stretch="None"/>
+                                    <Rectangle x:Name="indeterminateMark" Fill="{StaticResource OptionMark.Static.Glyph}" Margin="2" Opacity="0"/>
+                                </Grid>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="#333337"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#333337"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
+                                <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Disabled.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Background}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                                <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="0"/>
+                                <Setter Property="Opacity" TargetName="indeterminateMark" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--Control colors.-->
+        <Color x:Key="WindowColor">#FFE8EDF9</Color>
+        <Color x:Key="ContentAreaColorLight">Red</Color>
+        <Color x:Key="ContentAreaColorDark">DarkRed</Color>
+
+        <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
+        <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+        <Color x:Key="DisabledForegroundColor">#FF888888</Color>
+
+        <Color x:Key="SelectedBackgroundColor">#3D26A0</Color>
+        <Color x:Key="SelectedUnfocusedColor">#3D26A0</Color>
+
+        <Color x:Key="ControlLightColor">#1E1E1E</Color>
+        <Color x:Key="ControlMediumColor">#FF7381F9</Color>
+        <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+        <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+        <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+
+        <Color x:Key="GlyphColor">#FF444444</Color>
+        <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
+
+        <!--Border colors-->
+        <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+        <Color x:Key="BorderMediumColor">#FF888888</Color>
+        <Color x:Key="BorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="PressedBorderLightColor">#FF888888</Color>
+        <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
+        <Color x:Key="DisabledBorderDarkColor">#FF888888</Color>
+
+        <Color x:Key="DefaultBorderBrushDarkColor">Black</Color>
+        <Style x:Key="{x:Type TreeView}"
+       TargetType="TreeView">
+            <Setter Property="OverridesDefaultStyle"
+          Value="True" />
+            <Setter Property="SnapsToDevicePixels"
+          Value="True" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+          Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+          Value="Auto" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeView">
+                        <Border Name="Border"
+                CornerRadius="1"
+                BorderThickness="1">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                            </Border.Background>
+                            <ScrollViewer Focusable="False"
+                        CanContentScroll="False"
+                        Padding="4">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExpandCollapseToggleStyle"
+       TargetType="ToggleButton">
+            <Setter Property="Focusable"
+          Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid Width="15"
+              Height="13"
+              Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                 Storyboard.TargetName="Collapsed">
+                                                <DiscreteObjectKeyFrame KeyTime="0"
+                                            Value="{x:Static Visibility.Hidden}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                 Storyboard.TargetName="Expanded">
+                                                <DiscreteObjectKeyFrame KeyTime="0"
+                                            Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                    <VisualState x:Name="Indeterminate" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Path x:Name="Collapsed"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="1,1,1,1"
+                Data="M 4 0 L 8 4 L 4 8 Z">
+                                <Path.Fill>
+                                    <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                                </Path.Fill>
+                            </Path>
+                            <Path x:Name="Expanded"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="1,1,1,1"
+                Data="M 0 4 L 8 4 L 4 8 Z"
+                Visibility="Hidden">
+                                <Path.Fill>
+                                    <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                                </Path.Fill>
+                            </Path>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TreeViewItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <Rectangle Margin="0,0,0,0"
+                     StrokeThickness="5"
+                     Stroke="Black"
+                     StrokeDashArray="1 2"
+                     Opacity="0" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type TreeViewItem}"
+       TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Background"
+          Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment"
+          Value="{Binding Path=HorizontalContentAlignment,
+    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment"
+          Value="{Binding Path=VerticalContentAlignment,
+    RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding"
+          Value="1,0,0,0" />
+            <Setter Property="Foreground"
+          Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="FocusVisualStyle"
+          Value="{StaticResource TreeViewItemFocusVisual}" />
+            <Setter Property="IsExpanded" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="19"
+                              Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Bd"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)"
+                                                >
+                                                <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource SelectedBackgroundColor}" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="SelectedInactive">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Bd"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource SelectedUnfocusedColor}" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ExpansionStates">
+                                    <VisualState x:Name="Expanded">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                 Storyboard.TargetName="ItemsHost">
+                                                <DiscreteObjectKeyFrame KeyTime="0"
+                                            Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Collapsed" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToggleButton x:Name="Expander"
+                        Style="{StaticResource ExpandCollapseToggleStyle}"
+                        ClickMode="Press"
+                        IsChecked="{Binding IsExpanded, 
+            RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Border x:Name="Bd"
+                  Grid.Column="1"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="PART_Header"
+                              ContentSource="Header"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems"
+                   Value="false">
+                                <Setter TargetName="Expander"
+                    Property="Visibility"
+                    Value="Hidden" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader"
+                         Value="false" />
+                                    <Condition Property="Width"
+                         Value="Auto" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header"
+                    Property="MinWidth"
+                    Value="75" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader"
+                         Value="false" />
+                                    <Condition Property="Height"
+                         Value="Auto" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header"
+                    Property="MinHeight"
+                    Value="19" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Focusable" Value="{Binding Focusable}" />
+        </Style>
+        <HierarchicalDataTemplate DataType="{x:Type logic:ChangesTreeDirectoryItem}" ItemsSource="{Binding Items}">
+            <StackPanel Orientation ="Horizontal">
+                <CheckBox IsChecked="{Binding Path=IsChecked}"></CheckBox>
+                <TextBlock Margin="5,0,5,0" Text="{Binding Path=Name}" Foreground="LightGray"></TextBlock>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <DataTemplate DataType="{x:Type logic:ChangesTreeFileItem}">
+            <StackPanel Orientation ="Horizontal">
+                <CheckBox IsChecked="{Binding Path=IsChecked}" IsEnabled="{Binding IsActive}"></CheckBox>
+                <TextBlock Margin="5,0,5,0" Foreground="LightGray" Text="{Binding Path=Name}"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="AnyItems">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="6*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderBrush="#3e3e42" BorderThickness="1" Margin="6,6,5,0">
+                        <ScrollViewer>
+                            <TreeView Padding="0,15,0,15" Background="#1E1E1E" Foreground="LightGray" ItemsSource="{Binding Path=Items}" BorderThickness="0">
+                                <i:Interaction.Behaviors>
+                                    <local:BindableSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}" />
+                                </i:Interaction.Behaviors>
+                            </TreeView>
+                        </ScrollViewer>
+                    </Border>
+                    <GridSplitter ResizeBehavior="PreviousAndNext" Width="5" Margin="0,6,0,0" Grid.Column="1" Background="Transparent" />
+                    <Border Background="#3e3e42" Margin="0,6,6,0" Grid.Column="2">
+                        <ContentControl   Content="{Binding ChangesInfo}">
+                            <ContentControl.Resources>
+                                <DataTemplate DataType="{x:Type logic:UntrackedInfo}">
+                                    <local:UntrackedInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type logic:ModifiedInfo}">
+                                    <local:ModifiedInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type logic:DeletedInfo}">
+                                    <local:DeletedInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type logic:RenamedInfo}">
+                                    <local:RenamedInfoView />
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type logic:ConflictInfo}">
+                                    <local:ConflictInfoView />
+                                </DataTemplate>
+                            </ContentControl.Resources>
+                        </ContentControl>
+                    </Border>
+                </Grid>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Grid Width="500">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="#FFBCCFD8" Margin="0,20,0,0">Commit message</TextBlock>
+                        <ScrollViewer Margin="0,5,10,10" Grid.Row="1" HorizontalAlignment="Stretch">
+                            <TextBox MaxLength="50000" Padding="5" BorderThickness="0" Background="#1E1E1E" Foreground="LightGray" AcceptsReturn="True" AcceptsTab="True" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Message, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </ScrollViewer>
+                    </Grid>
+                    <StackPanel VerticalAlignment="Center">
+                        <Button Margin="0,10,0,0" Width="100" Command="{Binding Path=Commit}">Commit</Button>
+                        <Button Margin="0,10,0,0" Width="100" Command="{Binding Path=Abort}">Abort</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="NoneItems">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="DimGray">
+                No changes to commit
+            </TextBlock>
+        </DataTemplate>
+    </UserControl.Resources>
+    <ContentControl Content="{Binding}">
+        <ContentControl.Style>
+            <Style TargetType="{x:Type ContentControl}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding AnyItems}" Value="true">
+                        <Setter Property="ContentTemplate" Value="{StaticResource AnyItems}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding AnyItems}" Value="false">
+                        <Setter Property="ContentTemplate" Value="{StaticResource NoneItems}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
+</UserControl>

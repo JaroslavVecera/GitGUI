@@ -49,7 +49,7 @@ namespace GitGUI.Logic
             SubscribeModel(model);
             Commit = new RelayCommand(
                 () => { SetPaths(); Model.Commit(); },
-                () => { return Message.Length > 0 && AnyItems && AnyChecked((ChangesTreeDirectoryItem)Items.Single()); });
+                () => { return !string.IsNullOrWhiteSpace(Message) && AnyItems && AnyChecked((ChangesTreeDirectoryItem)Items.Single()); });
             RefreshItems();
         }
 
