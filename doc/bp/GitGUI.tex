@@ -30,9 +30,9 @@
 \annotation[english]{Windows graphical user interface that allows
 intuitive git workflow using graph representation.}
 
-%% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
+%% Klíčová slova práce, včetně anglických. Oddělená středníkem.
 \keywords{git; verzování; graf; grafické rozhraní}
-\keywords[english]{git; version control; graphical interface}
+\keywords[english]{git; version control; graph; graphical interface}
 
 %% Poděkování
 \thanks{Děkuji Mgr. Radkovi Janoštíkovi za ochotu a pomoc při vývoji programu i psaní textu práce. Také děkuji rodině a blízkým osobám za podporu.}
@@ -58,9 +58,7 @@ intuitive git workflow using graph representation.}
 \begin{document}
 \maketitle
 
-%% Vlastní text závěrečné práce. Pro povinné závěry, před přílohami,
-%% použijte prostředí kiconclusions. Povinná je i příloha s obsahem
-%% přiloženého CD/DVD.
+%% Vlastní text závěrečné práce.
 
 %% -------------------------------------------------------------------
 
@@ -163,7 +161,7 @@ vzdáleného repozitáře).
 
 Jak je v~obrázku \ref{fig:distributed} \cite{gitreference} naznačeno přerušovaným spojení mezi uživateli A~a B, přímé sdílení projektu sice DSSV umožňuje, není však tolik využívané. Mnohem častěji sdílí uživatelé práci se společným serverem, který tak hraje roli jakéhosi pasivního uživatele, se kterým ostatní komunikují.
 
-Příklady takových nástrojů jsou Mercurial\cite{mercurial}, Bazaar\cite{bazaar}, nebo Git\cite{git}, kterého se
+Příklady takových nástrojů jsou Mercurial\cite{mercurial}, nebo Git\cite{git}, kterého se
 tato práce týká.
 
 \subsection{Nástroje pro práci se SSV}
@@ -300,7 +298,7 @@ git merge a c
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[-,>=stealth',shorten >=1pt,auto,node distance=3cm,
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
         scale = 1,transform shape]
 \node[state] (1) {$1$};
   \node[state] (3) [right of=1] {$3$};
@@ -467,7 +465,7 @@ Pokud se uživatel rozhodne v~konfliktním stavu prohlížeč konfliktu vypnout,
 Prohlížeč změn v~revizi je karta podobná kartě pro vytvoření revize. Obsahuje stejný adresář, ve kterém jde prohlížet změny v~jednotlivých souborech a oblast s~výpisem zprávy.
 
 \subsection{Stash}
-Stash lze vytvořit pomocí tlačítka {\it Stash} v~hlavní kartě. Pokud jsou nějaké stashe dostupné pro aktuální repozitář, zdostupní se záložka {\it Stashing} v~horní nabídce. Zde je dostupný seznam vytvořených stashů, které lze pomocí barevně odlišených tlačítek aplikovat nebo/a odstraňovat.
+Stash lze vytvořit pomocí tlačítka {\it Stash} v~hlavní kartě. Pokud jsou nějaké stashe dostupné pro aktuální repozitář, zdostupní se záložka {\it Stashing} v~horní nabídce. Zde je dostupný seznam vytvořených stashů, které lze pomocí barevně odlišených tlačítek aplikovat a odstraňovat.
 
 \subsection{Implicitní stash}
 Zajímavým prvkem GitGUI je implicitní stash. Vytvoří se automaticky při pokusu o~checkout jiné větve (v~případě, že jsou provedeny změny, které lze uložit jako stash). Tato vlastnost by měla pomoct zjednodušit práci s~Gitem. Je vhodná například pokud se chceme v~průběhu práce na revizi podívat na zdrojový kód v~jiné revizi, ale nechceme ještě ukládat změny jako samostatnou verzi.
@@ -603,17 +601,6 @@ Nejsou-li podmínky splněny, hledá se první řádek, který zaručuje, že u�
 
 Nakonec se upraví kolekce posledních revizí na řádku a cyklus pokračuje pro případný další uzel.
 
-%\paragraph*{Ověření správnosti}
-%Takový algoritmus by bylo dobré alespoň neformálně ověřit, využít k %tomu můžeme matematickou indukci.
-%
-%Z tvaru hran víme, že můžeme požadavky na neprotnutí uzlu hranou %matematicky formulovat takto:
-%
-%$$\forall a,b\in\text{Commits},\ a.\text{Descendants} = b$$
-%$$\not\exists c\in\text{Commits}\colon$$
-%$$a<b<c\ \wedge\ c.\text{Row}=\min(a.\text{Row},b.\text{Row})$$
-%
-%Jinak řečeno, pro žádnou dvojici incidentních uzlů neexistuje uzel %umístěný v mezilehlém sloupci s řádkem totožným s nižším z daných %incidentních uzlů. Tato podmínka bude třeba v indukci, stačí aby ji %splňovaly všechny doposud rozmístěné uzly.
-
 \subsection{Vykreslování grafu}
 Původní plán na zobrazování grafu spočíval ve výpočtu pozic uzlů popsaném v~předešlé podkapitole a následném umístění odpovídajících grafických prvků. Prvky grafického rozhraní se vložily do položky schopné své vizuální potomky zobrazovat na plátně tak, že obsah, který přeteče, je skryt. Zbývající viditelná oblast je potom rolovatelná.
 
@@ -706,28 +693,24 @@ Při implicitním vytvoření stash se vytvoří stash tak, aby byla dostupná j
 \subsubsection{Umístění a formát}
 Jak je vidět, všechna data jsou jednoduchá a tudíž nemá smysl pro ně vytvářet databázi. Pro takto jednoduchý úkol lze použít obyčejné uložení v~souborovém systému. Data jsou uložena v~adresáři AppData.
 
-%% Závěry práce. V jazyce práce a anglicky. Text pro jiný než
-%% nastavený jazyk práce (nepovinným parametrem language makra
-%% \documentclass, výchozí český) se zadává použitím makra s uvedením
-%% jazyka jako nepovinného parametru.
+%% Závěry práce. V jazyce práce a anglicky.
 \begin{kiconclusions}
 Vytvořený program GitGUI slouží jako jednoduchý nástroj pro přehlednou práci s~Gitem. Lze používat samostatně i jako doplněk současně s~jiným nástrojem, například příkazovou řádkou.
 
-Splnil jsem hlavní cíle práce, tedy grafický nástroj umožňující provedení základních operací Gitu převážně pomocí grafu. Do budoucna plánuji optimalizovat rychlost aplikace a rozšířit ji o~další funkce.
+Splnil jsem hlavní cíle práce, tedy grafický nástroj umožňující provedení základních operací Gitu převážně pomocí grafu. Graf vyobrazuje celkovou strukturu repozitáře a slouží jako hlavní ovládací prvek. Program poskytuje operace s~lokálními i vzdálenými repozitáři, jako jsou Merge, Branch, Commit, Stash, Checkout, Pull, Push a další. Do budoucna plánuji optimalizovat rychlost aplikace a rozšířit ji o~další funkce.
 \end{kiconclusions}
 
 \begin{kiconclusions}[english]
 The created GitGUI program serves as a simple tool for clear work with Git. It can be used separately or with another tool, such as the command line, at the same time.
 
-I~fulfilled the main goals of the work. Ie I~created a graphical tool that allows one to perform basic Git operations mainly using a graph. In the future, I~plan to expand functionality and optimize program speed.
+I~fulfilled the main goals of the work. Ie I~created a graphical tool that allows one to perform basic Git operations mainly using a graph. The graph represents structure of a given repository. GitGUI provides various operations with local repositories as well as remote ones. Available operations includes Merge, Branch, Commit, Stash, Checkout, Pull, Push. In the future, I~plan to expand functionality and optimize program speed.
 
 \end{kiconclusions}
 
 %% Přílohy obsahu textu práce, za makrem \appendix.
 \appendix
 
-%% Obsah přiloženého CD/DVD. Poslední příloha. Upravte podle vlastní
-%% práce!
+%% Obsah přiloženého CD/DVD.
 \section{Obsah přiloženého CD/DVD} \label{sec:ObsahCD}
 
 \begin{description}
@@ -745,29 +728,9 @@ Projekt pro Visual Studio obsahující veškeré zdrojové kódy a ostatní soub
 
 %% -------------------------------------------------------------------
 
-%% Sazba volitelného seznamu zkratek, za přílohami.
-\printglossary
-
-%% Sazba povinné bibliografie, za přílohami (případně i za seznamem
-%% zkratek). Při použití BibLaTeXu použijte makro
-%% \printbibliography. jinak prostředí thebibliography. Ne obojí!
-
-%% Sazba i v textu necitovaných zdrojů, při použití
-%% BibLaTeXu. Volitelné.
+%% Sazba i v textu necitovaných zdrojů
 \nocite{*}
 %% Vlastní sazba bibliografie při použití BibLaTeXu.
 \printbibliography
-
-%% Bibliografie, včetně sazby, při nepoužití BibLaTeXu.
-% \begin{thebibliography}{9}
-%\bibitem{kniha2} \uppercase{Hawke}, Paul. NanoHttpd: Light-weight HTTP server designed for embedding in other applications. GitHub [online]. 2014-05-12. [cit. 2014-12-06]. Dostupné z: \url{https://github.com/NanoHttpd/nanohttpd}
-%
-%\bibitem{jeske13} \uppercase{Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
-%
-%\bibitem{uzis2012} \uppercase{ÚSTAV ZDRAVOTNICKÝCH INFORMACÍ A STATISTIKY ČR}. Lékaři, zubní lékaři a farmaceuti 2012 [online]. Praha 2, Palackého náměstí 4: Ústav zdravotnických informací a statistiky ČR, 2012 [cit. 2014-12-06]. ISBN 978-80-7472-089-5. Dostupné z: \url{http://www.uzis.cz/publikace/lekari-zubni-lekari-farmaceuti-2012}
-% \end{thebibliography}
-
-%% Sazba volitelného rejstříku, za bibliografií.
-\printindex
 
 \end{document}

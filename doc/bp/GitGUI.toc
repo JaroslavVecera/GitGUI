@@ -85,6 +85,4 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {A}Obsah přiloženého CD/DVD}{34}{appendix.A}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{Seznam zkratek}{35}{section*.41}%
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{Literatura}{36}{section*.42}%
+\contentsline {section}{Literatura}{35}{section*.41}%

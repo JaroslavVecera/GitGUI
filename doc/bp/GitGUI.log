@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  18 MAY 2021 13:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  18 MAY 2021 23:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1696,43 +1696,39 @@ showing example
  [7
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 9
-1.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8
+9.
 
 (c:/texlive/2021/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<graphics//centralized.png, id=185, 602.25pt x 418.56375pt>
+<graphics//centralized.png, id=183, 602.25pt x 418.56375pt>
 File: graphics//centralized.png Graphic file (type png)
 <use graphics//centralized.png>
-Package pdftex.def Info: graphics//centralized.png  used on input line 117.
+Package pdftex.def Info: graphics//centralized.png  used on input line 115.
 (pdftex.def)             Requested size: 284.52756pt x 197.75325pt.
  [8
 
 ] [9 <./graphics//centralized.png>]
-<graphics//distributed.png, id=204, 502.87875pt x 602.25pt>
+<graphics//distributed.png, id=202, 502.87875pt x 602.25pt>
 File: graphics//distributed.png Graphic file (type png)
 <use graphics//distributed.png>
-Package pdftex.def Info: graphics//distributed.png  used on input line 162.
+Package pdftex.def Info: graphics//distributed.png  used on input line 160.
 (pdftex.def)             Requested size: 284.52756pt x 340.74974pt.
-
-
-LaTeX Warning: Citation 'bazaar' on page 10 undefined on input line 166.
-
-[10 <./graphics//distributed.png>] [11]
-Overfull \hbox (1.94376pt too wide) in paragraph at lines 208--209
+ [10 <./graphics//distributed.png>] [11]
+Overfull \hbox (1.94376pt too wide) in paragraph at lines 206--207
  []\T1/lmr/bx/n/12 Dlouhodobé v¥tve \T1/lmr/m/n/12 P°i práci tímto zp·-so-bem o
 b-vykle re-po-zi-tá° ob-sa-huje v¥tve
  []
 
 [12] [13]
 Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
-nput line 257.
+nput line 255.
  [14]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 280.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 28
-0.
+nput line 278.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 27
+8.
  (c:/texlive/2021/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
@@ -1740,89 +1736,89 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [15]
-<graphics//Repository.png, id=280, 289.68225pt x 176.45924pt>
+<graphics//Repository.png, id=278, 289.68225pt x 176.45924pt>
 File: graphics//Repository.png Graphic file (type png)
 <use graphics//Repository.png>
-Package pdftex.def Info: graphics//Repository.png  used on input line 342.
+Package pdftex.def Info: graphics//Repository.png  used on input line 340.
 (pdftex.def)             Requested size: 284.52756pt x 173.33275pt.
  [16 <./graphics//Repository.png>]
-<graphics//clonning.png, id=287, 304.13625pt x 94.55325pt>
+<graphics//clonning.png, id=285, 304.13625pt x 94.55325pt>
 File: graphics//clonning.png Graphic file (type png)
 <use graphics//clonning.png>
-Package pdftex.def Info: graphics//clonning.png  used on input line 354.
+Package pdftex.def Info: graphics//clonning.png  used on input line 352.
 (pdftex.def)             Requested size: 284.52756pt x 88.45877pt.
-<graphics//graph.png, id=289, 487.8225pt x 207.77625pt>
+<graphics//graph.png, id=287, 487.8225pt x 207.77625pt>
 File: graphics//graph.png Graphic file (type png)
 <use graphics//graph.png>
-Package pdftex.def Info: graphics//graph.png  used on input line 360.
+Package pdftex.def Info: graphics//graph.png  used on input line 358.
 (pdftex.def)             Requested size: 284.52756pt x 121.18877pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [17 <./graphics//clonning.png>]
-<graphics//commit-viewer.png, id=297, 776.30025pt x 151.767pt>
+<graphics//commit-viewer.png, id=295, 776.30025pt x 151.767pt>
 File: graphics//commit-viewer.png Graphic file (type png)
 <use graphics//commit-viewer.png>
-Package pdftex.def Info: graphics//commit-viewer.png  used on input line 382.
+Package pdftex.def Info: graphics//commit-viewer.png  used on input line 380.
 (pdftex.def)             Requested size: 369.88582pt x 72.31238pt.
-<graphics//branch-viewer.png, id=298, 779.3115pt x 151.767pt>
+<graphics//branch-viewer.png, id=296, 779.3115pt x 151.767pt>
 File: graphics//branch-viewer.png Graphic file (type png)
 <use graphics//branch-viewer.png>
-Package pdftex.def Info: graphics//branch-viewer.png  used on input line 388.
+Package pdftex.def Info: graphics//branch-viewer.png  used on input line 386.
 (pdftex.def)             Requested size: 369.88582pt x 72.03448pt.
  [18 <./graphics//graph.png>]
-<graphics//searchbar.png, id=307, 274.626pt x 170.43675pt>
+<graphics//searchbar.png, id=305, 274.626pt x 170.43675pt>
 File: graphics//searchbar.png Graphic file (type png)
 <use graphics//searchbar.png>
-Package pdftex.def Info: graphics//searchbar.png  used on input line 403.
+Package pdftex.def Info: graphics//searchbar.png  used on input line 401.
 (pdftex.def)             Requested size: 284.52756pt x 176.58165pt.
  [19 <./graphics//commit-viewer.png> <./graphics//branch-viewer.png> <./graphic
 s//searchbar.png>]
-<graphics//users.png, id=318, 230.0595pt x 214.401pt>
+<graphics//users.png, id=316, 230.0595pt x 214.401pt>
 File: graphics//users.png Graphic file (type png)
 <use graphics//users.png>
-Package pdftex.def Info: graphics//users.png  used on input line 410.
+Package pdftex.def Info: graphics//users.png  used on input line 408.
 (pdftex.def)             Requested size: 284.52756pt x 265.19363pt.
 
 [20 <./graphics//users.png>]
-<graphics//user.png, id=325, 203.5605pt x 138.5175pt>
+<graphics//user.png, id=323, 203.5605pt x 138.5175pt>
 File: graphics//user.png Graphic file (type png)
 <use graphics//user.png>
-Package pdftex.def Info: graphics//user.png  used on input line 424.
+Package pdftex.def Info: graphics//user.png  used on input line 422.
 (pdftex.def)             Requested size: 284.52756pt x 193.63994pt.
  [21 <./graphics//user.png>]
-<graphics//create-commit.png, id=331, 468.5505pt x 236.68425pt>
+<graphics//create-commit.png, id=329, 468.5505pt x 236.68425pt>
 File: graphics//create-commit.png Graphic file (type png)
 <use graphics//create-commit.png>
-Package pdftex.def Info: graphics//create-commit.png  used on input line 446.
+Package pdftex.def Info: graphics//create-commit.png  used on input line 444.
 (pdftex.def)             Requested size: 284.52756pt x 143.73071pt.
  [22 <./graphics//create-commit.png>] [23]
-Overfull \hbox (6.28082pt too wide) in paragraph at lines 494--495
+Overfull \hbox (6.28082pt too wide) in paragraph at lines 492--493
 \T1/lmr/m/n/12 Platforma .Net je open source a po-sky-tuje pro-gra-mo-vací ja-z
 yky, edi-tory a knihovny
  []
 
 [24] [25]
-Overfull \hbox (1.27742pt too wide) in paragraph at lines 533--535
+Overfull \hbox (1.27742pt too wide) in paragraph at lines 531--533
  []\T1/lmr/bx/n/12 Microsoft.Xaml.Behaviors.Wpf a Sys-tem.Windows.Interactivity
 .Wpf  
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 562.
+(Font)              <10> on input line 560.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 562.
+(Font)              <7> on input line 560.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 562.
+(Font)              <5> on input line 560.
 [26] [27] [28]
-Overfull \hbox (9.60867pt too wide) in paragraph at lines 636--637
+Overfull \hbox (9.60867pt too wide) in paragraph at lines 623--624
 []\T1/lmr/m/n/12 Reagovat na to-lik zm¥n je ne-p°í-pustné, proto se vy-tvo-°ila
  t°ída Chan-gesWatcher
  []
 
 [29] [30]
-Overfull \hbox (0.80984pt too wide) in paragraph at lines 689--690
+Overfull \hbox (0.80984pt too wide) in paragraph at lines 676--677
 \T1/lmr/m/n/12 chronn¥ pro-vá-d¥t p°e-kres-lo-vání grafu a dal²í ak-ti-vity. Ja
 kmile práce skon£í, funkce
  []
@@ -1834,37 +1830,34 @@ kmile práce skon£í, funkce
 ] [34
 
 ]
-No file GitGUI.acr.
-[35
-
-]
 
 Package biblatex Warning: Name format 'last-first' deprecated.
 (biblatex)                Please use 'family-given' instead.
 (biblatex)                Using 'family-given' now.
 
 
-Overfull \hbox (11.84407pt too wide) in paragraph at lines 760--760
+Overfull \hbox (11.84407pt too wide) in paragraph at lines 735--735
 []\T1/lmr/m/n/12 MACKALL, Matt. \T1/lmr/m/it/12 Mer-cu-rial\T1/lmr/m/n/12 . 202
 1. Do-stup-ný z: $\OMS/lmsy/m/n/12 h$[][]\T1/lmr/m/n/12 www.mercurial-scm.org/r
 epo/hg-
  []
 
-[36
 
-]
-No file GitGUI.ind.
+Package glossaries Warning: No \printglossary or \printglossaries found. 
+(Remove \makeglossaries if you don't want any glossaries.) 
+This document will not have a glossary.
+
 
 AED: lastpage setting LastPage
+[35
+
+]
 \tf@loe=\write14
 \openout14 = `GitGUI.loe'.
 
-(./GitGUI.aux)
+ (./GitGUI.aux)
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1876,10 +1869,10 @@ Package logreq Info: Writing requests to 'GitGUI.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 41284 strings out of 480061
- 766205 string characters out of 5890819
- 1775237 words of memory out of 5000000
- 57695 multiletter control sequences out of 15000+600000
+ 41287 strings out of 480061
+ 766374 string characters out of 5890819
+ 1775244 words of memory out of 5000000
+ 57702 multiletter control sequences out of 15000+600000
  475462 words of font info for 87 fonts, out of 8000000 for 9000
  527 hyphenation exceptions out of 8191
  123i,10n,121p,2604b,2525s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1898,10 +1891,10 @@ ype1/public/lm/lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
 y10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/
 2021/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on GitGUI.pdf (36 pages, 487993 bytes).
+Output written on GitGUI.pdf (35 pages, 488281 bytes).
 PDF statistics:
- 729 PDF objects out of 1000 (max. 8388607)
- 647 compressed objects within 7 object streams
- 220 named destinations out of 1000 (max. 500000)
- 446 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 720 PDF objects out of 1000 (max. 8388607)
+ 639 compressed objects within 7 object streams
+ 218 named destinations out of 1000 (max. 500000)
+ 438 words of extra memory for PDF output out of 10000 (max. 10000000)
 
