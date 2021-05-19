@@ -25,10 +25,10 @@
 \supervisor{Mgr. Radek Janoštík}
 
 %% Anotace práce, včetně anglické
-\annotation{Grafické rozhraní pro Windows, které zprostředková přehlednou a intuitivní práci se základními funkcemi systému Git, a to převážně pomocí grafu.}
+\annotation{Práce se zaměřuje na implementaci programu s grafickým rozhraním, který zprostředkovává přehlednou a intuitivní práci se základními funkcemi systému správy verzí Git. Hlavním ovládacím prvkem programu GitGUI je graf, který by měl pomoci uživateli  orientovat se lépe ve struktuře repozitáře. GitGUI automaticky sleduje změny v souborech pracovního adresáře daného repozitáře i změny v historii repozitáře a tím umožňuje současné používání s jinými nástroji pro Git.}
 
-\annotation[english]{Windows graphical user interface that allows
-intuitive git workflow using graph representation.}
+\annotation[english]{As a part of this thesis, a program with a graphical interface providing intuitive work with basic Git functions was made. The main control of GitGUI is a graph, which is supposed to help better understand the structure of repositories.
+\mbox{GitGUI} automatically tracks changes to the working directories of the repositories. It also tracks changes to the repository's history, allowing GitGUI to be used concurrently with other Git tools.}
 
 %% Klíčová slova práce, včetně anglických. Oddělená středníkem.
 \keywords{git; verzování; graf; grafické rozhraní}
@@ -368,7 +368,7 @@ Křivka se stáčí stejnýmm způsobem jako v~předchozím případě, jen se s
 \end{description}
 Jinými slovy větší část křivky se nachází na nižším z~daných řádků.
 
-Protože na revizi může v~jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz obrázek\ref{fig:graph}, větve b2--b4. S~tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z~posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z~větví.
+Protože na revizi může v~jednu chvíli ukazovat libovolný počet větví, je třeba jejich uzly skládat nad sebe, viz obrázek \ref{fig:graph}, větve b2--b4. S~tím také souvisí poloha tlačítka pro vytvoření nové větve. Při najetí myší nad uzel revize, či větve, jeho okraj se zvýrazní a na horní straně se objeví tlačítko se symbolem \uv{+} znázorňující možnost vytvoření nové větve ukazující na danou verzi (případně na stejnou verzi jako daná větev). Tlačítko se však zobrazí pouze nad horním uzlem větve z~posloupnosti větví dané revize, případně na revizi pokud není koncem žádné z~větví.
 
 Aktuální hlava (tedy větev, či přímo revize) je potom barevně odlišena fialovou barvou.
 
@@ -396,7 +396,7 @@ V~grafu se lze pohybovat pomocí myši po stisknutí a podržení pravého tlač
 
 V~krajním případě lze na sebe nahromadit velké množství větví. Tento příklad v~praxi nenastává, ale je možný. V~takovém případě je výsledek nejen vizuálně ne příliš hezký, ale také je potom možné graf po celé délce posunovat zbytečně vysoko a navíc se kvůli velkému počtu grafických prvků na jednom místě může zhoršovat plynulost posunování v~grafu. Do budoucna je proto počítáno s~úspornějším řešením. Například zobrazit pouze jeden uzel a tlačítko pro výčet ostatních.
 
-Koncept příkazu \kiinlinecode{text}{;}{git log} je v~programu GitGUI nahrazen samotným grafem, který zrcadlí historii. Ve větších projektech ale může být obtížné vyhledávat konkrétní revize či větve pouze procházením grafu. Proto je v~pravém horním rohu plochy pro zobrazení grafu přístupný nástroj pro vyhledávání (ukázka a obrázku \ref{fig:searchtool} je provedena na projektu \cite{libgitreference})
+Koncept příkazu \kiinlinecode{text}{;}{git log} je v~programu GitGUI nahrazen samotným grafem, který zrcadlí historii. Ve větších projektech ale může být obtížné vyhledávat konkrétní revize či větve pouze procházením grafu. Proto je v~pravém horním rohu plochy pro zobrazení grafu přístupný nástroj pro vyhledávání (ukázka na obrázku \ref{fig:searchtool} je provedena na projektu \cite{libgitreference})
 
 \pic{10cm}{searchbar.png}{Ukázka vyhledávání}{searchtool}
 
@@ -703,7 +703,7 @@ Splnil jsem hlavní cíle práce, tedy grafický nástroj umožňující provede
 \begin{kiconclusions}[english]
 The created GitGUI program serves as a simple tool for clear work with Git. It can be used separately or with another tool, such as the command line, at the same time.
 
-I~fulfilled the main goals of the work. Ie I~created a graphical tool that allows one to perform basic Git operations mainly using a graph. The graph represents structure of a given repository. GitGUI provides various operations with local repositories as well as remote ones. Available operations includes Merge, Branch, Commit, Stash, Checkout, Pull, Push. In the future, I~plan to expand functionality and optimize program speed.
+I~fulfilled the main goals of the work. I~created a graphical tool that allows one to perform basic Git operations mainly using a graph. The graph represents structure of a given repository. GitGUI provides various operations with local repositories as well as remote ones. Available operations includes Merge, Branch, Commit, Stash, Checkout, Pull, Push. In the future, I~plan to expand functionality and optimize program speed.
 
 \end{kiconclusions}
 
@@ -723,6 +723,10 @@ I~fulfilled the main goals of the work. Ie I~created a graphical tool that allow
   
 \item[\texttt{src/}] \hfill \\
 Projekt pro Visual Studio obsahující veškeré zdrojové kódy a ostatní soubory potřebné pro kompilaci na výsledný program.
+
+\item[\texttt{readme.txt}] \hfill \\
+  Instrukce pro instalaci a~spuštění programu \textsc{GitGUI}, včetně
+  všech požadavků pro jeho bezproblémový provoz.
 
 \end{description}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  19 MAY 2021 09:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  19 MAY 2021 18:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1836,7 +1836,7 @@ Package biblatex Warning: Name format 'last-first' deprecated.
 (biblatex)                Using 'family-given' now.
 
 
-Overfull \hbox (11.84407pt too wide) in paragraph at lines 735--735
+Overfull \hbox (11.84407pt too wide) in paragraph at lines 739--739
 []\T1/lmr/m/n/12 MACKALL, Matt. \T1/lmr/m/it/12 Mer-cu-rial\T1/lmr/m/n/12 . 202
 1. Do-stup-ný z: $\OMS/lmsy/m/n/12 h$[][]\T1/lmr/m/n/12 www.mercurial-scm.org/r
 epo/hg-
@@ -1861,32 +1861,33 @@ Package logreq Info: Writing requests to 'GitGUI.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 41290 strings out of 480061
- 766468 string characters out of 5890819
- 1775274 words of memory out of 5000000
- 57704 multiletter control sequences out of 15000+600000
- 475462 words of font info for 87 fonts, out of 8000000 for 9000
+ 41293 strings out of 480061
+ 766502 string characters out of 5890819
+ 1775968 words of memory out of 5000000
+ 57706 multiletter control sequences out of 15000+600000
+ 478257 words of font info for 88 fonts, out of 8000000 for 9000
  527 hyphenation exceptions out of 8191
  123i,10n,121p,2604b,2525s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2021/texm
-f-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips
-/lm/lm-mathit.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}
-{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/texlive/2021/texm
-f-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/texlive/2021/texmf-dist/fonts/type1/pub
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/texlive/2021/tex
+mf-dist/fonts/enc/dvips/base/8r.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips
+/lm/lm-rm.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/
+texlive/2021/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/texlive/2021/texmf
+-dist/fonts/enc/dvips/lm/lm-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/pub
 lic/lm/lmbx10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmbx12.pfb>
-<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2021/t
-exmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/typ
-e1/public/lm/lmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.
-pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/202
-1/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/t
-ype1/public/lm/lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
-y10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/
-2021/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on GitGUI.pdf (35 pages, 489130 bytes).
+<c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/texlive/2021/
+texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/texlive/2021/texmf-dist/fonts/t
+ype1/public/lm/lmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr1
+0.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/texlive/2
+021/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/texlive/2021/texmf-dist/font
+s/type1/public/lm/lmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lm
+ri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/texli
+ve/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2
+021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/2021/texmf-dist/f
+onts/type1/urw/courier/ucrr8a.pfb>
+Output written on GitGUI.pdf (35 pages, 510469 bytes).
 PDF statistics:
- 722 PDF objects out of 1000 (max. 8388607)
- 641 compressed objects within 7 object streams
+ 726 PDF objects out of 1000 (max. 8388607)
+ 644 compressed objects within 7 object streams
  219 named destinations out of 1000 (max. 500000)
  438 words of extra memory for PDF output out of 10000 (max. 10000000)
 
