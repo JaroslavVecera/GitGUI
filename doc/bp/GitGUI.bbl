@@ -146,8 +146,8 @@
       \strng{authorbibnamehash}{1764b95256df68c84d8a593fc2dfa143}
       \strng{authornamehash}{1764b95256df68c84d8a593fc2dfa143}
       \strng{authorfullhash}{1764b95256df68c84d8a593fc2dfa143}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Pro git}
@@ -168,8 +168,8 @@
       \strng{authornamehash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \strng{authorfullhash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \field{extraname}{2}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{12}
@@ -197,8 +197,8 @@
       \strng{authornamehash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \strng{authorfullhash}{6b3b2f9df8759c24aaa54c5f638e8cb9}
       \field{extraname}{3}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{month}{12}
@@ -232,6 +232,35 @@
       \field{howpublished}{https://github.com/torvalds/linux}
       \field{title}{linux}
       \field{year}{2015}
+    \endentry
+    \entry{discmat}{book}{}
+      \name{author}{2}{}{%
+        {{hash=0e46db4b2a4d0f6c32a0ad157d232904}{%
+           family={Jiří},
+           familyi={J\bibinitperiod},
+           given={Matoušek},
+           giveni={M\bibinitperiod}}}%
+        {{hash=46e659842cb1c56a2f717cba01d9988e}{%
+           family={Jaroslav},
+           familyi={J\bibinitperiod},
+           given={Nešetřil},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Karolinum}%
+      }
+      \strng{namehash}{5681fb99526e3b7309d7ae9ba517a854}
+      \strng{fullhash}{5681fb99526e3b7309d7ae9ba517a854}
+      \strng{bibnamehash}{5681fb99526e3b7309d7ae9ba517a854}
+      \strng{authorbibnamehash}{5681fb99526e3b7309d7ae9ba517a854}
+      \strng{authornamehash}{5681fb99526e3b7309d7ae9ba517a854}
+      \strng{authorfullhash}{5681fb99526e3b7309d7ae9ba517a854}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Kapitoly z diskrétní matematiky}
+      \field{year}{2009}
     \endentry
     \entry{libgitreference}{online}{}
       \name{author}{1}{}{%
@@ -282,7 +311,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Professional WPF and C\# Programming: Practical Software Development Using WPF and C\#}
       \field{year}{2019}
-      \true{nocite}
     \endentry
   \enddatalist
 \endrefsection

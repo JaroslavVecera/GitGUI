@@ -1,21 +1,21 @@
-[2] Config.pm:311> INFO - This is Biber 2.16
-[2] Config.pm:314> INFO - Logfile is 'GitGUI.blg'
-[1793] biber-MSWIN32:340> INFO - === 
-[2237] Biber.pm:415> INFO - Reading 'GitGUI.bcf'
-[3696] Biber.pm:949> INFO - Using all citekeys in bib section 0
-[3927] Biber.pm:4340> INFO - Processing section 0
-[4092] Biber.pm:4531> INFO - Looking for bibtex format file 'bibliografie.bib' for section 0
-[4711] bibtex.pm:1689> INFO - LaTeX decoding ...
-[4897] bibtex.pm:1494> INFO - Found BibTeX data source 'bibliografie.bib'
-[5302] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference-distributed' is not an integer - this will probably not sort properly.
-[5413] Utils.pm:395> WARN - legacy year field '2000\\' in entry 'svn' is not an integer - this will probably not sort properly.
-[5477] Utils.pm:395> WARN - legacy month field 'nov' in entry 'libgitreference' is not an integer - this will probably not sort properly.
-[5478] Utils.pm:395> WARN - legacy year field '2010\\' in entry 'libgitreference' is not an integer - this will probably not sort properly.
-[5497] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference-local' is not an integer - this will probably not sort properly.
-[5528] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference' is not an integer - this will probably not sort properly.
-[5833] UCollate.pm:68> INFO - Overriding locale 'cs_CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
-[5833] UCollate.pm:68> INFO - Overriding locale 'cs_CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[5833] Biber.pm:4168> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'cs_CZ'
-[5962] bbl.pm:654> INFO - Writing 'GitGUI.bbl' with encoding 'UTF-8'
-[6014] bbl.pm:757> INFO - Output to GitGUI.bbl
-[6016] Biber.pm:128> INFO - WARNINGS: 6
+[13] Config.pm:311> INFO - This is Biber 2.16
+[16] Config.pm:314> INFO - Logfile is 'GitGUI.blg'
+[14168] biber-MSWIN32:340> INFO - === 
+[19987] Biber.pm:415> INFO - Reading 'GitGUI.bcf'
+[36485] Biber.pm:949> INFO - Using all citekeys in bib section 0
+[39155] Biber.pm:4340> INFO - Processing section 0
+[41243] Biber.pm:4531> INFO - Looking for bibtex format file 'bibliografie.bib' for section 0
+[46751] bibtex.pm:1689> INFO - LaTeX decoding ...
+[47673] bibtex.pm:1494> INFO - Found BibTeX data source 'bibliografie.bib'
+[51755] Utils.pm:395> WARN - legacy year field '2000\\' in entry 'svn' is not an integer - this will probably not sort properly.
+[53026] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference' is not an integer - this will probably not sort properly.
+[53626] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference-distributed' is not an integer - this will probably not sort properly.
+[54143] Utils.pm:395> WARN - legacy month field 'nov' in entry 'libgitreference' is not an integer - this will probably not sort properly.
+[54144] Utils.pm:395> WARN - legacy year field '2010\\' in entry 'libgitreference' is not an integer - this will probably not sort properly.
+[54566] Utils.pm:395> WARN - legacy month field 'dec' in entry 'gitreference-local' is not an integer - this will probably not sort properly.
+[61840] UCollate.pm:68> INFO - Overriding locale 'cs_CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[61841] UCollate.pm:68> INFO - Overriding locale 'cs_CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[61841] Biber.pm:4168> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'cs_CZ'
+[63878] bbl.pm:654> INFO - Writing 'GitGUI.bbl' with encoding 'UTF-8'
+[64344] bbl.pm:757> INFO - Output to GitGUI.bbl
+[64346] Biber.pm:128> INFO - WARNINGS: 6

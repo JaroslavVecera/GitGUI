@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  18 MAY 2021 23:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.12)  19 MAY 2021 09:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1736,18 +1736,18 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [15]
-<graphics//Repository.png, id=278, 289.68225pt x 176.45924pt>
+<graphics//Repository.png, id=280, 289.68225pt x 176.45924pt>
 File: graphics//Repository.png Graphic file (type png)
 <use graphics//Repository.png>
 Package pdftex.def Info: graphics//Repository.png  used on input line 340.
 (pdftex.def)             Requested size: 284.52756pt x 173.33275pt.
  [16 <./graphics//Repository.png>]
-<graphics//clonning.png, id=285, 304.13625pt x 94.55325pt>
+<graphics//clonning.png, id=287, 304.13625pt x 94.55325pt>
 File: graphics//clonning.png Graphic file (type png)
 <use graphics//clonning.png>
 Package pdftex.def Info: graphics//clonning.png  used on input line 352.
 (pdftex.def)             Requested size: 284.52756pt x 88.45877pt.
-<graphics//graph.png, id=287, 487.8225pt x 207.77625pt>
+<graphics//graph.png, id=289, 487.8225pt x 207.77625pt>
 File: graphics//graph.png Graphic file (type png)
 <use graphics//graph.png>
 Package pdftex.def Info: graphics//graph.png  used on input line 358.
@@ -1757,38 +1757,38 @@ Package pdftex.def Info: graphics//graph.png  used on input line 358.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [17 <./graphics//clonning.png>]
-<graphics//commit-viewer.png, id=295, 776.30025pt x 151.767pt>
+<graphics//commit-viewer.png, id=297, 776.30025pt x 151.767pt>
 File: graphics//commit-viewer.png Graphic file (type png)
 <use graphics//commit-viewer.png>
 Package pdftex.def Info: graphics//commit-viewer.png  used on input line 380.
 (pdftex.def)             Requested size: 369.88582pt x 72.31238pt.
-<graphics//branch-viewer.png, id=296, 779.3115pt x 151.767pt>
+<graphics//branch-viewer.png, id=298, 779.3115pt x 151.767pt>
 File: graphics//branch-viewer.png Graphic file (type png)
 <use graphics//branch-viewer.png>
 Package pdftex.def Info: graphics//branch-viewer.png  used on input line 386.
 (pdftex.def)             Requested size: 369.88582pt x 72.03448pt.
  [18 <./graphics//graph.png>]
-<graphics//searchbar.png, id=305, 274.626pt x 170.43675pt>
+<graphics//searchbar.png, id=307, 274.626pt x 170.43675pt>
 File: graphics//searchbar.png Graphic file (type png)
 <use graphics//searchbar.png>
 Package pdftex.def Info: graphics//searchbar.png  used on input line 401.
 (pdftex.def)             Requested size: 284.52756pt x 176.58165pt.
  [19 <./graphics//commit-viewer.png> <./graphics//branch-viewer.png> <./graphic
 s//searchbar.png>]
-<graphics//users.png, id=316, 230.0595pt x 214.401pt>
+<graphics//users.png, id=318, 230.0595pt x 214.401pt>
 File: graphics//users.png Graphic file (type png)
 <use graphics//users.png>
 Package pdftex.def Info: graphics//users.png  used on input line 408.
 (pdftex.def)             Requested size: 284.52756pt x 265.19363pt.
 
 [20 <./graphics//users.png>]
-<graphics//user.png, id=323, 203.5605pt x 138.5175pt>
+<graphics//user.png, id=325, 203.5605pt x 138.5175pt>
 File: graphics//user.png Graphic file (type png)
 <use graphics//user.png>
 Package pdftex.def Info: graphics//user.png  used on input line 422.
 (pdftex.def)             Requested size: 284.52756pt x 193.63994pt.
  [21 <./graphics//user.png>]
-<graphics//create-commit.png, id=329, 468.5505pt x 236.68425pt>
+<graphics//create-commit.png, id=331, 468.5505pt x 236.68425pt>
 File: graphics//create-commit.png Graphic file (type png)
 <use graphics//create-commit.png>
 Package pdftex.def Info: graphics//create-commit.png  used on input line 444.
@@ -1856,23 +1856,15 @@ AED: lastpage setting LastPage
 \openout14 = `GitGUI.loe'.
 
  (./GitGUI.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                GitGUI
-(biblatex)                and rerun LaTeX afterwards.
-
 Package logreq Info: Writing requests to 'GitGUI.run.xml'.
 \openout1 = `GitGUI.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 41287 strings out of 480061
- 766374 string characters out of 5890819
- 1775244 words of memory out of 5000000
- 57702 multiletter control sequences out of 15000+600000
+ 41290 strings out of 480061
+ 766468 string characters out of 5890819
+ 1775274 words of memory out of 5000000
+ 57704 multiletter control sequences out of 15000+600000
  475462 words of font info for 87 fonts, out of 8000000 for 9000
  527 hyphenation exceptions out of 8191
  123i,10n,121p,2604b,2525s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1891,10 +1883,10 @@ ype1/public/lm/lmri12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/lm/lms
 y10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
 pfb><c:/texlive/2021/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/texlive/
 2021/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on GitGUI.pdf (35 pages, 488281 bytes).
+Output written on GitGUI.pdf (35 pages, 489130 bytes).
 PDF statistics:
- 720 PDF objects out of 1000 (max. 8388607)
- 639 compressed objects within 7 object streams
- 218 named destinations out of 1000 (max. 500000)
+ 722 PDF objects out of 1000 (max. 8388607)
+ 641 compressed objects within 7 object streams
+ 219 named destinations out of 1000 (max. 500000)
  438 words of extra memory for PDF output out of 10000 (max. 10000000)
 
